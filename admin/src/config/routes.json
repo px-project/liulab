@@ -1,0 +1,30 @@
+[
+    {
+        "path": "/index",
+        "name": "首页"
+	},
+    {
+        "path": "/book",
+        "name": "预订"
+    },
+    {
+        "path": "/order",
+        "name": "订单"
+	},
+    {
+        "path": "/product",
+        "name": "产品"
+	},
+    {
+        "path": "/user",
+        "name": "用户"
+    },
+    {
+        "path": "/agent",
+        "name": "代理"
+    },
+    {
+        "path": "/system",
+        "name": "系统"
+    }
+]

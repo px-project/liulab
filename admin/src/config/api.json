@@ -1,0 +1,8 @@
+{
+    "server": "http://localhost:9000",
+    "user": "/user",
+    "agent": "/agent",
+    "role": "/role",
+    "product": "/product",
+    "order": "/order"
+}

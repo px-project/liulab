@@ -1,0 +1,8 @@
+/**
+ * 代理模块常量
+ */
+export const GET_AGENT_LIST = 'GET_AGENT_LIST';
+export const RECEIVE_AGENT_LIST = 'RECEIVE_AGENT_LIST';
+
+export const GET_AGENT_DETAIL = 'GET_AGENT_DETAIL';
+export const RECEIVE_AGENT_DETAIL = 'RECEIVE_AGENT_DETAIL';
