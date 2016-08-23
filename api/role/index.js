@@ -15,8 +15,7 @@ _router.get('/:role_id?',(req, res) => {
         // list
         // let {} = req.query;
 
-        roleModel.list({}, (err, result) => {
-            if (err) throw err;
+        roleModel.list({}, (result) => {
             let resData = result.map((item) => {
                 return {
                     _id: item._id,
@@ -31,9 +30,7 @@ _router.get('/:role_id?',(req, res) => {
         });
     } else {
         // detail
-        roleModel.detail(role_id, (err, result) => {
-            if (err) throw err;
-            
+        roleModel.detail(role_id, (result) => {
             let resData = {
                 _id: result._id,
                 name: result.name,
@@ -51,13 +48,9 @@ _router.get('/:role_id?',(req, res) => {
 _router.post('/', (req, res) => {
     let {name, permission} = req.body;
 
-    let newData = {
-        name,
-        permission
-    };
+    let newData = {name, permission};
 
-    roleModel.create(newData, (err, result) => {
-        if (err) throw err;
+    roleModel.create(newData, (result) => {
         let resData = {
             _id: result._id,
             name: result.name,

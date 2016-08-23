@@ -3,11 +3,11 @@
  */
 
 import { combineReducers } from 'redux';
-import * as userConsts from '../../constants/user';
+import * as consts from '../../constants/';
 
 export function userList(state = [], action) {
     switch (action.type) {
-        case userConsts.RECEIVE_USER_LIST:
+        case consts.RECEIVE_USER_LIST:
             return [
                 ...state,
                 ...action.result.map((item) => {

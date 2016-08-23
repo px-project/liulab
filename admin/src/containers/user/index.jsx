@@ -9,10 +9,16 @@ import {fetchUserList} from '../../actions/user/fetchUserList';
 import {fetchRoleList} from '../../actions/role/fetchRoleList';
 
 class UserContainer extends Component {
+	componentWillMount () {
+		this.currentUrl = this.props.routes[1].path;
+	}
 	render () {
 		return (
 			<div>
-				<UserList {...this.props}></UserList>
+				{this.currentUrl === '/user' ? <UserList {...this.props}></UserList> : ''}
+				{this.currentUrl === '/user/:_id' ? <UserDetail {...this.props} status="view"></UserDetail>: ''}
+				{this.currentUrl === '/user/add' ? <UserDetail {...this.props} status="add"></UserDetail>: ''}
+				{this.currentUrl === '/user/:_id/edit' ? <UserDetail {...this.props} status="edit"></UserDetail>: ''}
 			</div>
 		);
 	}

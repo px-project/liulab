@@ -1,0 +1,10 @@
+/**
+ * 产品部分常量
+ */
+// list
+export const GET_PRODUCT_LIST = 'GET_PRODUCT_LIST';
+export const RECEIVE_PRODUCT_LIST = 'RECEIVE_PRODUCT_LIST';
+
+// detail
+export const GET_PRODUCT_DETAIL = 'GET_PRODUCT_DETAIL';
+export const RECEIVE_PRODUCT_DETAIL = 'RECEIVE_PRODUCT_DETAIL';

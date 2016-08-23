@@ -4,11 +4,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {fetchAgentList} from '../../actions/agent/fetchAgentList';
+import {AgentList} from '../../components/agent/list/';
+
 
 class AgentContainer extends Component {
 	render () {
 		return (
-			<h1>Agent</h1>
+			<div>
+				<AgentList {...this.props}></AgentList>
+			</div>
 		);
 	}
 }
@@ -21,7 +26,7 @@ function mapStateToProps (state) {
 // 合并dispatch
 function mapDispatchToProps (dispatch) {
 	return bindActionCreators({
-
+		fetchAgentList
 	}, dispatch);
 }
 

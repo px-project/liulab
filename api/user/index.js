@@ -12,9 +12,7 @@ _router.get('/:user_id?', (req, res) => {
     let { user_id } = req.params;
     if (!user_id) {
         // list
-        UserModel.list({}, (err, result) => {
-            if (err) throw err;
-
+        UserModel.list({}, (result) => {
             let resData = result.map((item) => {
                 return {
                     _id: item._id,
@@ -33,9 +31,7 @@ _router.get('/:user_id?', (req, res) => {
 
     } else {
         // detail
-        UserModel.detail(user_id, (err, result) => {
-            if (err) throw err;
-
+        UserModel.detail(user_id, (result) => {
             let resData = {
                 _id: result._id,
                 username: result.username,
@@ -60,9 +56,7 @@ _router.post('/', (req, res) => {
         password: utils.md5(password),
         role_id
     };
-    UserModel.create(newData, (err, result) => {
-        if (err) throw err;
-
+    UserModel.create(newData, (result) => {
         let resData = {
             _id: result._id,
             create_time: result.create_time
@@ -75,9 +69,7 @@ _router.post('/', (req, res) => {
 // 用户登录
 _router.post('/login', (req, res) => {
     let { username, password } = req.body;
-    UserModel.list({ username: username }, (err, result) => {
-        if (err) throw err;
-
+    UserModel.list({ username: username }, (result) => {
         // 不存在此用户
         if (!result.length) {
             // todo

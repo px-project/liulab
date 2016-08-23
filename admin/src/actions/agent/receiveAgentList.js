@@ -3,7 +3,7 @@
  */
 import { RECEIVE_AGENT_LIST } from '../../constants/agent';
 
-export function(condition, result) {
+export function receiveAgentList(condition, result) {
     return {
         type: RECEIVE_AGENT_LIST,
         condition,

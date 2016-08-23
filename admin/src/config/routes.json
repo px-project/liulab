@@ -17,11 +17,39 @@
 	},
     {
         "path": "/user",
-        "name": "用户"
+        "name": "用户",
+        "children": [
+            {
+                "path": "/add",
+                "name": "新用户"
+            },
+            {
+                "path": "/:user_id",
+                "name": "用户详情"
+            },
+            {
+                "path": "/:user_id/edit",
+                "name": "编辑用户"
+            }
+        ]
     },
     {
         "path": "/agent",
-        "name": "代理"
+        "name": "代理",
+        "children": [
+            {
+                "path": "/add",
+                "name": "新代理"
+            },
+            {
+                "path": "/:agent_id",
+                "name": "代理详情"
+            },
+            {
+                "path": "/:agent_id/edit",
+                "name": "编辑代理"
+            }
+        ]
     },
     {
         "path": "/system",
