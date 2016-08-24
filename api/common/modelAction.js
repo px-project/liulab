@@ -1,20 +1,27 @@
 /**
  * 模型通用操作
  */
-module.exports = function (Model) {
+module.exports = function(Model) {
     return {
-        list: (condition, cb) => {
-            Model.find(condition, (err, result) => {
-                if (err) throw err;
-                cb(result);
-            });
+        list: (options = {}, cb) => {
+            let { populateKeys = [], where = {} } = options;
+            Model.find(where)
+                .populate(populateKeys.join(' '))
+                .exec((err, result) => {
+                    if (err) throw err;
+                    cb(result);
+                });
         },
 
-        detail: (_id, cb) => {
-            Model.findOne({ _id }, (err, result) => {
-                if (err) throw err;
-                cb(result);
-            });
+        detail: (_id, options, cb) => {
+            options.populateKeys = options.populateKeys || [];
+
+            Model.findOne({ _id })
+                .populate(options.populateKeys.join(' '))
+                .exec((err, result) => {
+                    if (err) throw err;
+                    cb(result);
+                });
         },
 
         create: (newData, cb) => {

@@ -42,8 +42,8 @@ const UserTableConfig = [
 
 export class UserList extends Component {
 	componentWillMount () {
-		this.props.fetchRoleList();
-		this.props.fetchUserList();
+		this.props.getRoleList();
+		this.props.getUserList();
 	}
 	render (){
 		let {userList, roleList} = this.props;

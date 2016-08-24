@@ -4,7 +4,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const db = require('../common/db');
-const modelActions = require('../common/modelAction');
+
 const UserSchema = new Schema({
     username: String,               // 登录账号
     password: String,               // 登录密码
@@ -23,7 +23,7 @@ const UserSchema = new Schema({
 
 const UserModel = mongoose.model('user', UserSchema);
 
-module.exports = modelActions(UserModel);
+module.exports = UserModel;
 
 
 

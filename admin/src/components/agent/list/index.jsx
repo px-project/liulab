@@ -41,7 +41,7 @@ const AgentConifg = [
 
 export class AgentList extends Component {
 	componentWillMount () {
-		this.props.fetchAgentList();
+		this.props.getAgentList();
 	}
 	render () {
 		let {agentList} = this.props;

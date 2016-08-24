@@ -4,7 +4,7 @@
 const express = require('express');
 const _router = express.Router();
 const xres = require('../common/xres');
-const roleModel = require('./model');
+const roleModelActions = require('./actions');
 
 
 // 角色列表/详情
@@ -15,7 +15,7 @@ _router.get('/:role_id?',(req, res) => {
         // list
         // let {} = req.query;
 
-        roleModel.list({}, (result) => {
+        roleModelActions.list({}, (result) => {
             let resData = result.map((item) => {
                 return {
                     _id: item._id,
@@ -30,7 +30,7 @@ _router.get('/:role_id?',(req, res) => {
         });
     } else {
         // detail
-        roleModel.detail(role_id, (result) => {
+        roleModelActions.detail(role_id, {}, (result) => {
             let resData = {
                 _id: result._id,
                 name: result.name,
@@ -50,7 +50,7 @@ _router.post('/', (req, res) => {
 
     let newData = {name, permission};
 
-    roleModel.create(newData, (result) => {
+    roleModelActions.create(newData, (result) => {
         let resData = {
             _id: result._id,
             name: result.name,

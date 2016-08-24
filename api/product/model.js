@@ -4,13 +4,25 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const db = require('../common/db');
-const modelAction = require('../common/modelAction');
+const AgentModel = require('../agent/model');
 
 const ProductSchema = new Schema({
     name: String, // 名称
     code: String, // 货号
     vender: String, // 厂家
     specification: String, // 规格
+    agents: [ // 代理
+        {
+            agent: {
+                type: Schema.Types.ObjectId,
+                ref: 'agent'
+            },
+            price: {
+                type: Number,
+                default: 0
+            }
+        }
+    ],
     create_time: { // 创建时间
         type: Date,
         default: Date.now
@@ -27,4 +39,4 @@ const ProductSchema = new Schema({
 
 const ProductModel = mongoose.model('product', ProductSchema);
 
-module.exports = modelAction(ProductModel);
+module.exports = ProductModel;

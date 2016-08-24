@@ -4,17 +4,23 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const db = require('../common/db');
-const modelAction = require('../common/modelAction');
+const ProductModel = require('../product/model');
 
 const agentSchema = new Schema({
     name: String, // 名称
     linkman: String, // 联系人
     phone: String, // 联系电话
     address: String, // 地址
-    products: [      // 产品列表
+    products: [ // 产品列表
         {
-            _id: Schema.Types.ObjectId,
-            price: Number
+            product: {
+                type: Schema.Types.ObjectId,
+                ref: 'product'
+            },
+            price: {
+                type: Number,
+                default: 0
+            }
         }
     ],
     create_time: { // 创建时间
@@ -31,6 +37,6 @@ const agentSchema = new Schema({
     }
 });
 
-const agentModel = mongoose.model('agent', agentSchema);
+const AgentModel = mongoose.model('agent', agentSchema);
 
-module.exports = modelAction(agentModel);
+module.exports = AgentModel;

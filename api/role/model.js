@@ -4,7 +4,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const db = require('../common/db');
-const modelAction = require('../common/modelAction');
 
 const RoleSchema = new Schema({
     name: String,               // 名称
@@ -25,4 +24,4 @@ const RoleSchema = new Schema({
 
 const RoleModel = mongoose.model('role', RoleSchema);
 
-module.exports = modelAction(RoleModel);
+module.exports = RoleModel;

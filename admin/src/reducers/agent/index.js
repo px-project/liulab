@@ -1,10 +1,10 @@
 /**
  * 代理商reducers
  */
-import * as consts from '../../constants/';
+import {RECEIVE_AGENT_LIST} from '../../constants/';
 export function agentList(state = [], action) {
     switch (action.type) {
-        case consts.RECEIVE_AGENT_LIST:
+        case RECEIVE_AGENT_LIST:
             return [
 				...state,
 				...action.result.map((item) => {

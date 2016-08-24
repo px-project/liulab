@@ -1,8 +1,26 @@
 /**
  * 代理模块常量
  */
-export const GET_AGENT_LIST = 'GET_AGENT_LIST';
+// 代理列表
+export const GETTING_AGENT_LIST = 'GETTING_AGENT_LIST';
 export const RECEIVE_AGENT_LIST = 'RECEIVE_AGENT_LIST';
 
-export const GET_AGENT_DETAIL = 'GET_AGENT_DETAIL';
+
+// 代理详情
+export const GETTING_AGENT_DETAIL = 'GETTING_AGENT_DETAIL';
 export const RECEIVE_AGENT_DETAIL = 'RECEIVE_AGENT_DETAIL';
+
+
+// 创建代理
+export const CREATING_AGENT = 'CREATING_AGENT';
+export const RECEIVE_CREATE_AGENT = 'RECEIVE_CREATE_AGENT';
+
+
+// 更新代理 
+export const UPDATING_AGENT = 'UPDATING_AGENT';
+export const RECEIVE_UPDATE_AGENT = 'RECEIVE_UPDATE_AGENT';
+
+
+// 删除代理
+export const DELETING_AGENT = 'DELETING_AGENT';
+export const RECEIVE_DELETE_AGENT = 'RECEIVE_DELETE_AGENT';

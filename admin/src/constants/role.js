@@ -1,5 +1,26 @@
 /**
- * 角色部分常量
+ * 角色模块常量
  */
-export const GET_ROLE_LIST = 'GET_ROLE_LIST';
+// 角色列表
+export const GETTING_ROLE_LIST = 'GETTING_ROLE_LIST';
 export const RECEIVE_ROLE_LIST = 'RECEIVE_ROLE_LIST';
+
+
+// 角色详情
+export const GETTING_ROLE_DETAIL = 'GETTING_ROLE_DETAIL';
+export const RECEIVE_ROLE_DETAIL = 'RECEIVE_ROLE_DETAIL';
+
+
+// 创建角色
+export const CREATING_ROLE = 'CREATING_ROLE';
+export const RECEIVE_CREATE_ROLE = 'RECEIVE_CREATE_ROLE';
+
+
+// 更新角色 
+export const UPDATING_ROLE = 'UPDATING_ROLE';
+export const RECEIVE_UPDATE_ROLE = 'RECEIVE_UPDATE_ROLE';
+
+
+// 删除角色
+export const DELETING_ROLE = 'DELETING_ROLE';
+export const RECEIVE_DELETE_ROLE = 'RECEIVE_DELETE_ROLE';

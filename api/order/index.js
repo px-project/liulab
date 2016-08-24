@@ -3,31 +3,33 @@
  */
 const express = require('express');
 const _router = express.Router();
-const orderModel = require('./model');
+const orderModelActions = require('./actions');
+const xres = require('../common/xres');
+
 
 // 订单列表/详情
 _router.get('/:order_id?', (req, res) => {
-    // let {order_id} = req.params;
-    // if (!order_id) {
-    //     // list
+    let {order_id} = req.params;
+    if (!order_id) {
+        // list
+        orderModelActions.list({}, (result) => {
+            let resData = result;
 
-    //     orderModel.list({}, (err, result) => {
-    //         if (err) throw err;
+            res.json(xres({ CODE: 0 }, resData));
+        });
+    } else {
+        // detail
+        orderModelActions.detail(order_id, {}, (result) => {
+            let resData = result;
 
-    //         let resData = result.map((item) => {
-    //             return {
-    //                 _id: item._id,
-    //             };
-    //         });
-    //     });
-
-    // } else {
-    //     // detail
-    // }
+            res.json(xres({ CODE: 0 }, resData));
+        });
+    }
 });
 
 // 创建订单
 _router.post('/', (req, res) => {
+    let {agent_id, product_id, num, user_id} = req.body;
 
 });
 

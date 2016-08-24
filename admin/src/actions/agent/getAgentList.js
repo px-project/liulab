@@ -1,11 +1,39 @@
 /**
- * 获取代理数据
+ * 请求代理列表数据
  */
-import { GET_AGENT_LIST } from '../../constants/agent';
+import fetch from 'isomorphic-fetch';
+import {GETTING_AGENT_LIST, RECEIVE_AGENT_LIST} from '../../constants/';
+import apiConfig from '../../config/api.json';
 
-export function getAgentList(condition) {
+function gettingAgentList(condition) {
     return {
-        type: GET_AGENT_LIST,
+        type: GETTING_AGENT_LIST,
         condition
+    };
+}
+
+function receiveAgentList(condition, result) {
+    return {
+        type: RECEIVE_AGENT_LIST,
+        condition,
+        result,
+        receiveAt: Date.now()
+    };
+}
+
+export function getAgentList(condition = {}) {
+    return function(dispatch) {
+
+        dispatch(gettingAgentList(condition));
+
+        return fetch(apiConfig.server + apiConfig.agent)
+            .then(res => res.json())
+            .then(json => {
+                if (json.success) {
+                    dispatch(receiveAgentList(condition, json.result));
+                } else {
+
+                }
+            });
     }
 }

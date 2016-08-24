@@ -5,8 +5,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {UserList} from '../../components/user/list/';
-import {fetchUserList} from '../../actions/user/fetchUserList';
-import {fetchRoleList} from '../../actions/role/fetchRoleList';
+import {getUserList, getRoleList} from '../../actions/';
 
 class UserContainer extends Component {
 	componentWillMount () {
@@ -33,11 +32,9 @@ function mapStateToProps (state) {
 // 合并dispatch
 function mapDispatchToProps (dispatch) {
 	return bindActionCreators({
-		fetchUserList,
-		fetchRoleList
+		getUserList,
+		getRoleList
 	}, dispatch);
 }
-
-
 
 export const UserApp = connect(mapStateToProps, mapDispatchToProps)(UserContainer);

@@ -12,10 +12,6 @@
         "name": "订单"
 	},
     {
-        "path": "/product",
-        "name": "产品"
-	},
-    {
         "path": "/user",
         "name": "用户",
         "children": [

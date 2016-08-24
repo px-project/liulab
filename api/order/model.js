@@ -4,9 +4,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const db = require('../common/db');
-const modelAction = require('../common/modelAction');
 
 const OrderSchema = new Schema({
+    _id: String,
     
 
 
@@ -28,4 +28,4 @@ const OrderSchema = new Schema({
 
 const OrderModel = mongoose.model('order', OrderSchema);
 
-module.exports = modelAction(OrderModel);
+module.exports = OrderModel;
