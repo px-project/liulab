@@ -7,7 +7,7 @@ const agentModelActions = require('./actions');
 const productModelActions = require('../product/actions');
 const xres = require('../common/xres');
 const ProductModel = require('../product/model');
-
+const async = require('async');
 const AgentModel = require('../agent/model');
 
 // 代理商列表/详情
@@ -109,10 +109,11 @@ _router.post('/:agent_id/product', (req, res) => {
     // 查询产品
     productModelActions.list({ where: {code} }, (result) => {
         if (result.length > 0) {
-            // 已存在此产品
+            // product表已存在此产品
             let updateAgentData = { $push: { products: { product: result[0]._id, price } } };
 
             agentModelActions.update(agent_id, newData, (result) => {
+                // let updateProductData = {$push: {agents: {agent: agent_id, }}}
                 getagentProductList(agent_id, (resData) => {
                     res.json(xres({ CODE: 0 }, resData));
                 });
@@ -134,7 +135,15 @@ _router.post('/:agent_id/product', (req, res) => {
         }
     })
 
+
 });
+
+
+// 批量添加渠道商产品
+_router.post('/:agent_id/products', (req, res) => {
+
+});
+
 
 // 更新代理商产品
 _router.patch('/:agent_id/product', (req, res) => {

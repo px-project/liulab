@@ -6,7 +6,6 @@ const _router = express.Router();
 const orderModelActions = require('./actions');
 const xres = require('../common/xres');
 
-
 // 订单列表/详情
 _router.get('/:order_id?', (req, res) => {
     let {order_id} = req.params;

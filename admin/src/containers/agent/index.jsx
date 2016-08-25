@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {getAgentList} from '../../actions/agent/getAgentList';
 import {AgentList} from '../../components/agent/list/';
-
+import {xhttp} from '../../actions/xhttp/';
 
 class AgentContainer extends Component {
 	render () {
@@ -18,6 +18,8 @@ class AgentContainer extends Component {
 	}
 }
 
+
+
 // 合并state
 function mapStateToProps (state) {
 	return state;
@@ -26,7 +28,8 @@ function mapStateToProps (state) {
 // 合并dispatch
 function mapDispatchToProps (dispatch) {
 	return bindActionCreators({
-		getAgentList
+		getAgentList,
+		xhttp
 	}, dispatch);
 }
 

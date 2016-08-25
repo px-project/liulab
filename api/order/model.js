@@ -6,12 +6,16 @@ const Schema = mongoose.Schema;
 const db = require('../common/db');
 
 const OrderSchema = new Schema({
-    _id: String,
-    
-
-
-
-
+    _id: String,                // 订单号
+    user_id: Schema.Types.ObjectId, // 用户ID
+    products: [
+        {
+            product_id: Schema.Types.ObjectId,  // 产品ID
+            price: Number,              // 价格
+            agent_id: Schema.Types.ObjectId     // 代理商ID
+        }
+    ],
+    status: String,             // 订单状态
     create_time: {              // 创建时间
         type: Date,
         default: Date.now

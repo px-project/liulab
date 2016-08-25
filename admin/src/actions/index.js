@@ -3,3 +3,5 @@ export * from './order/';
 export * from './user/';
 export * from './role/';
 export * from './product/';
+
+export * from './xhttp/';

@@ -3,52 +3,43 @@
  */
 import React, {Component} from 'react';
 import {ListHeader} from '../../common/list_header/';
-import {Table} from 'antd';
+import {Link} from 'react-router';
+import {Card, Row, Col} from 'antd';
 import moment from 'moment';
+import './style.scss';
 
-
-// 代理商表格配置
-const AgentConifg = [
-	{
-		title: '序号',
-		render: (text, record, index) => {
-			return index + 1;
-		}
-	},
-	{
-		title: '名称',
-		dataIndex: 'name',
-	},
-	{
-		title: '联系人',
-		dataIndex: 'linkman'
-	},
-	{
-		title: '电话',
-		dataIndex: 'phone'
-	},
-	{
-		title: '创建时间',
-		dataIndex: 'create_time',
-		render: (text, record, index) => {
-			return moment(text).format('YYYY-MM-DD hh:mm:ss');
-		}
-	},
-	{
-		title: '操作',
-	}
-];
 
 export class AgentList extends Component {
 	componentWillMount () {
-		this.props.getAgentList();
+		this.props.xhttp('list', 'agent', [], {}, true);
 	}
 	render () {
 		let {agentList} = this.props;
 		return (
 			<div>
 				<ListHeader></ListHeader>
-				<Table columns={AgentConifg} dataSource={agentList}></Table>
+				<div className="agent-list">
+					<Row gutter={24}>
+			      	{
+			      		agentList.map((agent, index) => {
+							return (
+						      	<Col span={6} key={index}>
+						        	<Link to={"/agent/" + agent._id}>
+						        		<Card>
+											<div className="cover">
+
+											</div>
+											<div>
+												<h3>{agent.name}</h3>
+											</div>
+										</Card>
+						        	</Link>
+						      	</Col>
+						    );
+			      		})
+			      	}
+				    </Row>
+				</div>
 			</div>
 		);
 	}

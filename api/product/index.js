@@ -16,7 +16,6 @@ _router.get('/:product_id?', (req, res) => {
             let resData = [];
             result.map((product) => {
                 product.agents.map((agent) => {
-                    console.log(product.agents);
                     resData.push({
                         _id: product._id,
                         name: product.name,
@@ -34,6 +33,19 @@ _router.get('/:product_id?', (req, res) => {
             });
             res.json(xres({ CODE: 0 }, resData));
         });
+        // list
+        // productModelActions.list({}, (result) => {
+        //     let resData = [];
+        //     result.map((product) => {
+        //         product.agents.map((agent_id) => {
+        //             resData.push({
+        //                 _id: product._id,
+        //                 name: product.name,
+
+        //             })
+        //         })
+        //     })
+        // })
     } else {
         // detail
         productModelActions.detail(product_id, {}, (result) => {

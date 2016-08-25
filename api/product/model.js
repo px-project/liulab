@@ -13,14 +13,8 @@ const ProductSchema = new Schema({
     specification: String, // 规格
     agents: [ // 代理
         {
-            agent: {
-                type: Schema.Types.ObjectId,
-                ref: 'agent'
-            },
-            price: {
-                type: Number,
-                default: 0
-            }
+            type: Schema.Types.ObjectId,
+            ref: 'agent'
         }
     ],
     create_time: { // 创建时间
