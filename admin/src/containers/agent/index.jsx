@@ -4,7 +4,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {getAgentList} from '../../actions/agent/getAgentList';
 import {AgentList} from '../../components/agent/list/';
 import {xhttp} from '../../actions/xhttp/';
 
@@ -28,7 +27,6 @@ function mapStateToProps (state) {
 // 合并dispatch
 function mapDispatchToProps (dispatch) {
 	return bindActionCreators({
-		getAgentList,
 		xhttp
 	}, dispatch);
 }

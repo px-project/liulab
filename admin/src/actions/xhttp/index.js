@@ -2,11 +2,12 @@
  * 网络请求封装action
  */
 import apiConfig from '../../config/api.json';
+import * as consts from '../../constants/';
 
 // 发送请求
 function gettingFetchData(action, api, params, condition) {
     return {
-        type: 'GETTING_FETCH_DATA',
+        type: consts.XHTTP_BEGIN,
         action,
         api,
         params,
@@ -18,7 +19,7 @@ function gettingFetchData(action, api, params, condition) {
 // 接受响应
 function receiveFetchData(action, api, params, condition, reload, result) {
     return {
-        type: 'RECEIVE_FETCH_DATA',
+        type: consts.XHTTP_RECEIVE,
         action,
         api,
         params,

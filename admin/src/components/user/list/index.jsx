@@ -42,8 +42,9 @@ const UserTableConfig = [
 
 export class UserList extends Component {
 	componentWillMount () {
-		this.props.getRoleList();
-		this.props.getUserList();
+		this.props.xhttp('list', 'role', [], {}, true);
+		this.props.xhttp('list', 'user', [], {}, true);
+
 	}
 	render (){
 		let {userList, roleList} = this.props;

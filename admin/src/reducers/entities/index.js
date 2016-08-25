@@ -1,9 +1,10 @@
 /**
  * 实体reducers
  */
+import * as consts from '../../constants/';
 export function entities(state = {}, action) {
     switch (action.type) {
-        case "RECEIVE_FETCH_DATA":
+        case consts.XHTTP_RECEIVE:
             if (action.reload) {
                 return {
                     [action.api]: Object.assign({}, ...action.result.map((item) => {

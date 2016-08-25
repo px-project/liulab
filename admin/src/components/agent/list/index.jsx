@@ -21,22 +21,22 @@ export class AgentList extends Component {
 				<div className="agent-list">
 					<Row gutter={24}>
 			      	{
-			      		agentList.map((agent, index) => {
-							return (
-						      	<Col span={6} key={index}>
-						        	<Link to={"/agent/" + agent._id}>
-						        		<Card>
-											<div className="cover">
+			      		// agentList.map((agent, index) => {
+						// 	return (
+						//       	<Col span={6} key={index}>
+						//         	<Link to={"/agent/" + agent._id}>
+						//         		<Card>
+						// 					<div className="cover">
 
-											</div>
-											<div>
-												<h3>{agent.name}</h3>
-											</div>
-										</Card>
-						        	</Link>
-						      	</Col>
-						    );
-			      		})
+						// 					</div>
+						// 					<div>
+						// 						<h3>{agent.name}</h3>
+						// 					</div>
+						// 				</Card>
+						//         	</Link>
+						//       	</Col>
+						//     );
+			      		// })
 			      	}
 				    </Row>
 				</div>
