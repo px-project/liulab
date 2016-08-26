@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 class BookContainer extends Component {
 	render () {
 		return (
-			<h1>Book</h1>
+			<div>{this.props.children}</div>
 		);
 	}
 }

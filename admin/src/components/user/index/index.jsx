@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import {ListHeader} from '../../common/list_header/';
 import {Table} from 'antd';
 import moment from 'moment';
+import './style.scss';
 
 // User列表头部
 const UserTableConfig = [
@@ -40,7 +41,7 @@ const UserTableConfig = [
 ];
 
 
-export class UserList extends Component {
+export class UserComponent extends Component {
 	componentWillMount () {
 		this.props.xhttp('list', 'role', [], {}, true);
 		this.props.xhttp('list', 'user', [], {}, true);

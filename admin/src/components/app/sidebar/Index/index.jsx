@@ -7,10 +7,10 @@ import {Nav} from '../Nav/';
 import './style.scss';
 
 export class Sidebar extends Component {
-	render () {
+	render() {
 		return (
 			<sidebar id="sidebar">
-				<Nav></Nav>
+				<Nav {...this.props}></Nav>
 			</sidebar>
 		);
 	}

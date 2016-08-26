@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 class SystemContainer extends Component {
 	render () {
 		return (
-			<h1>system</h1>
+			<div>{this.props.children}</div>
 		);
 	}
 }

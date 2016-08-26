@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 class IndexContainer extends Component {
 	render () {
 		return (
-			<h1>Index</h1>
+			<div>{this.props.children}</div>
 		);
 	}
 }

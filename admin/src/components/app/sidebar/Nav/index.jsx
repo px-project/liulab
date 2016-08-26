@@ -11,11 +11,11 @@ export class Nav extends Component {
 	render () {
 		return (
 			<nav className="sidebar-nav">
-				<Menu>
+				<Menu selectedKeys={[this.props.routes[1].path]}>
 					{
 						routes.map((item, index) => {
 							return (
-								<Menu.Item key={index}><Link to={item.path}>{item.name}</Link></Menu.Item>
+								<Menu.Item key={item.path}><Link to={item.path}>{item.name}</Link></Menu.Item>
 							);
 						})
 					}

@@ -8,7 +8,7 @@ import {connect} from 'react-redux';
 class OrderContainer extends Component {
 	render () {
 		return (
-			<h1>Order</h1>
+			<div>{this.props.children}</div>
 		);
 	}
 }

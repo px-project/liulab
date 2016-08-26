@@ -1,54 +1,87 @@
 [
     {
-        "path": "/index",
+        "path": "index",
         "name": "首页"
-	},
+    },
     {
-        "path": "/book",
+        "path": "book",
         "name": "预订"
     },
     {
-        "path": "/order",
-        "name": "订单"
-	},
+        "path": "order",
+        "name": "订单",
+        "children": [
+            {
+                "path": ":order_id",
+                "componentName": "OrderDetailComponent",
+                "name": "订单详情"
+            }
+        ]
+    },
     {
-        "path": "/user",
+        "path": "user",
         "name": "用户",
         "children": [
             {
-                "path": "/add",
+                "path": "add",
+                "componentName": "UserDetailComponent",
                 "name": "新用户"
             },
             {
-                "path": "/:user_id",
+                "path": ":user_id",
+                "componentName": "UserDetailComponent",
                 "name": "用户详情"
             },
             {
-                "path": "/:user_id/edit",
+                "path": ":user_id/edit",
+                "componentName": "UserDetailComponent",
                 "name": "编辑用户"
             }
         ]
     },
     {
-        "path": "/agent",
+        "path": "agent",
         "name": "代理",
         "children": [
             {
-                "path": "/add",
+                "path": "add",
+                "componentName": "AgentDetailComponent",
                 "name": "新代理"
             },
             {
-                "path": "/:agent_id",
+                "path": ":agent_id",
+                "componentName": "AgentDetailComponent",
                 "name": "代理详情"
             },
             {
-                "path": "/:agent_id/edit",
+                "path": ":agent_id/edit",
+                "componentName": "AgentDetailComponent",
                 "name": "编辑代理"
+            },
+            {
+                "path": ":agent_id/product",
+                "componentName": "AgentProductCompoent",
+                "name": "代理商产品"
+            },
+            {
+                "path": ":agent_id/product/add",
+                "componentName": "AgentProductDetailComponent",
+                "name": "添加代理商产品"
+            },
+            {
+                "path": ":agent_id/product/:product_id",
+                "componentName": "AgentProductDetailComponent",
+                "name": "代理商产品详情"
+            },
+            {
+                "path": ":agent_id/product/:product_id/edit",
+                "componentName": "AgentProductDetailComponent",
+                "name": "编辑代理商产品"
             }
         ]
     },
     {
-        "path": "/system",
+        "path": "system",
         "name": "系统"
     }
 ]

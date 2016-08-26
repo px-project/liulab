@@ -9,7 +9,7 @@ import moment from 'moment';
 import './style.scss';
 
 
-export class AgentList extends Component {
+export class AgentComponent extends Component {
 	componentWillMount () {
 		this.props.xhttp('list', 'agent', [], {}, true);
 	}
@@ -17,7 +17,7 @@ export class AgentList extends Component {
 		let {agent, entities} = this.props;
 		return (
 			<div>
-				<ListHeader></ListHeader>
+				<ListHeader {...this.props}></ListHeader>
 				<div className="agent-list">
 					<Row gutter={24}>
 			      	{

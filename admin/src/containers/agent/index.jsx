@@ -4,15 +4,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {AgentList} from '../../components/agent/list/';
 import {xhttp} from '../../actions/xhttp/';
 
 class AgentContainer extends Component {
 	render () {
 		return (
-			<div>
-				<AgentList {...this.props}></AgentList>
-			</div>
+			<div>{this.props.children}</div>
 		);
 	}
 }
