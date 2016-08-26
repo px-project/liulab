@@ -10,6 +10,9 @@ module.exports = merge(commonConfig, {
         new webpack.HotModuleReplacementPlugin()
     ],
 
+    devtool: 'source-map',
+    debug: true,
+
     devServer: {
         port: 9100,
         contentBase: './build',
@@ -17,5 +20,6 @@ module.exports = merge(commonConfig, {
         inline: true,
         colors: true,
         historyApiFallback: true
-    }
+    },
+
 });

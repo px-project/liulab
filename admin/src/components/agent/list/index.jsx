@@ -14,29 +14,29 @@ export class AgentList extends Component {
 		this.props.xhttp('list', 'agent', [], {}, true);
 	}
 	render () {
-		let {agentList} = this.props;
+		let {agent, entities} = this.props;
 		return (
 			<div>
 				<ListHeader></ListHeader>
 				<div className="agent-list">
 					<Row gutter={24}>
 			      	{
-			      		// agentList.map((agent, index) => {
-						// 	return (
-						//       	<Col span={6} key={index}>
-						//         	<Link to={"/agent/" + agent._id}>
-						//         		<Card>
-						// 					<div className="cover">
+			      		agent.items.map((agent_id, index) => {
+							return (
+						      	<Col span={6} key={index}>
+						        	<Link to={"/agent/" + agent_id}>
+						        		<Card>
+											<div className="cover">
 
-						// 					</div>
-						// 					<div>
-						// 						<h3>{agent.name}</h3>
-						// 					</div>
-						// 				</Card>
-						//         	</Link>
-						//       	</Col>
-						//     );
-			      		// })
+											</div>
+											<div>
+												<h3>{entities.agent[agent_id].name}</h3>
+											</div>
+										</Card>
+						        	</Link>
+						      	</Col>
+						    );
+			      		})
 			      	}
 				    </Row>
 				</div>
