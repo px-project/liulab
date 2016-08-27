@@ -1,0 +1,2 @@
+// polyfill
+import 'babel-polyfill';

@@ -45,7 +45,6 @@ export class UserComponent extends Component {
 	componentWillMount () {
 		this.props.xhttp('list', 'role', [], {}, true);
 		this.props.xhttp('list', 'user', [], {}, true);
-
 	}
 	render (){
 		let {userList, roleList} = this.props;

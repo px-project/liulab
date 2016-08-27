@@ -96,7 +96,7 @@ _router.delete('/', (req, res) => {
 // 代理商产品列表/详情
 _router.get('/:agent_id/product', (req, res) => {
     let { agent_id } = req.params;
-    getagentProductList(agent_id, (resData) => {
+    getAgentProductList(agent_id, (resData) => {
         res.json(xres({ CODE: 0 }, resData));
     });
 });
@@ -104,38 +104,48 @@ _router.get('/:agent_id/product', (req, res) => {
 // 添加代理商产品
 _router.post('/:agent_id/product', (req, res) => {
     let { agent_id } = req.params;
-    let { name, code, vender, specification, price } = req.body;
+    let { product_id, name, vender, specification, price } = req.body;
 
-    // 查询产品
-    productModelActions.list({ where: {code} }, (result) => {
-        if (result.length > 0) {
-            // product表已存在此产品
-            let updateAgentData = { $push: { products: { product: result[0]._id, price } } };
-
-            agentModelActions.update(agent_id, newData, (result) => {
-                // let updateProductData = {$push: {agents: {agent: agent_id, }}}
-                getagentProductList(agent_id, (resData) => {
-                    res.json(xres({ CODE: 0 }, resData));
-                });
-            });
-        } else {
-            // 不存在此产品，创建此产品
-            let newProductData = { name, code, vender, specification, agents: [agent_id] };
-
-            productModelActions.create(newProductData, (result) => {
-                let newData = {
-                    $push: { products: { product: result._id, price } }
-                };
-                agentModelActions.update(agent_id, newData, (result) => {
-                    getagentProductList(agent_id, (resData) => {
-                        res.json(xres({ CODE: 0 }, resData));
+    async.waterfall([
+        (cb) => {
+            productModelActions.detail(product_id, {}, (result) => {
+                if (!result) {
+                    // 不存在此产品，创建
+                    productModelActions.create({ _id: product_id, name, vender, specification }, (result) => {
+                        cb(null, result._id);
                     });
+                } else {
+                    cb(null, product_id);
+                }
+            });
+        },
+        (product_id, cb) => {
+            agentModelActions.detail(agent_id, {}, (agent) => {
+                // 查看当前代理是否已经存在改产品
+                let newProductList = agent.products;
+                let hasProd = false;
+                newProductList.map((item) => {
+                    if (item.product === product_id) {
+                        hasProd = true;
+                        item.price = price;
+                    }
                 });
+                if (!hasProd) newProductList.push({ product: product_id, price });
+
+                cb(null, newProductList);
+            });
+        },
+        (newProductList, cb) => {
+            agentModelActions.update(agent_id, { $set: {products: newProductList} }, () => {
+                cb(null);
+            })
+        },
+        (cb) => {
+            getAgentProductList(agent_id, (result) => {
+                res.json(xres({ CODE: 0 }, result));
             });
         }
-    })
-
-
+    ], (err) => { })
 });
 
 
@@ -157,7 +167,7 @@ _router.delete('/:agent_id/product', (req, rews) => {
 
 
 // 获取代理产品列表
-function getagentProductList(agent_id, cb) {
+function getAgentProductList(agent_id, cb) {
     agentModelActions.detail(agent_id, { populateKeys: ['products.product'] }, (result) => {
         let resData = {
             _id: result._id,
@@ -165,16 +175,14 @@ function getagentProductList(agent_id, cb) {
             update_time: result.update_time,
             create_time: result.create_time
         };
-
-        resData.products = result.products.map((product) => {
+        resData.products = result.products.map((prod) => {
             return {
-                _id: product.product._id,
-                name: product.product.name,
-                code: product.product.code,
-                vender: product.product.vender,
-                price: product.price,
-                update_time: product.product.update_time,
-                create_time: product.product.create_time
+                _id: prod.product._id,
+                name: prod.product.name,
+                vender: prod.product.vender,
+                price: prod.price,
+                update_time: prod.product.update_time,
+                create_time: prod.product.create_time
             };
         });
 

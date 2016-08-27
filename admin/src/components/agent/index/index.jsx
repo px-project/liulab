@@ -21,7 +21,7 @@ export class AgentComponent extends Component {
 				<div className="agent-list">
 					<Row gutter={24}>
 			      	{
-			      		agent.items.map((agent_id, index) => {
+						  agent.items.map((agent_id, index) => {
 							return (
 						      	<Col span={6} key={index}>
 						        	<Link to={"/agent/" + agent_id}>

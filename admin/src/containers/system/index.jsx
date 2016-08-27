@@ -6,10 +6,8 @@ import {connect} from 'react-redux';
 
 
 class SystemContainer extends Component {
-	render () {
-		return (
-			<div>{this.props.children}</div>
-		);
+	render() {
+		return (<div>{React.cloneElement(this.props.children, this.props) }</div>);
 	}
 }
 

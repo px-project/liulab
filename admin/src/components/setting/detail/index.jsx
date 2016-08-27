@@ -4,8 +4,8 @@
 import React, {Component} from 'react';
 import './style.scss';
 
-export class AgentDetailComponent {
+export class AgentDetailComponent extends Component  {
     render () {
-        retun (<h1>Agent detail</h1>);
+        return (<h1>Agent detail</h1>);
     }
 }

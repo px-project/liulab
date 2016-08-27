@@ -5,7 +5,10 @@ import React, {Component} from 'react';
 import './style.scss';
 
 export class AgentDetailComponent extends Component {
+    componentWillMount () {
+        this.props.xhttp('detail', 'agentProduct', [this.props.params.agent_id], {}, true);
+    }
     render () {
-        retun (<h1>Agent detail</h1>);
+        return (<h1>Agent detail</h1>);
     }
 }

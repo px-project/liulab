@@ -4,8 +4,8 @@
 import React, {Component} from 'react';
 import './style.scss';
 
-export class BookComponent {
+export class BookComponent extends Component  {
     render () {
-        retun (<h1>book detail</h1>);
+        return (<h1>book detail</h1>);
     }
 }

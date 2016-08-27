@@ -7,7 +7,9 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        'app': './src/app.js',
+        'polyfills': './src/polyfills.js',
+        'vendor': './src/vendor.js',
+        'app': './src/app.js'        
     },
 
     output: {
@@ -34,6 +36,12 @@ module.exports = {
             title: "admin",
             template: './src/index.html',
             chunksSortMode: 'auto'
+        }),
+
+
+        // 代码分离                                                                                                                               
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ['app', 'vendor', 'polyfills']
         }),
     ]
 };

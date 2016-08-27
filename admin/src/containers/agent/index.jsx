@@ -5,12 +5,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {xhttp} from '../../actions/xhttp/';
+import {AgentComponent, AgentDetailComponent, AgentProductComponent, AgentProductDetailComponent} from '../../components/agent/';
 
 class AgentContainer extends Component {
+	componentWillMount () {
+		console.log(this.props);
+	}
 	render () {
-		return (
-			<div>{this.props.children}</div>
-		);
+		return (<div>{React.cloneElement(this.props.children, this.props)}</div>);
 	}
 }
 

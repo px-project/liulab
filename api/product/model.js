@@ -7,16 +7,10 @@ const db = require('../common/db');
 const AgentModel = require('../agent/model');
 
 const ProductSchema = new Schema({
+    _id: String,  // 货号
     name: String, // 名称
-    code: String, // 货号
     vender: String, // 厂家
     specification: String, // 规格
-    agents: [ // 代理
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'agent'
-        }
-    ],
     create_time: { // 创建时间
         type: Date,
         default: Date.now

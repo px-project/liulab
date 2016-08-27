@@ -4,8 +4,8 @@
 import React, {Component} from 'react';
 import './style.scss';
 
-export class IndexComponent {
+export class IndexComponent extends Component {
     render () {
-        retun (<h1>index</h1>);
+        return (<h1>index</h1>);
     }
 }

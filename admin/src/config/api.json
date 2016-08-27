@@ -2,6 +2,7 @@
     "server": "http://localhost:9000",
     "user": "/user",
     "agent": "/agent",
+    "agentProduct": "/agent/{agent_id}/product",
     "role": "/role",
     "product": "/product",
     "order": "/order"

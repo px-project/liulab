@@ -4,8 +4,8 @@
 import React, {Component} from 'react';
 import './style.scss';
 
-export class SettingComponent {
+export class SettingComponent extends Component  {
     render () {
-        retun (<h1>setting</h1>);
+        return (<h1>setting</h1>);
     }
 }

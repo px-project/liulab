@@ -37,6 +37,8 @@ function netErr (err) {}
 function handleUrl(api, params, conditions) {
     let url = apiConfig.server + apiConfig[api];
 
+    console.log(url);
+
     // id字段的正则表达式
     let idRegG = /\{[a-zA-Z0-9_]+\}/g;
     let idRegI = /\{[a-zA-Z0-9_]+\}/i;
@@ -51,6 +53,7 @@ function handleUrl(api, params, conditions) {
     for (let i = 0, len = urlIdArr.length; i < len; i++) {
         url = url.replace(idRegI, params[i]);
     }
+
 
     // 详情
     if (urlIdArr.length === params.length - 1) url += `/${params[params.length - 1]}`;

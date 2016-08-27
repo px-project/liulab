@@ -2,20 +2,32 @@
  * 路由
  */
 import React, { Component } from 'react';
-import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, IndexRedirect, useRouterHistory } from 'react-router';
 import * as containers from '../containers/';
+import * as components from '../components/';
 import routes from '../config/routes.json';
+import {createHistory} from 'history';
+const history = useRouterHistory(createHistory)({ basename: window.location.origin + '/' });
 
 export default class Routes extends Component {
     render() {
         return (
-            <Router history={browserHistory}>
+            <Router history={history}>
                 <Route path="/" component={containers.AppContainer}>
                     <IndexRedirect to="/index" />
                     {
                         routes.map((topLevel, index) => {
                             return (
-                                <Route path={topLevel.path} key={index} component={containers[this.toCamelCase([topLevel.path, 'app'])]}></Route>
+                                <Route path={topLevel.path} key={index} component={containers[this.toCamelCase([topLevel.path, 'app'])]}>
+                                    <IndexRoute component={components[this.toCamelCase([topLevel.path, 'component'])]} {...this.props}/>
+                                    {
+                                        topLevel.children ? topLevel.children.map((child, index) => {
+                                            return (
+                                                <Route path={child.path} key={index} component={components[child.componentName]}></Route>
+                                            )
+                                        }) : ''
+                                    }
+                                </Route>
                             )
                         })
                     }
@@ -30,14 +42,3 @@ export default class Routes extends Component {
     }
 
 }
-
-
-// <IndexRoute component={components[this.toCamelCase([topLevel.path, 'component'])]} {...this.props}/>
-// {
-//     topLevel.children ? topLevel.children.map((child, index) => {
-//         console.log(components[child.componentName])
-//         return (
-//             <Route path={topLevel.path + '/' + child.path} key={index} component={components[child.componentName]}></Route>
-//         )
-//     }) : ''
-// }

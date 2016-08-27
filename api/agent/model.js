@@ -14,7 +14,7 @@ const agentSchema = new Schema({
     products: [ // 产品列表
         {
             product: {
-                type: Schema.Types.ObjectId,
+                type: String,
                 ref: 'product'
             },
             price: {
