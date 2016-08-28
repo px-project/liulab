@@ -1,5 +1,5 @@
 {
-    "server": "http://localhost:9000",
+    "server": "http://139.129.29.110:9000",
     "user": "/user",
     "agent": "/agent",
     "agentProduct": "/agent/{agent_id}/product",
