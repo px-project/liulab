@@ -1,8 +1,8 @@
 /**
  * 侧边栏组件
  */
-import React, {Component} from 'React';
-import {Nav} from '../Nav/';
+import React, {Component} from 'react';
+import {Nav} from '../nav/';
 
 import './style.scss';
 
