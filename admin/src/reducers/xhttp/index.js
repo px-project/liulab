@@ -4,61 +4,7 @@
 import * as consts from '../../constants/';
 import apiConfig from '../../config/api.json';
 
-
 let exportColl = {};
-
-/**
- * 实体
- */
-function entities(state = {}, action) {
-    switch (action.type) {
-        case consts.XHTTP_RECEIVE:
-            if (action.reload) {
-                return {
-                    [action.api]: Object.assign({}, ...action.result.map((item) => {
-                        return {[item._id]: item};
-                    })) 
-                };
-            } else {
-                let newState = Object.assign({}, state);
-                switch (action.action) {
-                    case 'list':
-                        newState[action.api] = Object.assign(
-                            {}, newState[action.api],
-                            ...action.result.map((item) => {
-                                return { [item._id]: item };
-                            })
-                        );
-                        break;
-                    
-                    case 'detail':
-                        // todo
-                        break;
-
-                    case 'create':
-                        // todo
-                        break;
-
-                    case 'update':
-                        // todo
-                        break;
-
-                    case 'delete':
-                        // todo
-                        break;
-                    
-                    default:
-                        console.error('param error: action is not one of [list, detail, create, update, delete]');
-                }
-                return newState;
-            }
-        default:
-            return state;
-    }
-
-}
-
-exportColl.entities = entities;
 
 /**
  * 各接口生成封装
@@ -66,46 +12,62 @@ exportColl.entities = entities;
 for (let currentApi in apiConfig) {
     if (currentApi === 'server') continue;
 
-    let reducer = (state = { items: [] }, action) => {
+    let stateKey = currentApi.split('-')[0];
+
+    let initState = { items: [] };
+
+
+    let reducer = (state = initState, action) => {
+        let newState = Object.assign({}, state);
 
         if (action.type === consts.XHTTP_RECEIVE && action.api === currentApi) {
-            state = Object.assign({}, state);
 
             switch (action.action) {
                 case 'list':
+                    // 获取列表
                     if (action.reload) {
-                        state = {
-                            items: action.result.map((item) => item._id)
+                        // 刷新
+                        newState = {
+                            items: action.result.map((item) => Object.assign({}, item))
                         };
                     } else {
-                        // item去重
-                        [...state.items, ...action.result.items].map((item) => {
-                            if (state.items.indexOf(item) < 0) state.items.push(item);
+                        // item去重 todo
+                        [...newState.items, ...action.result.items].map((item) => {
+                            if (newState.items.indexOf(item) < 0) newState.items.push(item);
                         });
                     }
                     break;
 
                 case 'detail':
-                    // todo
+                    // 获取详情
+                    let hasitem = false;
+                    for (let index in newState.items) {
+                        if (newState.items[index]._id === action.result._id) {
+                            newState.items[index] = action.result;
+                            newState.detailIndex = index;
+                            hasitem = true;
+                        }
+                    }
+                    if (!hasitem) newState = { detailIndex: 0, items: [action.result] };
                     break;
 
                 case 'create':
-                    // todo
+                    // 创建
                     break;
 
                 case 'update':
-                    // todo
+                    // 更新
                     break;
 
                 case 'delete':
-                    // todo
+                    // 删除
                     break;
 
                 default:
                     console.error('param error: action is not one of [list, detail, create, update, delete]');
             }
         }
-        return state;
+        return newState;
     }
 
     exportColl[currentApi] = reducer;

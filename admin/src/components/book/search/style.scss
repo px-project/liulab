@@ -1,0 +1,19 @@
+.search-component {
+    .search-bar {
+        width: 25rem; // 500px
+        margin: 0 auto;
+        & > div,
+        & > span {
+            display: inline-block;
+        }
+        .search-condition {
+            width: 20%;
+        }
+        .search-input {
+            width: 100%;
+        }
+        .search-btn {
+            width: 10%;
+        }
+    }
+}

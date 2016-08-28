@@ -3,17 +3,19 @@
  */
 import React, {Component} from 'react';
 import {Row, Col, Button, Input} from 'antd';
+import {Link} from 'react-router';
 const InputGroup = Input.Group;
 
 import './style.scss';
 
 export class ListHeader extends Component {
+
 	render () {
 		return (
 			<header className="list-header">
 				<Row justify="end">
 					<Col span={12}>
-						<Button type="primary">添加</Button>
+						<Button type="primary"><Link to={location.pathname + '/add'}>添加</Link></Button>
 					</Col>
 					<Col span={8}></Col>
 					<Col span={4}>
@@ -31,4 +33,6 @@ export class ListHeader extends Component {
 			</header>
 		);
 	}
+
+
 }

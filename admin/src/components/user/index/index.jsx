@@ -2,6 +2,7 @@
  * 用户列表组件
  */
 import React, {Component} from 'react';
+import {Link} from 'react-router';
 import {ListHeader} from '../../common/list_header/';
 import {Table} from 'antd';
 import moment from 'moment';
@@ -22,6 +23,13 @@ const UserTableConfig = [
 			return text || '-';
 		}
 	},
+	{
+		title: '电话',
+		dataIndex: 'phone',
+		render: (text, record, index) => {
+			return text || '-';
+		}
+	},
 	{title: '账号', dataIndex: 'username'},
 	{
 		title: '角色',
@@ -37,7 +45,18 @@ const UserTableConfig = [
 			return moment(text).format('YYYY-MM-DD hh:mm:ss');
 		}
 	},
-	{title: '操作', }
+	{
+		title: '操作',
+		dataIndex: '_id',
+		render: (text, record, index) => {
+			return (
+				<div>
+					<Link to={'/user/' + text + '/edit'}>修改</Link>
+					<a href="#">删除</a>
+				</div>
+			)
+		}
+	}
 ];
 
 
@@ -47,11 +66,11 @@ export class UserComponent extends Component {
 		this.props.xhttp('list', 'user', [], {}, true);
 	}
 	render (){
-		let {userList, roleList} = this.props;
+		let {user, entities} = this.props;
 		return (
 			<div>
 				<ListHeader></ListHeader>
-				<Table columns={UserTableConfig} dataSource={userList}></Table>
+				<Table columns={UserTableConfig} dataSource={user.items}></Table>
 			</div>
 		);
 	}

@@ -45,43 +45,14 @@
         "children": [
             {
                 "path": "add",
-                "componentName": "AgentDetailComponent",
+                "componentName": "AgentAddComponent",
                 "name": "新代理"
             },
             {
                 "path": ":agent_id",
                 "componentName": "AgentDetailComponent",
                 "name": "代理详情"
-            },
-            {
-                "path": ":agent_id/edit",
-                "componentName": "AgentDetailComponent",
-                "name": "编辑代理"
-            },
-            {
-                "path": ":agent_id/product",
-                "componentName": "AgentProductCompoent",
-                "name": "代理商产品"
-            },
-            {
-                "path": ":agent_id/product/add",
-                "componentName": "AgentProductDetailComponent",
-                "name": "添加代理商产品"
-            },
-            {
-                "path": ":agent_id/product/:product_id",
-                "componentName": "AgentProductDetailComponent",
-                "name": "代理商产品详情"
-            },
-            {
-                "path": ":agent_id/product/:product_id/edit",
-                "componentName": "AgentProductDetailComponent",
-                "name": "编辑代理商产品"
             }
         ]
-    },
-    {
-        "path": "system",
-        "name": "系统"
     }
 ]

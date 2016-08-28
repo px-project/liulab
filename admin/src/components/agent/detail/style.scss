@@ -1,0 +1,28 @@
+.detail {
+    & > header {
+        margin-bottom: 1.5rem;
+        & > h2,
+        &>p {
+            display: inline-block;
+        }
+        .name {
+            font-size: 1rem;
+            line-height: 3rem;
+        }
+        & > p {
+            vertical-align: middle;
+            padding-left: 0.5rem;
+            .icon {
+                padding: 0 0.2rem;
+            }
+        }
+    }
+    .product-list {
+        header {
+            padding-bottom: 1rem;
+            button {
+                margin-right: 1rem;
+            }
+        }
+    }
+}

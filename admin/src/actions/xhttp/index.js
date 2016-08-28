@@ -31,13 +31,11 @@ function receiveFetchData(action, api, params, condition, reload, result) {
 }
 
 // 系统错误
-function netErr (err) {}
+function netErr(err) {}
 
 // 处理URL
 function handleUrl(api, params, conditions) {
     let url = apiConfig.server + apiConfig[api];
-
-    console.log(url);
 
     // id字段的正则表达式
     let idRegG = /\{[a-zA-Z0-9_]+\}/g;
@@ -77,8 +75,8 @@ export function xhttp(action = '', api = '', params = [], conditions = {}, reloa
         delete: 'DELETE'
     };
 
-    return function (dispatch) {
-    
+    return function(dispatch) {
+
         dispatch(gettingFetchData);
 
         return fetch(handleUrl(api, params, conditions), { method: toggleMethod[action] })

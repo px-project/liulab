@@ -32,17 +32,8 @@ _router.get('/:agent_id?', (req, res) => {
         });
     } else {
         // detail
-        agentModelActions.detail(agent_id, {}, (result) => {
-            let resData = {
-                _id: result._id,
-                name: result.name,
-                linkman: result.linkman,
-                phone: result.phone,
-                address: result.phone,
-                create_time: result.create_time,
-                update_time: result.update_time
-            };
-
+        let { agent_id } = req.params;
+        getAgentProductList(agent_id, (resData) => {
             res.json(xres({ CODE: 0 }, resData));
         });
     }
@@ -93,14 +84,6 @@ _router.delete('/', (req, res) => {
 });
 
 
-// 代理商产品列表/详情
-_router.get('/:agent_id/product', (req, res) => {
-    let { agent_id } = req.params;
-    getAgentProductList(agent_id, (resData) => {
-        res.json(xres({ CODE: 0 }, resData));
-    });
-});
-
 // 添加代理商产品
 _router.post('/:agent_id/product', (req, res) => {
     let { agent_id } = req.params;
@@ -136,7 +119,7 @@ _router.post('/:agent_id/product', (req, res) => {
             });
         },
         (newProductList, cb) => {
-            agentModelActions.update(agent_id, { $set: {products: newProductList} }, () => {
+            agentModelActions.update(agent_id, { $set: { products: newProductList } }, () => {
                 cb(null);
             })
         },
@@ -145,7 +128,7 @@ _router.post('/:agent_id/product', (req, res) => {
                 res.json(xres({ CODE: 0 }, result));
             });
         }
-    ], (err) => { })
+    ], (err) => {})
 });
 
 
@@ -172,6 +155,9 @@ function getAgentProductList(agent_id, cb) {
         let resData = {
             _id: result._id,
             name: result.name,
+            linkman: result.linkman,
+            phone: result.phone,
+            address: result.address,
             update_time: result.update_time,
             create_time: result.create_time
         };
@@ -180,6 +166,7 @@ function getAgentProductList(agent_id, cb) {
                 _id: prod.product._id,
                 name: prod.product.name,
                 vender: prod.product.vender,
+                specification: prod.product.specification,
                 price: prod.price,
                 update_time: prod.product.update_time,
                 create_time: prod.product.create_time

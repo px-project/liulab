@@ -3,6 +3,8 @@
  */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {xhttp} from '../../actions/xhttp/';
 
 
 class BookContainer extends Component {
@@ -11,4 +13,16 @@ class BookContainer extends Component {
 	}
 }
 
-export const BookApp = connect()(BookContainer);
+
+function mapStateToProps (state) {
+	return state;
+}
+
+function mapDispatchToProps (dispatch) {
+	return bindActionCreators({
+		xhttp
+	}, dispatch);
+}
+
+
+export const BookApp = connect(mapStateToProps, mapDispatchToProps)(BookContainer);

@@ -14,23 +14,23 @@ export class AgentComponent extends Component {
 		this.props.xhttp('list', 'agent', [], {}, true);
 	}
 	render () {
-		let {agent, entities} = this.props;
+		let {agent} = this.props;
 		return (
 			<div>
 				<ListHeader {...this.props}></ListHeader>
 				<div className="agent-list">
 					<Row gutter={24}>
 			      	{
-						  agent.items.map((agent_id, index) => {
+						  agent.items.map((item, index) => {
 							return (
 						      	<Col span={6} key={index}>
-						        	<Link to={"/agent/" + agent_id}>
+						        	<Link to={"/agent/" + item._id}>
 						        		<Card>
 											<div className="cover">
 
 											</div>
 											<div>
-												<h3>{entities.agent[agent_id].name}</h3>
+												<h3>{item.name}</h3>
 											</div>
 										</Card>
 						        	</Link>
