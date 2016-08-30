@@ -14,11 +14,11 @@ export class SearchComponent extends Component {
         return (
             <div className="search-component">
                 <div className="search-bar">
+                    <Input placeholder="请输入关键字" className="search-input" />
                     <Select defaultValue="name" className="search-condition">
                         <Option value="name">产品名</Option>
                         <Option value="_id">货号</Option>
                     </Select>
-                    <Input placeholder="请输入关键字" className="search-input" />
                     <Button icon="search" className="search-btn"></Button>
                 </div>
                 <div>
