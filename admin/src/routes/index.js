@@ -6,7 +6,7 @@ import { Router, Route, IndexRoute, IndexRedirect, useRouterHistory } from 'reac
 import * as containers from '../containers/';
 import * as components from '../components/';
 import routes from '../config/routes.json';
-import {createHistory} from 'history';
+import { createHistory } from 'history';
 const history = useRouterHistory(createHistory)({ basename: window.location.origin + '/' });
 
 export default class Routes extends Component {

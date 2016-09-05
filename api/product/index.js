@@ -17,9 +17,12 @@ _router.get('/:product_id?', (req, res) => {
             let resData = result.map((product) => {
                 return {
                     _id: product._id,
+                    code: product.code,
                     name: product.name,
                     vender: product.vender,
                     specification: product.specification,
+                    agent: product.agent,
+                    price: product.price,
                     create_time: product.create_time,
                     update_time: product.update_time
                 };
@@ -28,9 +31,10 @@ _router.get('/:product_id?', (req, res) => {
         });
     } else {
         // detail
-        productModelActions.detail(product_id, {}, (result) => {
+        productModelActions.detail(product_id, {populateKeys: ['order']}, (result) => {
             let resData = {
                 _id: result._id,
+                code: product.code,
                 name: result.name,
                 vender: item.vender,
                 specification: result.specification,
@@ -38,42 +42,43 @@ _router.get('/:product_id?', (req, res) => {
                 update_time: result.update_time
             };
 
-            res.json(xres({ CODE: 0 }, resData));
+            res.json(xres({ CODE: 0 }, result));
         });
     }
 });
 
+
 // 创建产品
-_router.post('/', (req, res) => {
-    let { _id, name, vender, specification } = req.body;
-    let newData = { _id, name, vender, specification };
+// _router.post('/', (req, res) => {
+//     let { _id, name, vender, specification } = req.body;
+//     let newData = { _id, name, vender, specification };
 
-    async.waterfall([
-        (cb) => {
-            productModelActions.detail(_id, {}, (result) => {
-                if (!result) {
-                    cb();
-                    return;
-                }
-                res.json(xres({ CODE: 0 }, { "mes": "已存在" }));
-            })
-        },
-        (cb) => {
-            productModelActions.create(newData, (result) => {
-                let resData = {
-                    _id: result._id,
-                    name: result.name,
-                    vender: result.vender,
-                    specification: result.specification,
-                    create_time: result.create_time,
-                    // update_time: result.update_time
-                };
+//     async.waterfall([
+//         (cb) => {
+//             productModelActions.detail(_id, {}, (result) => {
+//                 if (!result) {
+//                     cb();
+//                     return;
+//                 }
+//                 res.json(xres({ CODE: 0 }, { "mes": "已存在" }));
+//             })
+//         },
+//         (cb) => {
+//             productModelActions.create(newData, (result) => {
+//                 let resData = {
+//                     _id: result._id,
+//                     name: result.name,
+//                     vender: result.vender,
+//                     specification: result.specification,
+//                     create_time: result.create_time,
+//                     // update_time: result.update_time
+//                 };
 
-                res.json(xres({ CODE: 0 }, resData));
-            });
-        }
-    ], (err) => {})
-});
+//                 res.json(xres({ CODE: 0 }, resData));
+//             });
+//         }
+//     ], (err) => {})
+// });
 
 
 module.exports = _router;

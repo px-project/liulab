@@ -38,21 +38,5 @@
                 "name": "编辑用户"
             }
         ]
-    },
-    {
-        "path": "agent",
-        "name": "代理",
-        "children": [
-            {
-                "path": "add",
-                "componentName": "AgentAddComponent",
-                "name": "新代理"
-            },
-            {
-                "path": ":agent_id",
-                "componentName": "AgentDetailComponent",
-                "name": "代理详情"
-            }
-        ]
     }
 ]

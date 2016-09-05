@@ -15,6 +15,10 @@ const UserSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    update_time: {
+        type: Date,
+        default: Date.now  
+    },
     isDeleted: {                    // 软删除
         type: Boolean,
         default: false
@@ -24,7 +28,3 @@ const UserSchema = new Schema({
 const UserModel = mongoose.model('user', UserSchema);
 
 module.exports = UserModel;
-
-
-
-

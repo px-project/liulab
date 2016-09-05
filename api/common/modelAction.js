@@ -1,11 +1,16 @@
 /**
  * 模型通用操作
  */
+const LIMIT = 20;
+
+
 module.exports = function(Model) {
     return {
         list: (options = {}, cb) => {
-            let { populateKeys = [], where = {} } = options;
+            let { populateKeys = [], where = {}, skip = 0, limit = LIMIT } = options;
             Model.find(where)
+                .skip(skip)
+                .limit(limit)
                 .populate(populateKeys.join(' '))
                 .exec((err, result) => {
                     if (err) throw err;

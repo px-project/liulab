@@ -6,25 +6,27 @@ const Schema = mongoose.Schema;
 const db = require('../common/db');
 
 const OrderSchema = new Schema({
-    _id: String,                // 订单号
+    _id: String, // 订单号
     user_id: Schema.Types.ObjectId, // 用户ID
-    products: [
+    // products: [{ type: String, ref: 'product' }],   // 产品列表
+    products: [ // 产品列表
         {
-            product_id: Schema.Types.ObjectId,  // 产品ID
-            price: Number,              // 价格
-            agent_id: Schema.Types.ObjectId     // 代理商ID
+            _id: Schema.Types.ObjectId
         }
     ],
-    status: String,             // 订单状态
-    create_time: {              // 创建时间
+    status: { // 订单状态：pending(待审核)  pended(已审核) processing(订货中)  successed(订货成功) failed(取消订单)
+        type: String,
+        default: 'pending'
+    },
+    create_time: { // 创建时间
         type: Date,
         default: Date.now
     },
-    update_time: {              // 更新时间
+    update_time: { // 更新时间
         type: Date,
         default: Date.now
     },
-    isDeleted: {                // 软删除
+    isDeleted: { // 软删除
         type: Boolean,
         default: false
     }

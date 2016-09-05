@@ -4,8 +4,6 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const multer = require('multer');
-const upload = multer();
 
 // body解析
 app.use(bodyParser.json());

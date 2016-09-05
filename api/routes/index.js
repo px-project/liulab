@@ -16,7 +16,11 @@ _router.use('/order', require('../order'));
 // 角色
 _router.use('/role', require('../role'));
 
+
+// 资源
+_router.use('/resource', require('../resource'));
+
 // 代理商
-_router.use('/agent', require('../agent'));
+// _router.use('/agent', require('../agent'));
 
 module.exports = _router;

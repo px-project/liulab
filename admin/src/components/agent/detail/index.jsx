@@ -77,8 +77,7 @@ export class AgentDetailComponent extends Component {
 
 				<div className="product-list">
 					<header>
-						<Button>添加产品</Button>
-						<Button>批量上传</Button>
+						<Button type="primary">添加</Button>
 					</header>
 					{
 						(currentAgent.products || []).length ?

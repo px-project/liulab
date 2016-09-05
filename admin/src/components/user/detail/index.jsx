@@ -22,7 +22,7 @@ export class UserDetailComponent extends Component  {
 			<div>
 				<Form>
 					<FormItem label="姓名" {...formItemLayout}>
-						<Input></Input>
+						<Input required></Input>
 					</FormItem>
 					<FormItem label="角色" {...formItemLayout}>
 						<Select>
@@ -36,16 +36,16 @@ export class UserDetailComponent extends Component  {
 						</Select>
 					</FormItem>
 					<FormItem label="账号" {...formItemLayout}>
-						<Input></Input>
+						<Input required></Input>
 					</FormItem>
 					<FormItem label="密码" {...formItemLayout}>
-						<Input></Input>
+						<Input required></Input>
 					</FormItem>
 					<FormItem label="确认密码" {...formItemLayout}>
-						<Input></Input>
+						<Input required></Input>
 					</FormItem>
 					<FormItem label="联系方式" {...formItemLayout}>
-						<Input></Input>
+						<Input required></Input>
 					</FormItem>
 					<FormItem wrapperCol={{ span: 16, offset: 8 }} style={{ marginTop: 15 }}>
 						<Button type="primary" htmlType="submit">确定</Button>
