@@ -17,21 +17,24 @@ function gettingFetchData(action, api, params, condition) {
 
 
 // 接受响应
-function receiveFetchData(action, api, params, condition, reload, result) {
+function receiveFetchData(options, result) {
     return {
         type: consts.XHTTP_RECEIVE,
-        action,
-        api,
-        params,
-        condition,
-        reload,
+        options,
         result,
         receiveAt: Date.now()
     };
 }
 
 // 系统错误
-function netErr(err) {}
+function handleNetErr(err) {
+    console.error(err);
+}
+
+// 业务逻辑错误
+function handleBusinessErr(err) {
+    console.error(err);
+}
 
 // 处理URL
 function handleUrl(api, params, conditions) {
@@ -66,7 +69,29 @@ function handleUrl(api, params, conditions) {
     return url;
 }
 
-export function xhttp(action = '', api = '', params = [], conditions = {}, reload = false) {
+
+/**
+ * 发送网络请求相关方法
+ *
+ * @param options
+ *       -- action: 请求方式：list(default) detail create update delete
+ *       -- api:    接口url, 对照config key  必填
+ *       -- params: 请求参数，对应config key  中的{:~~~}
+ *       -- condition: 查询条件
+ *       -- reload： 是否覆盖store中原有数据
+ *       -- data: body 部分
+ */
+export function xhttp(options) {
+    let { action = 'list', api = '', params = [], conditions = {}, reload = false, data = {} } = options;
+
+    // api必备
+    if (!api) {
+        console.log('api is not defined!');
+        return;
+    }
+
+
+    // 各action对应Http method
     let toggleMethod = {
         list: 'GET',
         detail: 'GET',
@@ -79,14 +104,32 @@ export function xhttp(action = '', api = '', params = [], conditions = {}, reloa
 
         dispatch(gettingFetchData);
 
-        return fetch(handleUrl(api, params, conditions), { method: toggleMethod[action] })
+        // fetch配置
+        let fetchOption = {
+            method: toggleMethod[action],
+            headers: {}
+        };
+
+        // body
+        if (!!data) {
+            fetchOption.body = data;
+        }
+
+        options = { action, api, params, conditions, reload, data };
+
+
+        return fetch(handleUrl(api, params, conditions), fetchOption)
             .then(res => res.json())
             .then(json => {
                 if (json.success) {
-                    dispatch(receiveFetchData(action, api, params, conditions, reload, json.result));
-                } else {
-
+                    dispatch(receiveFetchData(options, json.result));
                 }
-            });
+                // else {
+                // handleBusinessErr(json.error);
+                // }
+            })
+            // .catch(err => {
+            // handleNetErr(err);
+            // });
     }
 }

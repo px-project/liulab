@@ -18,24 +18,32 @@ for (let currentApi in apiConfig) {
 
 
     let reducer = (state = initState, action) => {
-        let newState = Object.assign({}, state);
 
-        if (action.type === consts.XHTTP_RECEIVE && action.api === currentApi) {
+        if (!action.options) return state;
 
-            switch (action.action) {
+        // 新状态初始化
+        let newState = null;
+        if (action.options.reload) {
+            // 重新加载
+            newState = initState;
+        } else {
+            // 不覆盖
+            newState = Object.assign({}, state);
+        }
+
+        if (action.type === consts.XHTTP_RECEIVE && action.options.api === currentApi) {
+
+            switch (action.options.action) {
+
                 case 'list':
                     // 获取列表
-                    if (action.reload) {
-                        // 刷新
-                        newState = {
-                            items: action.result.map((item) => Object.assign({}, item))
-                        };
-                    } else {
-                        // item去重 todo
-                        [...newState.items, ...action.result.items].map((item) => {
-                            if (newState.items.indexOf(item) < 0) newState.items.push(item);
-                        });
-                    }
+
+                    // 处理items
+                    [...newState.items, ...action.result].map((item) => {
+                        if (newState.items.indexOf(item) < 0) newState.items.push(item);
+                    });
+
+
                     break;
 
                 case 'detail':
@@ -53,6 +61,8 @@ for (let currentApi in apiConfig) {
 
                 case 'create':
                     // 创建
+                    newState.items.push(action.result);
+
                     break;
 
                 case 'update':

@@ -50,7 +50,12 @@ const agentTableConfig = [
 
 export class AgentDetailComponent extends Component {
     componentWillMount () {
-        this.props.xhttp('detail', 'agent', [this.props.params.agent_id], {}, true);
+        this.props.xhttp({
+			action: 'detail',
+			api: 'agent',
+			params: [this.props.params.agent_id],
+			reload: true
+		});
     }
     render () {
     	let currentAgent = this.props.agent.items[this.props.agent.detailIndex] || {};

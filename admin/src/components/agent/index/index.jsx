@@ -11,7 +11,10 @@ import './style.scss';
 
 export class AgentComponent extends Component {
 	componentWillMount () {
-		this.props.xhttp('list', 'agent', [], {}, true);
+		this.props.xhttp({
+			api: 'agent',
+			reload: true
+		});
 	}
 	render () {
 		let {agent} = this.props;

@@ -62,8 +62,15 @@ const UserTableConfig = [
 
 export class UserComponent extends Component {
 	componentWillMount () {
-		this.props.xhttp('list', 'role', [], {}, true);
-		this.props.xhttp('list', 'user', [], {}, true);
+		this.props.xhttp({
+			api: 'role',
+			reload: true
+		});
+
+		this.props.xhttp({
+			api: 'user',
+			reload: true
+		});
 	}
 	render (){
 		let {user, entities} = this.props;

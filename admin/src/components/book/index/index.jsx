@@ -11,7 +11,7 @@ export class BookComponent extends Component  {
     render () {
         return (
             <div>
-                <Upload></Upload>
+                <Upload {...this.props}></Upload>
             </div>
         );
     }

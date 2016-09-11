@@ -9,7 +9,9 @@ let Option = Select.Option;
 
 export class UserDetailComponent extends Component  {
 	componentWillMount () {
-		this.props.xhttp('list', 'role', [], {}, false);
+		this.props.xhttp({
+			api: 'role'
+		})
 	}
 
     render () {
