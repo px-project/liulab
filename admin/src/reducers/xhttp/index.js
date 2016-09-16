@@ -25,7 +25,7 @@ for (let currentApi in apiConfig) {
         let newState = null;
         if (action.options.reload) {
             // 重新加载
-            newState = initState;
+            newState = Object.assign({}, initState);
         } else {
             // 不覆盖
             newState = Object.assign({}, state);
@@ -61,8 +61,7 @@ for (let currentApi in apiConfig) {
 
                 case 'create':
                     // 创建
-                    newState.items.push(action.result);
-
+                    newState.items.push(Object.assign({}, action.result));
                     break;
 
                 case 'update':

@@ -9,8 +9,6 @@ import configureStore from './store/';
 
 let store = configureStore();
 
-console.log(store.getState());
-
 
 const rootElement = document.getElementById('app');
 

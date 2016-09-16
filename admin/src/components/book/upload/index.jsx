@@ -19,35 +19,13 @@ export class UploadComponent extends Component {
 		});
 	}
 
-	componentWillReceiveProps (nextProps) {
-	}
-
 
     render () {
-    	console.log(this.props.resource.items[0]);
         return (
             <div>
             	<div>
 					<input type="file" onChange={this.uploadOrderExcel.bind(this, this.props.xhttp)}/>
             	</div>
-
-            	{
-        		this.props.resource.items[0]
-    			? (
-					<div>
-						{
-						this.props.resource.items[0].data.map((data) => {
-							let columns = {
-
-							};
-							return (
-								<Table columns={columns} dataSources={data} title={() => {data.product_type}}></Table>
-							);
-						})
-						}
-					</div>
-    			) : ''
-            	}
             </div>
         );
     }

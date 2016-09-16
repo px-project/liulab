@@ -40,24 +40,62 @@ _router.post('/', upload.single('file'), (req, res) => {
         workbook.SheetNames.map((sheet, index, arr) => {
             let sheetData = workbook.Sheets[sheet];
 
+            // let currentSheetData = {
+            //     product_type: sheet,
+            //     fields: [],
+            //     names: [],
+            //     values: []
+            // };
+
+            /**
+             * {
+             *      product_type: 'sheet1',
+             *      fields: [
+             *          {
+             *              key: 'code',
+             *              title: '货号'
+             *          }
+             *      ],
+             *      data: [
+             *          {
+             *              code: '111'
+             *          }
+             *      ]
+             * }
+             */
             let currentSheetData = {
                 product_type: sheet,
                 fields: [],
-                names: [],
-                values: []
+                data: []
             };
 
             for (let cell in sheetData) {
-                if (cell.charAt(1) === '1') {
-                    currentSheetData.fields.push(sheetData[cell].v);
-                } else if (cell.charAt(1) === '2') {
-                    currentSheetData.names.push(sheetData[cell].v);
-                } else {
-                    let current = currentSheetData.values[Number(cell.substr(1)) - 3] = [];
-                    current.push(sheetData[cell].v);
+                // cell = A1 B1 C1 A2 B2 C2 A3..      横向字母  纵向数字
+
+                let currentRow = Number(cell.charAt(1));                    // 1 begin
+                let currentCol = cell.charCodeAt(0) - 'A'.charCodeAt(0);    // 0 begin
+
+                // 第一行：key    TODO:本处仅限26个产品属性   A1  B1
+                if (currentRow === 1) {
+                    currentSheetData.fields.push({key: sheetData[cell].v});
                 }
 
+                // 第二行：title                            A2  B2
+                if (currentRow === 2) {
+                    currentSheetData.fields[currentCol].title = sheetData[cell].v;
+                }
+
+                // 剩余行为数据                             A3   B3    A4  B4
+                if (currentRow > 2) {
+                    currentSheetData.data[currentRow - 3] = currentSheetData.data[currentRow - 3] || [];
+                    let currentRowData = currentSheetData.data[currentRow - 3];
+
+                    currentRowData.push({
+                        [currentSheetData.fields[currentCol].key]: sheetData[cell].v
+                    });
+                }
             }
+
             resData.data.push(currentSheetData);
         });
 

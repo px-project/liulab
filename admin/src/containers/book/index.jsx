@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {xhttp} from '../../actions/xhttp/';
+import {changeBookState} from '../../actions/book/';
 
 
 class BookContainer extends Component {
@@ -20,7 +21,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
 	return bindActionCreators({
-		xhttp
+		xhttp,
+		changeBookState
 	}, dispatch);
 }
 
