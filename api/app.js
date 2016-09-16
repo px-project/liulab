@@ -2,6 +2,7 @@
  * api入口文件
  */
 const express = require('express');
+const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
@@ -44,6 +45,11 @@ app.use((req, res, next) => {
 
 // 路由
 app.use('/', require('./routes/'));
+
+
+// 静态文件
+app.use(express.static(path.join(__dirname, './asset/')));
+
 
 
 // 启动服务
