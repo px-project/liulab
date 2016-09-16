@@ -33,7 +33,6 @@ _router.post('/', upload.single('file'), (req, res) => {
         let workbook = xlsx.readFile(req.file.path);
 
         let resData = {
-            filename: req.file.filename,
             data: []
         };
 
@@ -99,7 +98,10 @@ _router.post('/', upload.single('file'), (req, res) => {
             resData.data.push(currentSheetData);
         });
 
-        res.json(xres({ CODE: 0 }, resData));
+        // 删除文件
+        fs.unlink(path.join(__dirname, '../uploads', req.file.filename), () => {
+            res.json(xres({CODE: 0}, resData));
+        });
     }
 });
 
