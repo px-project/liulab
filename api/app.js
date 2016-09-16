@@ -4,6 +4,9 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const redisStore = require('connect-redis')(session);
+
 
 // body解析
 app.use(bodyParser.json());
@@ -14,12 +17,29 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('PORT', process.env.PORT || 9000);
 
 
+// session
+app.use(session({
+	secret: 'liulab',
+	store: new redisStore(),
+	cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 }  // 7days
+}));
+
+
 // 跨域支持
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     next();
 });
+
+// auth
+// app.use((req, res, next) => {
+	// if (req.path !== '/login' && !res.user_id) {
+		// res.json({error: '未登录'});
+	// } else {
+		// next();
+	// }
+// });
 
 
 // 路由

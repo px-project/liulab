@@ -9,8 +9,7 @@ import './style.scss';
 export class ConfirmComponent extends Component {
 	submitForm (orderData, xhttp, e) {
 		let reqData = {
-			products: orderData.data,
-			filename: orderData.filename
+			products: orderData.data
 		};
 		xhttp({
 			action: 'create',
@@ -24,29 +23,32 @@ export class ConfirmComponent extends Component {
 	render () {
 		let orderData = this.props.resource.items[0];
 
-		let columns = [];
-
 		return (
 			<div>
 				<p>您刚刚上传的文件数据如下，请严格进行校验，以免审核失败。<a href="#">重新上传</a></p>
 				<Tabs defaultActiveKey="tab_0">
 				{
 					orderData.data.map((sheet, index) => {
+
+						let columns = [];
+
 						sheet.fields.map((field, _index) => {
 							columns.push({
 								title: field.title,
 								dataIndex: field.key,
 								key: index + '_table_' + _index,
-								width: 'auto'
+								width: 100
 							});
 						});
 
 						// 第一列固定
 						columns[0].fixed = 'left';
+						columns[0].width = 100;
+
 
 						return (
 							<TabPane key={'tab_' + index} tab={sheet.product_type}>
-								<Table columns={columns} dataSource={sheet.data[index]}></Table>
+								<Table columns={columns} dataSource={sheet.data[index]} scroll={{ x: 1300 }} pagination={false}></Table>
 							</TabPane>
 						);
 					})

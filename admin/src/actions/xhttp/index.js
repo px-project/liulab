@@ -112,11 +112,18 @@ export function xhttp(options) {
 
         // body
         if (!!data) {
-            fetchOption.body = data;
+            if (data instanceof FormData) {
+                // 表单
+                fetchOption.body = data;
+            } else {
+                // json
+                let reqData = new FormData();
+                reqData.append( "json", JSON.stringify(data));
+                fetchOption.body = reqData;
+            }
         }
 
         options = { action, api, params, conditions, reload, data };
-
 
         return fetch(handleUrl(api, params, conditions), fetchOption)
             .then(res => res.json())

@@ -8,12 +8,7 @@ import './style.scss';
 
 export class BookComponent extends Component {
 	componentWillReceiveProps (nextProps) {
-		let currentFilename = this.props.resource.items[0].filename;
-		let nextFilename = nextProps.resource.items[0].filename;
-
-		if (nextFilename) {
-			this.props.changeBookState('confirm');
-		}
+		this.props.changeBookState('confirm');
 	}
 
 

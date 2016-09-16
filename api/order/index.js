@@ -29,18 +29,13 @@ _router.get('/:order_id?', (req, res) => {
 
 // 创建订单
 _router.post('/', (req, res) => {
-    let {products, filename} = req.body;
+    let {products} = req.body;
     let newData = {
         products
     };
 
     orderModelActions.create(newData, (result) => {
-        if (filename) {
-            // 删除文件
-            fs.unlink(path.join(__dirname, '../uploads', filename), () => {
-                res.json(xres({CODE: 0}, result));
-            });
-        }
+        res.json(xres({CODE: 0}, result));
     });
 });
 

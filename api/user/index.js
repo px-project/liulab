@@ -82,7 +82,10 @@ _router.post('/login', (req, res) => {
             return;
         }
 
-        res.send({ "success": true });
+        res.session.user_id = result._id;
+        res.session.username = username;
+
+        res.json(xres({CODE: 0}));
     });
 });
 

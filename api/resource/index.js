@@ -94,6 +94,8 @@ _router.post('/', upload.single('file'), (req, res) => {
                     });
                 }
             }
+            console.log(currentSheetData)
+
 
             resData.data.push(currentSheetData);
         });
