@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react';
 import moment from 'moment';
-import {Table} from 'antd';
+import {Row, Col, Table, Button} from 'antd';
 import {Link} from 'react-router';
 import * as consts from '../../../constants/';
 import './style.scss';
@@ -34,7 +34,7 @@ export class OrderComponent extends Component  {
 				text: consts.ORDER_STATUS[key],
 				value: consts.ORDER_STATUS[key]
 			});
-		}
+			}
 
 		let columns = [
 			{
@@ -111,15 +111,24 @@ export class OrderComponent extends Component  {
 
 
 		let rowSelection = {
-
+			// selectedRowKeys,
+			// onChange: this.onSelectChange,
 		};
 
-
+	    // const hasSelected = selectedRowKeys.length > 0;
 
         return (
 			<div>
+				<header className="list-header">
+					<Row justify="end">
+						<Col span={12}>
+							<Button type="primary">下载</Button>
+						</Col>
+					</Row>
+				</header>
 				<Table columns={columns} dataSource={order.items} rowSelection={rowSelection}></Table>
 			</div>
         );
     }
 }
+

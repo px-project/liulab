@@ -3,8 +3,7 @@
  */
 import React, {Component} from 'react';
 import {Link} from 'react-router';
-import {ListHeader} from '../../common/list_header/';
-import {Table} from 'antd';
+import {Table, Row, Col, Button} from 'antd';
 import moment from 'moment';
 import './style.scss';
 
@@ -82,10 +81,16 @@ export class UserComponent extends Component {
 					)
 				}
 			}
-];
+		];
 		return (
 			<div>
-				<ListHeader></ListHeader>
+				<header className="list-header">
+					<Row justify="end">
+						<Col span={12}>
+							<Button type="primary"><Link to="/user/add">添加</Link></Button>
+						</Col>
+					</Row>
+				</header>
 				<Table columns={columns} dataSource={user.items}></Table>
 			</div>
 		);

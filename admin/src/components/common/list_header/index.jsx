@@ -19,6 +19,7 @@ export class ListHeader extends Component {
 					</Col>
 					<Col span={8}></Col>
 					<Col span={4}>
+					{/**
 						<div className="search ant-search-input-wrapper">
 					        <InputGroup className="ant-search-input">
 					          <Input placeholder="请输入关键字" />
@@ -27,6 +28,7 @@ export class ListHeader extends Component {
 					          </div>
 					        </InputGroup>
 						</div>
+					*/}
 					</Col>
 				</Row>
 

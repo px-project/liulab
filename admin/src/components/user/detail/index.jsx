@@ -10,11 +10,17 @@ let Option = Select.Option;
 export class UserDetailComponent extends Component  {
 	componentWillMount () {
 		this.props.xhttp({
+			action: 'list',
 			api: 'role'
 		})
 	}
 
+	handleSubmit () {
+
+	}
+
     render () {
+    	let {entities, role} = this.props;
 		let formItemLayout = {
 			labelCol: {span: 2, offset: 6},
 			wrapperCol: {span: 6},
@@ -22,16 +28,16 @@ export class UserDetailComponent extends Component  {
 		};
 		return (
 			<div>
-				<Form>
+				<Form onSubmit={this.handleSubmit}>
 					<FormItem label="姓名" {...formItemLayout}>
 						<Input required></Input>
 					</FormItem>
 					<FormItem label="角色" {...formItemLayout}>
 						<Select>
 							{
-								this.props.role.items.map((item, index) => {
+								role.items.map((item, index) => {
 									return (
-										<Option key={index} value={item._id}>{item.name}</Option>
+										<Option key={index} value={item}>{entities[item].name}</Option>
 									)
 								})
 							}
