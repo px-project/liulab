@@ -17,7 +17,6 @@ _router.get('/:user_id?', (req, res) => {
                 return {
                     _id: item._id,
                     username: item.username,
-                    // password: item.password,
                     role_id: item.role_id,
                     name: item.name,
                     phone: item.phone,
@@ -69,21 +68,20 @@ _router.post('/', (req, res) => {
 // 用户登录
 _router.post('/login', (req, res) => {
     let { username, password } = req.body;
-    UserModelActions.list({ username: username }, (result) => {
+    UserModelActions.list({where: {username}}, (result) => {
         // 不存在此用户
         if (!result.length) {
-            // todo
+            res.json(xres({CODE: '此用户不存在'}));
             return;
         }
 
         // 密码不正确
         if (result[0].password !== utils.md5(password)) {
-            // todo
+            res.json(xres({CODE: '密码错误'}));
             return;
         }
-
-        res.session.user_id = result._id;
-        res.session.username = username;
+        req.session.user_id = result[0]._id;
+        req.session.username = username;
 
         res.json(xres({CODE: 0}));
     });

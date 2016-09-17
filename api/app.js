@@ -7,7 +7,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const redisStore = require('connect-redis')(session);
-
+const cors = require('cors');
 
 // body解析
 app.use(bodyParser.json());
@@ -27,21 +27,7 @@ app.use(session({
 
 
 // 跨域支持
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    next();
-});
-
-// auth
-// app.use((req, res, next) => {
-	// if (req.path !== '/login' && !res.user_id) {
-		// res.json({error: '未登录'});
-	// } else {
-		// next();
-	// }
-// });
-
+app.use(cors());
 
 // 路由
 app.use('/', require('./routes/'));

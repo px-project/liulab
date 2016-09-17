@@ -7,7 +7,14 @@ const TabPane = Tabs.TabPane;
 import './style.scss';
 
 export class ConfirmComponent extends Component {
-	submitForm (orderData, xhttp, e) {
+	componentWillReceiveProps (nextProps) {
+		if (nextProps) {
+
+		}
+	}
+
+
+	saveOrder (orderData, xhttp, e) {
 		let reqData = {
 			products: orderData.data
 		};
@@ -22,10 +29,14 @@ export class ConfirmComponent extends Component {
 
 	render () {
 		let orderData = this.props.resource.items[0];
+		orderData.data = orderData.data || [];
 
 		return (
 			<div>
-				<p>您刚刚上传的文件数据如下，请严格进行校验，以免审核失败。<a href="#">重新上传</a></p>
+				<p>
+					<span>您刚刚上传的文件数据如下，请严格进行校验，以免审核失败。</span>
+					<a onClick={this.props.changeBookState.bind(this, 'upload')}>重新上传</a>
+				</p>
 				<Tabs defaultActiveKey="tab_0">
 				{
 					orderData.data.map((sheet, index) => {
@@ -54,7 +65,7 @@ export class ConfirmComponent extends Component {
 					})
 				}
 				</Tabs>
-				<Button type="primary" onClick={this.submitForm.bind(this, orderData, this.props.xhttp)}>确认</Button>
+				<Button type="primary" onClick={this.saveOrder.bind(this, orderData, this.props.xhttp)}>确认</Button>
 			</div>
 		)
 	}

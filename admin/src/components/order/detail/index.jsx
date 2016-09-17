@@ -6,6 +6,8 @@ import './style.scss';
 
 export class OrderDetailComponent extends Component  {
     render () {
-        return (<h1>Order detail</h1>);
+        return (
+			<h1>order detail</h1>
+        );
     }
 }

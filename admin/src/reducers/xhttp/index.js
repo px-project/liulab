@@ -16,7 +16,6 @@ for (let currentApi in apiConfig) {
 
     let initState = { items: [] };
 
-
     let reducer = (state = initState, action) => {
 
         if (!action.options) return state;
@@ -30,6 +29,8 @@ for (let currentApi in apiConfig) {
             // 不覆盖
             newState = Object.assign({}, state);
         }
+
+        console.log(newState);
 
         if (action.type === consts.XHTTP_RECEIVE && action.options.api === currentApi) {
 

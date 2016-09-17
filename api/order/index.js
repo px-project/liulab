@@ -30,9 +30,25 @@ _router.get('/:order_id?', (req, res) => {
 // 创建订单
 _router.post('/', (req, res) => {
     let {products} = req.body;
+    let d = new Date();
+    let order_id = d.getFullYear() + ''
+                 + d.getMonth()  + ''
+                 + d.getDate() + ''
+                 + d.getHours() + ''
+                 + d.getMinutes() + ''
+                 + d.getSeconds() + ''
+                 + d.getMilliseconds();
+
     let newData = {
+        order_id,
         products
     };
+
+    console.log(newData);
+
+
+
+
 
     orderModelActions.create(newData, (result) => {
         res.json(xres({CODE: 0}, result));

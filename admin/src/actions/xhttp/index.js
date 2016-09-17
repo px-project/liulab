@@ -111,15 +111,15 @@ export function xhttp(options) {
         };
 
         // body
-        if (!!data) {
+        if (toggleMethod[action]!== 'GET' && !!data) {
             if (data instanceof FormData) {
                 // 表单
                 fetchOption.body = data;
             } else {
                 // json
-                let reqData = new FormData();
-                reqData.append( "json", JSON.stringify(data));
-                fetchOption.body = reqData;
+                fetchOption.headers['Accept'] = 'application/json';
+                fetchOption.headers['Content-Type'] = 'application/json';
+                fetchOption.body = JSON.stringify(data);
             }
         }
 
