@@ -1,0 +1,14 @@
+@import '../../../../public/style/common.scss';
+.sidebar-nav {
+    padding-top: $header_height;
+    ul {
+        background: none;
+        border: none;
+        li {
+            padding: 0!important;
+            a {
+                text-align: center;
+            }
+        }
+    }
+}

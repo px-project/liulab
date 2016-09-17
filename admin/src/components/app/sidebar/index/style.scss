@@ -1,0 +1,11 @@
+@import '../../../../public/style/common.scss';
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    background: #2c3232;
+    width: $header_height * 4;
+    margin-right: $header_height;
+}
