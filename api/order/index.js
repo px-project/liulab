@@ -39,15 +39,23 @@ _router.post('/', (req, res) => {
                  + d.getSeconds() + ''
                  + d.getMilliseconds();
 
+    // todo
+    let user_id = '57c319dc640be57907fb3dd3';
+
+    let progress = [
+        {
+            status: 'pending',
+            time: Date.now()
+        }
+    ];
+
+
     let newData = {
         order_id,
-        products
+        products,
+        user_id,
+        progress
     };
-
-    console.log(newData);
-
-
-
 
 
     orderModelActions.create(newData, (result) => {

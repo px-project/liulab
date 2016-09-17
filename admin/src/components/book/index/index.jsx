@@ -7,13 +7,19 @@ import {ConfirmComponent as Confirm} from '../confirm/';
 import './style.scss';
 
 export class BookComponent extends Component {
+    componentWillMount () {
+        this.props.changeBookState('upload');
+    }
+
+
 	componentWillReceiveProps (nextProps) {
-		this.props.changeBookState('confirm');
+        if (nextProps.bookPageState === this.props.bookPageState) {
+            this.props.changeBookState('confirm');
+        }
 	}
 
 
     render () {
-    	// this.props.changeBookState('confirm');
         return (
             <div>
                 {this.props.bookPageState === 'upload' ? (<Upload {...this.props}></Upload>): ''}

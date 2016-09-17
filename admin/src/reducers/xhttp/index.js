@@ -16,6 +16,7 @@ for (let currentApi in apiConfig) {
 
     let initState = { items: [] };
 
+    // 各接口reducer
     let reducer = (state = initState, action) => {
 
         if (!action.options) return state;
@@ -30,39 +31,27 @@ for (let currentApi in apiConfig) {
             newState = Object.assign({}, state);
         }
 
-        console.log(newState);
-
         if (action.type === consts.XHTTP_RECEIVE && action.options.api === currentApi) {
 
             switch (action.options.action) {
 
                 case 'list':
                     // 获取列表
-
-                    // 处理items
-                    [...newState.items, ...action.result].map((item) => {
-                        if (newState.items.indexOf(item) < 0) newState.items.push(item);
+                    action.result.map((item) => {
+                        if (newState.items.indexOf(item._id) < 0) newState.items.push(item._id);
                     });
-
-
                     break;
 
                 case 'detail':
                     // 获取详情
-                    let hasitem = false;
-                    for (let index in newState.items) {
-                        if (newState.items[index]._id === action.result._id) {
-                            newState.items[index] = action.result;
-                            newState.detailIndex = index;
-                            hasitem = true;
-                        }
+                    if (newState.items.indexOf(action.result._id) < 0) {
+                        newState.items.push(action.result._id);
                     }
-                    if (!hasitem) newState = { detailIndex: 0, items: [action.result] };
                     break;
 
                 case 'create':
                     // 创建
-                    newState.items.push(Object.assign({}, action.result));
+                    newState.items.push(action.result._id);
                     break;
 
                 case 'update':

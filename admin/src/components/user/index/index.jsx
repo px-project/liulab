@@ -8,57 +8,6 @@ import {Table} from 'antd';
 import moment from 'moment';
 import './style.scss';
 
-// User列表头部
-const UserTableConfig = [
-	{
-		title: '序号',
-		render: (text,record, index) => {
-			return index + 1;
-		}
-	},
-	{
-		title: '姓名',
-		dataIndex: 'name',
-		render: (text, record, index) => {
-			return text || '-';
-		}
-	},
-	{
-		title: '电话',
-		dataIndex: 'phone',
-		render: (text, record, index) => {
-			return text || '-';
-		}
-	},
-	{title: '账号', dataIndex: 'username'},
-	{
-		title: '角色',
-		dataIndex: 'role_id',
-		render: (text, record, index) => {
-			return text;
-		}
-	},
-	{
-		title: '创建时间',
-		dataIndex: 'create_time',
-		render: (text, record, index) => {
-			return moment(text).format('YYYY-MM-DD hh:mm:ss');
-		}
-	},
-	{
-		title: '操作',
-		dataIndex: '_id',
-		render: (text, record, index) => {
-			return (
-				<div>
-					<Link to={'/user/' + text + '/edit'}>修改</Link>
-					<a href="#">删除</a>
-				</div>
-			)
-		}
-	}
-];
-
 
 export class UserComponent extends Component {
 	componentWillMount () {
@@ -72,12 +21,72 @@ export class UserComponent extends Component {
 			reload: true
 		});
 	}
+
 	render (){
 		let {user, entities} = this.props;
+
+
+		let columns = [
+			{
+				title: '序号',
+				key: 'index',
+				render: (text,record, index) => {
+					return index + 1;
+				}
+			},
+			{
+				title: '姓名',
+				key: 'name',
+				render: (text, record, index) => {
+					return entities[record].name || '-';
+				}
+			},
+			{
+				title: '电话',
+				key: 'phone',
+				render: (text, record, index) => {
+					return entities[record].phone || '-';
+				}
+			},
+			{
+				title: '账号',
+				key: 'username',
+				render: (text, record, index) => {
+					return entities[record].username || '-';
+				}
+			},
+			{
+				title: '角色',
+				key: 'role',
+				render: (text, record, index) => {
+					// return entities[entities[record].role_id].name || '-';
+					return '-';
+				}
+			},
+			{
+				title: '创建时间',
+				key: 'create_time',
+				render: (text, record, index) => {
+					return moment(entities[record].create_time).format('YYYY-MM-DD hh:mm:ss');
+				}
+			},
+			{
+				title: '操作',
+				ket: 'action',
+				render: (text, record, index) => {
+					return (
+						<div>
+							<Link to={'/user/' + record + '/edit'}>修改</Link>
+							<a href="#">删除</a>
+						</div>
+					)
+				}
+			}
+];
 		return (
 			<div>
 				<ListHeader></ListHeader>
-				<Table columns={UserTableConfig} dataSource={user.items}></Table>
+				<Table columns={columns} dataSource={user.items}></Table>
 			</div>
 		);
 	}

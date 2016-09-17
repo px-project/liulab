@@ -28,7 +28,8 @@ export class ConfirmComponent extends Component {
 
 
 	render () {
-		let orderData = this.props.resource.items[0];
+		let {resource, entities} = this.props;
+		let orderData = entities[resource.items[0]] || {};
 		orderData.data = orderData.data || [];
 
 		return (

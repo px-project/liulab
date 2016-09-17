@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import moment from 'moment';
 import {Table} from 'antd';
 import {Link} from 'react-router';
+import * as consts from '../../../constants/';
 import './style.scss';
 
 export class OrderComponent extends Component  {
@@ -15,44 +16,49 @@ export class OrderComponent extends Component  {
 			api: 'order',
 			reload: true
 		});
+
+		this.props.xhttp({
+			action: 'list',
+			api: 'user',
+			reload: true
+		});
 	}
 
     render () {
-    	let toggleStatus = {
-    		pending: '待审核',
-    		pended: '已审核',
-    		processing: '订货中',
-    		successed: '订货成功',
-    		failed: '取消订单'
-    	};
+    	let {entities, order, user} = this.props;
 
     	let toggleStatusFilterArr = [];
 
-		for (let key in toggleStatus) {
+		for (let key in consts.ORDER_STATUS) {
 			toggleStatusFilterArr.push({
-				text: toggleStatus[key],
-				value: toggleStatus[key]
+				text: consts.ORDER_STATUS[key],
+				value: consts.ORDER_STATUS[key]
 			});
 		}
 
 		let columns = [
 			{
 				title: '序号',
+				key: 'index',
 				render: (text, record, index) => {
 					return index + 1;
 				}
 			},
 			{
 				title: '订单号',
-				dataIndex: 'order_id'
+				key: 'order_id',
+				render: (text, record, index) => {
+					return entities[record].order_id;
+				}
 			},
 			{
 				title: '产品类型',
+				key: 'product_type',
 				render: (text, record, index) => {
 					return (
 						<div>
 							{
-								record.products.map((prod)=> {
+								entities[record].products.map((prod)=> {
 									return (
 										<span className="prod-type">{prod.product_type}</span>
 									);
@@ -64,32 +70,35 @@ export class OrderComponent extends Component  {
 			},
 			{
 				title: '订购人',
-				dataIndex: 'user_id',
+				key: 'user_id',
 				render: (text, record, index) => {
-					return text;
+					let currentUser = entities[entities[record].user_id];
+					return currentUser.name || currentUser.username || '-';
 				}
 			},
 			{
 				title: '创建时间',
-				dataIndex: 'create_time',
+				key: 'create_time',
 				render: (text, record, index) => {
-					return moment(text).format('YYYY-MM-DD hh:mm:ss');
+					return moment(entities[record].create_time).format('YYYY-MM-DD hh:mm:ss');
 				}
 			},
 			{
 				title: '状态',
-				dataIndex: 'status',
+				key: 'status',
 				filters: toggleStatusFilterArr,
 				render: (text, record, index) => {
-					return toggleStatus[text];
+					let statusProgress = entities[record].progress;
+					return consts.ORDER_STATUS[statusProgress[statusProgress.length - 1].status];
 				}
 			},
 			{
 				title: '操作',
+				ket: 'action',
 				render: (text, record, index) => {
 					return (
 						<div>
-							<Link to={'/order/' + record.order_id}>详情</Link>
+							<Link to={'/order/' + record}>详情</Link>
 							<a href="#">审核通过</a>
 							<a href="#">取消订单</a>
 							<a href="#">已订货</a>
@@ -101,11 +110,15 @@ export class OrderComponent extends Component  {
 		];
 
 
+		let rowSelection = {
+
+		};
+
 
 
         return (
 			<div>
-				<Table columns={columns} dataSource={this.props.order.items}></Table>
+				<Table columns={columns} dataSource={order.items} rowSelection={rowSelection}></Table>
 			</div>
         );
     }

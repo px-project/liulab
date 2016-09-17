@@ -33,6 +33,7 @@ _router.post('/', upload.single('file'), (req, res) => {
         let workbook = xlsx.readFile(req.file.path);
 
         let resData = {
+            _id: req.file.filename,
             data: []
         };
 
@@ -94,7 +95,6 @@ _router.post('/', upload.single('file'), (req, res) => {
                     });
                 }
             }
-            console.log(currentSheetData)
 
 
             resData.data.push(currentSheetData);
