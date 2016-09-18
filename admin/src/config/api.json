@@ -1,8 +1,13 @@
 {
     "server": "http://localhost:9000",
+
     "user": "/user",
+    "userLogin": "/user/login",
+    "userLogout": "/user/logout",
+
     "agent": "/agent",
     "agentProduct": "/agent/{agent_id}/product",
+
     "role": "/role",
     "product": "/product",
     "order": "/order",

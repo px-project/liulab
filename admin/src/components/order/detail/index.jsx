@@ -3,13 +3,13 @@
  */
 import React, {Component} from 'react';
 import './style.scss';
-import {Tabs, Table, Button, Timeline} from 'antd';
+import {Tabs, Table, Button, Timeline, Row, Col} from 'antd';
 import moment from 'moment';
 import * as consts from '../../../constants/';
 const TabPane = Tabs.TabPane;
 
 
-export class OrderDetailComponent extends Component  {
+export class OrderDetailComponent extends Component {
 	componentWillMount () {
     	let _id = this.props.params.order_id;
 		let {entities} = this.props;
@@ -40,8 +40,9 @@ export class OrderDetailComponent extends Component  {
 	        	{
 	        		orderData ? (
 	        			<div>
-			        		<div>
-			        			<div>
+			        		<Row>
+			        			<Col span={12}>
+
 				        			<h3>订单信息</h3>
 				        			<div>
 				        				<p>订单号：{orderData.order_id}</p>
@@ -51,8 +52,8 @@ export class OrderDetailComponent extends Component  {
 				        				}</p>
 				        				<p>联系方式：{entities[orderData.user_id].phone || '-'}</p>
 				        			</div>
-				        		</div>
-								<div>
+			        			</Col>
+			        			<Col span={12}>
 									<h3>订单动态</h3>
 									<Timeline>
 										{
@@ -64,8 +65,8 @@ export class OrderDetailComponent extends Component  {
 											})
 										}
 									</Timeline>
-								</div>
-			        		</div>
+			        			</Col>
+			        		</Row>
 							<div>
 								<h3>商品详情</h3>
 								<Tabs defaultActiveKey="tab_0">
@@ -86,6 +87,22 @@ export class OrderDetailComponent extends Component  {
 											// 第一列固定
 											columns[0].fixed = 'left';
 											columns[0].width = 100;
+
+
+											if (orderData.progress[orderData.progress.length - 1].status === 'processing') {
+												// 最后一列固定
+												columns.push({
+													title: '操作',
+													key: index + '_table_' + _index,
+													render: (text, record, index) => {
+														return (
+															<div>
+																<a href="#">到货</a>
+															</div>
+														);
+													}
+												})
+											}
 
 											return (
 

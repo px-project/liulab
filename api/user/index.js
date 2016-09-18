@@ -80,17 +80,30 @@ _router.post('/login', (req, res) => {
             res.json(xres({CODE: '密码错误'}));
             return;
         }
-        req.session.user_id = result[0]._id;
-        req.session.username = username;
 
-        res.json(xres({CODE: 0}));
+        req.session.user_id = result[0]._id;
+        req.session.role_id = result[0].role_id;
+
+        let resData = {
+            _id: result[0]._id,
+            username: result[0].username,
+            role_id: result[0].role_id,
+            name: result[0].name,
+            phone: result[0].phone,
+            create_time: result[0].create_time,
+            update_time: result[0].update_time
+        };
+
+        res.json(xres({CODE: 0}, resData));
     });
 });
 
 
 // 用户登出
 _router.get('/logout', (req, res) => {
-    res.send({ "success": true });
+    req.session = null;
+
+    res.send(xres({CODE: 0}));
 });
 
 

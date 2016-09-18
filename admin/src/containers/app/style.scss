@@ -2,4 +2,16 @@
 #main {
     margin-left: $header_height * 4;
     padding: $header_height * 1.5 $header_height;
+
+    table {
+    	td {
+    		a {
+    			display: inline-block;
+    			margin-right: 0.5rem;
+    			&:last-child {
+    				margin-right: 0;
+    			}
+    		}
+    	}
+    }
 }
