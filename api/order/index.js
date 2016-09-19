@@ -42,25 +42,23 @@ _router.post('/', (req, res) => {
     // todo
     let user_id = '57c319dc640be57907fb3dd3';
 
-    let progress = [
-        {
-            status: 'pending',
-            time: Date.now()
-        }
-    ];
-
-
     let newData = {
         order_id,
         products,
         user_id,
-        progress
     };
 
     // 添加初始状态
     newData.products.map((sheet) => {
 
-    })
+        sheet.data.map((data) => {
+            data.progress = data.progress || [];
+            data.progress.push({
+                status: 'pending',
+                time: d
+            });
+        });
+    });
 
 
     orderModelActions.create(newData, (result) => {
