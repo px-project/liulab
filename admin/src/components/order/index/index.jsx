@@ -34,7 +34,7 @@ export class OrderComponent extends Component  {
 				text: consts.ORDER_STATUS[key],
 				value: consts.ORDER_STATUS[key]
 			});
-			}
+		}
 
 		let columns = [
 			{
@@ -84,15 +84,6 @@ export class OrderComponent extends Component  {
 				}
 			},
 			{
-				title: '状态',
-				key: 'status',
-				filters: toggleStatusFilterArr,
-				render: (text, record, index) => {
-					let statusProgress = entities[record].progress;
-					return consts.ORDER_STATUS[statusProgress[statusProgress.length - 1].status];
-				}
-			},
-			{
 				title: '操作',
 				ket: 'action',
 				render: (text, record, index) => {
@@ -101,9 +92,6 @@ export class OrderComponent extends Component  {
 					return (
 						<div>
 							<Link to={'/order/' + record}>详情</Link>
-							{status === 'pending' ? (<Link to={'/order/' + record}>审核</Link>) : ''}
-							{status === 'pended' ? (<Link to={'/order/' + record}>到货</Link>) : ''}
-							{status === 'successed' || status === 'pended' || status === 'processing' ? (<a href="#">取消订单</a>) : ''}
 						</div>
 					);
 				}
@@ -132,4 +120,3 @@ export class OrderComponent extends Component  {
         );
     }
 }
-

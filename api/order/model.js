@@ -11,13 +11,9 @@ const OrderSchema = new Schema({
         type: String
     },
     products: [],
-    // 订单状态：pending(待审核)  pended(已审核) processing(订货中)  successed(订货成功) failed(取消订单)
+    // 订单状态：pending(待审核)  pendedSuccess(审核成功) pendedFailed(审核失败) processing(订货中)  successed(已到货) failed(取消订单)
     progress: [],
     create_time: { // 创建时间
-        type: Date,
-        default: Date.now
-    },
-    update_time: { // 更新时间
         type: Date,
         default: Date.now
     },

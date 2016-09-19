@@ -58,7 +58,8 @@ _router.post('/', upload.single('file'), (req, res) => {
              *      ],
              *      data: [
              *          {
-             *              code: '111'
+             *              code: '111',
+             *              num: 11
              *          }
              *      ]
              * }
@@ -87,12 +88,10 @@ _router.post('/', upload.single('file'), (req, res) => {
 
                 // 剩余行为数据                             A3   B3    A4  B4
                 if (currentRow > 2) {
-                    currentSheetData.data[currentRow - 3] = currentSheetData.data[currentRow - 3] || [];
+                    currentSheetData.data[currentRow - 3] = currentSheetData.data[currentRow - 3] || {};
                     let currentRowData = currentSheetData.data[currentRow - 3];
 
-                    currentRowData.push({
-                        [currentSheetData.fields[currentCol].key]: sheetData[cell].v
-                    });
+                    currentRowData[currentSheetData.fields[currentCol].key] = sheetData[cell].v;
                 }
             }
 

@@ -57,6 +57,11 @@ _router.post('/', (req, res) => {
         progress
     };
 
+    // 添加初始状态
+    newData.products.map((sheet) => {
+
+    })
+
 
     orderModelActions.create(newData, (result) => {
         res.json(xres({CODE: 0}, result));
@@ -65,9 +70,22 @@ _router.post('/', (req, res) => {
 
 
 // 修改订单
-_router.patch('/', (req, res) => {
+_router.patch('/:order_id', (req, res) => {
+    let {order_id} = req.params;
+    // 当前订单
+    orderModelActions.detail(order_id, {}, (result) => {
 
+    });
 });
+
+// 审核
+_router.patch('/:order_id/check', (req, res) => {
+    let {order_id} = req.params;
+
+    orderModelActions.detail
+});
+
+//
 
 
 module.exports = _router;
