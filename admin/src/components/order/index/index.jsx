@@ -87,8 +87,6 @@ export class OrderComponent extends Component  {
 				title: '操作',
 				ket: 'action',
 				render: (text, record, index) => {
-					let statusProgress = entities[record].progress;
-					let status = statusProgress[statusProgress.length - 1].status;
 					return (
 						<div>
 							<Link to={'/order/' + record}>详情</Link>

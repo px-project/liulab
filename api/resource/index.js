@@ -83,6 +83,7 @@ _router.post('/', upload.single('file'), (req, res) => {
 
                 // 第二行：title                            A2  B2
                 if (currentRow === 2) {
+                    currentSheetData.fields[currentCol] = currentSheetData.fields[currentCol] || {};
                     currentSheetData.fields[currentCol].title = sheetData[cell].v;
                 }
 

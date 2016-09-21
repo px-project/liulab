@@ -7,6 +7,7 @@ import {Tabs, Table, Button, Timeline, Row, Col} from 'antd';
 import moment from 'moment';
 import * as consts from '../../../constants/';
 const TabPane = Tabs.TabPane;
+import classname from 'classname';
 
 
 export class OrderDetailComponent extends Component {
@@ -29,16 +30,30 @@ export class OrderDetailComponent extends Component {
 		}
 	}
 
+	// 更新状态
+	updateStatus (order_id, product_id, newStatus, xhttp, e) {
+		xhttp({
+			action: 'update',
+			api: 'orderStatus',
+			params: [order_id],
+			data: {
+				newStatus,
+				product_id
+			}
+		});
+	}
 
 
     render () {
     	let _id = this.props.params.order_id;
-		let {entities} = this.props;
+		let {entities, user, xhttp} = this.props;
 		let orderData = entities[_id];
+
+		let statusStr = consts.ORDER_STATUS;
 
         return (
         	<div>
-	        	{orderData ? (
+	        	{orderData && user.items.length ? (
     			<div>
 	        		<Row>
 	        			<Col span={12}>
@@ -66,6 +81,10 @@ export class OrderDetailComponent extends Component {
 										}
 									},
 									{
+										title: '货号',
+										dataIndex: 'code',
+									},
+									{
 										title: '名称',
 										dataIndex: 'name'
 									},
@@ -79,7 +98,11 @@ export class OrderDetailComponent extends Component {
 									},
 									{
 										title: '状态',
-										render: (text, record, index) => {}
+										dataIndex: 'progress',
+										render: (text, record, index) => {
+											let currentState = record.progress[record.progress.length - 1].status;
+											return statusStr[currentState];
+										}
 									},
 									{
 										title: '更新时间',
@@ -92,13 +115,24 @@ export class OrderDetailComponent extends Component {
 									{
 										title: '操作',
 										render: (text, record, index) => {
+											let currentState = record.progress[record.progress.length - 1].status;
 											return (
-												<div>
-													<a href="#">通过</a>
-													<a href="#">不通过</a>
-													<a href="#">已订货</a>
-													<a href="#">已到货</a>
-													<a href="#">取消</a>
+												<div className="action">
+													<a href="#">详情</a>
+													{currentState === 'pending' ? (
+														<div>
+															<a onClick={this.updateStatus.bind(this, _id, record.product_id, 'pended', xhttp)}>通过</a>
+															<a onClick={this.updateStatus.bind(this, _id, record.product_id, 'failed', xhttp)}>不通过</a>
+															<a href="#">修改</a>
+															<a onClick={this.updateStatus.bind(this, _id, record.product_id, 'cancel', xhttp)}>取消</a>
+														</div>
+													): ''}
+													{currentState === 'pended' ? (
+														<a onClick={this.updateStatus.bind(this, _id, record.product_id, 'processing', xhttp)}>已订货</a>
+													): ''}
+													{currentState === 'processing' ? (
+														<a onClick={this.updateStatus.bind(this, _id, record.product_id, 'success', xhttp)}>已到货</a>
+													): ''}
 												</div>
 											);
 										}
@@ -109,7 +143,7 @@ export class OrderDetailComponent extends Component {
 								return (
 
 									<TabPane key={'tab_' + sheet_index} tab={sheet.product_type}>
-										<Table columns={columns} dataSource={sheet.data[sheet_index]} scroll={{ x: 1300 }} pagination={false}></Table>
+										<Table columns={columns} dataSource={sheet.data} pagination={false}></Table>
 									</TabPane>
 								);
 							})}

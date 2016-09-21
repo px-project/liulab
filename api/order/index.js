@@ -44,14 +44,17 @@ _router.post('/', (req, res) => {
 
     let newData = {
         order_id,
-        products,
         user_id,
+        products,
     };
 
     // 添加初始状态
-    newData.products.map((sheet) => {
+    newData.products.map((sheet, index) => {
 
-        sheet.data.map((data) => {
+        sheet.data.map((data, _index) => {
+
+            data.product_id = newData.order_id + '_' + index + '_' + _index;
+
             data.progress = data.progress || [];
             data.progress.push({
                 status: 'pending',
@@ -70,20 +73,60 @@ _router.post('/', (req, res) => {
 // 修改订单
 _router.patch('/:order_id', (req, res) => {
     let {order_id} = req.params;
+    let newOrderData = req.body;
+
+
     // 当前订单
     orderModelActions.detail(order_id, {}, (result) => {
 
     });
 });
 
-// 审核
-_router.patch('/:order_id/check', (req, res) => {
+
+// 修改状态
+_router.patch('/:order_id/status', (req ,res) => {
     let {order_id} = req.params;
+    let {newStatus, product_id} = req.body;
 
-    orderModelActions.detail
+    let sheetIndex = Number(product_id.split('_')[1]);
+    let dataIndex = Number(product_id.split('_')[2]);
+
+    orderModelActions.detail(order_id, {}, (result) => {
+
+        let currentProduct = result.products[sheetIndex].data[dataIndex];
+        let status = currentProduct.progress[currentProduct.progress.length - 1].status;
+
+        let statusArr = ['pending', 'pended', 'failed', 'processing', 'success', 'cancel'];
+
+        newStatusIndex = statusArr.indexOf(newStatus);
+        statusIndex = statusArr.indexOf(status);
+        console.log(statusIndex, newStatusIndex);
+
+        if (statusIndex == 0 && (newStatusIndex == 1 || newStatusIndex == 2)) {
+            // 审核
+            genProgress();
+        } else if (statusIndex === 1 && newStatusIndex === 3) {
+            // 订货
+            genProgress();
+        } else if (statusIndex ===3 && newStatusIndex === 4) {
+            // 到货
+            genProgress();
+        } else {
+            res.json({error: '当前状态错误'});
+        }
+
+        orderModelActions.update(order_id, {products: result.products}, (_result) => {
+            res.json(xres({CODE: 0}, result));
+        });
+
+        function genProgress () {
+            currentProduct.progress.push({
+                status: newStatus,
+                time: new Date()
+            });
+        }
+    });
 });
-
-//
 
 
 module.exports = _router;

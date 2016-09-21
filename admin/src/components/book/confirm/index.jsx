@@ -60,7 +60,7 @@ export class ConfirmComponent extends Component {
 
 						return (
 							<TabPane key={'tab_' + index} tab={sheet.product_type}>
-								<Table columns={columns} dataSource={sheet.data[index]} scroll={{ x: 1300 }} pagination={false}></Table>
+								<Table columns={columns} dataSource={sheet.data} scroll={{ x: 1300 }} pagination={false}></Table>
 							</TabPane>
 						);
 					})
