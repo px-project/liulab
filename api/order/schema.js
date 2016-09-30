@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const db = require('../common/db');
 
-const OrderSchema = new Schema({
+module.exports = new Schema({
     user_id: Schema.Types.ObjectId, // 用户ID
     order_id: {
         type: String
@@ -20,7 +20,3 @@ const OrderSchema = new Schema({
         default: false
     }
 });
-
-const OrderModel = mongoose.model('order', OrderSchema);
-
-module.exports = OrderModel;

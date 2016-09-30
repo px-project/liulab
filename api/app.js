@@ -13,6 +13,9 @@ const cors = require('cors');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// connect db
+require('./common/db');
+
 
 // 默认端口：9000
 app.set('PORT', process.env.PORT || 9000);

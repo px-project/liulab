@@ -3,10 +3,8 @@
  */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const db = require('../common/db');
-const AgentModel = require('../agent/model');
 
-const ProductSchema = new Schema({
+module.exports = new Schema({
     code: String, // 货号
     name: String, // 名称
     vender: String, // 厂家
@@ -30,7 +28,3 @@ const ProductSchema = new Schema({
         default: false
     }
 });
-
-const ProductModel = mongoose.model('product', ProductSchema);
-
-module.exports = ProductModel;

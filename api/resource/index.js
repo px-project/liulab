@@ -4,7 +4,7 @@
 
 const express = require('express');
 const _router = express.Router();
-const resourceActions = require('./actions');
+const resourceModel = require('../common/xmodel')('resource');
 const xlsx = require('xlsx');
 const multer = require('multer');
 const upload = multer({ dest: './uploads/' });
@@ -16,7 +16,7 @@ const xres = require('../common/xres');
 // 获取资源
 _router.get('/:resource_id', (req, res) => {
     let { resource_id } = req.params;
-    resourceActions.detail(resource_id, {}, (result) => {
+    resourceModel.detail(resource_id, {}, (result) => {
         if (result.type === 'json') {
             res.json(xres({ CODE: 0 }, result));
         }

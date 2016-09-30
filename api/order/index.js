@@ -3,7 +3,7 @@
  */
 const express = require('express');
 const _router = express.Router();
-const orderModelActions = require('./actions');
+const orderModel = require('../common/xmodel')('order');
 const xres = require('../common/xres');
 const async = require('async');
 const fs = require('fs');
@@ -15,12 +15,12 @@ _router.get('/:order_id?', (req, res) => {
     let { order_id } = req.params;
     if (!order_id) {
         // list
-        orderModelActions.list({}, (result) => {
+        orderModel.list({}, (result) => {
             res.json(xres({CODE: 0}, result));
         });
     } else {
         // detail
-        orderModelActions.detail(order_id, {}, (result)=> {
+        orderModel.detail(order_id, {}, (result)=> {
             res.json(xres({CODE: 0}, result));
         });
     }
@@ -64,7 +64,7 @@ _router.post('/', (req, res) => {
     });
 
 
-    orderModelActions.create(newData, (result) => {
+    orderModel.create(newData, (result) => {
         res.json(xres({CODE: 0}, result));
     });
 });
@@ -77,7 +77,7 @@ _router.patch('/:order_id', (req, res) => {
 
 
     // 当前订单
-    orderModelActions.detail(order_id, {}, (result) => {
+    orderModel.detail(order_id, {}, (result) => {
 
     });
 });
@@ -91,7 +91,7 @@ _router.patch('/:order_id/status', (req ,res) => {
     let sheetIndex = Number(product_id.split('_')[1]);
     let dataIndex = Number(product_id.split('_')[2]);
 
-    orderModelActions.detail(order_id, {}, (result) => {
+    orderModel.detail(order_id, {}, (result) => {
 
         let currentProduct = result.products[sheetIndex].data[dataIndex];
         let status = currentProduct.progress[currentProduct.progress.length - 1].status;
@@ -100,7 +100,6 @@ _router.patch('/:order_id/status', (req ,res) => {
 
         newStatusIndex = statusArr.indexOf(newStatus);
         statusIndex = statusArr.indexOf(status);
-        console.log(statusIndex, newStatusIndex);
 
         if (statusIndex == 0 && (newStatusIndex == 1 || newStatusIndex == 2)) {
             // 审核
@@ -115,7 +114,7 @@ _router.patch('/:order_id/status', (req ,res) => {
             res.json({error: '当前状态错误'});
         }
 
-        orderModelActions.update(order_id, {products: result.products}, (_result) => {
+        orderModel.update(order_id, {products: result.products}, (_result) => {
             res.json(xres({CODE: 0}, result));
         });
 

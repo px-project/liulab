@@ -3,9 +3,8 @@
  */
 const express = require('express');
 const _router = express.Router();
-const productModelActions = require('./actions');
+const productModel = require('../common/xmodel')('product');
 const xres = require('../common/xres');
-const AgentModel = require('../agent/model');
 const async = require('async');
 
 // 产品列表/详情
@@ -13,7 +12,7 @@ _router.get('/:product_id?', (req, res) => {
     let { product_id } = req.params;
     if (!product_id) {
         // list
-        productModelActions.list({}, (result) => {
+        productModel.list({}, (result) => {
             let resData = result.map((product) => {
                 return {
                     _id: product._id,
@@ -31,7 +30,7 @@ _router.get('/:product_id?', (req, res) => {
         });
     } else {
         // detail
-        productModelActions.detail(product_id, {populateKeys: ['order']}, (result) => {
+        productModel.detail(product_id, {populateKeys: ['order']}, (result) => {
             let resData = {
                 _id: result._id,
                 code: product.code,
@@ -55,7 +54,7 @@ _router.get('/:product_id?', (req, res) => {
 
 //     async.waterfall([
 //         (cb) => {
-//             productModelActions.detail(_id, {}, (result) => {
+//             productModel.detail(_id, {}, (result) => {
 //                 if (!result) {
 //                     cb();
 //                     return;
@@ -64,7 +63,7 @@ _router.get('/:product_id?', (req, res) => {
 //             })
 //         },
 //         (cb) => {
-//             productModelActions.create(newData, (result) => {
+//             productModel.create(newData, (result) => {
 //                 let resData = {
 //                     _id: result._id,
 //                     name: result.name,

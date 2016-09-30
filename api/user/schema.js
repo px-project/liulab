@@ -3,9 +3,8 @@
  */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const db = require('../common/db');
 
-const UserSchema = new Schema({
+module.exports = new Schema({
     username: String,               // 登录账号
     password: String,               // 登录密码
     name: String,                   // 申请人
@@ -24,7 +23,3 @@ const UserSchema = new Schema({
         default: false
     }
 });
-
-const UserModel = mongoose.model('user', UserSchema);
-
-module.exports = UserModel;

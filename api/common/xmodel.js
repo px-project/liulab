@@ -1,14 +1,18 @@
 /**
  * 模型通用操作
  */
+const mongoose = require('mongoose');
+const utils = require('./utils');
 const LIMIT = 20;
 
+module.exports = function(modelName) {
+    let schema = require(`../${modelName}/schema`);
+    let model = mongoose.model(utils.toCancel(false, modelName), schema);
 
-module.exports = function(Model) {
     return {
         list: (options = {}, cb) => {
             let { populateKeys = [], where = {}, skip = 0, limit = LIMIT } = options;
-            Model.find(where)
+            model.find(where)
                 .skip(skip)
                 .limit(limit)
                 .populate(populateKeys.join(' '))
@@ -21,7 +25,7 @@ module.exports = function(Model) {
         detail: (_id, options, cb) => {
             options.populateKeys = options.populateKeys || [];
 
-            Model.findOne({ _id })
+            model.findOne({ _id })
                 .populate(options.populateKeys.join(' '))
                 .exec((err, result) => {
                     if (err) throw err;
@@ -30,7 +34,7 @@ module.exports = function(Model) {
         },
 
         create: (newData, cb) => {
-            new Model(newData).save((err, result) => {
+            new model(newData).save((err, result) => {
                 if (err) throw err;
                 cb(result);
             });
@@ -39,7 +43,7 @@ module.exports = function(Model) {
         update: (_id, newData, cb) => {
             newData.$set = newData.$set || {};
             newData.$set.update_time = Date.now();
-            Model.update({ _id }, newData, (err) => {
+            model.update({ _id }, newData, (err) => {
                 if (err) throw err;
                 cb({ update_time: newData.$set.update_time });
             });
@@ -47,7 +51,7 @@ module.exports = function(Model) {
 
         delete: (_id, cb) => {
             let newData = { $set: { isDeleted: false, update_time: Date.now() } };
-            Model.update({ _id }, newData, (err, result) => {
+            model.update({ _id }, newData, (err, result) => {
                 if (err) throw err;
                 cb({ update_time: Date.now() });
             });

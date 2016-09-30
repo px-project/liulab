@@ -3,19 +3,18 @@
  */
 const express = require('express');
 const _router = express.Router();
-const agentModelActions = require('./actions');
-const productModelActions = require('../product/actions');
+const agentModel = require('../common/xmodel')('agent');
+const productModel = require('../common/xmodel')('product');
 const xres = require('../common/xres');
-const ProductModel = require('../product/model');
 const async = require('async');
-const AgentModel = require('../agent/model');
+
 
 // 代理商列表/详情
 _router.get('/:agent_id?', (req, res) => {
     let { agent_id } = req.params;
     if (!agent_id) {
         // list
-        agentModelActions.list({}, (result) => {
+        agentmodel.list({}, (result) => {
             let resData = result.map((item) => {
                 return {
                     _id: item._id,
@@ -44,7 +43,7 @@ _router.post('/', (req, res) => {
     let { name, linkman, phone, address } = req.body;
     let newData = { name, linkman, phone, address };
 
-    agentModelActions.create(newData, (result) => {
+    agentmodel.create(newData, (result) => {
         let resData = {
             _id: result._id,
             name: result.name,
@@ -64,7 +63,7 @@ _router.patch('/', (req, res) => {
     let newData = {
         $set: { _id, name, linkman, phone, address }
     };
-    agentModelActions.update(_id, newData, (result) => {
+    agentmodel.update(_id, newData, (result) => {
         let resData = {
             _id: result._id,
             name: result.name,
@@ -90,11 +89,11 @@ _router.post('/:agent_id/product', (req, res) => {
     let { product_id, name, vender, specification, price } = req.body;
 
     async.waterfall([
-        (cb) => {
-            productModelActions.detail(product_id, {}, (result) => {
+        (Mb) => {
+            productModel.detail(product_id, {}, (result) => {
                 if (!result) {
-                    // 不存在此产品，创建
-                    productModelActions.create({ _id: product_id, name, vender, specification }, (result) => {
+                    // 不M在此产品，创建
+                    productModel.create({ _id: product_id, name, vender, specification }, (result) => {
                         cb(null, result._id);
                     });
                 } else {
@@ -103,7 +102,7 @@ _router.post('/:agent_id/product', (req, res) => {
             });
         },
         (product_id, cb) => {
-            agentModelActions.detail(agent_id, {}, (agent) => {
+            agentModel.detail(agent_id, {}, (agent) => {
                 // 查看当前代理是否已经存在改产品
                 let newProductList = agent.products;
                 let hasProd = false;
@@ -119,7 +118,7 @@ _router.post('/:agent_id/product', (req, res) => {
             });
         },
         (newProductList, cb) => {
-            agentModelActions.update(agent_id, { $set: { products: newProductList } }, () => {
+            agentModel.update(agent_id, { $set: { products: newProductList } }, () => {
                 cb(null);
             })
         },
@@ -151,7 +150,7 @@ _router.delete('/:agent_id/product', (req, rews) => {
 
 // 获取代理产品列表
 function getAgentProductList(agent_id, cb) {
-    agentModelActions.detail(agent_id, { populateKeys: ['products.product'] }, (result) => {
+    agentModel.detail(agent_id, { populateKeys: ['products.product'] }, (result) => {
         let resData = {
             _id: result._id,
             name: result.name,

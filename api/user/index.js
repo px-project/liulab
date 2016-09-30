@@ -3,7 +3,7 @@
  */
 const express = require('express');
 const _router = express.Router();
-const UserModelActions = require('./actions');
+const userModel = require('../common/xmodel')('user');
 const xres = require('../common/xres');
 const utils = require('../common/utils');
 
@@ -12,7 +12,7 @@ _router.get('/:user_id?', (req, res) => {
     let { user_id } = req.params;
     if (!user_id) {
         // list
-        UserModelActions.list({}, (result) => {
+        userModel.list({}, (result) => {
             let resData = result.map((item) => {
                 return {
                     _id: item._id,
@@ -30,7 +30,7 @@ _router.get('/:user_id?', (req, res) => {
 
     } else {
         // detail
-        UserModelActions.detail(user_id, {}, (result) => {
+        userModel.detail(user_id, {}, (result) => {
             let resData = {
                 _id: result._id,
                 username: result.username,
@@ -55,7 +55,7 @@ _router.post('/', (req, res) => {
         password: utils.md5(password),
         role_id
     };
-    UserModelActions.create(newData, (result) => {
+    userModel.create(newData, (result) => {
         let resData = {
             _id: result._id,
             create_time: result.create_time
@@ -68,16 +68,16 @@ _router.post('/', (req, res) => {
 // 用户登录
 _router.post('/login', (req, res) => {
     let { username, password } = req.body;
-    UserModelActions.list({where: {username}}, (result) => {
+    userModel.list({ where: { username } }, (result) => {
         // 不存在此用户
         if (!result.length) {
-            res.json(xres({CODE: '此用户不存在'}));
+            res.json(xres({ CODE: '此用户不存在' }));
             return;
         }
 
         // 密码不正确
         if (result[0].password !== utils.md5(password)) {
-            res.json(xres({CODE: '密码错误'}));
+            res.json(xres({ CODE: '密码错误' }));
             return;
         }
 
@@ -94,7 +94,7 @@ _router.post('/login', (req, res) => {
             update_time: result[0].update_time
         };
 
-        res.json(xres({CODE: 0}, resData));
+        res.json(xres({ CODE: 0 }, resData));
     });
 });
 
@@ -103,7 +103,7 @@ _router.post('/login', (req, res) => {
 _router.get('/logout', (req, res) => {
     req.session = null;
 
-    res.send(xres({CODE: 0}));
+    res.send(xres({ CODE: 0 }));
 });
 
 
