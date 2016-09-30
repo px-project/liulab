@@ -1,12 +1,7 @@
 /**
  * 代理模型
  */
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const db = require('../common/db');
-const ProductModel = require('../product/model');
-
-const agentSchema = new Schema({
+module.exports = {
     name: String, // 名称
     linkman: String, // 联系人
     phone: String, // 联系电话
@@ -35,8 +30,4 @@ const agentSchema = new Schema({
         type: Boolean,
         default: false
     }
-});
-
-const AgentModel = mongoose.model('agent', agentSchema);
-
-module.exports = AgentModel;
+};

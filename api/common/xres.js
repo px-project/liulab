@@ -5,7 +5,7 @@
 module.exports = function (code, data) {
     let result = {};
 
-    if (code.CODE === 0) {
+    if (code.code === 0) {
         result.success = true;
         result.result = data;
     } else {

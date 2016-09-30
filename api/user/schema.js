@@ -1,10 +1,9 @@
 /**
  * 用户模型
  */
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const Schema = require('mongoose').Schema;
 
-module.exports = new Schema({
+module.exports = {
     username: String,               // 登录账号
     password: String,               // 登录密码
     name: String,                   // 申请人
@@ -22,4 +21,4 @@ module.exports = new Schema({
         type: Boolean,
         default: false
     }
-});
+};

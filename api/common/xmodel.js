@@ -6,7 +6,7 @@ const utils = require('./utils');
 const LIMIT = 20;
 
 module.exports = function(modelName) {
-    let schema = require(`../${modelName}/schema`);
+    let schema = new mongoose.Schema(require(`../${modelName}/schema`));
     let model = mongoose.model(utils.toCancel(false, modelName), schema);
 
     return {

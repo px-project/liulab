@@ -6,49 +6,28 @@ const _router = express.Router();
 const productModel = require('../common/xmodel')('product');
 const xres = require('../common/xres');
 const async = require('async');
+const xfilter = require('../common/xfilter');
 
-// 产品列表/详情
-_router.get('/:product_id?', (req, res) => {
-    let { product_id } = req.params;
-    if (!product_id) {
-        // list
-        productModel.list({}, (result) => {
-            let resData = result.map((product) => {
-                return {
-                    _id: product._id,
-                    code: product.code,
-                    name: product.name,
-                    vender: product.vender,
-                    specification: product.specification,
-                    agent: product.agent,
-                    price: product.price,
-                    create_time: product.create_time,
-                    update_time: product.update_time
-                };
+module.exports = _router
+    // 产品列表/详情
+    .get('/:product_id?', (req, res) => {
+        let { product_id } = req.params;
+        if (!product_id) {
+            // list
+            productModel.list({}, (result) => {
+                res.json(xres({ code: 0 }, xfilter(result, '_id', 'code', 'name', 'vender', 'specification', 'create_time', 'update_time')));
             });
-            res.json(xres({ CODE: 0 }, resData));
-        });
-    } else {
-        // detail
-        productModel.detail(product_id, {populateKeys: ['order']}, (result) => {
-            let resData = {
-                _id: result._id,
-                code: product.code,
-                name: result.name,
-                vender: item.vender,
-                specification: result.specification,
-                create_time: result.create_time,
-                update_time: result.update_time
-            };
-
-            res.json(xres({ CODE: 0 }, result));
-        });
-    }
-});
+        } else {
+            // detail
+            productModel.detail(product_id, { populateKeys: ['order'] }, (result) => {
+                res.json(xres({ code: 0 }, xfilter(result, '_id', 'code', 'name', 'vender', 'specification', 'create_time', 'update_time')));
+            });
+        }
+    });
 
 
 // 创建产品
-// _router.post('/', (req, res) => {
+// .post('/', (req, res) => {
 //     let { _id, name, vender, specification } = req.body;
 //     let newData = { _id, name, vender, specification };
 
@@ -59,7 +38,7 @@ _router.get('/:product_id?', (req, res) => {
 //                     cb();
 //                     return;
 //                 }
-//                 res.json(xres({ CODE: 0 }, { "mes": "已存在" }));
+//                 res.json(xres({ code: 0 }, { "mes": "已存在" }));
 //             })
 //         },
 //         (cb) => {
@@ -73,11 +52,10 @@ _router.get('/:product_id?', (req, res) => {
 //                     // update_time: result.update_time
 //                 };
 
-//                 res.json(xres({ CODE: 0 }, resData));
+//                 res.json(xres({ code: 0 }, resData));
 //             });
 //         }
 //     ], (err) => {})
 // });
 
 
-module.exports = _router;

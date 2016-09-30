@@ -1,10 +1,7 @@
 /**
  * 产品模型
  */
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
-module.exports = new Schema({
+module.exports = {
     code: String, // 货号
     name: String, // 名称
     vender: String, // 厂家
@@ -27,4 +24,4 @@ module.exports = new Schema({
         type: Boolean,
         default: false
     }
-});
+};

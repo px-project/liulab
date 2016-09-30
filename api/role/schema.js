@@ -1,11 +1,7 @@
 /**
  * 角色模型
  */
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const db = require('../common/db');
-
-const RoleSchema = new Schema({
+module.exports = {
     name: String,               // 名称
     permission: String,         // 权限
     create_time: {              // 创建时间
@@ -20,8 +16,4 @@ const RoleSchema = new Schema({
         type: Boolean,
         default: false
     }
-});
-
-const RoleModel = mongoose.model('role', RoleSchema);
-
-module.exports = RoleModel;
+};

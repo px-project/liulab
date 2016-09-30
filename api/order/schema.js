@@ -1,11 +1,9 @@
 /**
  * 订单模型
  */
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const db = require('../common/db');
+const Schema = require('mongoose').Schema;
 
-module.exports = new Schema({
+module.exports = {
     user_id: Schema.Types.ObjectId, // 用户ID
     order_id: {
         type: String
@@ -19,4 +17,4 @@ module.exports = new Schema({
         type: Boolean,
         default: false
     }
-});
+};

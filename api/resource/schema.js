@@ -1,11 +1,7 @@
 /**
  * 资源模型
  */
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const db = require('../common/db');
-
-const resourceSchema = new Schema({
+module.exports = {
     data: Object,
     type: String,
     create_time: { // 创建时间
@@ -20,8 +16,4 @@ const resourceSchema = new Schema({
         type: Boolean,
         default: false
     }
-});
-
-const ResourceModel = mongoose.model('resource', resourceSchema);
-
-module.exports = ResourceModel;
+};
