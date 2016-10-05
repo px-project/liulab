@@ -3,5 +3,10 @@
         "DB_HOST": "139.129.29.110",
         "DB_PORT": "27017",
         "DB_NAME": "liulab"
+    },
+    "redis": {
+        "DB_HOST": "139.129.29.110",
+        "DB_PORT": "6379",
+        "DB_NAME": "liulab"
     }
 }

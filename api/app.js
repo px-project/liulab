@@ -6,6 +6,7 @@ const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const redis = require('redis');
 const redisStore = require('connect-redis')(session);
 const cors = require('cors');
 
@@ -24,7 +25,7 @@ app.set('PORT', process.env.PORT || 9000);
 // session
 app.use(session({
 	secret: 'liulab',
-	store: new redisStore(),
+	store: new redisStore({client: require('./common/redis')}),
 	cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 }  // 7days
 }));
 
@@ -32,13 +33,17 @@ app.use(session({
 // 跨域支持
 app.use(cors());
 
+
+// 认证登录状态
+app.use(require('./common/xauth'));
+
+
 // 路由
 app.use('/', require('./routes/'));
 
 
 // 静态文件
 app.use(express.static(path.join(__dirname, './asset/')));
-
 
 
 // 启动服务

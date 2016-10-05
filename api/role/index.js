@@ -39,12 +39,16 @@ module.exports = _router
 
 
     // 更新角色
-    .patch('/', (req, res) => {
-
+    .patch('/:role_id', (req, res) => {
+        let {role_id} = req.params;
+        
     })
 
 
     // 删除角色
-    .delete('/', (req, res) => {
-
+    .delete('/:role_id', (req, res) => {
+        let {role_id} = req.params;
+        roleModel.delete(role_id, (result) => {
+            
+        })
     });

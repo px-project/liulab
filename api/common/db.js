@@ -13,7 +13,7 @@ const db = mongoose.connect(dbUrl);
 
 // 错误判断
 mongoose.connection.on('error', (err) => {
-    console.error(err)
+    console.error(err);
 });
 
 module.exports = db;

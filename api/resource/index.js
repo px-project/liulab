@@ -4,7 +4,7 @@
 
 const express = require('express');
 const _router = express.Router();
-const resourceModel = require('../common/xmodel')('resource');
+const templateModel = require('../common/xmodel')('template');
 const xlsx = require('xlsx');
 const multer = require('multer');
 const upload = multer({ dest: './uploads/' });
@@ -14,20 +14,6 @@ const xres = require('../common/xres');
 
 
 module.exports = _router
-
-
-    // 获取资源
-    .get('/:resource_id', (req, res) => {
-        let { resource_id } = req.params;
-        resourceModel.detail(resource_id, {}, (result) => {
-            if (result.type === 'json') {
-                res.json(xres({ code: 0 }, result));
-            }
-            // if (result.type === '') {
-
-            // }
-        });
-    })
 
     // 上传资源
     .post('/', upload.single('file'), (req, res) => {

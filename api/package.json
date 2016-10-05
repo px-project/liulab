@@ -16,6 +16,7 @@
     "express-session": "^1.14.1",
     "mongoose": "^4.5.8",
     "mongoose-deep-populate": "^3.0.0",
+    "redis": "^2.6.2",
     "xlsx": "^0.8.0"
   },
   "devDependencies": {

@@ -20,7 +20,9 @@ module.exports = (tarData, ...keys) => {
 function filter (obj, ...keys) {
     let result = {};
     for (let index in keys) {
-        result[keys[index]] = obj[keys[index]];
+        let key = keys[index];
+        let value = obj[keys[index]];
+        if (value) result[key] = value;
     }
     return result;
 }
