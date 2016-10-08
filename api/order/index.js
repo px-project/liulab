@@ -7,24 +7,51 @@ const xres = require('../common/xres');
 const async = require('async');
 const fs = require('fs');
 const path = require('path');
+const xfilter = require('../common/xfilter');
+
+const statusArr = ['pending', 'pended', 'failed', 'processing', 'success', 'cancel'];
 
 module.exports = _router
 
 
     // 订单列表/详情
-    .get('/:order_id?', (req, res) => {
-        let { order_id } = req.params;
-        if (!order_id) {
-            // list
-            orderModel.list({}, (result) => {
-                res.json(xres({ code: 0 }, result));
+    .get('/', (req, res) => {
+        orderModel.list({}, (result) => {
+            result.map((order, index) => {
+
+                // init total
+                let total = order.total = {};
+                statusArr.forEach((status, index) => {
+                    total[status] = 0;
+                });
+
+                let product_type = [];
+                order.products.map((product_group) => {
+                    // product_type array
+                    product_type.push(product_group.product_type);
+
+                    // handle total
+                    product_group.data.map((product) => {
+                        let progress = product.progress;
+                        total[progress[progress.length - 1].status]++;
+                    });
+                });
+
+                order.product_type = product_type;
             });
-        } else {
-            // detail
-            orderModel.detail(order_id, {}, (result) => {
-                res.json(xres({ code: 0 }, result));
-            });
-        }
+
+
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'order_id', 'user_id', 'total', 'product_type', 'create_time', 'update_time')));
+        });
+    })
+
+
+    // 订单详情
+    .get('/:order_id', (req ,res) => {
+        let {order_id} = req.params;
+        orderModel.detail(order_id, {}, (result) => {
+            res.json(xres({code: 0}, xfilter(result, '_id', 'order_id', 'user_id', 'products', 'create_time', 'update_time')));
+        });
     })
 
 
@@ -96,8 +123,6 @@ module.exports = _router
 
             let currentProduct = result.products[sheetIndex].data[dataIndex];
             let status = currentProduct.progress[currentProduct.progress.length - 1].status;
-
-            let statusArr = ['pending', 'pended', 'failed', 'processing', 'success', 'cancel'];
 
             newStatusIndex = statusArr.indexOf(newStatus);
             statusIndex = statusArr.indexOf(status);

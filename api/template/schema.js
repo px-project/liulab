@@ -3,6 +3,7 @@
  */
 module.exports = {
     name: String,           // 产品类型
+    user_id: String,        // 添加用户
     template: Object,       // 产品模板
     create_time: {          // 创建时间
         type: Date,

@@ -12,7 +12,7 @@ module.exports = _router
     .get('/', (req, res) => {
         let condition = {};
         templateModel.list(condition, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'user_id', 'create_time', 'update_time')));
         });
     })
 
@@ -21,7 +21,7 @@ module.exports = _router
     .get('/:template_id', (req, res) => {
         let {template_id} = req.params;
         templateModel.detail(template_id, {}, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'template', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'user_id', 'template', 'create_time', 'update_time')));
         });
     })
 
@@ -48,7 +48,7 @@ module.exports = _router
     })
 
 
-    // 删除 
+    // 删除
     .delete('/:template_id', (req, res) => {
         let {template_id} = req.params;
 

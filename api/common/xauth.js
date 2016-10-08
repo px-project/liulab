@@ -12,8 +12,6 @@ module.exports = (req, res, next) => {
         return;
     }
 
-    console.log(req.session.online)
-
     // 未登录
     if (!req.session.online) {
         res.json(xres({code: 6000}));
