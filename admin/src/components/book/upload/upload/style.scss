@@ -1,0 +1,34 @@
+.download {
+	border-bottom: 1px solid #eee;
+	padding: 2rem 0;
+	margin-bottom: 2rem;
+	text-align: center;
+}
+
+.upload {
+	width: 30rem;
+	margin: 0 auto;
+	border: 2px dashed #eee;
+	text-align: center;
+	overflow: hidden;
+	i[type="upload"] {
+		font-size: 2rem;
+		font-weight: bolder;
+		line-height: 4rem;
+	}
+	.main {
+		font-size: 0.8rem;
+		line-height: 2rem;
+	}
+	.describe {
+		font-size: 0.6rem;
+		line-height: 1.5rem;
+		color: red;
+	}
+	input[type="file"] {
+		display: block;
+		opacity: 0;
+		width: 100%;
+		height: 100%;
+	}
+}

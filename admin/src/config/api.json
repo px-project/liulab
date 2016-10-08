@@ -15,5 +15,8 @@
     "order": "/order",
     "orderStatus": "/order/{order_id}/status",
 
-    "resource": "/resource"
+    "resource": "/resource",
+
+    "template": "/template",
+    "templateDownload": "/template/download"
 }

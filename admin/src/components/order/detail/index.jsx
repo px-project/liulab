@@ -16,7 +16,7 @@ export class OrderDetailComponent extends Component {
 		let {entities} = this.props;
 		let orderData = entities[_id];
 
-		if (!orderData) {
+		if (!orderData || !orderData.products) {
 			this.props.xhttp({
 				action: 'list',
 				api: 'user'

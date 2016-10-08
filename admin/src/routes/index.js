@@ -7,6 +7,7 @@ import * as containers from '../containers/';
 import * as components from '../components/';
 import routes from '../config/routes.json';
 import { createHistory } from 'history';
+import {toCamcel} from '../utils/';
 const history = useRouterHistory(createHistory)({ basename: window.location.origin + '/' });
 
 export default class Routes extends Component {
@@ -22,8 +23,8 @@ export default class Routes extends Component {
                     {
                         routes.map((topLevel, index) => {
                             return (
-                                <Route path={topLevel.path} key={index} component={containers[this.toCamelCase([topLevel.path, 'app'])]}>
-                                    <IndexRoute component={components[this.toCamelCase([topLevel.path, 'component'])]} {...this.props}/>
+                                <Route path={topLevel.path} key={index} component={containers[toCamcel(true, topLevel.path, 'app')]}>
+                                    <IndexRoute component={components[toCamcel(true, topLevel.path, 'component')]} {...this.props}/>
                                     {
                                         topLevel.children ? topLevel.children.map((child, index) => {
                                             return (
@@ -39,10 +40,4 @@ export default class Routes extends Component {
             </Router>
         );
     }
-
-    // 字符串数组转驼峰
-    toCamelCase(strArr) {
-        return strArr.map((item) => item.charAt(0).toUpperCase() + item.substr(1)).join('');
-    }
-
 }

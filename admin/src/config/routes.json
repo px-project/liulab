@@ -5,7 +5,24 @@
     },
     {
         "path": "book",
-        "name": "预订"
+        "name": "预订",
+        "children": [
+            {
+                "path": "",
+                "componentName": "BookComponent",
+                "name": "预定"
+            },
+            {
+                "path": "upload",
+                "componentName": "BookUploadComponent",
+                "name": "批量预定"
+            },
+            {
+                "path": "select",
+                "componentName": "BookSelectComponent",
+                "name": "指定预定"
+            }
+        ]
     },
     {
         "path": "order",
@@ -36,6 +53,27 @@
                 "path": ":user_id/edit",
                 "componentName": "UserDetailComponent",
                 "name": "编辑用户"
+            }
+        ]
+    },
+    {
+        "path": "template",
+        "name": "模板",
+        "children": [
+            {
+                "path": "add",
+                "componentName": "TemplateAddComponent",
+                "name": "新模板"
+            },
+            {
+                "path": ":template_id",
+                "componentName": "TemplateDetailComponent",
+                "name": "模板详情"
+            },
+            {
+                "path": ":template_id/edit",
+                "componentName": "TemplateEditComponent",
+                "name": "编辑模板"
             }
         ]
     }

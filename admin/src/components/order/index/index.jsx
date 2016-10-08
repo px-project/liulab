@@ -58,9 +58,9 @@ export class OrderComponent extends Component  {
 					return (
 						<div>
 							{
-								entities[record].products.map((prod)=> {
+								entities[record].product_type.map((type)=> {
 									return (
-										<span className="prod-type">{prod.product_type}</span>
+										<span className="prod-type">{type}</span>
 									);
 								})
 							}
@@ -74,6 +74,32 @@ export class OrderComponent extends Component  {
 				render: (text, record, index) => {
 					let currentUser = entities[entities[record].user_id];
 					return currentUser.name || currentUser.username || '-';
+				}
+			},
+			{
+				title: '进度',
+				render: (text, record, index) => {
+					let progress = [];
+
+					let total = entities[record].total;
+
+
+					for (let status in total) {
+						progress.push({
+							status: status,
+							num: total[status]
+						});
+					}
+
+					return (
+						<div>
+							{
+								progress.map((p) => {
+									return (<span>{consts.ORDER_STATUS[p.status]}({p.num})</span>);
+								})
+							}
+						</div>
+					);
 				}
 			},
 			{

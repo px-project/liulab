@@ -11,24 +11,25 @@ import './style.scss';
 
 class Login extends Component {
 
-	handleSubmit(xhttp, e) {
+	handleSubmit(props, e) {
 		e.preventDefault();
-		xhttp({
+		props.xhttp({
 			action: 'create',
 			api: 'userLogin',
 			data: {
 				username: 'admin',
 				password: 'admin'
 			}
+		}, () => {
+			props.history.pushState(null, '/index');
 		});
-		// console.log('收到表单值：', this.props.form.getFieldsValue());
 	}
 
 	render() {
 	    const { getFieldProps } = this.props.form;
 		return (
 			<div>
-		    	<Form inline onSubmit={this.handleSubmit.bind(this, this.props.xhttp)}>
+		    	<Form inline onSubmit={this.handleSubmit.bind(this, this.props)}>
 		    		<FormItem label="账户">
 		        		<Input placeholder="请输入账户名" {...getFieldProps('userName')} defaultValue="admin"/>
 		        	</FormItem>

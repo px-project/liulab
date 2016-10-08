@@ -2,4 +2,9 @@
  * 订购界面使用常量
  */
 
-export const BOOK_CHANGE_STATE = 'BOOK_CHANGE_STATE';
+// 选择索引
+export const BOOK_SELECT_INDEX = 'BOOK_SELECT_INDEX';
+
+// 订购模块状态
+export const BOOK_PAGE_STATE = 'BOOK_PAGE_STATE';
+

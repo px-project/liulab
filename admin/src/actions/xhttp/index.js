@@ -32,8 +32,11 @@ function handleNetErr(err) {
 }
 
 // 业务逻辑错误
-function handleBusinessErr(err) {
-    console.error(err);
+function handleBusinessErr(result) {
+    // 未登录
+    if (result.error.code) {
+        window.location.href = '/login';
+    }
 }
 
 // 处理URL
@@ -81,7 +84,7 @@ function handleUrl(api, params, conditions) {
  *       -- reload： 是否覆盖store中原有数据
  *       -- data: body 部分
  */
-export function xhttp(options) {
+export function xhttp(options, cb) {
     let { action = 'list', api = '', params = [], conditions = {}, reload = false, data = {} } = options;
 
     // api必备
@@ -107,7 +110,8 @@ export function xhttp(options) {
         // fetch配置
         let fetchOption = {
             method: toggleMethod[action],
-            headers: {}
+            headers: {},
+            credentials: 'include'
         };
 
         // body
@@ -130,10 +134,11 @@ export function xhttp(options) {
             .then(json => {
                 if (json.success) {
                     dispatch(receiveFetchData(options, json.result));
+                    if (cb) cb(json);
                 }
-                // else {
-                // handleBusinessErr(json.error);
-                // }
+                else {
+                    handleBusinessErr(json);
+                }
             })
             // .catch(err => {
             // handleNetErr(err);
