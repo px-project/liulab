@@ -20,7 +20,6 @@ export class BookUploadSelectComponent extends Component {
 	render () {
 		let {template, entities, changeBookState, bookPageState} = this.props;
 		let {productTypeIndex} = bookPageState;
-		console.log(productTypeIndex.indexOf(true));
 		return (
 			<div className="upload-select">
 				<div className="select">

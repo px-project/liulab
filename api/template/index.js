@@ -5,6 +5,12 @@ const _router = require('express').Router();
 const templateModel = require('../common/xmodel')('template');
 const xres = require('../common/xres');
 const xfilter = require('../common/xfilter');
+const async = require('async');
+const utils = require('../common/utils');
+const multer = require('multer');
+const upload = multer({ dest: './uploads/' });
+const fs = require('fs');
+
 
 module.exports = _router
 
@@ -55,4 +61,55 @@ module.exports = _router
         templateModel.delete(template_id, (result) => {
             res.json(xres({ code: 0 }));
         });
-    });
+    })
+
+    // 解析模板文件
+    .post('/upload', upload.single('file'), (req, res) => {
+        let result = utils.decodeXlsx(req.file.path);
+
+        // 删除文件
+        fs.unlink(req.file.path, () => {
+            res.json(xres({ code: 0 }, result));
+        });
+    })
+
+
+    // 下载模板文件
+    .post('/download', (req, res) => {
+        let {templates} = req.body;
+
+        let queue = [];
+
+        templates.map((template_id) => {
+            queue.push((cb) => {
+                templateModel.detail(template_id, {}, (result) => {
+                    cb(null, result);
+                });
+            });
+        });
+
+        async.series(queue, (err, result) => {
+            let templateData = {};
+
+            result.forEach((item) => {
+                templateData[item.name] = item.template.map((schema) => [schema.field]);
+            });
+
+            utils.encodeXlsx(templateData);
+        });
+    })
+
+
+/**
+ * 模板文件
+ * {
+ *      "product_type": [
+ *          {
+ *              "field": "颜色",
+ *              "type": "string",
+ *              "value": ["111", "222", "333", "444"]
+ *          }
+ *      ]
+ * }
+ * 
+ */

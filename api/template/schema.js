@@ -18,3 +18,13 @@ module.exports = {
         default: false
     }
 };
+
+
+
+/**
+ * 模板数据
+ * [
+ *      {field: '字段1', type: 'string'},
+ *      {field: '字段2', type: 'select', value: [{}]
+ * ]
+ */
