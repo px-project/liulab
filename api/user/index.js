@@ -56,6 +56,19 @@ module.exports = _router
     })
 
 
+    // 当前登录用户信息
+    .get('/current', (req, res) => {
+        let user_id = req.session.user_id;
+        userModel.detail(user_id, {}, (result) => {
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'username', 'role_id', 'name', 'phone', 'create_time', 'update_time')));
+        });
+    })
+
+    // 获取当前session状态
+    .get('/status', (req, res) => {
+        res.json(xres({ code: 0 }));
+    })
+
     // 用户详情
     .get('/:user_id', (req, res) => {
         let {user_id} = req.params;
@@ -69,12 +82,13 @@ module.exports = _router
     .post('/', (req, res) => {
         let { username, password, role_id } = req.body;
 
-        userModel.list({ username }, (result) => {
+        userModel.list({ where: {username} }, (result) => {
+            console.log(username);
             if (result.length) {
                 res.json(xres({ code: 6004 }));
                 return;
             }
-            
+
             let newData = {
                 username,
                 password: utils.md5(password),

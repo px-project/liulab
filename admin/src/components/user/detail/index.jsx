@@ -7,7 +7,7 @@ import {Form, Button, Input, Select} from 'antd';
 let FormItem = Form.Item;
 let Option = Select.Option;
 
-export class UserDetailComponent extends Component  {
+class UserDetailForm extends Component  {
 	componentWillMount () {
 		this.props.xhttp({
 			action: 'list',
@@ -15,12 +15,21 @@ export class UserDetailComponent extends Component  {
 		})
 	}
 
-	handleSubmit () {
-
+	handleSubmit (props, e) {
+		 e.preventDefault();
+	    console.log('Received values of form:', props.form.getFieldsValue());
+	    props.xhttp({
+	    	action: 'create',
+	    	api: 'user',
+	    	data: props.form.getFieldsValue()
+	    }, () => {
+			props.history.pushState(null, '/user');
+	    });
 	}
 
     render () {
     	let {entities, role} = this.props;
+	    const { getFieldDecorator } = this.props.form;
 		let formItemLayout = {
 			labelCol: {span: 2, offset: 6},
 			wrapperCol: {span: 6},
@@ -28,11 +37,17 @@ export class UserDetailComponent extends Component  {
 		};
 		return (
 			<div>
-				<Form onSubmit={this.handleSubmit}>
+				<Form onSubmit={this.handleSubmit.bind(this, this.props)}>
 					<FormItem label="姓名" {...formItemLayout}>
-						<Input required></Input>
+					{
+						getFieldDecorator('name', { initialValue: '' })(
+							<Input required></Input>
+						)
+					}
 					</FormItem>
 					<FormItem label="角色" {...formItemLayout}>
+
+					{getFieldDecorator('role', { rules: [{ required: true, message: '请选择角色' }]})(
 						<Select>
 							{
 								role.items.map((item, index) => {
@@ -42,18 +57,35 @@ export class UserDetailComponent extends Component  {
 								})
 							}
 						</Select>
+					)}
 					</FormItem>
 					<FormItem label="账号" {...formItemLayout}>
-						<Input required></Input>
+					{
+						getFieldDecorator('username', { initialValue: '' })(
+							<Input required></Input>
+						)
+					}
 					</FormItem>
 					<FormItem label="密码" {...formItemLayout}>
-						<Input required></Input>
+					{
+						getFieldDecorator('password', { initialValue: '' })(
+							<Input type="password" required></Input>
+						)
+					}
 					</FormItem>
 					<FormItem label="确认密码" {...formItemLayout}>
-						<Input required></Input>
+					{
+						getFieldDecorator('password', { initialValue: '' })(
+							<Input type="password" required></Input>
+						)
+					}
 					</FormItem>
 					<FormItem label="联系方式" {...formItemLayout}>
-						<Input required></Input>
+					{
+						getFieldDecorator('phone', { initialValue: '' })(
+							<Input required></Input>
+						)
+					}
 					</FormItem>
 					<FormItem wrapperCol={{ span: 16, offset: 8 }} style={{ marginTop: 15 }}>
 						<Button type="primary" htmlType="submit">确定</Button>
@@ -63,3 +95,5 @@ export class UserDetailComponent extends Component  {
 		)
     }
 }
+
+export const UserDetailComponent = Form.create()(UserDetailForm);

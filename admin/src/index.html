@@ -17,12 +17,6 @@
     <script type="text/javascript">
         var userId = localStorage.getItem('userId');
         var href = location.href;
-
-        console.log(userId, href);
-
-        if (href !== '/login' && !userId) href = '/login';
-        if (href === '/login' && userId) href = '/index';
-
     </script>
 </head>
 

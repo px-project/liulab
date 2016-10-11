@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <%= htmlWebpackPlugin.options.title %>
+    </title>
+    <link href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #eee;
+        }
+
+        #login {
+            position: absolute;
+            width: 400px;
+            left: 50%;
+            margin-left: -200px;
+            top: 30%;
+            background: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="login">
+        <div class="ui form">
+            <div class="field">
+                <div class="ui left icon input username">
+                    <i class="user icon"></i>
+                    <input type="text" placeholder="请输入账号">
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui left icon input password">
+                    <i class="lock icon"></i>
+                    <input type="password" placeholder="请输入密码">
+                </div>
+            </div>
+            <button id="submit" class="ui fluid large primary submit button">登录</button>
+        </div>
+    </div>
+    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+    <script>
+        $('#submit').on('click', function (e) {
+
+            var loginData = initLoginData(['username', 'password']);
+
+            // 非空验证
+            if (!validateEmpty(loginData, ['username', 'password'])) return;
+
+            $(this).html('登录中').attr('disabled', 'disabled');
+            $.post(window.server + '/auth/login', function (data) {
+            });
+        });
+
+        function initLoginData (fields) {
+            let result = {};
+            fields.forEach((field) => {
+                result[field] = $('.' + field + ' input').val();
+            });
+            return result;
+        }
+
+
+        function validateEmpty (data, fields) {
+            let result = true;
+            fields.forEach(function (field) {
+                if (!data[field]) {
+                    $('.' + field).addClass('error');
+                    result = false;
+                }
+            });
+            return result;
+        }
+    </script>
+</body>
+
+</html>

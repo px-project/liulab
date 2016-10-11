@@ -2,7 +2,6 @@
     "server": "http://localhost:9000",
 
     "user": "/user",
-    "userLogin": "/user/login",
     "userLogout": "/user/logout",
 
     "agent": "/agent",

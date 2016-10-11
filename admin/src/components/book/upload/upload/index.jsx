@@ -9,7 +9,15 @@ const apiConfig = require('../../../../config/api.json');
 export class BookUploadUploadComponent extends Component {
 
 	componentWillMount() {
-
+		this.props.template.items.filter((item, index) => this.props.bookPageState.productTypeIndex[index])
+			.forEach((_id) => {
+				this.props.xhttp({
+					action: 'detail',
+					api: 'template',
+					reload: true,
+					params: [_id]
+				});
+			});
 	}
 
 	// 获取模板
@@ -20,12 +28,6 @@ export class BookUploadUploadComponent extends Component {
         let templates = template.items.filter((item, index) => productTypeIndex[index]);
 
 		return apiConfig.server + apiConfig.templateDownload + '/' + templates.join(',');
-
-		// xhttp({
-		// 	action: 'detail',
-		// 	api: 'templateDownload',
-		// 	data: {templates}
-		// });
 	}
 
 	// 上传excel

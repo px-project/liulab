@@ -9,7 +9,7 @@ module.exports = {
     entry: {
         'polyfills': './src/polyfills.js',
         'vendor': './src/vendor.js',
-        'app': './src/app.js'        
+        'app': './src/app.js'
     },
 
     output: {
@@ -33,13 +33,21 @@ module.exports = {
     plugins: [
         // html替换
         new htmlWebpackPlugin({
-            title: "admin",
+            title: "liulab",
+            filename: 'index.html',
             template: './src/index.html',
             chunksSortMode: 'auto'
         }),
 
+        new htmlWebpackPlugin({
+            title: "登录",
+            filename: 'login.html',
+            template: './src/login.html',
+            chunksSortMode: 'auto',
+            excludeChunks: ['app', 'vendor', 'polyfills']
+        }),
 
-        // 代码分离                                                                                                                               
+        // 代码分离
         new webpack.optimize.CommonsChunkPlugin({
             name: ['app', 'vendor', 'polyfills']
         }),

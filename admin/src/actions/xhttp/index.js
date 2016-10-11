@@ -33,10 +33,6 @@ function handleNetErr(err) {
 
 // 业务逻辑错误
 function handleBusinessErr(result) {
-    // 未登录
-    if (result.error.code) {
-        window.location.href = '/login';
-    }
 }
 
 // 处理URL

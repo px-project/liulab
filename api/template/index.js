@@ -18,52 +18,34 @@ module.exports = _router
 
     // 解析模板文件
     .post('/upload', upload.single('file'), (req, res) => {
+        getMultiTemplateDetail(req.query.template_id, (templates) => {
+            let excelData = utils.decodeXlsx(req.file.path);
+
+            // 
+            templates.map((tpl, tplIndex) => {
+
+            });
+
+            
+        })
+
+
         let result = utils.decodeXlsx(req.file.path);
 
-        let resData = {};
-
         for (let sheetName in result) {
-            let sheetData = result[sheetName];
-            
-            let resSheet = resData[sheetName] = [];
-
-            sheetData
-                // 忽略第二行
-                .filter((item, index) => index !== 1)
-                
-                .forEach((rowData, row, data) => {
-                    if (row === 0) return; 
-                    rowData.forEach((colData, col) => {
-                        resSheet[row - 1] = resSheet[row - 1] || {};
-                        resSheet[row - 1][data[0][col]] = colData || '';
-                    }); 
-                });
+            result[sheetName] = result[sheetName].filter((item, index) => index > 1);
         }
 
         // 删除文件
         fs.unlink(req.file.path, () => {
-            res.json(xres({ code: 0 }, {_id: new Date().getTime(), result: result, resData}));
+            res.json(xres({ code: 0 }, { _id: new Date().getTime(), result }));
         });
     })
 
 
     // 下载模板文件
     .get('/download', (req, res) => {
-        let {template_id} = req.query;
-
-        if (typeof template_id === 'string') template_id = [template_id];
-
-        let queue = [];
-
-        template_id.map((id) => {
-            queue.push((cb) => {
-                templateModel.detail(id, {}, (result) => {
-                    cb(null, result);
-                });
-            });
-        });
-
-        async.series(queue, (err, result) => {
+        getMultiTemplateDetail(req.query.template_id, (result) => {
             let templateData = {};
 
             result.forEach((item) => {
@@ -77,7 +59,6 @@ module.exports = _router
                 // 删除文件
                 fs.unlink(path.join(__dirname, '../uploads/output.xlsx'));
             });
-
         });
     })
 
@@ -144,3 +125,26 @@ module.exports = _router
  * }
  *
  */
+
+
+
+function getMultiTemplateDetail(templates, cb) {
+    if (typeof templates === 'string') templates = [templates];
+
+    let queue = [];
+
+    templates.map((id) => {
+        queue.push((cb) => {
+            templateModel.detail(id, {}, (result) => {
+                cb(null, result);
+            });
+        });
+    });
+
+    async.series(queue, (err, result) => {
+        cb(result);
+    });
+}
+
+
+

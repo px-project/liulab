@@ -59,20 +59,11 @@ module.exports = _router
     .post('/', (req, res) => {
         let {products} = req.body;
         let d = new Date();
-        let order_id = d.getFullYear() + ''
-            + d.getMonth() + ''
-            + d.getDate() + ''
-            + d.getHours() + ''
-            + d.getMinutes() + ''
-            + d.getSeconds() + ''
-            + d.getMilliseconds();
-
-        // todo
-        let user_id = '57c319dc640be57907fb3dd3';
+        let order_id = d.getFullYear() + '' + d.getMonth() + '' + d.getDate() + '';
 
         let newData = {
             order_id,
-            user_id,
+            user_id: req.session.user_id,
             products,
         };
 
@@ -90,6 +81,11 @@ module.exports = _router
                 });
             });
         });
+
+        for (let sheetName in newData.products) {
+
+        }
+
 
 
         orderModel.create(newData, (result) => {

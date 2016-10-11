@@ -14,10 +14,6 @@ export default class Routes extends Component {
     render() {
         return (
             <Router history={history}>
-
-                <Route path="/login" component={containers.LoginApp}>
-
-                </Route>
                 <Route path="/" component={containers.AppContainer}>
                     <IndexRedirect to="/index" />
                     {
