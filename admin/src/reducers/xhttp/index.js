@@ -50,6 +50,7 @@ for (let currentApi in apiConfig) {
                     break;
 
                 case 'create':
+                console.log(newState);
                     // 创建
                     newState.items.push(action.result._id);
                     break;

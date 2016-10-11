@@ -10,9 +10,77 @@ const utils = require('../common/utils');
 const multer = require('multer');
 const upload = multer({ dest: './uploads/' });
 const fs = require('fs');
+const path = require('path');
 
 
 module.exports = _router
+
+
+    // 解析模板文件
+    .post('/upload', upload.single('file'), (req, res) => {
+        let result = utils.decodeXlsx(req.file.path);
+
+        let resData = {};
+
+        for (let sheetName in result) {
+            let sheetData = result[sheetName];
+            
+            let resSheet = resData[sheetName] = [];
+
+            sheetData
+                // 忽略第二行
+                .filter((item, index) => index !== 1)
+                
+                .forEach((rowData, row, data) => {
+                    if (row === 0) return; 
+                    rowData.forEach((colData, col) => {
+                        resSheet[row - 1] = resSheet[row - 1] || {};
+                        resSheet[row - 1][data[0][col]] = colData || '';
+                    }); 
+                });
+        }
+
+        // 删除文件
+        fs.unlink(req.file.path, () => {
+            res.json(xres({ code: 0 }, {_id: new Date().getTime(), result: result, resData}));
+        });
+    })
+
+
+    // 下载模板文件
+    .get('/download', (req, res) => {
+        let {template_id} = req.query;
+
+        if (typeof template_id === 'string') template_id = [template_id];
+
+        let queue = [];
+
+        template_id.map((id) => {
+            queue.push((cb) => {
+                templateModel.detail(id, {}, (result) => {
+                    cb(null, result);
+                });
+            });
+        });
+
+        async.series(queue, (err, result) => {
+            let templateData = {};
+
+            result.forEach((item) => {
+                templateData[item.name] = item.template.map((schema) => [schema.field]);
+            });
+
+            // 生成xlsx
+            utils.encodeXlsx(templateData);
+
+            res.download(path.join(__dirname, '../uploads/output.xlsx'), 'template.xlsx', () => {
+                // 删除文件
+                fs.unlink(path.join(__dirname, '../uploads/output.xlsx'));
+            });
+
+        });
+    })
+
 
     // 列表
     .get('/', (req, res) => {
@@ -63,43 +131,6 @@ module.exports = _router
         });
     })
 
-    // 解析模板文件
-    .post('/upload', upload.single('file'), (req, res) => {
-        let result = utils.decodeXlsx(req.file.path);
-
-        // 删除文件
-        fs.unlink(req.file.path, () => {
-            res.json(xres({ code: 0 }, result));
-        });
-    })
-
-
-    // 下载模板文件
-    .post('/download', (req, res) => {
-        let {templates} = req.body;
-
-        let queue = [];
-
-        templates.map((template_id) => {
-            queue.push((cb) => {
-                templateModel.detail(template_id, {}, (result) => {
-                    cb(null, result);
-                });
-            });
-        });
-
-        async.series(queue, (err, result) => {
-            let templateData = {};
-
-            result.forEach((item) => {
-                templateData[item.name] = item.template.map((schema) => [schema.field]);
-            });
-
-            utils.encodeXlsx(templateData);
-        });
-    })
-
-
 /**
  * 模板文件
  * {
@@ -111,5 +142,5 @@ module.exports = _router
  *          }
  *      ]
  * }
- * 
+ *
  */

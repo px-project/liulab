@@ -23,14 +23,18 @@ export class BookUploadComponent extends Component {
 
 		return (
 			<div className="upload-page">
-				<Steps size="small" current={allState.indexOf(status)}>
-					<Step title="选择产品类型" />
-					<Step title="批量上传文件" />
-					<Step title="预览确认" />
-				</Steps>
-				{status === 'select' ? (<UploadSelect {...this.props}></UploadSelect>) : ''}
-				{status === 'upload' ? (<UploadUpload {...this.props}></UploadUpload>) : ''}
-				{status === 'preview' ? (<UploadPreview {...this.props}></UploadPreview>) : ''}
+				<div className="step">
+					<Steps size="small" current={allState.indexOf(status)}>
+						<Step title="选择产品类型" />
+						<Step title="批量上传文件" />
+						<Step title="预览确认" />
+					</Steps>
+				</div>
+				<div class="page">
+					{status === 'select' ? (<UploadSelect {...this.props}></UploadSelect>) : ''}
+					{status === 'upload' ? (<UploadUpload {...this.props}></UploadUpload>) : ''}
+					{status === 'preview' ? (<UploadPreview {...this.props}></UploadPreview>) : ''}
+				</div>
 			</div>
 		);
 	}
