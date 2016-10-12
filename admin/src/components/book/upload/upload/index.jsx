@@ -36,9 +36,11 @@ export class BookUploadUploadComponent extends Component {
 		let file = e.target.files[0];
 		let reqData = new FormData();
 		reqData.append('file', file);
+		let template_id = props.template.items.filter((item, index) => props.bookPageState.productTypeIndex[index]);
 		xhttp({
 			action: 'create',
 			api: 'templateUpload',
+			params: [template_id],
 			reload: true,
 			data: reqData
 		}, (result) => {

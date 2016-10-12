@@ -8,7 +8,7 @@ module.exports = {
     order_id: {
         type: String
     },
-    products: [],
+    products: {},
     create_time: { // 创建时间
         type: Date,
         default: Date.now

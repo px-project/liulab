@@ -20,13 +20,14 @@ exports.toCancel = (big, ...strs) => {
 
 // 解析xlsx
 exports.decodeXlsx = (filePath) => {
-    let result = {};
+    let result = [];
 
     const workbook = xlsx.readFile(filePath);
+
     workbook.SheetNames
         .filter(k => k[0] !== '!')
-        .forEach((sheetName) => {
-            let sheetResult = result[sheetName] = [];
+        .forEach((sheetName, index) => {
+            let sheetResult = result[index] = result[index] || [];
             let sheetData = workbook.Sheets[sheetName];
 
             for (key in sheetData) {

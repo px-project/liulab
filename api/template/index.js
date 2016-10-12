@@ -17,29 +17,23 @@ module.exports = _router
 
 
     // 解析模板文件
-    .post('/upload', upload.single('file'), (req, res) => {
-        getMultiTemplateDetail(req.query.template_id, (templates) => {
+    .post('/upload/:templates', upload.single('file'), (req, res) => {
+        getMultiTemplateDetail(req.params.templates.split(','), (templates) => {
+
             let excelData = utils.decodeXlsx(req.file.path);
 
-            // 
-            templates.map((tpl, tplIndex) => {
+            let result = {};
 
+            templates.forEach((template, index) => {
+                result[template._id] = excelData[index].filter((item, index) => index > 1);
             });
 
-            
-        })
-
-
-        let result = utils.decodeXlsx(req.file.path);
-
-        for (let sheetName in result) {
-            result[sheetName] = result[sheetName].filter((item, index) => index > 1);
-        }
-
-        // 删除文件
-        fs.unlink(req.file.path, () => {
-            res.json(xres({ code: 0 }, { _id: new Date().getTime(), result }));
+            // 删除文件
+            fs.unlink(req.file.path, () => {
+                res.json(xres({ code: 0 }, { _id: new Date().getTime(), result }));
+            });
         });
+
     })
 
 
@@ -49,7 +43,18 @@ module.exports = _router
             let templateData = {};
 
             result.forEach((item) => {
-                templateData[item.name] = item.template.map((schema) => [schema.field]);
+                templateData[item.name] = item.template.map((schema) => [schema.field, [schema.type].map((type) => {
+                    let result = "";
+
+                    switch (type) {
+                        case 'string':
+                            return '请在下方输入文字';
+                        default:
+                            console.error('type 有误');
+                    }
+
+                    return result;
+                })]);
             });
 
             // 生成xlsx

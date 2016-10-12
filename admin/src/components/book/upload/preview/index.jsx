@@ -8,18 +8,16 @@ const TabPane = Tabs.TabPane;
 
 export class BookUploadPreviewComponent extends Component {
 	// 创建订单
-	createOrder (props, newOrderData, e) {
-		let {xhttp} = props;
-		let newData = {products: {}};
-
-		newOrderData.map((item) => newData.products[item.productType] = item.data);
+	createOrder (props, e) {
+		let {xhttp, templateUpload, entities} = props;
+		let newData = {products: entities[templateUpload.items[templateUpload.items.length - 1]].result};
 
 		xhttp({
 			action: 'create',
 			api: 'order',
 			data: newData
 		}, (result) => {
-			// props.history.pushState(null, '/order/' + result.order_id);
+			props.history.pushState(null, '/order/' + result.order_id);
 		});
 	}
 
@@ -32,41 +30,48 @@ export class BookUploadPreviewComponent extends Component {
 	render () {
 		let {templateUpload, entities} = this.props;
 
-		let {result, field} = entities[templateUpload.items[templateUpload.items.length - 1]];
-		let uploadData = result;
+		let template_ids = this.props.template.items.filter((item, index) => this.props.bookPageState.productTypeIndex[index]);
 
-		let newOrderData = [];
-		for (let productType in uploadData) {
-			newOrderData.push({
-				productType,
-				data: uploadData[productType]
-			});
-		}
+		let {result} = entities[templateUpload.items[templateUpload.items.length - 1]];
 
 		return (
 			<div>
 				{
-					newOrderData.map((item, index) => {
-						let columns = [];
-
-						field[index].map((key, key_index) => {
-							columns.push({
-								title: key,
-								dataIndex: 'A' + key,
-								key: key_index
-							});
-						});
-
+					template_ids.map((template_id, index) => {
 						return (
-							<div key={index}>
-								<h5>{item.productType}</h5>
-								<Table columns={columns} dataSource={item.data}></Table>
+							<div key={index} className="product">
+								<h5>{entities[template_id].name}</h5>
+								<div className="data">
+									<table className="ui table">
+										<thead>
+											<tr><th>序号</th>{entities[template_id].template.map((item) => (<th>{item.field}</th>))}</tr>
+										</thead>
+										<tbody>
+											{
+												result[template_id].map((row, row_index) => {
+													return (
+														<tr>
+															<td>{row_index + 1}</td>
+															{
+																row.map((col) => {
+																	return (<td>{col}</td>);
+																})
+															}
+														</tr>
+													)
+												})
+											}
+										</tbody>
+									</table>
+								</div>
 							</div>
 						);
 					})
 				}
-				<Button type="primary" onClick={this.createOrder.bind(this, this.props, newOrderData)}>确认</Button>
-				<Button type="ghost" onClick={this.reUpload.bind(this, this.props)}>重新上传</Button>
+				<div className="btn-group">
+					<button className="ui primary button" onClick={this.createOrder.bind(this, this.props)}>确认</button>
+					<button className="ui red button" onClick={this.reUpload.bind(this, this.props)}>重新上传</button>
+				</div>
   			</div>
 		);
 	}

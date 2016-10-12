@@ -5,13 +5,13 @@ import apiConfig from '../../config/api.json';
 import * as consts from '../../constants/';
 
 // 发送请求
-function gettingFetchData(action, api, params, condition) {
+function gettingFetchData(action, api, params, conditions) {
     return {
         type: consts.XHTTP_BEGIN,
         action,
         api,
         params,
-        condition
+        conditions
     };
 }
 
@@ -76,7 +76,7 @@ function handleUrl(api, params, conditions) {
  *       -- action: 请求方式：list(default) detail create update delete
  *       -- api:    接口url, 对照config key  必填
  *       -- params: 请求参数，对应config key  中的{:~~~}
- *       -- condition: 查询条件
+ *       -- conditions: 查询条件
  *       -- reload： 是否覆盖store中原有数据
  *       -- data: body 部分
  */
@@ -130,7 +130,7 @@ export function xhttp(options, cb) {
             .then(json => {
                 if (json.success) {
                     dispatch(receiveFetchData(options, json.result));
-                    if (cb) cb(json);
+                    if (cb) cb(json.result);
                 }
                 else {
                     handleBusinessErr(json);

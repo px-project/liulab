@@ -14,7 +14,7 @@ const statusArr = ['pending', 'pended', 'failed', 'processing', 'success', 'canc
 module.exports = _router
 
 
-    // 订单列表/详情
+    // 订单列表
     .get('/', (req, res) => {
         orderModel.list({}, (result) => {
             result.map((order, index) => {
@@ -26,31 +26,30 @@ module.exports = _router
                 });
 
                 let product_type = [];
-                order.products.map((product_group) => {
-                    // product_type array
-                    product_type.push(product_group.product_type);
 
-                    // handle total
-                    product_group.data.map((product) => {
-                        let progress = product.progress;
+                for (let template_id in order.products) {
+                    order.products[template_id].forEach((item) => {
+                        console.log(item)
+                        let meta = item[item.length - 1];
+                        let progress = meta.progress;
                         total[progress[progress.length - 1].status]++;
                     });
-                });
+                }
 
                 order.product_type = product_type;
             });
 
 
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'order_id', 'user_id', 'total', 'product_type', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'order_id', 'user_id', 'total', 'create_time', 'update_time')));
         });
     })
 
 
     // 订单详情
-    .get('/:order_id', (req ,res) => {
+    .get('/:order_id', (req, res) => {
         let {order_id} = req.params;
-        orderModel.detail(order_id, {}, (result) => {
-            res.json(xres({code: 0}, xfilter(result, '_id', 'order_id', 'user_id', 'products', 'create_time', 'update_time')));
+        orderModel.list({order_id}, (result) => {
+            res.json(xres({ code: 0 }, xfilter(result[0], '_id', 'order_id', 'user_id', 'products', 'create_time', 'update_time')));
         });
     })
 
@@ -59,7 +58,7 @@ module.exports = _router
     .post('/', (req, res) => {
         let {products} = req.body;
         let d = new Date();
-        let order_id = d.getFullYear() + '' + d.getMonth() + '' + d.getDate() + '';
+        let order_id = new Date().toISOString().replace(/[-T:Z\.]/g, '').substr(0, 14);
 
         let newData = {
             order_id,
@@ -68,27 +67,24 @@ module.exports = _router
         };
 
         // 添加初始状态
-        newData.products.map((sheet, index) => {
+        for (let template_id in newData.products) {
 
-            sheet.data.map((data, _index) => {
-
-                data.product_id = newData.order_id + '_' + index + '_' + _index;
-
-                data.progress = data.progress || [];
-                data.progress.push({
-                    status: 'pending',
-                    time: d
+            newData.products[template_id].map((rowData, row) => {
+                rowData.push({
+                    product_id: newData.order_id + '_' + template_id + '_' + row,
+                    progress: [
+                        {
+                            status: 'pending',
+                            time: d
+                        }
+                    ]
                 });
+
             });
-        });
-
-        for (let sheetName in newData.products) {
-
         }
 
-
-
         orderModel.create(newData, (result) => {
+            console.log(result);
             res.json(xres({ code: 0 }, result));
         });
     })

@@ -83,7 +83,6 @@ module.exports = _router
         let { username, password, role_id } = req.body;
 
         userModel.list({ where: {username} }, (result) => {
-            console.log(username);
             if (result.length) {
                 res.json(xres({ code: 6004 }));
                 return;

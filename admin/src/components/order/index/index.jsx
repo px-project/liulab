@@ -41,6 +41,7 @@ export class OrderComponent extends Component  {
 				title: '序号',
 				key: 'index',
 				render: (text, record, index) => {
+					console.log(record);
 					return index + 1;
 				}
 			},
@@ -49,23 +50,6 @@ export class OrderComponent extends Component  {
 				key: 'order_id',
 				render: (text, record, index) => {
 					return entities[record].order_id;
-				}
-			},
-			{
-				title: '产品类型',
-				key: 'product_type',
-				render: (text, record, index) => {
-					return (
-						<div>
-							{
-								entities[record].product_type.map((type)=> {
-									return (
-										<span className="prod-type">{type}</span>
-									);
-								})
-							}
-						</div>
-					)
 				}
 			},
 			{
@@ -115,7 +99,7 @@ export class OrderComponent extends Component  {
 				render: (text, record, index) => {
 					return (
 						<div>
-							<Link to={'/order/' + record}>详情</Link>
+							<Link to={'/order/' + entities[record].order_id}>详情</Link>
 						</div>
 					);
 				}
@@ -135,11 +119,11 @@ export class OrderComponent extends Component  {
 				<header className="list-header">
 					<Row justify="end">
 						<Col span={12}>
-							<Button type="primary">下载</Button>
+							<button className="ui button primary">下载</button>
 						</Col>
 					</Row>
 				</header>
-				<Table columns={columns} dataSource={order.items} rowSelection={rowSelection}></Table>
+				<Table className="ui table" columns={columns} dataSource={order.items} rowSelection={rowSelection}></Table>
 			</div>
         );
     }

@@ -85,11 +85,9 @@ export class UserComponent extends Component {
 		return (
 			<div>
 				<header className="list-header">
-					<Row justify="end">
-						<Col span={12}>
-							<Button type="primary"><Link to="/user/add">添加</Link></Button>
-						</Col>
-					</Row>
+					<div>
+						<Link className="ui button primary" to="/user/add">添加</Link>
+					</div>
 				</header>
 				<Table columns={columns} dataSource={user.items}></Table>
 			</div>

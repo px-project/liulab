@@ -32,7 +32,8 @@ export class BookUploadSelectComponent extends Component {
 				}
 				</div>
 				<div className="btn-group">
-					<Button disabled={productTypeIndex.indexOf(true) === -1} type="primary" size="large" onClick={changeBookState.bind(this, 'upload')}>继续</Button>
+					<button className="ui button primary"
+						disabled={productTypeIndex.indexOf(true) === -1} onClick={changeBookState.bind(this, 'upload')}>继续</button>
 				</div>
 			</div>
 		);
