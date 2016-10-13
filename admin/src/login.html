@@ -22,6 +22,9 @@
             padding: 20px;
         }
     </style>
+    <script>
+        window.server = "<%= htmlWebpackPlugin.options.server %>";
+    </script>
 </head>
 
 <body>
@@ -53,7 +56,18 @@
             if (!validateEmpty(loginData, ['username', 'password'])) return;
 
             $(this).html('登录中').attr('disabled', 'disabled');
-            $.post(window.server + '/auth/login', function (data) {
+            $.ajax({
+                method: "POST",
+                url: window.server + '/user/login',
+                data: loginData,
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (result) {
+                    localStorage.setItem('role_id', result.role_id);
+                    localStorage.setItem('user_id', result.user_id);
+                    window.location.href = '/index';
+                }
             });
         });
 

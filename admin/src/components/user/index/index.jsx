@@ -24,72 +24,36 @@ export class UserComponent extends Component {
 	render (){
 		let {user, entities} = this.props;
 
-
-		let columns = [
-			{
-				title: '序号',
-				key: 'index',
-				render: (text,record, index) => {
-					return index + 1;
-				}
-			},
-			{
-				title: '姓名',
-				key: 'name',
-				render: (text, record, index) => {
-					return entities[record].name || '-';
-				}
-			},
-			{
-				title: '电话',
-				key: 'phone',
-				render: (text, record, index) => {
-					return entities[record].phone || '-';
-				}
-			},
-			{
-				title: '账号',
-				key: 'username',
-				render: (text, record, index) => {
-					return entities[record].username || '-';
-				}
-			},
-			{
-				title: '角色',
-				key: 'role',
-				render: (text, record, index) => {
-					// return entities[entities[record].role_id].name || '-';
-					return '-';
-				}
-			},
-			{
-				title: '创建时间',
-				key: 'create_time',
-				render: (text, record, index) => {
-					return moment(entities[record].create_time).format('YYYY-MM-DD hh:mm:ss');
-				}
-			},
-			{
-				title: '操作',
-				ket: 'action',
-				render: (text, record, index) => {
-					return (
-						<div>
-							<Link to={'/user/' + record + '/edit'}>修改</Link>
-							<a href="#">删除</a>
-						</div>
-					)
-				}
-			}
-		];
 		return (
 			<div>
 				<header className="list-header">
-					<div>
-						<Link className="ui button primary" to="/user/add">添加</Link>
-					</div>
+					<Link className="ui button primary" to="/user/add">添加</Link>
 				</header>
-				<Table columns={columns} dataSource={user.items}></Table>
+				<table className="ui table">
+					<thead>
+						<th>序号</th>
+						<th>账号</th>
+						<th>姓名</th>
+						<th>电话</th>
+						<th>创建时间</th>
+						<th>操作</th>
+					</thead>
+					<tbody>
+						{user.items.map((user_id, user_index) => (
+							<tr>
+								<td>{user_index + 1}</td>
+								<td>{entities[user_id].username}</td>
+								<td>{entities[user_id].name || '-'}</td>
+								<td>{entities[user_id].phone || '-'}</td>
+								<td>{moment(entities[user_id].create_time).format('YYYY-MM-DD hh:mm:ss')}</td>
+								<td>
+									<Link to={'/user/' + user_id + '/edit'}>修改</Link>
+									<a href="#">删除</a>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
 			</div>
 		);
 	}

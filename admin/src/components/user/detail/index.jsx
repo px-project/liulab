@@ -17,7 +17,6 @@ class UserDetailForm extends Component  {
 
 	handleSubmit (props, e) {
 		 e.preventDefault();
-	    console.log('Received values of form:', props.form.getFieldsValue());
 	    props.xhttp({
 	    	action: 'create',
 	    	api: 'user',
@@ -88,7 +87,7 @@ class UserDetailForm extends Component  {
 					}
 					</FormItem>
 					<FormItem wrapperCol={{ span: 16, offset: 8 }} style={{ marginTop: 15 }}>
-						<Button type="primary" htmlType="submit">确定</Button>
+						<button className="primary button ui">确定</button>
 					</FormItem>
 				</Form>
 			</div>

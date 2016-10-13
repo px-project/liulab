@@ -4,6 +4,7 @@
 const webpack = require('webpack');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const server = process.env.SERVER;
 
 module.exports = {
     entry: {
@@ -35,6 +36,7 @@ module.exports = {
         new htmlWebpackPlugin({
             title: "liulab",
             filename: 'index.html',
+            server,
             template: './src/index.html',
             chunksSortMode: 'auto'
         }),
@@ -42,6 +44,7 @@ module.exports = {
         new htmlWebpackPlugin({
             title: "登录",
             filename: 'login.html',
+            server,
             template: './src/login.html',
             chunksSortMode: 'auto',
             excludeChunks: ['app', 'vendor', 'polyfills']

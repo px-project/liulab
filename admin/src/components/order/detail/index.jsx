@@ -49,14 +49,14 @@ export class OrderDetailComponent extends Component {
 	}
 
 	// 更新状态
-	updateStatus (order_id, product_id, newStatus, xhttp, e) {
-		xhttp({
+	updateStatus (order_id, token, status, props, e) {
+		props.xhttp({
 			action: 'update',
 			api: 'orderStatus',
 			params: [order_id],
 			data: {
-				newStatus,
-				product_id
+				status,
+				token
 			}
 		});
 	}
@@ -94,34 +94,41 @@ export class OrderDetailComponent extends Component {
 									<thead>
 										<tr>
 											<th>序号</th>
-											{entities[template_id].template.map((tpl, index) => (<th key={index}>{tpl.field}</th>))}
+											{entities[template_id].template.map((tpl, index) => (<th key={index}>{tpl.title}</th>))}
+											<th>状态</th>
 											<th>操作</th>
 										</tr>
 									</thead>
 									<tbody>
-										{orderData.products[template_id].map((rowData, row) => (
-											<tr key={row}>
-												<td>{row + 1}</td>
-												{rowData.filter((item, index) => (index !== rowData.length - 1))
-													.map((colData, col) => (<td key={col}>{colData}</td>))}
-												<td>
-													{rowData[rowData.length - 1].progress[rowData[rowData.length - 1].progress.length - 1] === 'pending' ? (
-														<div>
-															<a onClick={this.updateStatus.bind(this, _id, record.product_id, 'pended', xhttp)}>通过</a>
-															<a onClick={this.updateStatus.bind(this, _id, record.product_id, 'failed', xhttp)}>不通过</a>
-															<a href="#">修改</a>
-															<a onClick={this.updateStatus.bind(this, _id, record.product_id, 'cancel', xhttp)}>取消</a>
-														</div>
-													): ''}
-													{rowData[rowData.length - 1].progress[rowData[rowData.length - 1].progress.length - 1] === 'pended' ? (
-														<a onClick={this.updateStatus.bind(this, _id, record.product_id, 'processing', xhttp)}>已订货</a>
-													): ''}
-													{rowData[rowData.length - 1].progress[rowData[rowData.length - 1].progress.length - 1] === 'processing' ? (
-														<a onClick={this.updateStatus.bind(this, _id, record.product_id, 'success', xhttp)}>已到货</a>
-													): ''}
-												</td>
-											</tr>
-										))}
+										{orderData.products[template_id].map((rowData, row) => {
+											let currentStatus = rowData.progress[rowData.progress.length - 1].status;
+											return (
+												<tr key={row}>
+													<td>{row + 1}</td>
+													{entities[template_id].template.map((template, index) => (<td key={index}>{rowData[template.key]}</td>))}
+													<td>{consts.ORDER_STATUS[currentStatus]}</td>
+													<td>
+														{ currentStatus === 'pending' ? (
+															<div>
+																<a onClick={this.updateStatus.bind(this, order_id, rowData.token, 'pended', this.props)}>通过</a>
+																<a onClick={this.updateStatus.bind(this, order_id, rowData.token, 'failed', this.props)}>不通过</a>
+																<a href="#">修改</a>
+																<a onClick={this.updateStatus.bind(this, order_id, rowData.token, 'cancel', this.props)}>取消</a>
+															</div>
+														): ''}
+														{currentStatus === 'pended' ? (
+															<a onClick={this.updateStatus.bind(this, order_id, rowData.token, 'processing', this.props)}>已订货</a>
+														): ''}
+														{currentStatus === 'processing' ? (
+															<a onClick={this.updateStatus.bind(this, order_id, rowData.token, 'success', this.props)}>已到货</a>
+														): ''}
+														{currentStatus === 'cancel' ? (<p>已取消</p>): ''}
+														{currentStatus === 'cancel' ? (<p>不合格</p>): ''}
+
+													</td>
+												</tr>
+											);
+										})}
 									</tbody>
 								</table>
 							</div>
@@ -136,86 +143,3 @@ export class OrderDetailComponent extends Component {
     }
 }
 
-
-
-
-// <div>
-// 	<h3>商品详情</h3>
-// 	<Tabs defaultActiveKey="tab_0">
-// 		{orderData.products.map((sheet, sheet_index) => {
-// 			let columns = [
-// 				{
-// 					title: '序号',
-// 					render: (text, record, index) => {
-// 						return index + 1;
-// 					}
-// 				},
-// 				{
-// 					title: '货号',
-// 					dataIndex: 'code',
-// 				},
-// 				{
-// 					title: '名称',
-// 					dataIndex: 'name'
-// 				},
-// 				{
-// 					title: '数量',
-// 					dataIndex: 'num'
-// 				},
-// 				{
-// 					title: '单价',
-// 					dataIndex: 'unit_price'
-// 				},
-// 				{
-// 					title: '状态',
-// 					dataIndex: 'progress',
-// 					render: (text, record, index) => {
-// 						let currentState = record.progress[record.progress.length - 1].status;
-// 						return statusStr[currentState];
-// 					}
-// 				},
-// 				{
-// 					title: '更新时间',
-// 					dataIndex: 'update_time',
-// 					render: (text, record, index) => {
-// 						return moment(text).format('YYYY-MM-DD hh:mm:ss');
-// 					}
-
-// 				},
-// 				{
-// 					title: '操作',
-// 					render: (text, record, index) => {
-// 						let currentState = record.progress[record.progress.length - 1].status;
-// 						return (
-// 							<div className="action">
-// 								<a href="#">详情</a>
-// 								{currentState === 'pending' ? (
-// 									<div>
-// 										<a onClick={this.updateStatus.bind(this, _id, record.product_id, 'pended', xhttp)}>通过</a>
-// 										<a onClick={this.updateStatus.bind(this, _id, record.product_id, 'failed', xhttp)}>不通过</a>
-// 										<a href="#">修改</a>
-// 										<a onClick={this.updateStatus.bind(this, _id, record.product_id, 'cancel', xhttp)}>取消</a>
-// 									</div>
-// 								): ''}
-// 								{currentState === 'pended' ? (
-// 									<a onClick={this.updateStatus.bind(this, _id, record.product_id, 'processing', xhttp)}>已订货</a>
-// 								): ''}
-// 								{currentState === 'processing' ? (
-// 									<a onClick={this.updateStatus.bind(this, _id, record.product_id, 'success', xhttp)}>已到货</a>
-// 								): ''}
-// 							</div>
-// 						);
-// 					}
-// 				}
-// 			];
-
-
-// 			return (
-
-// 				<TabPane key={'tab_' + sheet_index} tab={sheet.product_type}>
-// 					<Table columns={columns} dataSource={sheet.data} pagination={false}></Table>
-// 				</TabPane>
-// 			);
-// 		})}
-// 	</Tabs>
-// </div>

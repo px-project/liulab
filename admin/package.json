@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=dev webpack-dev-server",
-    "prod": "NODE_ENV=prod webpack",
+    "dev": "NODE_ENV=dev SERVER='http://localhost:9000' webpack-dev-server",
+    "prod": "NODE_ENV=prod SERVER='http://localhost:9000' webpack",
     "test": "NODE_ENV=test webpack"
   },
   "author": "",

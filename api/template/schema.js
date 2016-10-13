@@ -4,7 +4,7 @@
 module.exports = {
     name: String,           // 产品类型
     user_id: String,        // 添加用户
-    template: Object,       // 产品模板
+    template: [],           // 产品模板
     create_time: {          // 创建时间
         type: Date,
         default: Date.now
@@ -24,7 +24,15 @@ module.exports = {
 /**
  * 模板数据
  * [
- *      {field: '字段1', type: 'string'},
- *      {field: '字段2', type: 'select', value: [{}]
+ *      {title: '字段1', field: 'name', type: 'string'},
+ *      {title: '字段2', field: 'age', type: 'name', value: [{}]
  * ]
+ * 
+ * 
+ * {
+ *      "name": {
+ *          "name": ""
+ *      }
+ *  
+ * }
  */

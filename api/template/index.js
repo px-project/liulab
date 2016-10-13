@@ -25,8 +25,15 @@ module.exports = _router
             let result = {};
 
             templates.forEach((template, index) => {
-                result[template._id] = excelData[index].filter((item, index) => index > 1);
+                result[template._id] = excelData[index].filter((item, index) => index > 1).map((rowData, row) => {
+                    let currentRow = {};
+                    rowData.map((colData, col) => {
+                        currentRow[template.template[col].key] = colData;
+                    });
+                    return currentRow;
+                });
             });
+
 
             // 删除文件
             fs.unlink(req.file.path, () => {
@@ -40,15 +47,27 @@ module.exports = _router
     // 下载模板文件
     .get('/download', (req, res) => {
         getMultiTemplateDetail(req.query.template_id, (result) => {
+            console.log(result)
             let templateData = {};
 
             result.forEach((item) => {
-                templateData[item.name] = item.template.map((schema) => [schema.field, [schema.type].map((type) => {
+
+                templateData[item.name] = item.template.map((schema) => [schema.title, [schema.type].map((type) => {
                     let result = "";
 
                     switch (type) {
                         case 'string':
-                            return '请在下方输入文字';
+                            result += '请在下方输入文字';
+                            break;
+                        
+                        case 'number':
+                            result += '请在下方输入数字';
+                            break;
+
+                        case 'select':
+                            result += '请在下方输入一下选项';
+                            break;
+                        
                         default:
                             console.error('type 有误');
                     }
@@ -56,6 +75,8 @@ module.exports = _router
                     return result;
                 })]);
             });
+
+            console.log(templateData);
 
             // 生成xlsx
             utils.encodeXlsx(templateData);

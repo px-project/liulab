@@ -80,7 +80,7 @@ module.exports = _router
 
     // 创建用户
     .post('/', (req, res) => {
-        let { username, password, role_id } = req.body;
+        let { username, password, role_id, name, phone } = req.body;
 
         userModel.list({ where: {username} }, (result) => {
             if (result.length) {
@@ -91,7 +91,9 @@ module.exports = _router
             let newData = {
                 username,
                 password: utils.md5(password),
-                role_id
+                role_id,
+                name,
+                phone
             };
 
             userModel.create(newData, (result) => {

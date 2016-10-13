@@ -31,99 +31,48 @@ export class OrderComponent extends Component  {
 
 		for (let key in consts.ORDER_STATUS) {
 			toggleStatusFilterArr.push({
-				text: consts.ORDER_STATUS[key],
-				value: consts.ORDER_STATUS[key]
+				key: key,
+				text: consts.ORDER_STATUS[key]
 			});
 		}
-
-		let columns = [
-			{
-				title: '序号',
-				key: 'index',
-				render: (text, record, index) => {
-					console.log(record);
-					return index + 1;
-				}
-			},
-			{
-				title: '订单号',
-				key: 'order_id',
-				render: (text, record, index) => {
-					return entities[record].order_id;
-				}
-			},
-			{
-				title: '订购人',
-				key: 'user_id',
-				render: (text, record, index) => {
-					let currentUser = entities[entities[record].user_id];
-					return currentUser.name || currentUser.username || '-';
-				}
-			},
-			{
-				title: '进度',
-				render: (text, record, index) => {
-					let progress = [];
-
-					let total = entities[record].total;
-
-
-					for (let status in total) {
-						progress.push({
-							status: status,
-							num: total[status]
-						});
-					}
-
-					return (
-						<div>
-							{
-								progress.map((p) => {
-									return (<span>{consts.ORDER_STATUS[p.status]}({p.num})</span>);
-								})
-							}
-						</div>
-					);
-				}
-			},
-			{
-				title: '创建时间',
-				key: 'create_time',
-				render: (text, record, index) => {
-					return moment(entities[record].create_time).format('YYYY-MM-DD hh:mm:ss');
-				}
-			},
-			{
-				title: '操作',
-				ket: 'action',
-				render: (text, record, index) => {
-					return (
-						<div>
-							<Link to={'/order/' + entities[record].order_id}>详情</Link>
-						</div>
-					);
-				}
-			}
-		];
-
-
-		let rowSelection = {
-			// selectedRowKeys,
-			// onChange: this.onSelectChange,
-		};
-
-	    // const hasSelected = selectedRowKeys.length > 0;
 
         return (
 			<div>
 				<header className="list-header">
-					<Row justify="end">
-						<Col span={12}>
-							<button className="ui button primary">下载</button>
-						</Col>
-					</Row>
+					<button className="ui button primary">下载</button>
 				</header>
-				<Table className="ui table" columns={columns} dataSource={order.items} rowSelection={rowSelection}></Table>
+				{!!user.items.length ? (
+					<table className="ui table">
+						<thead>
+							<tr>
+								<th><input type="checkbox"/></th>
+								<th>序号</th>
+								<th>订单号</th>
+								<th>进度</th>
+								<th>订购人</th>
+								<th>创建时间</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							{order.items.map((order_id, index) => (
+								<tr key={index}>
+									<td><input type="checkbox"/></td>
+									<td>{index + 1}</td>
+									<td>{entities[order_id].order_id}</td>
+									<td className="progress">
+										{toggleStatusFilterArr.map((item, index) => (
+											<span className="item" key={index}><span>{item.text}</span><span>({entities[order_id].total[item.key]})</span></span>
+										))}
+									</td>
+									<td>{entities[entities[order_id].user_id].name || entities[entities[order_id].user_id].username}</td>
+									<td>{moment(entities[order_id].create_time).format('YYYY-MM-DD hh:mm:ss')}</td>
+									<td><Link to={'/order/' + entities[order_id].order_id}>详情</Link></td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				): ""}
 			</div>
         );
     }

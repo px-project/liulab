@@ -36,38 +36,33 @@ export class BookUploadPreviewComponent extends Component {
 
 		return (
 			<div>
-				{
-					template_ids.map((template_id, index) => {
-						return (
-							<div key={index} className="product">
-								<h5>{entities[template_id].name}</h5>
-								<div className="data">
-									<table className="ui table">
-										<thead>
-											<tr><th>序号</th>{entities[template_id].template.map((item) => (<th>{item.field}</th>))}</tr>
-										</thead>
-										<tbody>
-											{
-												result[template_id].map((row, row_index) => {
-													return (
-														<tr>
-															<td>{row_index + 1}</td>
-															{
-																row.map((col) => {
-																	return (<td>{col}</td>);
-																})
-															}
-														</tr>
-													)
-												})
-											}
-										</tbody>
-									</table>
-								</div>
-							</div>
-						);
-					})
-				}
+				{template_ids.map((template_id, index) => (
+					<div key={index} className="product">
+						<h5>{entities[template_id].name}</h5>
+						<div className="data">
+							<table className="ui table">
+								<thead>
+									<tr>
+										<th>序号</th>
+										{entities[template_id].template.map((tpl) => (
+											<th>{tpl.title}</th>
+										))}
+									</tr>
+								</thead>
+								<tbody>
+									{result[template_id].map((row, row_index) => (
+										<tr>
+											<td>{row_index + 1}</td>
+											{entities[template_id].template.map((tpl) => (
+												<td>{row[tpl.key]}</td>
+											))}
+										</tr>
+									))}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				))}
 				<div className="btn-group">
 					<button className="ui primary button" onClick={this.createOrder.bind(this, this.props)}>确认</button>
 					<button className="ui red button" onClick={this.reUpload.bind(this, this.props)}>重新上传</button>

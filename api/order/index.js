@@ -13,6 +13,29 @@ const statusArr = ['pending', 'pended', 'failed', 'processing', 'success', 'canc
 
 module.exports = _router
 
+    // 批量下载订单
+    .get('/download', (req, res) => {
+        let orders = req.query.order_id;
+
+        if (typeof orders === 'string') orders = [orders];
+
+        let queue = [];
+
+        orders.map((order_id) => {
+            queue.push((cb) => {
+                orderModel.detail(order_id, {}, (result) => {
+                    cb(null, result);
+                });
+            });
+        });
+
+        async.series(queue, (err, result) => {
+            let excelData = result.map((order, order_index) => {
+
+            });
+        });
+    })
+
 
     // 订单列表
     .get('/', (req, res) => {
@@ -28,11 +51,8 @@ module.exports = _router
                 let product_type = [];
 
                 for (let template_id in order.products) {
-                    order.products[template_id].forEach((item) => {
-                        console.log(item)
-                        let meta = item[item.length - 1];
-                        let progress = meta.progress;
-                        total[progress[progress.length - 1].status]++;
+                    order.products[template_id].forEach((rowData, row) => {
+                        total[rowData.progress[rowData.progress.length - 1].status]++;
                     });
                 }
 
@@ -48,7 +68,7 @@ module.exports = _router
     // 订单详情
     .get('/:order_id', (req, res) => {
         let {order_id} = req.params;
-        orderModel.list({order_id}, (result) => {
+        orderModel.list({ order_id }, (result) => {
             res.json(xres({ code: 0 }, xfilter(result[0], '_id', 'order_id', 'user_id', 'products', 'create_time', 'update_time')));
         });
     })
@@ -70,21 +90,12 @@ module.exports = _router
         for (let template_id in newData.products) {
 
             newData.products[template_id].map((rowData, row) => {
-                rowData.push({
-                    product_id: newData.order_id + '_' + template_id + '_' + row,
-                    progress: [
-                        {
-                            status: 'pending',
-                            time: d
-                        }
-                    ]
-                });
-
+                rowData.token = newData.order_id + '_' + template_id + '_' + row;
+                rowData.progress = [{ status: 'pending', time: d }];
             });
         }
 
         orderModel.create(newData, (result) => {
-            console.log(result);
             res.json(xres({ code: 0 }, result));
         });
     })
@@ -106,39 +117,41 @@ module.exports = _router
     // 修改状态
     .patch('/:order_id/status', (req, res) => {
         let {order_id} = req.params;
-        let {newStatus, product_id} = req.body;
+        let {status, token} = req.body;
 
-        let sheetIndex = Number(product_id.split('_')[1]);
-        let dataIndex = Number(product_id.split('_')[2]);
+        let template_id = token.split('_')[1];
+        let rowIndex = parseInt(token.split('_')[2]);
 
-        orderModel.detail(order_id, {}, (result) => {
+        orderModel.list({order_id}, (orders) => {
+            let order = orders[0];
+            console.log(template_id)
+            console.log(order.products)
+            let currentProduct = order.products[template_id][rowIndex];
+            let currentStatus = currentProduct.progress[currentProduct.progress.length - 1].status;
 
-            let currentProduct = result.products[sheetIndex].data[dataIndex];
-            let status = currentProduct.progress[currentProduct.progress.length - 1].status;
+            let currentStatusIndex = statusArr.indexOf(currentStatus);
+            let newStatusIndex = statusArr.indexOf(status);
 
-            newStatusIndex = statusArr.indexOf(newStatus);
-            statusIndex = statusArr.indexOf(status);
-
-            if (statusIndex == 0 && (newStatusIndex == 1 || newStatusIndex == 2)) {
+            if (currentStatusIndex == 0 && (newStatusIndex == 1 || newStatusIndex == 2)) {
                 // 审核
-                genProgress();
-            } else if (statusIndex === 1 && newStatusIndex === 3) {
+                genProgress(status);
+            } else if (currentStatusIndex === 1 && newStatusIndex === 3) {
                 // 订货
-                genProgress();
-            } else if (statusIndex === 3 && newStatusIndex === 4) {
+                genProgress(status);
+            } else if (currentStatusIndex === 3 && newStatusIndex === 4) {
                 // 到货
-                genProgress();
+                genProgress(status);
             } else {
                 res.json({ error: '当前状态错误' });
             }
 
-            orderModel.update(order_id, { products: result.products }, (_result) => {
-                res.json(xres({ code: 0 }, result));
+            orderModel.update(order._id, { products: order.products }, (_result) => {
+                res.json(xres({ code: 0 }, order));
             });
 
-            function genProgress() {
+            function genProgress(status) {
                 currentProduct.progress.push({
-                    status: newStatus,
+                    status,
                     time: new Date()
                 });
             }
