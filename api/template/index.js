@@ -143,7 +143,7 @@ module.exports = _router
  * {
  *      "product_type": [
  *          {
- *              "field": "颜色",
+ *              "title": "颜色",
  *              "type": "string",
  *              "value": ["111", "222", "333", "444"]
  *          }

@@ -17,7 +17,7 @@ export class BookUploadPreviewComponent extends Component {
 			api: 'order',
 			data: newData
 		}, (result) => {
-			props.history.pushState(null, '/order/' + result.order_id);
+			// props.history.pushState(null, '/order/' + result.order_id);
 		});
 	}
 

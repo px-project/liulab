@@ -1,17 +1,14 @@
 /**
  * 产品模型
  */
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 module.exports = {
-    code: String, // 货号
-    name: String, // 名称
-    vender: String, // 厂家
-    specification: String, // 规格
-    agent: String, // 代理商
-    phone: String, // 联系电话
-    address: String, // 地址
-    linkman: String, // 联系人
-    price: Number, // 价格
-    order: { type: String, ref: 'order' }, // 订单
+    template_id: Schema.Types.ObjectId,     // 模板id
+    hash: String,                           // 数据hash
+    user_id: Schema.Types.ObjectId,         // 创建用户
+    data: Object,                           // 产品数据
     create_time: { // 创建时间
         type: Date,
         default: Date.now

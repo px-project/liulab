@@ -3,11 +3,14 @@
  */
 const _router = require('express').Router();
 const orderModel = require('../common/xmodel')('order');
+const productModel = require('../common/xmodel')('product');
+const templateModel = require('../common/xmodel')('template');
 const xres = require('../common/xres');
 const async = require('async');
 const fs = require('fs');
 const path = require('path');
 const xfilter = require('../common/xfilter');
+const utils = require('../common/utils');
 
 const statusArr = ['pending', 'pended', 'failed', 'processing', 'success', 'cancel'];
 
@@ -21,13 +24,7 @@ module.exports = _router
 
         let queue = [];
 
-        orders.map((order_id) => {
-            queue.push((cb) => {
-                orderModel.detail(order_id, {}, (result) => {
-                    cb(null, result);
-                });
-            });
-        });
+        orders.map((order_id) => queue.push((cb) => orderModel.detail(order_id, {}, (result) => cb(null, result))));
 
         async.series(queue, (err, result) => {
             let excelData = result.map((order, order_index) => {
@@ -97,6 +94,46 @@ module.exports = _router
 
         orderModel.create(newData, (result) => {
             res.json(xres({ code: 0 }, result));
+
+            // init product
+            let templateQueue = [];
+            for (let template_id in newData.products) {
+                templateQueue.push((cb) => templateModel.detail(template_id, {}, (result) => cb(null, result)));
+            }
+
+            async.series(templateQueue, (err, result) => {
+                // 获取模板详情列表
+                let templates = {};
+                result.forEach((item) => templates[item._id] = item.template.map((field) => field.key));
+
+                // 转换产品列表数据
+                let products = [];
+                for (let template_id in templates) {
+                    let product = { template_id, user_id: newData.user_id, hash: '', data: {} };
+                    templates[template_id].forEach((key) => {
+                        newData.products[template_id].forEach((rowData) => {
+                            product.data[key] = rowData[key];
+                        });
+                        product.hash = utils.hash(JSON.stringify(product.data));
+                        products.push(product);
+                    });
+                }
+
+                // 筛选已经存在的产品
+                // let productFilterQueue = products.map((product) => (cb) => {
+                //     productModel.list({ template_id: product.template_id, hash: product.hash }, (result) => {
+                //         cb(null, result.length ? product : null);
+                //     });
+                // });
+
+                // async.series(productFilterQueue, (err, products) => {
+                //     console.log(products);
+                //     products = products.filter((item) => item);
+                //     console.log(products);
+                // });
+
+
+            });
         });
     })
 
@@ -122,10 +159,8 @@ module.exports = _router
         let template_id = token.split('_')[1];
         let rowIndex = parseInt(token.split('_')[2]);
 
-        orderModel.list({order_id}, (orders) => {
+        orderModel.list({ order_id }, (orders) => {
             let order = orders[0];
-            console.log(template_id)
-            console.log(order.products)
             let currentProduct = order.products[template_id][rowIndex];
             let currentStatus = currentProduct.progress[currentProduct.progress.length - 1].status;
 
@@ -158,3 +193,16 @@ module.exports = _router
         });
     });
 
+
+function createProduct(user_id, template_id, data, cb) {
+    let hash = utils.hash(JSON.stringify(data));
+    productModel.list({ template_id, hash }, (products) => {
+        if (!products.length) {
+            productModel.create({ user_id, template_id, hash, data }, (result) => {
+                cb(result);
+            });
+        } else {
+            cb(false);
+        }
+    });
+}

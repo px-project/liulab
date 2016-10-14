@@ -10,6 +10,11 @@ exports.md5 = (tarStr) => {
     return crypto.createHash('md5').update(tarStr).digest('hex');
 };
 
+// 转hash
+exports.hash = (tarStr) => {
+    return crypto.createHash('sha1').update(tarStr).digest('hex');
+};
+
 
 // 转驼峰
 exports.toCancel = (big, ...strs) => {

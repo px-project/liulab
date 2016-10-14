@@ -3,7 +3,6 @@
  */
 import React, {Component} from 'react';
 import {Link} from 'react-router';
-import {Table, Row, Col, Button} from 'antd';
 import moment from 'moment';
 import './style.scss';
 
@@ -31,24 +30,25 @@ export class UserComponent extends Component {
 				</header>
 				<table className="ui table">
 					<thead>
-						<th>序号</th>
-						<th>账号</th>
-						<th>姓名</th>
-						<th>电话</th>
-						<th>创建时间</th>
-						<th>操作</th>
+						<tr>
+							<th>序号</th>
+							<th>账号</th>
+							<th>姓名</th>
+							<th>电话</th>
+							<th>创建时间</th>
+							<th>操作</th>
+						</tr>
 					</thead>
 					<tbody>
 						{user.items.map((user_id, user_index) => (
-							<tr>
+							<tr key={user_index}>
 								<td>{user_index + 1}</td>
 								<td>{entities[user_id].username}</td>
 								<td>{entities[user_id].name || '-'}</td>
 								<td>{entities[user_id].phone || '-'}</td>
 								<td>{moment(entities[user_id].create_time).format('YYYY-MM-DD hh:mm:ss')}</td>
 								<td>
-									<Link to={'/user/' + user_id + '/edit'}>修改</Link>
-									<a href="#">删除</a>
+									<Link to={'/user/' + user_id + '/edit'}>编辑</Link>
 								</td>
 							</tr>
 						))}

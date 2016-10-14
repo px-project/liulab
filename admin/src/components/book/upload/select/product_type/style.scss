@@ -23,10 +23,19 @@
 	.select-icon {
 		opacity: 0;
 		position: absolute;
-		font-size: 1.2rem;
+		font-size: 1.5rem;
 		top: -0.6rem;
-		right: -0.6rem;
+		right: -0.8rem;
 		transition: opacity 0.3s;
+		i {
+			position: relative;
+			height: 100%;
+			&:before{
+				position: absolute;
+				top: -7rem;
+				right: 0;
+			}
+		}
 	}
 
 	&.selected {
