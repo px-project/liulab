@@ -21,6 +21,15 @@ function selectType (index, len) {
 	};
 }
 
+// 选择产品
+function addProductAction (product_id, num) {
+	return {
+		type: consts.BOOK_ADD_PRODUCT,
+		product_id,
+		num
+	}
+}
+
 
 // 选择产品模式下选择模板id
 function selectTypeId (id) {
@@ -49,5 +58,12 @@ export function selectProductType (index, len) {
 export function selectProductId (id) {
 	return function (dispatch) {
 		dispatch(selectTypeId(id));
+	};
+}
+
+// 添加产品
+export function addProduct (product_id, num) {
+	return function (dispatch) {
+		dispatch(addProductAction(product_id, num));
 	};
 }

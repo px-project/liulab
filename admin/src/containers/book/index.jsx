@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {xhttp} from '../../actions/xhttp/';
-import {changeBookState, selectProductType, selectProductId} from '../../actions/book/';
+import {changeBookState, selectProductType, selectProductId, addProduct} from '../../actions/book/';
 
 
 class BookContainer extends Component {
@@ -24,7 +24,8 @@ function mapDispatchToProps (dispatch) {
 		xhttp,
 		changeBookState,
 		selectProductType,
-		selectProductId
+		selectProductId,
+		addProduct
 	}, dispatch);
 }
 

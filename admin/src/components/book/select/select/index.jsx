@@ -13,9 +13,14 @@ export class BookSelectSelectComponent extends Component {
 		// $(this.refs.dropdown.getDOMNode()).dropdown();
 	}
 
-
+	// 变换界面状态
 	changeCurrentPageState(props, status, e) {
 		this.props.changeBookState(status === 'select' ? 'confirm' : 'select');
+	}
+
+	// 添加到购物车
+	addProductTo (props, product_id) {
+		props.addProduct(product_id, 1);
 	}
 
 
@@ -36,7 +41,7 @@ export class BookSelectSelectComponent extends Component {
 		let {template_id} = bookPageState;
 
 		return (
-			<div className="book-select-page">
+			<div className="book-select-select-page">
 				<header className="list-header">
 					<div className="select-product-type">
 						<select className="ui selection dropdown" ref="dropdown" onChange={this.handleChangeTemplate.bind(this, this.props)}>
@@ -66,7 +71,7 @@ export class BookSelectSelectComponent extends Component {
 										))}
 										<td>{entities[product_id].create_user}</td>
 										<td>
-											<a><i className="icon plus"></i></a>
+											<a onClick={this.addProductTo.bind(this, this.props, product_id)}><i className="icon plus"></i></a>
 										</td>
 									</tr>
 								))}
