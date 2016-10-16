@@ -47,10 +47,11 @@ module.exports = _router
     // 下载模板文件
     .get('/download', (req, res) => {
         getMultiTemplateDetail(req.query.template_id, (result) => {
-            console.log(result)
             let templateData = {};
+            let fileName = '';
 
             result.forEach((item) => {
+                fileName += '_' + item.name;
 
                 templateData[item.name] = item.template.map((schema) => [schema.title, [schema.type].map((type) => {
                     let result = "";
@@ -59,7 +60,7 @@ module.exports = _router
                         case 'string':
                             result += '请在下方输入文字';
                             break;
-                        
+
                         case 'number':
                             result += '请在下方输入数字';
                             break;
@@ -67,7 +68,7 @@ module.exports = _router
                         case 'select':
                             result += '请在下方输入一下选项';
                             break;
-                        
+
                         default:
                             console.error('type 有误');
                     }
@@ -76,12 +77,14 @@ module.exports = _router
                 })]);
             });
 
-            console.log(templateData);
-
             // 生成xlsx
             utils.encodeXlsx(templateData);
 
-            res.download(path.join(__dirname, '../uploads/output.xlsx'), 'template.xlsx', () => {
+            // 处理filename
+            fileName = fileName.substr(1) + '.xlsx';
+            fileName.replace(/[\s\,\.]/, '');
+
+            res.download(path.join(__dirname, '../uploads/output.xlsx'), fileName, () => {
                 // 删除文件
                 fs.unlink(path.join(__dirname, '../uploads/output.xlsx'));
             });
@@ -93,7 +96,7 @@ module.exports = _router
     .get('/', (req, res) => {
         let condition = {};
         templateModel.list(condition, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'user_id', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'user_id', 'template', 'create_time', 'update_time')));
         });
     })
 

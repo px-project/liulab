@@ -22,6 +22,14 @@ function selectType (index, len) {
 }
 
 
+// 选择产品模式下选择模板id
+function selectTypeId (id) {
+	return {
+		type: consts.BOOK_SELECT_ID,
+		id
+	};
+}
+
 // 变动上传状态
 export function changeBookState (newState) {
 	return function (dispatch) {
@@ -34,5 +42,12 @@ export function changeBookState (newState) {
 export function selectProductType (index, len) {
 	return function (dispatch) {
 		dispatch(selectType(index, len));
+	};
+}
+
+// 选择id
+export function selectProductId (id) {
+	return function (dispatch) {
+		dispatch(selectTypeId(id));
 	};
 }

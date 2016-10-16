@@ -6,3 +6,4 @@ export * from './user/';
 export * from './agent/';
 export * from './book/';
 export * from './template/';
+export * from './product/';

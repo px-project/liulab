@@ -29,7 +29,7 @@ export class AppContainer extends Component {
 			<div className="container">
 				<Sidebar {...this.props}></Sidebar>
 				<div id="main">
-					<Header></Header>
+					<Header {...this.props}></Header>
 					{this.props.children}
 				</div>
 			</div>

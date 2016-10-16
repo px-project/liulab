@@ -73,9 +73,8 @@ export class OrderDetailComponent extends Component {
         	<div>
 	        	{orderData && user.items.length && template.items.length ? (
     			<div>
-	        		<div className="info">
-	        			<h3>订单信息</h3>
-	        			<div>
+	        		<div className="basic">
+	        			<div className="info">
 	        				<p>订单号：{order_id}</p>
 	        				<p>订购时间：{moment(orderData.create_time).format('YYYY-MM-DD hh:mm:ss')}</p>
 	        				<p>订购人：{entities[orderData.user_id].name
@@ -85,9 +84,8 @@ export class OrderDetailComponent extends Component {
 	        			</div>
 	        		</div>
 	        		<div className="product">
-	        			<h3>商品信息</h3>
 	        			{template.items.map((template_id) => (
-							<div>
+							<div className="product-detail">
 								<h5>{entities[template_id].name}</h5>
 
 								<table className="ui table">

@@ -1,14 +1,13 @@
 /**
- * 订购模块容器
+ * 产品模块容器
  */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {xhttp} from '../../actions/xhttp/';
-import {changeBookState, selectProductType, selectProductId} from '../../actions/book/';
+import {selectTemplateId} from '../../actions/';
 
-
-class BookContainer extends Component {
+class ProductContainer extends Component {
 	render() {
 		return (<div>{React.cloneElement(this.props.children, this.props) }</div>);
 	}
@@ -22,11 +21,9 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
 	return bindActionCreators({
 		xhttp,
-		changeBookState,
-		selectProductType,
-		selectProductId
+		selectTemplateId
 	}, dispatch);
 }
 
 
-export const BookApp = connect(mapStateToProps, mapDispatchToProps)(BookContainer);
+export const ProductApp = connect(mapStateToProps, mapDispatchToProps)(ProductContainer);

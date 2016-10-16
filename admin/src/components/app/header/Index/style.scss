@@ -11,4 +11,17 @@
     border-bottom: 1px solid #eee;
     box-shadow: 4px 0 4px 0 #eee;
     margin-left: 0;
+    overflow: hidden;
+
+
+
+    .user-info {
+        float: right;
+        p {
+            line-height: $header_height;
+            display: inline-block;
+            margin-right: 2rem; 
+        }
+    }
+
 }

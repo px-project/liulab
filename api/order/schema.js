@@ -4,16 +4,19 @@
 const Schema = require('mongoose').Schema;
 
 module.exports = {
-    user_id: Schema.Types.ObjectId, // 用户ID
-    order_id: {
+    user_id: {          // 用户ID
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    order_id: {         // 订单号
         type: String
     },
-    products: {},
-    create_time: { // 创建时间
+    products: {},       // 产品
+    create_time: {      // 创建时间
         type: Date,
         default: Date.now
     },
-    isDeleted: { // 软删除
+    isDeleted: {        // 软删除
         type: Boolean,
         default: false
     }

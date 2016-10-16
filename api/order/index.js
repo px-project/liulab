@@ -36,7 +36,7 @@ module.exports = _router
 
     // 订单列表
     .get('/', (req, res) => {
-        orderModel.list({}, (result) => {
+        orderModel.list({populateKeys: ['user_id']}, (result) => {
             result.map((order, index) => {
 
                 // init total
@@ -54,10 +54,12 @@ module.exports = _router
                 }
 
                 order.product_type = product_type;
+
+                order.create_user = order.user_id.name || order.user_id.username; 
             });
 
 
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'order_id', 'user_id', 'total', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'order_id', 'create_user', 'total', 'create_time', 'update_time')));
         });
     })
 
@@ -108,31 +110,40 @@ module.exports = _router
 
                 // 转换产品列表数据
                 let products = [];
+                let hashs = {};
                 for (let template_id in templates) {
-                    let product = { template_id, user_id: newData.user_id, hash: '', data: {} };
-                    templates[template_id].forEach((key) => {
-                        newData.products[template_id].forEach((rowData) => {
+
+                    newData.products[template_id].forEach((rowData) => {
+                        let product = { template_id, user_id: newData.user_id, hash: '', data: {} };
+
+                        templates[template_id].forEach((key) => {
                             product.data[key] = rowData[key];
                         });
+
                         product.hash = utils.hash(JSON.stringify(product.data));
+                        hashs[product.hash] = false;
                         products.push(product);
                     });
+
                 }
 
-                // 筛选已经存在的产品
-                // let productFilterQueue = products.map((product) => (cb) => {
-                //     productModel.list({ template_id: product.template_id, hash: product.hash }, (result) => {
-                //         cb(null, result.length ? product : null);
-                //     });
-                // });
+                // 筛选重复数据
+                products = products.filter((product) => {
+                    if (!hashs[product.hash]) {
+                        return hashs[product.hash] = true;
+                    } else {
+                        return false;
+                    }
+                });
 
-                // async.series(productFilterQueue, (err, products) => {
-                //     console.log(products);
-                //     products = products.filter((item) => item);
-                //     console.log(products);
-                // });
+                // 保存数据
+                let productQueue = products.map((product) => (cb) => {
+                    productModel.upsert({ template_id: product.template_id, hash: product.hash }, product, (result) => {
+                        cb(null, result);
+                    });
+                });
 
-
+                async.series(productQueue, (err, result) => { });
             });
         });
     })

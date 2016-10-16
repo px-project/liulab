@@ -80,6 +80,8 @@ function handleUrl(api, params, conditions) {
  *       -- reload： 是否覆盖store中原有数据
  *       -- data: body 部分
  */
+
+// xhttp.list(api, params, conditions, reload, cb)
 export function xhttp(options, cb) {
     let { action = 'list', api = '', params = [], conditions = {}, reload = false, data = {} } = options;
 

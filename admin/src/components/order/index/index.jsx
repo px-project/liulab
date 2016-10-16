@@ -11,21 +11,12 @@ import './style.scss';
 export class OrderComponent extends Component  {
 
 	componentWillMount () {
-		this.props.xhttp({
-			action: 'list',
-			api: 'order',
-			reload: true
-		});
-
-		this.props.xhttp({
-			action: 'list',
-			api: 'user',
-			reload: true
-		});
+		let {xhttp} = this.props;
+		this.getOrderList(xhttp);
 	}
 
     render () {
-    	let {entities, order, user} = this.props;
+    	let {entities, order} = this.props;
 
     	let toggleStatusFilterArr = [];
 
@@ -41,7 +32,7 @@ export class OrderComponent extends Component  {
 				<header className="list-header">
 					<button className="ui button primary">下载</button>
 				</header>
-				{!!user.items.length ? (
+				{order.items.length ? (
 					<table className="ui table">
 						<thead>
 							<tr>
@@ -65,7 +56,7 @@ export class OrderComponent extends Component  {
 											<span className="item" key={index}><span>{item.text}</span><span>({entities[order_id].total[item.key]})</span></span>
 										))}
 									</td>
-									<td>{entities[entities[order_id].user_id].name || entities[entities[order_id].user_id].username}</td>
+									<td>{entities[order_id].create_user}</td>
 									<td>{moment(entities[order_id].create_time).format('YYYY-MM-DD hh:mm:ss')}</td>
 									<td><Link to={'/order/' + entities[order_id].order_id}>详情</Link></td>
 								</tr>
@@ -76,4 +67,9 @@ export class OrderComponent extends Component  {
 			</div>
         );
     }
+
+	// 获取订单列表
+	getOrderList (xhttp, conditions = {}) {
+		xhttp({action: 'list', api: 'order', conditions, reload: true});
+	}
 }

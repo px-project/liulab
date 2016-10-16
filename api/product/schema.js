@@ -5,9 +5,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 module.exports = {
-    template_id: Schema.Types.ObjectId,     // 模板id
+    template_id: {     // 模板id
+        type: Schema.Types.ObjectId,
+        ref: 'Template'
+    },
     hash: String,                           // 数据hash
-    user_id: Schema.Types.ObjectId,         // 创建用户
+    user_id:{                               // 创建用户
+         type: Schema.Types.ObjectId,
+         ref: 'User'
+    },
     data: Object,                           // 产品数据
     create_time: { // 创建时间
         type: Date,

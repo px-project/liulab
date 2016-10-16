@@ -5,12 +5,12 @@ const mongoose = require('mongoose');
 const utils = require('./utils');
 const LIMIT = 20;
 
-function handleDbErr (err) {
+function handleDbErr(err) {
     throw err;
 }
 
 
-module.exports = function(modelDirName) {
+module.exports = function (modelDirName) {
     let name = utils.toCancel(true, modelDirName);
 
     let model = null;
@@ -24,7 +24,6 @@ module.exports = function(modelDirName) {
     return {
         list: (options = {}, cb) => {
             let { populateKeys = [], where = {}, skip = 0, limit = LIMIT } = options;
-
 
             model.find(where)
                 .skip(skip)
@@ -60,6 +59,13 @@ module.exports = function(modelDirName) {
             model.update({ _id }, newData, (err) => {
                 if (err) handleDbErr(err);
                 cb({ update_time: newData.$set.update_time });
+            });
+        },
+
+        upsert: (condition, newData, cb) => {
+            model.findOneAndUpdate(condition, newData, { upsert: true }, (err, result) => {
+                if (err) handleDbErr(err);
+                cb(result);
             });
         },
 

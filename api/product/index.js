@@ -13,15 +13,23 @@ const utils = require('../common/utils');
 module.exports = _router
     // 获取产品列表
     .get('/', (req, res) => {
-        productModel.list({}, (result) => {
-            res.json(xres({code: 0}, xfilter(result, '_id', 'template_id', 'user_id', 'create_time', 'update_time')));
+        productModel.list({populateKeys: ['user_id', 'template_id']}, (result) => {
+            result.forEach((item) => {
+                item.create_user = item.user_id.name || item.user_id.username;
+                item.user_id = item.user_id._id;
+            });
+
+            // console.log(result);
+            res.json(xres({code: 0}, xfilter(result, '_id', 'template_id','user_id', 'create_user', 'data', 'create_time', 'update_time')));
         });
     })
 
     // 产品详情
     .get('/:product_id', (req, res) => {
-        productModel.detail(req.params.product_id, {}, (result) => {
-            res.json(xres({code: 0}, xfilter(result, '_id', 'template_id', 'user_id', 'data', 'create_time', 'update_time')));
+        productModel.detail(req.params.product_id, {populateKeys: ['user_id']}, (result) => {
+            result.create_user = result.user_id.name || item.user_id.username;
+            result.user_id = result.user_id._id,
+            res.json(xres({code: 0}, xfilter(result, '_id', 'template_id', 'user_id', 'create_user', 'data', 'create_time', 'update_time')));
         });
     })
 

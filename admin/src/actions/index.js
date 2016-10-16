@@ -1,2 +1,3 @@
 export * from './xhttp/';
-export * from './upload/';
+export * from './book/';
+export * from './product/';

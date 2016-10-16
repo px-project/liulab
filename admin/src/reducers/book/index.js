@@ -37,11 +37,22 @@ function selectProductType (state = [], action) {
 	}
 }
 
+function selectProductId (state = '', action) {
+	switch (action.type) {
+		case consts.BOOK_SELECT_ID:
+			return action.id;
+
+		default:
+			return state;
+	}
+}
+
+
 
 const BookReducers = combineReducers({
 	pageState: bookPageStateReducer,
-	productTypeIndex: selectProductType
-
+	productTypeIndex: selectProductType,
+	template_id: selectProductId
 });
 
 

@@ -14,7 +14,8 @@ module.exports = _router
 
         let { username, password } = req.body;
 
-        userModel.list({ where: { username } }, (result) => {
+        userModel.list({ where: { username }, populateKeys: ['role'] }, (result) => {
+            console.log(result);
 
             // 不存在此用户
             if (!result.length) {
@@ -33,9 +34,12 @@ module.exports = _router
 
             req.session.online = true;
             req.session.user_id = user._id;
-            req.session.role_id = user.role_id;
+            req.session.user_permission = user.role.permission;
 
-            res.json(xres({ code: 0 }, xfilter(user, '_id', 'username', 'role_id', 'name', 'phone', 'create_time', 'update_time')));
+            user.permission = user.role.permission;
+            user.role_name = user.role.name;
+
+            res.json(xres({ code: 0 }, xfilter(user, '_id', 'username', 'role_name', 'permission', 'name', 'phone', 'create_time', 'update_time')));
         });
     })
 

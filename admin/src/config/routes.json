@@ -36,6 +36,27 @@
         ]
     },
     {
+        "path": "product",
+        "name": "产品",
+        "children": [
+            {
+                "path": "add",
+                "componentName": "ProductAddComponent",
+                "name": "新产品"
+            },
+            {
+                "path": ":product_id",
+                "componentName": "ProductDetailComponent",
+                "name": "产品详情"
+            },
+            {
+                "path": ":product_id/edit",
+                "componentName": "ProductEditComponent",
+                "name": "编辑产品"
+            }
+        ]
+    },
+    {
         "path": "user",
         "name": "用户",
         "children": [
