@@ -5,7 +5,6 @@ import React, {Component} from 'react';
 import {ListHeader} from '../../common/list_header/';
 import {Link} from 'react-router';
 import {Card, Row, Col} from 'antd';
-import moment from 'moment';
 import './style.scss';
 
 

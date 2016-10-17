@@ -51,7 +51,7 @@ export class ProductComponent extends Component {
                                         ))}
                                         <td>{entities[product_id].create_user}</td>
                                         <td>
-                                            <Link to={`/product/${product_id}`}>编辑</Link>
+                                            <Link to={`/product/${product_id}/edit`}>编辑</Link>
                                             <a href="#">删除</a>
                                         </td>
                                     </tr>

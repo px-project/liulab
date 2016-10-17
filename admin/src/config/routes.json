@@ -97,5 +97,26 @@
                 "name": "编辑模板"
             }
         ]
+    },
+    {
+        "path": "role",
+        "name": "角色",
+        "children": [
+            {
+                "path": "add",
+                "componentName": "RoleEditComponent",
+                "name": "新角色"
+            },
+            {
+                "path": ":role_id",
+                "componentName": "RoleDetailComponent",
+                "name": "角色详情"
+            },
+            {
+                "path": ":role_id/edit",
+                "componentName": "RoleEditComponent",
+                "name": "编辑角色"
+            }
+        ]
     }
 ]

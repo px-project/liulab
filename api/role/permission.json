@@ -1,0 +1,38 @@
+{
+    "modules": {
+        "book": {"name": "订购产品", "allow": false},
+        "order": {"name": "订单管理", "allow": false},
+        "product": {"name": "产品管理", "allow": false},
+        "user": {"name": "用户管理", "allow": false},
+        "template": {"name": "模板管理", "allow": false},
+        "role": {"name": "权限管理", "allow": false}
+    },
+    "book": {},
+    "order": {
+        "create": {"name": "下单", "allow": false},
+        "pend": {"name": "审核订单", "allow": false},
+        "process": {"name": "订货", "allow": false},
+        "arrive": {"name": "到货", "allow": false},
+        "select": {"name": "查询订单", "allow": false}
+    },
+    "product": {
+        "create": {"name": "添加产品", "allow": false},
+        "delete": {"name": "删除产品", "allow": false},
+        "update": {"name": "修改产品", "allow": false},
+        "select": {"name": "查询订单", "allow": false}
+    },
+    "user": {
+        "create": {"name": "添加用户", "allow": false},
+        "update": {"name": "修改用户", "allow": false},
+        "select": {"name": "查询用户", "allow": false}
+    },
+    "template": {
+        "create": {"name": "创建产品模板", "allow": false},
+        "select": {"name": "查询产品模板", "allow": false}
+    },
+    "role": {
+        "create": {"name": "创建角色", "allow": false},
+        "update": {"name": "修改角色", "allow": false},
+        "select": {"name": "查询角色", "allow": false}
+    }
+}

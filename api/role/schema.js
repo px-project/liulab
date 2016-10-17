@@ -17,3 +17,22 @@ module.exports = {
         default: false
     }
 };
+
+
+
+/**
+ * permission example
+ * 
+ * 
+ * member
+ * {
+ *      modules: {
+ *          book: 
+ *      }
+ * 
+ * }
+ * 
+ * 
+ * 
+ * 
+ */

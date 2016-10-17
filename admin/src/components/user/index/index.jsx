@@ -35,6 +35,7 @@ export class UserComponent extends Component {
 							<th>账号</th>
 							<th>姓名</th>
 							<th>电话</th>
+							<th>角色</th>
 							<th>创建时间</th>
 							<th>操作</th>
 						</tr>
@@ -46,6 +47,7 @@ export class UserComponent extends Component {
 								<td>{entities[user_id].username}</td>
 								<td>{entities[user_id].name || '-'}</td>
 								<td>{entities[user_id].phone || '-'}</td>
+								<td>{entities[user_id].role_name}</td>
 								<td>{moment(entities[user_id].create_time).format('YYYY-MM-DD hh:mm:ss')}</td>
 								<td>
 									<Link to={'/user/' + user_id + '/edit'}>编辑</Link>

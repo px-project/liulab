@@ -39,7 +39,7 @@ class UserDetailForm extends Component  {
 				<Form onSubmit={this.handleSubmit.bind(this, this.props)}>
 					<FormItem label="姓名" {...formItemLayout}>
 					{
-						getFieldDecorator('name', { initialValue: '' })(
+						getFieldDecorator('name', {rules: [{required: true, message: '请输入用户姓名'}]})(
 							<Input required></Input>
 						)
 					}
@@ -60,28 +60,28 @@ class UserDetailForm extends Component  {
 					</FormItem>
 					<FormItem label="账号" {...formItemLayout}>
 					{
-						getFieldDecorator('username', { initialValue: '' })(
+						getFieldDecorator('username', {rules: [{required: true, message: '请输入账号'}]})(
 							<Input required></Input>
 						)
 					}
 					</FormItem>
 					<FormItem label="密码" {...formItemLayout}>
 					{
-						getFieldDecorator('password', { initialValue: '' })(
+						getFieldDecorator('password', {rules: [{required: true, message: '请输入密码'}]})(
 							<Input type="password" required></Input>
 						)
 					}
 					</FormItem>
 					<FormItem label="确认密码" {...formItemLayout}>
 					{
-						getFieldDecorator('password', { initialValue: '' })(
+						getFieldDecorator('password', {rules: [{required: true, message: '请再次输入密码'}]})(
 							<Input type="password" required></Input>
 						)
 					}
 					</FormItem>
 					<FormItem label="联系方式" {...formItemLayout}>
 					{
-						getFieldDecorator('phone', { initialValue: '' })(
+						getFieldDecorator('phone', {rules: [{required: true, message: '请输入联系方式'}]})(
 							<Input required></Input>
 						)
 					}
