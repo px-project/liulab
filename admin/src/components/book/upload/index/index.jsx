@@ -30,10 +30,10 @@ export class BookUploadComponent extends Component {
 						<Step title="预览确认" />
 					</Steps>
 				</div>
-				<div class="page">
-					{status === 'select' ? (<UploadSelect {...this.props}></UploadSelect>) : ''}
-					{status === 'upload' ? (<UploadUpload {...this.props}></UploadUpload>) : ''}
-					{status === 'preview' ? (<UploadPreview {...this.props}></UploadPreview>) : ''}
+				<div className="page">
+					{status === 'select' && <UploadSelect {...this.props}></UploadSelect>}
+					{status === 'upload' && <UploadUpload {...this.props}></UploadUpload>}
+					{status === 'preview' && <UploadPreview {...this.props}></UploadPreview>}
 				</div>
 			</div>
 		);

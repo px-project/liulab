@@ -13,23 +13,22 @@ export class BookSelectConfirmComponent extends Component {
 	}
 
 	// 下单
-	saveOrder (props, productList) {
+	saveOrder(props, productList) {
+		console.log(productList);
 		let {xhttp, entities, template} = props;
 		let newData = {};
 
 		for (let product_id in productList) {
 			let num = productList[product_id];
 
-			let template = newData[entities[product_id].template_id];
-			template = template || [];
-			
-			let productData = Object.assign({}, entities[product_id].data, {num});
+			let template = newData[entities[product_id].template_id._id] = [];
+
+			let productData = Object.assign({}, entities[product_id].data, { num });
 
 			template.push(productData);
 		}
-
-		xhttp({action: 'create', api: 'order', data: {products: newData}}, (result) => {
-			console.log(result);
+		xhttp({ action: 'create', api: 'order', data: { products: newData } }, (result) => {
+			props.history.pushState(null, '/order/' + result.order_id);
 		});
 	}
 
@@ -57,22 +56,18 @@ export class BookSelectConfirmComponent extends Component {
 								</tr>
 							</thead>
 							<tbody>
-								{product.items.map((product_id, product_index) => (
-									productList[product_id] ? (
-										<tr key={product_index}>
-											<td>{product_index + 1}</td>
-											{entities[template_id].template.map((field, field_index) => (
-												<td key={field_index}>{entities[product_id].data[field.key]}</td>
-											))}
-											<td>
-												<div>
-													<a className={classname({ hide: !productList[product_id] })} onClick={this.changeProductNum.bind(this, this.props, product_id, -1)}>-</a>
-													<span>{productList[product_id]}</span>
-													<a onClick={this.changeProductNum.bind(this, this.props, product_id, 1)}>+</a>
-												</div>
-											</td>
-										</tr>
-									) : ''
+								{product.items.map((product_id, product_index) => (productList[product_id] && (
+									<tr key={product_index}>
+										<td>{product_index + 1}</td>
+										{entities[template_id].template.map((field, field_index) => (
+											<td key={field_index}>{entities[product_id].data[field.key]}</td>
+										))}
+										<td>
+											<a className={classname({ hide: !productList[product_id] })} onClick={this.changeProductNum.bind(this, this.props, product_id, -1)}>-</a>
+											<span>{productList[product_id]}</span>
+											<a onClick={this.changeProductNum.bind(this, this.props, product_id, 1)}>+</a>
+										</td>
+									</tr>)
 								))}
 							</tbody>
 						</table>
@@ -80,7 +75,7 @@ export class BookSelectConfirmComponent extends Component {
 				))}
 
 				<div className="btn-group">
-					<button className="ui button primary" onClick={this.saveOrder.bind(this.props, productList)}>下单</button>
+					<button className="ui button primary" onClick={this.saveOrder.bind(this, this.props, productList)}>下单</button>
 				</div>
 			</div>
 		);

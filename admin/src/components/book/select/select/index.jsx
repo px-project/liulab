@@ -19,7 +19,7 @@ export class BookSelectSelectComponent extends Component {
 	}
 
 	// 添加到购物车
-	addProductTo (props, product_id) {
+	addProductTo(props, product_id) {
 		props.addProduct(product_id, 1);
 	}
 
@@ -51,7 +51,7 @@ export class BookSelectSelectComponent extends Component {
 					</div>
 					<a className="button ui labeled right icon confirm" onClick={changeBookState.bind(this, 'confirm')}><i className="right arrow icon"></i>确认订单</a>
 				</header>
-				{entities[template_id] ? (
+				{entities[template_id] && (
 					<div>
 						<table className="ui table">
 							<thead>
@@ -77,7 +77,7 @@ export class BookSelectSelectComponent extends Component {
 								))}
 							</tbody>
 						</table>
-					</div>) : ''}
+					</div>)}
 			</div>
 		);
 	}

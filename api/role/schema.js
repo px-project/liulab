@@ -3,7 +3,7 @@
  */
 module.exports = {
     name: String,               // 名称
-    permission: String,         // 权限
+    permission: {},             // 权限
     create_time: {              // 创建时间
         type: Date,
         default: Date.now

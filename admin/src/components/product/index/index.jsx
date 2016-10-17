@@ -31,7 +31,7 @@ export class ProductComponent extends Component {
                     </div>
                 </header>
 
-                {template_id ? (
+                {template_id &&
                     <div>
                         <table className="ui table">
                             <thead>
@@ -58,8 +58,7 @@ export class ProductComponent extends Component {
                                 ))}
                             </tbody>
                         </table>
-                    </div>
-                ) : ''}
+                    </div>}
             </div>
         );
     }

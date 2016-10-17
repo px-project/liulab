@@ -1,10 +1,10 @@
 /**
  * 代理商详情组件
  */
-import React, {Component} from 'react';
-import {Link} from 'react-router';
+import React, { Component } from 'react';
+import { Link } from 'react-router';
 import './style.scss';
-import {Table, Button} from 'antd';
+import { Table, Button } from 'antd';
 
 
 const agentTableConfig = [
@@ -49,32 +49,22 @@ const agentTableConfig = [
 
 
 export class AgentDetailComponent extends Component {
-    componentWillMount () {
-        this.props.xhttp({
+	componentWillMount() {
+		this.props.xhttp({
 			action: 'detail',
 			api: 'agent',
 			params: [this.props.params.agent_id],
 			reload: true
 		});
-    }
-    render () {
-    	let currentAgent = this.props.agent.items[this.props.agent.detailIndex] || {};
-    	return (
+	}
+	render() {
+		let currentAgent = this.props.agent.items[this.props.agent.detailIndex] || {};
+		return (
 			<div className="detail">
 				<header>
 					<h2 className="name">{currentAgent.name}</h2>
-					{
-						currentAgent.phone ?
-						<p className="phone">
-							<i className="icon fa fa-phone"></i>{currentAgent.phone || ''} {currentAgent.linkman ? `(${currentAgent.linkman})` : ''}
-						</p>: ''
-					}
-					{
-						currentAgent.address ?
-						<p className="address">
-							<i className="icon fa fa-location-arrow"></i>{currentAgent.address}
-						</p>: ''
-					}
+					{currentAgent.phone && <p className="phone"><i className="icon fa fa-phone"></i>{currentAgent.phone || ''} {currentAgent.linkman && `(${currentAgent.linkman})`}</p>}
+					{currentAgent.address && <p className="address"><i className="icon fa fa-location-arrow"></i>{currentAgent.address}</p>}
 					<p>
 						<a href="#"><i className="icon fa fa-edit"></i></a>
 					</p>
@@ -84,12 +74,9 @@ export class AgentDetailComponent extends Component {
 					<header>
 						<Button type="primary">添加</Button>
 					</header>
-					{
-						(currentAgent.products || []).length ?
-							<Table columns={agentTableConfig} dataSource={currentAgent.products}></Table>: ''
-					}
+					{(currentAgent.products || []).length && <Table columns={agentTableConfig} dataSource={currentAgent.products}></Table>}
 				</div>
 			</div>
-    	);
-    }
+		);
+	}
 }

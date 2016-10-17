@@ -18,8 +18,8 @@ export class BookSelectComponent extends Component {
 
 		return (
 			<div>
-				{status === 'confirm' ? <Confirm {...this.props}></Confirm> : ''}
-				{status === 'select' ? <Select {...this.props}></Select> : ''}
+				{status === 'confirm' && <Confirm {...this.props}></Confirm>}
+				{status === 'select' && <Select {...this.props}></Select>}
 			</div>
 		);
 	}
