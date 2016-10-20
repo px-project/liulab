@@ -17,5 +17,7 @@
 
     "template": "/template",
     "templateUpload": "/template/upload",
-    "templateDownload": "/template/download"
+    "templateDownload": "/template/download",
+
+    "permission": "/role/permission"
 }

@@ -10,7 +10,7 @@ const permissionConfig = require('./permission.json');
 module.exports = _router
     // 获取权限配置
     .get('/permission', (req ,res) => {
-        res.json(xres({code: 0}, permissionConfig));
+        res.json(xres({code: 0}, {'_id': 'permission', config: permissionConfig}));
     })
 
     // 角色列表
@@ -33,6 +33,7 @@ module.exports = _router
 
         let newData = { name, permission };
 
+        console.log(newData);
         roleModel.create(newData, (result) => {
             res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'permission', 'create_time')));
         });

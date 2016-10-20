@@ -55,7 +55,6 @@ module.exports = _router
     // 用户列表
     .get('/', (req, res) => {
         userModel.list({populateKeys: ['role']}, (result) => {
-            console.log(result);
             result.forEach((item) => item.role_name = item.role.name);
             res.json(xres({ code: 0 }, xfilter(result, '_id', 'username', 'role_name', 'name', 'phone', 'create_time', 'update_time')));
         });

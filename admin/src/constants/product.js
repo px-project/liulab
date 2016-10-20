@@ -4,4 +4,3 @@
 
 // 选择模板ID
 export const SELECT_TEMPLATE_ID = 'SELECT_TEMPLATE_ID';
-

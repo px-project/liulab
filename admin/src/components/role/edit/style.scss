@@ -1,0 +1,25 @@
+.role-edit {
+    width: 50rem;
+    margin: 0 auto;
+    input[type="checkbox"] {
+        margin-right: 1rem;
+    }
+    .module {
+        padding-bottom: 2rem;
+        header {
+            font-weight: bolder;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        .actions {
+            padding: 2rem 0 0 3rem;
+            .action {
+                display: inline-block;
+                padding-right: 3rem;
+            }
+        }
+        &:first-child header {
+            border: none;
+        }
+    }
+}
