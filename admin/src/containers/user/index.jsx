@@ -1,14 +1,14 @@
 /**
  * 用户模块容器
  */
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {xhttp} from '../../actions/xhttp/';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { xhttp, xform } from '../../actions/';
 
 class UserContainer extends Component {
 	render() {
-		return (<div>{React.cloneElement(this.props.children, this.props) }</div>);
+		return (<div>{React.cloneElement(this.props.children, this.props)}</div>);
 	}
 }
 
@@ -21,7 +21,8 @@ function mapStateToProps(state) {
 // 合并dispatch
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
-		xhttp
+		xhttp,
+		xform
 	}, dispatch);
 }
 

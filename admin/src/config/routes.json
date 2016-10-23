@@ -62,7 +62,7 @@
         "children": [
             {
                 "path": "add",
-                "componentName": "UserDetailComponent",
+                "componentName": "UserEditComponent",
                 "name": "新用户"
             },
             {
@@ -72,7 +72,7 @@
             },
             {
                 "path": ":user_id/edit",
-                "componentName": "UserDetailComponent",
+                "componentName": "UserEditComponent",
                 "name": "编辑用户"
             }
         ]
@@ -90,11 +90,6 @@
                 "path": ":template_id",
                 "componentName": "TemplateDetailComponent",
                 "name": "模板详情"
-            },
-            {
-                "path": ":template_id/edit",
-                "componentName": "TemplateEditComponent",
-                "name": "编辑模板"
             }
         ]
     },

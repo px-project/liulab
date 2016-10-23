@@ -45,7 +45,6 @@ export class TemplateComponent extends Component  {
 								<td>{moment(entities[template_id].create_time).format('YYYY-MM-DD hh:mm:ss')}</td>
 								<td>
 									<Link to={'/template/' + template_id}>详情</Link>
-									<Link to={'/template/' + template_id + '/edit'}>编辑</Link>
 								</td>
 							</tr>
 						))}

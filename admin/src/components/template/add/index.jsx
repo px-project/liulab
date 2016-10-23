@@ -1,12 +1,23 @@
 /**
  * 添加模板组件
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 export class TemplateAddComponent extends Component {
-	render () {
+	componentWillMount() {
+		let {xform} = this.props;
+
+		// init form data
+		xform({
+			
+		});
+	}
+
+
+
+	render() {
 		return (
-			<div></div>
+			<div>tianjia</div>
 		);
 	}
 }
