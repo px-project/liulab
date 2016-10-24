@@ -31,7 +31,7 @@ app.use(session({
 
 
 // 跨域支持
-app.use(cors({origin: 'http://localhost:9100', credentials: true}));
+app.use(cors({origin: 'http://139.129.29.110:9100', credentials: true}));
 
 
 // 认证登录状态
