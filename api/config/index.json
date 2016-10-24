@@ -1,11 +1,11 @@
 {
     "db": {
-        "DB_HOST": "127.0.0.1",
+        "DB_HOST": "129.0.0.1",
         "DB_PORT": "27017",
         "DB_NAME": "liulab"
     },
     "redis": {
-        "DB_HOST": "127.0.0.1",
+        "DB_HOST": "129.0.0.1",
         "DB_PORT": "6379",
         "DB_NAME": "liulab"
     }

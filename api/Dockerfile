@@ -2,7 +2,7 @@ FROM node
 
 MAINTAINER honpery <honpery@gmail.com>
 
-RUN npm install forever -g
+RUN npm install forever -g --registry=http://r.cnpmjs.org
 
 ADD ../api /code
 
