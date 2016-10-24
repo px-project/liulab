@@ -1,4 +1,7 @@
 FROM node
 
-RUN cd /code/admin && npm install
-RUN cd /code/api && npm install
+ADD ./install.sh /
+
+RUN chmod 777 /install.sh
+
+CMD ["/install.sh"]
