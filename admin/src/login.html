@@ -67,7 +67,7 @@
                     localStorage.setItem('role_name', res.result.role_name);
                     localStorage.setItem('user_id', res.result._id);
                     localStorage.setItem('user_name', res.result.name || res.result.username);
-                    localStorage.setItem('user_permission', res.result.permission);
+                    localStorage.setItem('user_permission', JSON.stringify(res.result.permission));
 
                     window.location.href = '/index';
                 }

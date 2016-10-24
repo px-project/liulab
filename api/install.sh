@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cd /code && forever start ./app.js
+cd /code && node ./app.js
