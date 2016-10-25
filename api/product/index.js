@@ -19,7 +19,6 @@ module.exports = _router
                 item.user_id = item.user_id._id;
             });
 
-            // console.log(result);
             res.json(xres({code: 0}, xfilter(result, '_id', 'template_id','user_id', 'create_user', 'data', 'create_time', 'update_time')));
         });
     })

@@ -68,6 +68,7 @@
                     localStorage.setItem('user_id', res.result._id);
                     localStorage.setItem('user_name', res.result.name || res.result.username);
                     localStorage.setItem('user_permission', JSON.stringify(res.result.permission));
+                    localStorage.setItem('login_time', new Date());
 
                     window.location.href = '/index';
                 }

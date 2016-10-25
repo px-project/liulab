@@ -17,7 +17,9 @@ export default class Routes extends Component {
                 <Route path="/" component={containers.AppContainer}>
                     <IndexRedirect to="/index" />
 
-                    {routes.map((topLevel, index) => (
+                    {routes
+                        .filter((topLevel) => window.permission.modules.filter(item => item.key === topLevel.path)[0].allow)
+                        .map((topLevel, index) => (
                         <Route path={topLevel.path} key={index} component={containers[toCamcel(true, topLevel.path, 'app')]}>
 
                             <IndexRoute component={components[toCamcel(true, topLevel.path, 'component')]} {...this.props} />

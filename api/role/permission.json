@@ -1,6 +1,11 @@
 {
     "modules": [
         {
+            "key": "index",
+            "name": "首页",
+            "allow": true
+        },
+        {
             "key": "book",
             "name": "订购商品",
             "allow": true
@@ -31,6 +36,7 @@
             "allow": true
         }
     ],
+    "index": [],
     "book": [],
     "order": [
         {

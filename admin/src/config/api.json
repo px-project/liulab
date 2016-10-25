@@ -1,6 +1,4 @@
 {
-    "server": "http://localhost:9000",
-
     "user": "/user",
     "userLogout": "/user/logout",
 

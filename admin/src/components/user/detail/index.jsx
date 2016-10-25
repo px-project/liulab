@@ -27,7 +27,9 @@ class UserDetailComponent extends Component {
 		let {entities, role} = this.props;
 
 		return (
-			<div></div>
+			<div className="user-detail">
+			111
+			</div>
 		)
 	}
 }

@@ -15,8 +15,6 @@ module.exports = _router
         let { username, password } = req.body;
 
         userModel.list({ where: { username }, populateKeys: ['role'] }, (result) => {
-            console.log(result);
-
             // 不存在此用户
             if (!result.length) {
 
@@ -54,8 +52,7 @@ module.exports = _router
 
     // 用户列表
     .get('/', (req, res) => {
-        userModel.list({populateKeys: ['role']}, (result) => {
-            console.log(result);
+        userModel.list({ populateKeys: ['role'] }, (result) => {
             result.forEach((item) => item.role_name = item.role.name);
             res.json(xres({ code: 0 }, xfilter(result, '_id', 'username', 'role_name', 'name', 'phone', 'create_time', 'update_time')));
         });
@@ -83,12 +80,11 @@ module.exports = _router
         });
     })
 
-
     // 创建用户
     .post('/', (req, res) => {
         let { username, password, role_id, name, phone } = req.body;
 
-        userModel.list({ where: {username} }, (result) => {
+        userModel.list({ where: { username } }, (result) => {
             if (result.length) {
                 res.json(xres({ code: 6004 }));
                 return;
@@ -105,6 +101,24 @@ module.exports = _router
             userModel.create(newData, (result) => {
                 res.json(xres({ code: 0 }, xfilter(result, '_id', 'create_time')));
             });
+        });
+    })
+
+    // 更新用户
+    .patch('/:user_id', (req, res) => {
+        let {user_id} = req.params;
+
+        let newData = xfilter(req.body, 'username', 'password', 'name', 'phone');
+
+        console.log(newData);
+
+        if (newData.password) newData.password = utils.md5(newData.password);
+        if (req.body.role_id) {
+            newData = Object.assign(newData, {role: req.body.role_id});
+        }
+
+        userModel.update(user_id, newData, (result) => {
+            res.json(xres({ code: 0 }, { _id: user_id, update_time: result.update_time }));
         });
     })
 

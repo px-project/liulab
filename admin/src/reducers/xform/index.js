@@ -23,10 +23,5 @@ export default function XformReducer (state = {}, action) {
 
 
 function getRef (target, locals) {
-    console.log(target);
     return locals.length ? getRef(target[locals[0]], locals.slice(1)) : target;
 }
-
-
-let obj = {a: [{b: 1}]};
-console.log(getRef(obj, ['a', 0]))

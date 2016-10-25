@@ -14,7 +14,6 @@ export class BookSelectConfirmComponent extends Component {
 
 	// 下单
 	saveOrder(props, productList) {
-		console.log(productList);
 		let {xhttp, entities, template} = props;
 		let newData = {};
 

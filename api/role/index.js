@@ -33,7 +33,6 @@ module.exports = _router
 
         let newData = { name, permission };
 
-        console.log(newData);
         roleModel.create(newData, (result) => {
             res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'permission', 'create_time')));
         });
@@ -43,7 +42,13 @@ module.exports = _router
     // 更新角色
     .patch('/:role_id', (req, res) => {
         let {role_id} = req.params;
+        let {name, permission} = req.body;
 
+        let newData = {name, permission};
+
+        roleModel.update(role_id, xfilter(req.body, 'name', 'permission'), (result) => {
+            res.json(xres({code: 0}, {_id: role_id, update_time: result.update_time}));
+        });
     })
 
 
