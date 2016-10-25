@@ -25,13 +25,15 @@ app.set('PORT', process.env.PORT || 9000);
 // session
 app.use(session({
 	secret: 'liulab',
-	store: new redisStore({client: require('./common/redis')}),
+	store: new redisStore({ client: require('./common/redis') }),
 	cookie: { maxAge: 1000 * 60 * 60 * 24 * 7 }  // 7days
 }));
 
 
 // 跨域支持
-app.use(cors({origin: 'http://139.129.29.110:9100', credentials: true}));
+app.use((req, res, next) => {
+	cors({ origin: req.headers.origin, credentials: true })(req, res, next);
+});
 
 
 // 认证登录状态
@@ -48,5 +50,5 @@ app.use(express.static(path.join(__dirname, './asset/')));
 
 // 启动服务
 app.listen(app.get('PORT'), () => {
-    console.log('api server running at ' + app.get('PORT') + ' port.');
+	console.log('api server running at ' + app.get('PORT') + ' port.');
 });
