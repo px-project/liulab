@@ -4,7 +4,8 @@
 import React, {Component} from 'react';
 import './style.scss';
 import {Icon} from 'antd';
-const apiConfig = require('../../../../config/api.json');
+let apiConfig = require('../../../../config/api.json');
+apiConfig.server = window.server;
 
 export class BookUploadUploadComponent extends Component {
 
