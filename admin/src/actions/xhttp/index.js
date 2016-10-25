@@ -37,7 +37,7 @@ function handleBusinessErr(result) {
 
 // 处理URL
 function handleUrl(api, params, conditions) {
-    let url = apiConfig.server + apiConfig[api];
+    let url = window.server + apiConfig[api];
 
     // id字段的正则表达式
     let idRegG = /\{[a-zA-Z0-9_]+\}/g;
