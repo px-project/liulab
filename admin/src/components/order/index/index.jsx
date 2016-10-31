@@ -11,8 +11,7 @@ import './style.scss';
 export class OrderComponent extends Component {
 
 	componentWillMount() {
-		let {xhttp} = this.props;
-		this.getOrderList(xhttp);
+		this.getOrderList(this.props.xhttp);
 	}
 
 	render() {
@@ -32,7 +31,7 @@ export class OrderComponent extends Component {
 				<header className="list-header">
 					<button className="ui button primary">下载</button>
 				</header>
-				{order.items.length &&
+				{order.items.length ?
 					<table className="ui table">
 						<thead>
 							<tr>
@@ -62,7 +61,7 @@ export class OrderComponent extends Component {
 								</tr>
 							))}
 						</tbody>
-					</table>}
+					</table> : ''}
 			</div>
 		);
 	}

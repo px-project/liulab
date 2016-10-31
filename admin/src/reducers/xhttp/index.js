@@ -31,7 +31,12 @@ for (let currentApi in apiConfig) {
             newState = Object.assign({}, state);
         }
 
+        if (action.type === consts.XHTTP_BEGIN) {
+            newState.fetching = true;
+        }
+
         if (action.type === consts.XHTTP_RECEIVE && action.options.api === currentApi) {
+            newState.fetching = false;
 
             switch (action.options.action) {
 

@@ -12,25 +12,21 @@ import classname from 'classname';
 
 export class OrderDetailComponent extends Component {
 	componentWillMount() {
-		let _id = this.props.params.order_id;
-		let {entities} = this.props;
-		let orderData = entities[_id];
+		let order_id = this.props.params.order_id;
+		let {entities, xhttp} = this.props;
 
-		this.props.xhttp({
-			action: 'list',
-			api: 'user',
-			reload: true
-		});
-
-		this.props.xhttp({
+		xhttp({
 			action: 'detail',
 			api: 'order',
-			params: [_id]
+			params: [order_id]
 		}, (result) => {
+			window.order_object_id = result._id;
+
 			let templateIds = [];
 			for (let templateId in result.products) {
 				templateIds.push(templateId);
 			}
+
 			this.getTemplateData(this.props, templateIds);
 		});
 	}
@@ -64,28 +60,26 @@ export class OrderDetailComponent extends Component {
 
 	render() {
 		let order_id = this.props.params.order_id;
-		let {entities, user, order, template} = this.props;
-		let orderData = entities[order.items[order.items.length - 1]];
+		let {entities, order, template} = this.props;
+		let orderData = entities[window.order_object_id];
 
 		let statusStr = consts.ORDER_STATUS;
 
 		return (
 			<div>
-				{orderData && user.items.length && template.items.length && (
+				{orderData && template.items.length && (
 					<div>
 						<div className="basic">
 							<div className="info">
 								<p>订单号：{order_id}</p>
 								<p>订购时间：{moment(orderData.create_time).format('YYYY-MM-DD hh:mm:ss')}</p>
-								<p>订购人：{entities[orderData.user_id].name
-									|| entities[orderData.user_id].username || '-'
-								}</p>
-								<p>联系方式：{entities[orderData.user_id].phone || '-'}</p>
+								<p>订购人：{orderData.create_user.name || orderData.create_user.username || '-'}</p>
+								<p>联系方式：{orderData.create_user.phone || '-'}</p>
 							</div>
 						</div>
 						<div className="product">
-							{template.items.map((template_id) => (
-								<div className="product-detail">
+							{template.items.map((template_id, template_index) => (
+								<div className="product-detail" key={template_index}>
 									<h5>{entities[template_id].name}</h5>
 
 									<table className="ui table">

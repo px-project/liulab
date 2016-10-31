@@ -67,8 +67,9 @@ module.exports = _router
     // 订单详情
     .get('/:order_id', (req, res) => {
         let {order_id} = req.params;
-        orderModel.list({ order_id }, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result[0], '_id', 'order_id', 'user_id', 'products', 'create_time', 'update_time')));
+        orderModel.list({ where: {order_id}, populateKeys: ['user_id'] }, (result) => {
+            result[0].create_user = xfilter(result[0].user_id, '_id', 'name', 'username', 'phone'); 
+            res.json(xres({ code: 0 }, xfilter(result[0], '_id', 'order_id', 'create_user', 'products', 'create_time', 'update_time')));
         });
     })
 

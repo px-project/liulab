@@ -1,0 +1,18 @@
+.template-add {
+    width: 65rem;
+    margin: 0 auto;
+    p {
+        display: inline-block;
+        padding-right: 3rem;
+
+        .title {
+            &:after {
+                content: '：';
+                margin-right: 0.5rem;
+            }
+        }
+        .value {
+
+        }
+    }
+}

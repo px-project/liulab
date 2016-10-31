@@ -32,7 +32,11 @@ function handleNetErr(err) {
 }
 
 // 业务逻辑错误
-function handleBusinessErr(result) {
+function handleBusinessErr(err) {
+    switch (err.code) {
+        case 6000:
+            window.location.href = window.location.origin + '/login.html'; 
+    }
 }
 
 // 处理URL
@@ -135,7 +139,7 @@ export function xhttp(options, cb) {
                     if (cb) cb(json.result);
                 }
                 else {
-                    handleBusinessErr(json);
+                    handleBusinessErr(json.error);
                 }
             })
             // .catch(err => {
