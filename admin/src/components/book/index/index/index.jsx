@@ -6,7 +6,7 @@ import './style.scss';
 import { BookSelectConfirmComponent as Confirm } from '../confirm/';
 import { BookSelectSelectComponent as Select } from '../select/';
 
-export class BookSelectComponent extends Component {
+export class BookComponent extends Component {
 	componentWillMount() {
 		this.props.changeBookState('select');
 	}

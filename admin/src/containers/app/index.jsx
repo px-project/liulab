@@ -15,7 +15,9 @@ export class AppContainer extends Component {
 				<Sidebar {...this.props}></Sidebar>
 				<div id="main">
 					<Header {...this.props}></Header>
-					{this.props.children}
+					<div className="page">
+						{this.props.children}
+					</div>
 				</div>
 			</div>
 		);

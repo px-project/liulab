@@ -1,2 +1,20 @@
-@import './_style/var.scss';
 
+
+
+$header_height: 3.5rem; // 50px
+
+body {
+    background: #eff3f5;
+}
+
+table {
+    td {
+        a {
+            display: inline-block;
+            margin-right: 0.5rem;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}

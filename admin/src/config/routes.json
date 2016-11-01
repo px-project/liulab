@@ -1,32 +1,25 @@
 [
     {
         "path": "index",
-        "name": "首页"
+        "name": "首页",
+        "icon": "home"
     },
     {
         "path": "book",
         "name": "预订",
+        "icon": "shopping-bag",
         "children": [
-            {
-                "path": "",
-                "componentName": "BookComponent",
-                "name": "预定"
-            },
             {
                 "path": "upload",
                 "componentName": "BookUploadComponent",
-                "name": "批量预定"
-            },
-            {
-                "path": "select",
-                "componentName": "BookSelectComponent",
-                "name": "指定预定"
+                "name": "批量预订"
             }
         ]
     },
     {
         "path": "order",
         "name": "订单",
+        "icon": "file text outline",
         "children": [
             {
                 "path": ":order_id",
@@ -38,6 +31,7 @@
     {
         "path": "product",
         "name": "产品",
+        "icon": "product-hunt",
         "children": [
             {
                 "path": "add",
@@ -59,6 +53,7 @@
     {
         "path": "user",
         "name": "用户",
+        "icon": "users",
         "children": [
             {
                 "path": "add",
@@ -80,6 +75,7 @@
     {
         "path": "template",
         "name": "模板",
+        "icon": "book",
         "children": [
             {
                 "path": "add",
@@ -96,6 +92,7 @@
     {
         "path": "role",
         "name": "角色",
+        "icon": "cog",
         "children": [
             {
                 "path": "add",

@@ -6,7 +6,8 @@ import './style.scss';
 
 export class BookSelectSelectComponent extends Component {
 	componentWillMount() {
-		this.getTemplateList(this.props.xhttp);
+		let {xhttp} = this.props;
+		this.getProductList(xhttp);
 	}
 
 	componentDidMount() {
@@ -83,12 +84,12 @@ export class BookSelectSelectComponent extends Component {
 	}
 
 	// 获取产品列表
-	getProductList(xhttp, conditions) {
+	getProductList(xhttp, conditions = {}) {
 		xhttp({ action: 'list', api: 'product', conditions });
 	}
 
 	// 获取模板列表
-	getTemplateList(xhttp, conditions) {
+	getTemplateList(xhttp, conditions = {}) {
 		xhttp({ action: 'list', api: 'template', conditions });
 	}
 

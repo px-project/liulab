@@ -3,25 +3,27 @@
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import classname from 'classname';
 import routes from '../../../../config/routes.json';
-import { Menu } from 'antd';
 import './style.scss';
 
-export class Nav extends Component {
+export class AppSidebarNavComponent extends Component {
 	render() {
+
 		return (
 			<nav className="sidebar-nav">
-				<Menu selectedKeys={[this.props.routes[1].path]}>
-					{
-						routes
-							.filter((topLevel) => window.permission.modules.filter(item => item.key === topLevel.path)[0].allow)
-							.map((item, index) => {
-								return (
-									<Menu.Item key={item.path}><Link to={item.path}>{item.name}</Link></Menu.Item>
-								);
-							})
-					}
-				</Menu>
+				<ul>
+					{routes
+						.filter(topLevel => permission.modules.filter(item => item.key === topLevel.path)[0].allow)
+						.map((item, index) => (
+							<li key={index} className={classname({ active: item.path === this.props.routes[1].path })}>
+								<Link to={item.path}>
+									<i className={`fa fa-${item.icon}`}></i>
+									<span className="title">{item.name}</span>
+								</Link>
+							</li>
+						))}
+				</ul>
 			</nav>
 		);
 	}

@@ -1,13 +1,30 @@
 @import '../../../../public/style/common.scss';
+$icon_size: 1rem;
+
 .sidebar-nav {
-    padding-top: $header_height;
     ul {
-        background: none;
-        border: none;
         li {
-            padding: 0!important;
             a {
-                text-align: center;
+                display: flex;
+                font-size: $icon_size;
+                line-height: $header_height;
+                align-items: center;
+                color: #61646d;
+                i.fa {
+                    width: $header_height;
+                    text-align: center;
+                }
+                .title {
+                    flex-grow: 1;
+                    text-align: center;
+                    padding-right: $header_height / 2;
+                    letter-spacing: 1rem;
+                }
+            }
+            &.active {
+                a {
+                    color: #ccc;
+                }
             }
         }
     }
