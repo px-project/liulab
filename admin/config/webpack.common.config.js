@@ -10,7 +10,8 @@ module.exports = {
     entry: {
         'polyfills': './src/polyfills.js',
         'vendor': './src/vendor.js',
-        'app': './src/app.js'
+        'app': './src/app.js',
+        'login': './src/login.js'
     },
 
     output: {
@@ -26,7 +27,8 @@ module.exports = {
         loaders: [
             { test: /\.jsx?$/, loader: 'babel', exclude: /node_modules/ },
             { test: /\.scss$/, loaders: ['style', 'css', 'sass'] },
-            { test: /\.json$/, loader: 'json' }
+            { test: /\.json$/, loader: 'json' },
+            { test: /\.(jpe?g|png|gif|svg)$/i, loader: 'file' },
             // { test: /\.html$/, loader: 'html' }
         ]
     },
@@ -38,7 +40,8 @@ module.exports = {
             filename: 'index.html',
             server,
             template: './src/index.html',
-            chunksSortMode: 'auto'
+            chunksSortMode: 'auto',
+            excludeChunks: ['login']
         }),
 
         new htmlWebpackPlugin({
@@ -47,7 +50,7 @@ module.exports = {
             server,
             template: './src/login.html',
             chunksSortMode: 'auto',
-            excludeChunks: ['app', 'vendor', 'polyfills']
+            excludeChunks: ['app', 'vendor', 'polyfills', 'login']
         }),
 
         // 代码分离

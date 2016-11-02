@@ -2,15 +2,15 @@
  * 订单控制器
  */
 const _router = require('express').Router();
-const orderModel = require('../common/xmodel')('order');
-const productModel = require('../common/xmodel')('product');
-const templateModel = require('../common/xmodel')('template');
-const xres = require('../common/xres');
+const orderModel = require('../../common/xmodel')('order');
+const productModel = require('../../common/xmodel')('product');
+const categoryModel = require('../../common/xmodel')('category');
+const xres = require('../../common/xres');
 const async = require('async');
 const fs = require('fs');
 const path = require('path');
-const xfilter = require('../common/xfilter');
-const utils = require('../common/utils');
+const xfilter = require('../../common/xfilter');
+const utils = require('../../common/utils');
 
 const statusArr = ['pending', 'pended', 'failed', 'processing', 'success', 'cancel'];
 
@@ -101,7 +101,7 @@ module.exports = _router
             // init product
             let templateQueue = [];
             for (let template_id in newData.products) {
-                templateQueue.push((cb) => templateModel.detail(template_id, {}, (result) => cb(null, result)));
+                templateQueue.push((cb) => categoryModel.detail(template_id, {}, (result) => cb(null, result)));
             }
 
             async.series(templateQueue, (err, result) => {

@@ -2,11 +2,11 @@
  * 产品类型字段模板
  */
 const _router = require('express').Router();
-const templateModel = require('../common/xmodel')('template');
-const xres = require('../common/xres');
-const xfilter = require('../common/xfilter');
+const categoryModel = require('../../common/xmodel')('category');
+const xres = require('../../common/xres');
+const xfilter = require('../../common/xfilter');
 const async = require('async');
-const utils = require('../common/utils');
+const utils = require('../../common/utils');
 const multer = require('multer');
 const upload = multer({ dest: './uploads/' });
 const fs = require('fs');
@@ -95,7 +95,7 @@ module.exports = _router
     // 列表
     .get('/', (req, res) => {
         let condition = {};
-        templateModel.list(condition, (result) => {
+        categoryModel.list(condition, (result) => {
             res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'user_id', 'template', 'create_time', 'update_time')));
         });
     })
@@ -104,7 +104,7 @@ module.exports = _router
     // 详情
     .get('/:template_id', (req, res) => {
         let {template_id} = req.params;
-        templateModel.detail(template_id, {}, (result) => {
+        categoryModel.detail(template_id, {}, (result) => {
             res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'user_id', 'template', 'create_time', 'update_time')));
         });
     })
@@ -113,7 +113,7 @@ module.exports = _router
     // 添加
     .post('/', (req, res) => {
         let newData = xfilter(req.body, 'name', 'template');
-        templateModel.create(newData, (result) => {
+        categoryModel.create(newData, (result) => {
             res.json(xres({ code: 0 }, xfilter(result, '_id', 'create_time')));
         });
     })
@@ -126,7 +126,7 @@ module.exports = _router
         let newData = xfilter(req.body, 'name', 'template');
         newData.update_time = Date.now();
 
-        templateModel.update(template_id, newData, (result) => {
+        categoryModel.update(template_id, newData, (result) => {
             res.json(xres({ code: 0 }, { _id, update_time: newData.update_time }));
         })
     })
@@ -136,7 +136,7 @@ module.exports = _router
     .delete('/:template_id', (req, res) => {
         let {template_id} = req.params;
 
-        templateModel.delete(template_id, (result) => {
+        categoryModel.delete(template_id, (result) => {
             res.json(xres({ code: 0 }));
         });
     })
@@ -164,7 +164,7 @@ function getMultiTemplateDetail(templates, cb) {
 
     templates.map((id) => {
         queue.push((cb) => {
-            templateModel.detail(id, {}, (result) => {
+            categoryModel.detail(id, {}, (result) => {
                 cb(null, result);
             });
         });

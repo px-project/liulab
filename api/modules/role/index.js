@@ -2,28 +2,28 @@
  * 角色控制器
  */
 const _router = require('express').Router();
-const xres = require('../common/xres');
-const roleModel = require('../common/xmodel')('role');
-const xfilter = require('../common/xfilter');
+const xres = require('../../common/xres');
+const roleModel = require('../../common/xmodel')('role');
+const xfilter = require('../../common/xfilter');
 const permissionConfig = require('./permission.json');
 
 module.exports = _router
     // 获取权限配置
-    .get('/permission', (req ,res) => {
+    .get('/permission', (req, res) => {
         res.json(xres({code: 0}, {'_id': 'permission', config: permissionConfig}));
     })
 
     // 角色列表
     .get('/', (req, res) => {
         roleModel.list({}, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'describe', 'create_time', 'update_time')));
         });
     })
 
     // 角色详情
     .get('/:role_id', (req, res) => {
         roleModel.detail(req.params.role_id, [], (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'permission', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'describe', 'permission', 'create_time', 'update_time')));
         });
     })
 
@@ -34,7 +34,7 @@ module.exports = _router
         let newData = { name, permission };
 
         roleModel.create(newData, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'permission', 'create_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name','describe', 'permission', 'create_time')));
         });
     })
 
@@ -57,5 +57,5 @@ module.exports = _router
         let {role_id} = req.params;
         roleModel.delete(role_id, (result) => {
 
-        })
+        });
     });

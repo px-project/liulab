@@ -1,0 +1,23 @@
+.role-page {
+    display: flex;
+    aside {
+        background: white;
+        width: 13rem;
+        padding: 1rem;
+        ul {
+            li {
+                a {
+                    display: block;
+                    width: 100%;
+                    line-height: 2.5rem;
+                }
+            }
+        }
+    }
+
+    .detail {
+        margin-left: 2rem;
+        background: white;
+        flex-grow: 1;
+    }
+}

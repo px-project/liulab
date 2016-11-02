@@ -3,14 +3,32 @@
  */
 const mongoose = require('mongoose');
 const utils = require('./utils');
+const path = require('path');
 const LIMIT = 20;
+
+const commonSchema = {
+    create_time: {          // 创建时间
+        type: Date,
+        default: Date.now
+    },
+    update_time: {          // 更新时间
+        type: Date,
+        default: Date.now
+    },
+    isDeleted: {            // 软删除
+        type: Boolean,
+        default: false
+    }
+}
+
+
 
 function handleDbErr(err) {
     throw err;
 }
 
 
-module.exports = function (modelDirName) {
+module.exports = (modelDirName) => {
     let name = utils.toCancel(true, modelDirName);
 
     let model = null;
@@ -18,7 +36,8 @@ module.exports = function (modelDirName) {
     try {
         model = mongoose.model(name);
     } catch (e) {
-        model = mongoose.model(name, new mongoose.Schema(require(`../${modelDirName}/schema`)));
+        console.log(utils.merge(commonSchema, require(path.join(__dirname, `../modules/${modelDirName}/schema`))));
+        model = mongoose.model(name, new mongoose.Schema(utils.merge(commonSchema, require(path.join(__dirname, `../modules/${modelDirName}/schema`)))));
     }
 
     return {

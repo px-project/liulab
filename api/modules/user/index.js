@@ -2,10 +2,10 @@
  * 用户控制器
  */
 const _router = require('express').Router();
-const userModel = require('../common/xmodel')('user');
-const xres = require('../common/xres');
-const utils = require('../common/utils');
-const xfilter = require('../common/xfilter');
+const userModel = require('../../common/xmodel')('user');
+const xres = require('../../common/xres');
+const utils = require('../../common/utils');
+const xfilter = require('../../common/xfilter');
 
 module.exports = _router
 

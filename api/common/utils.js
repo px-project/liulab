@@ -23,6 +23,22 @@ exports.toCancel = (big, ...strs) => {
 };
 
 
+// 合并
+exports.merge = (...targets) => {
+    let result = {};
+    targets.forEach((obj) => {
+        for (let key in obj) {
+            if (obj[key] instanceof Object && result[key]) {
+                this.merge(result[key], obj[key]);
+            } else {
+                Object.assign(result, { [key]: obj[key] });
+            }
+        }
+    });
+    return result;
+};
+
+
 // 解析xlsx
 exports.decodeXlsx = (filePath) => {
     let result = [];

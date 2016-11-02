@@ -3,11 +3,11 @@
  */
 const express = require('express');
 const _router = express.Router();
-const productModel = require('../common/xmodel')('product');
-const xres = require('../common/xres');
+const productModel = require('../../common/xmodel')('product');
+const xres = require('../../common/xres');
 const async = require('async');
-const xfilter = require('../common/xfilter');
-const utils = require('../common/utils');
+const xfilter = require('../../common/xfilter');
+const utils = require('../../common/utils');
 
 
 module.exports = _router

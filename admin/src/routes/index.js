@@ -20,15 +20,15 @@ export default class Routes extends Component {
                     {routes
                         .filter((topLevel) => window.permission.modules.filter(item => item.key === topLevel.path)[0].allow)
                         .map((topLevel, index) => (
-                        <Route path={topLevel.path} key={index} component={containers[toCamcel(true, topLevel.path, 'app')]}>
+                            <Route path={topLevel.path} key={index} component={containers[toCamcel(true, topLevel.path, 'app')]} {...this.props}>
 
-                            <IndexRoute component={components[toCamcel(true, topLevel.path, 'component')]} {...this.props} />
+                                <IndexRoute component={components[toCamcel(true, topLevel.path, 'component')]} {...this.props} />
 
-                            {topLevel.children && topLevel.children.map((child, index) => (
-                                <Route path={child.path} key={index} component={components[child.componentName]}></Route>
-                            ))}
-                        </Route>
-                    ))}
+                                {topLevel.children && topLevel.children.map((child, index) => (
+                                    <Route path={child.path} key={index} component={components[child.componentName]} {...this.props}></Route>
+                                ))}
+                            </Route>
+                        ))}
                 </Route>
             </Router>
         );
