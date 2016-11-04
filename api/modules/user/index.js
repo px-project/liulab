@@ -53,7 +53,9 @@ module.exports = _router
     // 用户列表
     .get('/', (req, res) => {
         userModel.list({ populateKeys: ['role'] }, (result) => {
+            console.log(result);
             result.forEach((item) => item.role_name = item.role.name);
+            console.log(result);
             res.json(xres({ code: 0 }, xfilter(result, '_id', 'username', 'role_name', 'name', 'phone', 'create_time', 'update_time')));
         });
     })
@@ -76,13 +78,13 @@ module.exports = _router
     .get('/:user_id', (req, res) => {
         let {user_id} = req.params;
         userModel.detail(user_id, {}, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'username', 'role_id', 'name', 'phone', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'username', 'role', 'name', 'phone', 'create_time', 'update_time')));
         });
     })
 
     // 创建用户
     .post('/', (req, res) => {
-        let { username, password, role_id, name, phone } = req.body;
+        let { username, password, role, name, phone } = req.body;
 
         userModel.list({ where: { username } }, (result) => {
             if (result.length) {
@@ -93,7 +95,7 @@ module.exports = _router
             let newData = {
                 username,
                 password: utils.md5(password),
-                role: role_id,
+                role,
                 name,
                 phone
             };
@@ -108,9 +110,7 @@ module.exports = _router
     .patch('/:user_id', (req, res) => {
         let {user_id} = req.params;
 
-        let newData = xfilter(req.body, 'username', 'password', 'name', 'phone');
-
-        console.log(newData);
+        let newData = xfilter(req.body, 'username', 'password', 'role', 'name', 'phone');
 
         if (newData.password) newData.password = utils.md5(newData.password);
         if (req.body.role_id) {

@@ -24,10 +24,14 @@ export class UserComponent extends Component {
 		let {user, entities} = this.props;
 
 		return (
-			<div>
+			<div className="user-index-page page">
 				<header className="list-header">
 					<Link className="ui button primary" to="/user/add">添加</Link>
 				</header>
+				<div className="list">
+					
+				</div>
+
 				<table className="ui table">
 					<thead>
 						<tr>

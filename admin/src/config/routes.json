@@ -73,19 +73,19 @@
         ]
     },
     {
-        "path": "template",
-        "name": "模板",
+        "path": "category",
+        "name": "品类",
         "icon": "book",
         "children": [
             {
                 "path": "add",
-                "componentName": "TemplateAddComponent",
-                "name": "新模板"
+                "componentName": "CategoryAddComponent",
+                "name": "新品类"
             },
             {
-                "path": ":template_id",
-                "componentName": "TemplateDetailComponent",
-                "name": "模板详情"
+                "path": ":category_id",
+                "componentName": "CategoryDetailComponent",
+                "name": "品类详情"
             }
         ]
     },

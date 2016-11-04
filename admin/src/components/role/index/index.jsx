@@ -13,7 +13,9 @@ export class RoleComponent extends Component {
     render() {
 
         return (
-            <div>暂无内容</div>
+            <div className="role-index">
+                <Link to={'/role/add'}>添加角色</Link>
+            </div>
         );
     }
 }

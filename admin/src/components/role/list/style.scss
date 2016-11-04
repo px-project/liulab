@@ -4,12 +4,17 @@
         background: white;
         width: 13rem;
         padding: 1rem;
+        min-height: 15rem;
         ul {
             li {
                 a {
                     display: block;
-                    width: 100%;
                     line-height: 2.5rem;
+                    text-align: center;
+                    color: #333;
+                }
+                &.active {
+                    background: #eee;
                 }
             }
         }

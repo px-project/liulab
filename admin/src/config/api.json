@@ -13,9 +13,9 @@
     "order": "/order",
     "orderStatus": "/order/{order_id}/status",
 
-    "template": "/template",
-    "templateUpload": "/template/upload",
-    "templateDownload": "/template/download",
+    "category": "/category",
+    "categoryUpload": "/category/upload",
+    "categoryDownload": "/category/download",
 
     "permission": "/role/permission"
 }

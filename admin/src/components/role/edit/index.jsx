@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import classname from 'classname';
 import './style.scss';
 
 export class RoleEditComponent extends Component {
@@ -13,7 +14,7 @@ export class RoleEditComponent extends Component {
 
         if (status === 'add' && !permission.items.length) {
             this.getPermission(xhttp, (result) => {
-                xform({ name: '', permission: result.config });
+                xform({ name: '', describe: '', permission: result.config });
             });
         }
 
@@ -29,41 +30,45 @@ export class RoleEditComponent extends Component {
     }
 
     render() {
-        let {entities, xhttp, xform, formData} = this.props;
+        let {entities, xhttp, xform, formData, routes} = this.props;
+        let status = routes[2].path === 'add' ? 'add' : 'edit';
+
         return (
             <div className="role-edit ui form">
-                <div className="name field inline">
-                    <label>角色名</label>
-                    <input type="text" value={formData.name} onChange={this.handleChange.bind(this, xform, 'name')} />
-                </div>
+                {formData ? (
+                    <div>
+                        <div className="info">
+                            <div className="name field inline">
+                                <label>角色名称</label>
+                                {status === 'add' ? (
+                                    <input type="text" value={formData.name} onChange={this.handleChange.bind(this.xform, 'name')} />
+                                ) : ''}
+                                {status === 'edit' ? (<p>{formData.name}</p>) : ''}
+                            </div>
 
-                <div className="permission field inline">
-                    <label>权限</label>
-                    {formData.permission && formData.permission.modules.map((module, module_index) => (
-                        <div key={module_index} className="module">
-                            <header>
-                                <div className="field inline">
-                                    <input className="ui checkbox" type="checkbox" checked={module.allow} onChange={this.handleChange.bind(this, xform, `permission.modules.${module_index}.allow`)} />
-                                    <label>{module.name}</label>
-                                </div>
-                            </header>
-
-                            <div className="actions">
-                                {formData.permission[module.key].map((action, action_index) => (
-                                    <div key={action_index} className="action field inline">
-                                        <input className="ui checkbox" type="checkbox" checked={action.allow} onChange={this.handleChange.bind(this, xform, `permission.${module.key}.${action_index}.allow`)} />
-                                        <label>{action.name}</label>
-                                    </div>
-                                ))}
+                            <div className="describe field inline">
+                                <label>备注</label>
+                                <input type="text" value={formData.describe} onChange={this.handleChange.bind(this.xform, 'describe')} />
                             </div>
                         </div>
-                    ))}
-                </div>
 
-                <div className="btn-group">
-                    <button className="ui button primary" onClick={this.save.bind(this, this.props)}>保存</button>
-                    <Link className="ui button red" to={'/role'}>取消</Link>
-                </div>
+                        <div className="permission">
+                            {formData.permission && formData.permission.map((module, module_index) => (
+                                <ul key={module_index} className="module">
+                                    <li className={classname({ checked: module.allow }) + ' checkbox'}><a>{module.name}</a></li>
+                                    {module.actions.map((action, action_index) => (
+                                        <li key={action_index} className={classname({ checked: action.allow }) + ' checkbox'}><a>{action.name}</a></li>
+                                    ))}
+                                </ul>
+                            ))}
+                        </div>
+
+                        <div className="btn-group">
+                            <button className="ui button primary" onClick={this.save.bind(this, this.props)}>保存</button>
+                            <Link className="ui button red" to={'/role'}>取消</Link>
+                        </div>
+                    </div>
+                ) : ''}
             </div>
         );
     }

@@ -36,7 +36,6 @@ module.exports = (modelDirName) => {
     try {
         model = mongoose.model(name);
     } catch (e) {
-        console.log(utils.merge(commonSchema, require(path.join(__dirname, `../modules/${modelDirName}/schema`))));
         model = mongoose.model(name, new mongoose.Schema(utils.merge(commonSchema, require(path.join(__dirname, `../modules/${modelDirName}/schema`)))));
     }
 
@@ -89,11 +88,14 @@ module.exports = (modelDirName) => {
         },
 
         delete: (_id, cb) => {
-            let newData = { $set: { isDeleted: false, update_time: Date.now() } };
+            let update_time = Date.now();
+            let newData = { $set: { isDeleted: false, update_time } };
             model.update({ _id }, newData, (err, result) => {
                 if (err) handleDbErr(err);
-                cb({ update_time: Date.now() });
+                cb({ _id, update_time });
             });
-        }
+        },
+
+        remove: () => { }
     };
 };

@@ -9,7 +9,6 @@
 
 	<script type="text/javascript">
         var loginAt = localStorage.getItem('login_time');
-        console.log(loginAt);
         if (!loginAt || loginAt - new Date() >1000 * 60 * 60 * 24 * 7) {
             location.href = '/login.html';
         }

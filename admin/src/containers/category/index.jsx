@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {xhttp, xform} from '../../actions/';
 
-class TemplateContainer extends Component {
+class CategoryContainer extends Component {
 	render() {
 		return (<div>{React.cloneElement(this.props.children, this.props) }</div>);
 	}
@@ -26,4 +26,4 @@ function mapDispatchToProps(dispatch) {
 	}, dispatch);
 }
 
-export const TemplateApp = connect(mapStateToProps, mapDispatchToProps)(TemplateContainer);
+export const CategoryApp = connect(mapStateToProps, mapDispatchToProps)(CategoryContainer);

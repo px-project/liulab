@@ -1,25 +1,44 @@
 .role-edit {
-    width: 50rem;
-    margin: 0 auto;
-    input[type="checkbox"] {
-        margin-right: 1rem;
-    }
-    .module {
-        padding-bottom: 2rem;
-        header {
-            font-weight: bolder;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
+    padding: 1rem;
+    .checkbox {
+        border: 1px solid #ddd;
+        margin-right: 2rem;
+        background: #ccc;
+        a {
+            display: block;
+            text-align: center;
+            min-width: 7rem;
+            height: 100%;
+            padding: 0 1rem;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            line-height: 2.5rem;
         }
-        .actions {
-            padding: 2rem 0 0 3rem;
-            .action {
-                display: inline-block;
-                padding-right: 3rem;
+        &.checked {
+            background: white;
+        }
+    }
+    .info {
+        display: flex;
+        align-items: center;
+        padding-bottom: 1rem;
+        .name {
+            padding-right: 2rem;
+            margin-bottom: 0;
+        }
+        .describe {
+            input {
+                width: 20rem!important;
             }
         }
-        &:first-child header {
-            border: none;
+    }
+    .permission {
+        border-top: 1px solid #eee;
+        padding-top: 1rem;
+        .module {
+            display: flex;
+            padding-bottom: 1rem;
         }
     }
 }

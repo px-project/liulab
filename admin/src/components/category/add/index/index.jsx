@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { TemplateNewFieldComponent as NewField } from '../new_field/';
 import './style.scss';
 
-export class TemplateAddComponent extends Component {
+export class CategoryAddComponent extends Component {
 	componentWillMount() {
 		let {xform} = this.props;
 
@@ -22,10 +22,10 @@ export class TemplateAddComponent extends Component {
 	render() {
 		let {xform, formData, xhttp} = this.props;
 		return (
-			<div className="template-add ui form">
+			<div className="category-add ui form">
 				<div className="field inline">
 					<label>模板名称</label>
-					<input type="text" onChange={this.handleTemplateName.bind(this, xform)}/>
+					<input type="text" onChange={this.handleCategoryName.bind(this, xform)}/>
 				</div>
 				{
 					formData.fields ? formData.fields.map((item, index) => (
@@ -41,7 +41,7 @@ export class TemplateAddComponent extends Component {
 				<NewField {...this.props}></NewField>
 
 				<div className="btn-group">
-					<button className="ui button primary" onClick={this.createTemplate.bind(this, xhttp, formData)}>保存</button>
+					<button className="ui button primary" onClick={this.createCategory.bind(this, xhttp, formData)}>保存</button>
 					<button className="ui button red">取消</button>
 				</div>
 			</div>
@@ -49,12 +49,12 @@ export class TemplateAddComponent extends Component {
 	}
 
 	// 处理模板名称变动
-	handleTemplateName (xform, e) {
+	handleCategoryName (xform, e) {
 		xform(e.target.value, 'name');
 	}
 
 	// 创建模板数据
-	createTemplate(xhttp, formData) {
+	createCategory(xhttp, formData) {
 		xhttp({
 			action: 'create',
 			api: 'template',

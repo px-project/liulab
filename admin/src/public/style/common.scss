@@ -18,3 +18,9 @@ table {
         }
     }
 }
+
+.ui.form .field label {
+    &:after {
+        content: ':';
+    }
+}

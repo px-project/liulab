@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 
 
-export class TemplateCommonComponent extends Component {
+export class CategoryCommonComponent extends Component {
 	render () {
 		return (
 			<div>

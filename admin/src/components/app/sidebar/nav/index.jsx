@@ -9,12 +9,11 @@ import './style.scss';
 
 export class AppSidebarNavComponent extends Component {
 	render() {
-
 		return (
 			<nav className="sidebar-nav">
 				<ul>
 					{routes
-						.filter(topLevel => permission.modules.filter(item => item.key === topLevel.path)[0].allow)
+						.filter(topLevel => permission.filter(item => item.module === topLevel.path)[0].allow)
 						.map((item, index) => (
 							<li key={index} className={classname({ active: item.path === this.props.routes[1].path })}>
 								<Link to={item.path}>

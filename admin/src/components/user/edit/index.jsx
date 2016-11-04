@@ -39,7 +39,7 @@ export class UserEditComponent extends Component {
                         </div>
                         <div className="form-group field">
                             <label>角色</label>
-                            <select className="ui fluid dropdown" value={formData.role_id} onChange={this.fieldChange.bind(this, xform, 'role_id')}>
+                            <select className="ui fluid dropdown" value={formData.role_id} onChange={this.fieldChange.bind(this, xform, 'role')}>
                                 <option value="">请选择角色</option>
                                 {role.items.map((item, index) => (
                                     <option value={item} key={index}>{entities[item].name}</option>
