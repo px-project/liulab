@@ -56,7 +56,7 @@ export class RoleEditComponent extends Component {
                             {formData.permission && formData.permission.map((module, module_index) => (
                                 <ul key={module_index} className="module">
                                     <li className={classname({ checked: module.allow }) + ' checkbox'}><a>{module.name}</a></li>
-                                    {module.actions.map((action, action_index) => (
+                                    {(module.actions || []).map((action, action_index) => (
                                         <li key={action_index} className={classname({ checked: action.allow }) + ' checkbox'}><a>{action.name}</a></li>
                                     ))}
                                 </ul>

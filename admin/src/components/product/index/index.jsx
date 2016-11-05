@@ -10,34 +10,34 @@ export class ProductComponent extends Component {
     componentWillMount() {
         let {xhttp} = this.props;
 
-        this.getTemplateList(xhttp);
+        this.getCategoryList(xhttp);
     }
 
     render() {
-        let {entities, template, productPageState, product} = this.props;
-        let {template_id} = productPageState;
+        let {entities, category, productPageState, product} = this.props;
+        let {category_id} = productPageState;
         return (
             <div>
                 <header className="list-header">
                     <Link className="button ui primary" to="/product/add">添加</Link>
 
                     <div className="select-product-type">
-                        <select className="ui select dropdown" onChange={this.tamplateChange.bind(this, this.props)}>
+                        <select className="ui select dropdown" onChange={this.categoryChange.bind(this, this.props)}>
                             <option value="">请选择产品类型</option>
-                            {template.items.length && template.items.map((template_id, index) => (
-                                <option key={index} value={template_id}>{entities[template_id].name}</option>
+                            {category.items.length && category.items.map((category_id, index) => (
+                                <option key={index} value={category_id}>{entities[category_id].name}</option>
                             ))}
                         </select>
                     </div>
                 </header>
 
-                {template_id &&
+                {category_id &&
                     <div>
                         <table className="ui table">
                             <thead>
                                 <tr>
                                     <th>序号</th>
-                                    {entities[template_id].template.map((field, index) => (<th key={index}>{field.title}</th>))}
+                                    {entities[category_id].category.map((field, index) => (<th key={index}>{field.title}</th>))}
                                     <th>添加人</th>
                                     <th>操作</th>
                                 </tr>
@@ -46,7 +46,7 @@ export class ProductComponent extends Component {
                                 {product.items.length && product.items.map((product_id, product_index) => (
                                     <tr key={product_index}>
                                         <td>{product_index + 1}</td>
-                                        {entities[template_id].template.map((field, field_index) => (
+                                        {entities[category_id].category.map((field, field_index) => (
                                             <td key={field_index}>{entities[product_id].data[field.key]}</td>
                                         ))}
                                         <td>{entities[product_id].create_user}</td>
@@ -63,20 +63,20 @@ export class ProductComponent extends Component {
         );
     }
 
-    // 处理模板变动
-    tamplateChange(props, e) {
-        let template_id = e.target.value;
-        props.selectTemplateId(template_id);
+    // 处理品类变动
+    categoryChange(props, e) {
+        let category_id = e.target.value;
+        props.selectCategoryId(category_id);
 
-        if (template_id) {
-            this.getProductList(props.xhttp, { template_id });
+        if (category_id) {
+            this.getProductList(props.xhttp, { category_id });
         }
     }
 
 
-    // 获取模板列表
-    getTemplateList(xhttp, conditions = {}) {
-        xhttp({ action: 'list', api: 'template', conditions })
+    // 获取品类列表
+    getCategoryList(xhttp, conditions = {}) {
+        xhttp({ action: 'list', api: 'category', conditions })
     }
 
     // 获取产品列表

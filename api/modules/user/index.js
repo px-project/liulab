@@ -53,9 +53,7 @@ module.exports = _router
     // 用户列表
     .get('/', (req, res) => {
         userModel.list({ populateKeys: ['role'] }, (result) => {
-            console.log(result);
             result.forEach((item) => item.role_name = item.role.name);
-            console.log(result);
             res.json(xres({ code: 0 }, xfilter(result, '_id', 'username', 'role_name', 'name', 'phone', 'create_time', 'update_time')));
         });
     })
@@ -64,8 +62,9 @@ module.exports = _router
     // 当前登录用户信息
     .get('/current', (req, res) => {
         let user_id = req.session.user_id;
-        userModel.detail(user_id, {}, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'username', 'role', 'name', 'phone', 'create_time', 'update_time')));
+        userModel.detail(user_id, { populateKeys: ['role'] }, (result) => {
+            result.role_name = result.role.name;
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'username', 'role_name', 'name', 'phone', 'create_time', 'update_time')));
         });
     })
 
@@ -114,7 +113,7 @@ module.exports = _router
 
         if (newData.password) newData.password = utils.md5(newData.password);
         if (req.body.role_id) {
-            newData = Object.assign(newData, {role: req.body.role_id});
+            newData = Object.assign(newData, { role: req.body.role_id });
         }
 
         userModel.update(user_id, newData, (result) => {

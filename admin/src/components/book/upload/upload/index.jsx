@@ -55,7 +55,7 @@ export class BookUploadUploadComponent extends Component {
 		let {productTypeIndex} = bookPageState;
 
         return (
-            <div>
+            <div className="book-upload-upload">
 				<div className="download">
 					<a href={apiConfig.server + apiConfig.templateDownload + '?template_id=' + (template.items.filter((item, index) => productTypeIndex[index])).join('&template_id=')}>下载模板文件</a>
 				</div>

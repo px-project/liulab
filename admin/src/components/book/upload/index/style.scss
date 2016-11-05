@@ -1,10 +1,41 @@
-.upload-page {
-	padding: 1rem 0;
-	width: 70rem;
-	margin: 0 auto;
+$index_size: 3rem;
+$line_height: 0.5rem;
+.book-upload-page {
 	.step {
-		width: 50%;
+		width: 70%;
 		margin: 0 auto;
-		padding: 1rem 0;
+		ul {
+			position: relative;
+			display: flex;
+			&:before {
+				content: '';
+				position: absolute;
+				width: 100%;
+				background: white;
+				height: $line_height;
+				top: ($index_size - $line_height) / 2;
+				z-index: -1;
+			}
+			li {
+				flex-grow: 1;
+				display: inline-flex;
+				flex-direction: column;
+				align-items: center;
+
+				.index {
+					background: white;
+					height: $index_size;
+					width: $index_size;
+					border-radius: $index_size;
+					text-align: center;
+					line-height: $index_size;
+					margin-bottom: 1rem;
+				}
+				.info {
+
+
+				}
+			}
+		}
 	}
 }

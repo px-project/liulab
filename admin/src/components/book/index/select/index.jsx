@@ -42,16 +42,7 @@ export class BookSelectSelectComponent extends Component {
 		let {template_id} = bookPageState;
 
 		return (
-			<div className="book-select-select-page">
-				<header className="list-header">
-					<div className="select-product-type">
-						<select className="ui selection dropdown" ref="dropdown" onChange={this.handleChangeTemplate.bind(this, this.props)}>
-							<option value="">请选择产品类别</option>
-							{template && template.items.map((template_id, index) => (<option key={index} value={template_id}>{entities[template_id].name}</option>))}
-						</select>
-					</div>
-					<a className="button ui labeled right icon confirm" onClick={changeBookState.bind(this, 'confirm')}><i className="right arrow icon"></i>确认订单</a>
-				</header>
+			<div className="book-select-select">
 				{entities[template_id] && (
 					<div>
 						<table className="ui table">

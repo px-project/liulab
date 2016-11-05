@@ -9,24 +9,24 @@ import './style.scss';
 export class BookUploadSelectComponent extends Component {
 
 	componentWillMount () {
-		let {entities, xhttp, template} = this.props;
+		let {entities, xhttp, category} = this.props;
 
 		xhttp({
 			action: 'list',
-			api: 'template'
+			api: 'category'
 		});
 	}
 
 	render () {
-		let {template, entities, changeBookState, bookPageState} = this.props;
+		let {category, entities, changeBookState, bookPageState} = this.props;
 		let {productTypeIndex} = bookPageState;
 		return (
 			<div className="upload-select">
 				<div className="select">
 				{
-					template.items.map((template_id, index, arr) => {
+					category.items.map((category_id, index, arr) => {
 						return (
-							<ProductType len={arr.length} index={index} key={index} productType={entities[template_id]} {...this.props}></ProductType>
+							<ProductType len={arr.length} index={index} key={index} productType={entities[category_id]} {...this.props}></ProductType>
 						);
 					})
 				}

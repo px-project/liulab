@@ -1,0 +1,46 @@
+.user-index-page {
+    .list {
+        padding-top: 1rem;
+        ul {
+            display: flex;            
+            li {
+                a {
+                    display: flex;
+                    height: 5em;
+                    width: 20rem;
+                    .avatar {
+                        height: 100%;
+                        border-radius: 5rem;
+                        overflow: hidden;
+                        border: 1px solid #f1f1f1;
+                        img {
+                            display: inline-block;
+                            width: auto;
+                            height: 100%;
+                        }
+                    }
+                    .info {
+                        padding-left: 1rem;
+                        display: flex;
+                        flex-direction: column;
+                        p {
+                            margin: 0;
+                        }
+
+                        .name {
+                            flex-grow: 1;
+                            font-weight: bolder;
+                            font-size: 1.3rem;
+                            color: #333;
+                        }
+                        .describe {
+                            flex-grow: 1;
+                            color: #999;
+                            font-size: 0.9rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

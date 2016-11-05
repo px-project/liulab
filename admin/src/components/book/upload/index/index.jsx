@@ -1,34 +1,44 @@
 /**
  * 上传界面
  */
-import React, {Component} from 'react';
-import {Steps} from 'antd';
-const Step = Steps.Step;
-import {BookUploadSelectComponent as UploadSelect} from '../select/';
-import {BookUploadUploadComponent as UploadUpload} from '../upload/';
-import {BookUploadPreviewComponent as UploadPreview} from '../preview/';
+import React, { Component } from 'react';
+import classname from 'classname';
+import { BookUploadSelectComponent as UploadSelect } from '../select/';
+import { BookUploadUploadComponent as UploadUpload } from '../upload/';
+import { BookUploadPreviewComponent as UploadPreview } from '../preview/';
 import './style.scss';
 
 export class BookUploadComponent extends Component {
-	componentWillMount () {
+	componentWillMount() {
 		// init
 		this.props.changeBookState('select');
 		this.props.selectProductType(-1, 0);
 	}
 
-	render () {
+	render() {
 		let status = this.props.bookPageState.pageState;
 
-		let allState = ['select', 'upload', 'preview'];
+		let allState = {
+			'select': '选择品类',
+			'upload': '上传文件',
+			'preview': '确认订单'
+		}
+
+		let currentStatusIndex = Object.keys(allState).indexOf(status);
 
 		return (
-			<div className="upload-page">
+			<div className="book-upload-page page">
 				<div className="step">
-					<Steps size="small" current={allState.indexOf(status)}>
-						<Step title="选择产品类型" />
-						<Step title="批量上传文件" />
-						<Step title="预览确认" />
-					</Steps>
+					<ul>
+						{Object.keys(allState).map((status, status_index, statusArr) => (
+							<li key={status_index} className={classname({ done: status_index < currentStatusIndex, active: status_index == currentStatusIndex, todo: status_index > currentStatusIndex })}>
+								<div className="index">{status_index + 1}</div>
+								<div className="info">
+									<span className="title">{allState[status]}</span>
+								</div>
+							</li>
+						))}
+					</ul>
 				</div>
 				<div className="page">
 					{status === 'select' && <UploadSelect {...this.props}></UploadSelect>}

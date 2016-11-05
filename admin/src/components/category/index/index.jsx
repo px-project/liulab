@@ -31,7 +31,7 @@ export class CategoryComponent extends Component  {
 						<tr>
 							<th>序号</th>
 							<th>产品类型</th>
-							<th>添加人</th>
+							<th>备注</th>
 							<th>创建时间</th>
 							<th>操作</th>
 						</tr>
@@ -41,7 +41,7 @@ export class CategoryComponent extends Component  {
 							<tr key={category_index}>
 								<td>{category_index + 1}</td>
 								<td>{entities[category].name}</td>
-								<td>{entities[category].user_id}</td>
+								<td>{entities[category].describe}</td>
 								<td>{moment(entities[category].create_time).format('YYYY-MM-DD hh:mm:ss')}</td>
 								<td>
 									<Link to={'/template/' + category}>详情</Link>

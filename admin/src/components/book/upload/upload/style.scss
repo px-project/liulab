@@ -1,38 +1,41 @@
-.download {
-	border-bottom: 1px solid #eee;
-	padding: 2rem 0;
-	margin-bottom: 2rem;
-	text-align: center;
-}
+.book-upload-upload {
+	.download {
+		border-bottom: 1px solid #eee;
+		padding: 2rem 0;
+		margin-bottom: 2rem;
+		text-align: center;
+	}
 
-.upload {
-	width: 30rem;
-	margin: 0 auto;
-	border: 2px dashed #eee;
-	text-align: center;
-	overflow: hidden;
-	position: relative;
-	i[type="upload"] {
-		font-size: 2rem;
-		font-weight: bolder;
-		line-height: 4rem;
+	.upload {
+		width: 30rem;
+		margin: 0 auto;
+		border: 2px dashed #eee;
+		text-align: center;
+		overflow: hidden;
+		position: relative;
+		i[type="upload"] {
+			font-size: 2rem;
+			font-weight: bolder;
+			line-height: 4rem;
+		}
+		.main {
+			font-size: 0.8rem;
+			line-height: 2rem;
+		}
+		.describe {
+			font-size: 0.6rem;
+			line-height: 1.5rem;
+			color: red;
+		}
+		input[type="file"] {
+			width: 100%;
+			opacity: 0;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
 	}
-	.main {
-		font-size: 0.8rem;
-		line-height: 2rem;
-	}
-	.describe {
-		font-size: 0.6rem;
-		line-height: 1.5rem;
-		color: red;
-	}
-	input[type="file"] {
-		width: 100%;
-		opacity: 0;
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-	}
+
 }
