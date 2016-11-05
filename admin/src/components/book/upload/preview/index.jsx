@@ -9,8 +9,8 @@ const TabPane = Tabs.TabPane;
 export class BookUploadPreviewComponent extends Component {
 	// 创建订单
 	createOrder (props, e) {
-		let {xhttp, templateUpload, entities} = props;
-		let newData = {products: entities[templateUpload.items[templateUpload.items.length - 1]].result};
+		let {xhttp, categoryUpload, entities} = props;
+		let newData = {order: entities[categoryUpload.items[categoryUpload.items.length - 1]].result};
 
 		xhttp({
 			action: 'create',
@@ -28,33 +28,33 @@ export class BookUploadPreviewComponent extends Component {
 	}
 
 	render () {
-		let {templateUpload, entities} = this.props;
+		let {categoryUpload, entities, bookPageState} = this.props;
 
-		let template_ids = this.props.template.items.filter((item, index) => this.props.bookPageState.productTypeIndex[index]);
+		let category_ids = this.props.category.items.filter((item, index) => bookPageState.productTypeIndex[index]);
 
-		let {result} = entities[templateUpload.items[templateUpload.items.length - 1]];
+		let {result} = entities[categoryUpload.items[categoryUpload.items.length - 1]];
 
 		return (
 			<div>
-				{template_ids.map((template_id, index) => (
+				{category_ids.map((category_id, index) => (
 					<div key={index} className="product">
-						<h5>{entities[template_id].name}</h5>
+						<h5>{entities[category_id].name}</h5>
 						<div className="data">
 							<table className="ui table">
 								<thead>
 									<tr>
 										<th>序号</th>
-										{entities[template_id].template.map((tpl) => (
-											<th>{tpl.title}</th>
+										{entities[category_id].attrs.map((attr, attr_index) => (
+											<th key={attr_index}>{attr.title}</th>
 										))}
 									</tr>
 								</thead>
 								<tbody>
-									{result[template_id].map((row, row_index) => (
-										<tr>
+									{result[category_id].map((row, row_index) => (
+										<tr key={row_index}>
 											<td>{row_index + 1}</td>
-											{entities[template_id].template.map((tpl) => (
-												<td>{row[tpl.key]}</td>
+											{entities[category_id].attrs.map((attr, attr_index) => (
+												<td key={attr_index}>{row[attr.field]}</td>
 											))}
 										</tr>
 									))}

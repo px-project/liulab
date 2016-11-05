@@ -27,7 +27,7 @@ module.exports = _router
                 result[category._id] = excelData[index].filter((item, index) => index > 1).map((rowData, row) => {
                     let currentRow = {};
                     rowData.map((colData, col) => {
-                        currentRow[category.category[col].key] = colData;
+                        currentRow[category.attrs[col].field] = colData;
                     });
                     return currentRow;
                 });
@@ -36,20 +36,20 @@ module.exports = _router
             // 删除文件
             fs.unlink(req.file.path, () => res.json(xres({ code: 0 }, { _id: new Date().getTime(), result })));
         });
-
     })
 
 
     // 下载模板文件
     .get('/download', (req, res) => {
         getMultiCategoryDetail(req.query.category_id, (result) => {
+
             let categoryData = {};
             let fileName = '';
 
-            result.forEach((item) => {
-                fileName += '_' + item.name;
+            result.forEach((category) => {
+                fileName += '_' + category.name;
 
-                categoryData[item.name] = item.category.map((schema) => [schema.title, [schema.type].map((type) => {
+                categoryData[category.name] = category.attrs.map(attr => [attr.title, [attr.attr_type].map((type) => {
                     let result = "";
 
                     switch (type) {
@@ -70,19 +70,19 @@ module.exports = _router
                     }
 
                     return result;
-                })]);
+                })[0]]);
             });
 
             // 生成xlsx
             utils.encodeXlsx(categoryData);
 
             // 处理filename
-            fileName = fileName.substr(1) + '.xlsx';
+            fileName = '模板：' + fileName.substr(1) + '.xlsx';
             fileName.replace(/[\s\,\.]/, '');
 
-            res.download(path.join(__dirname, '../uploads/output.xlsx'), fileName, () => {
+            res.download(path.join(__dirname, '../../uploads/output.xlsx'), fileName, (err) => {
                 // 删除文件
-                fs.unlink(path.join(__dirname, '../uploads/output.xlsx'));
+                fs.unlink(path.join(__dirname, '../uploads/output.xlsx'), () => {});
             });
         });
     })
@@ -139,8 +139,10 @@ module.exports = _router
 // 获取多个品类详情
 function getMultiCategoryDetail(categorys, cb) {
     if (typeof categorys === 'string') categorys = [categorys];
-    let queue = categorys.map(category_id => cb => {
-        return categoryModel.detail(category_id, {}, result => cb(null, result));
+
+    let queue = categorys.map(category_id => callback => {
+        categoryModel.detail(category_id, {}, (result) => callback(null, result));
     });
+
     async.series(queue, (err, result) => cb(result));
 }

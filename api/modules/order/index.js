@@ -36,7 +36,7 @@ module.exports = _router
 
     // 订单列表
     .get('/', (req, res) => {
-        orderModel.list({populateKeys: ['user_id']}, (result) => {
+        orderModel.list({ populateKeys: ['user_id'] }, (result) => {
             result.map((order, index) => {
 
                 // init total
@@ -47,15 +47,15 @@ module.exports = _router
 
                 let product_type = [];
 
-                for (let template_id in order.products) {
-                    order.products[template_id].forEach((rowData, row) => {
+                for (let category_id in order.products) {
+                    order.products[category_id].forEach((rowData, row) => {
                         total[rowData.progress[rowData.progress.length - 1].status]++;
                     });
                 }
 
                 order.product_type = product_type;
 
-                order.create_user = order.user_id.name || order.user_id.username; 
+                order.create_user = order.user_id.name || order.user_id.username;
             });
 
 
@@ -67,8 +67,8 @@ module.exports = _router
     // 订单详情
     .get('/:order_id', (req, res) => {
         let {order_id} = req.params;
-        orderModel.list({ where: {order_id}, populateKeys: ['user_id'] }, (result) => {
-            result[0].create_user = xfilter(result[0].user_id, '_id', 'name', 'username', 'phone'); 
+        orderModel.list({ where: { order_id }, populateKeys: ['user_id'] }, (result) => {
+            result[0].create_user = xfilter(result[0].user_id, '_id', 'name', 'username', 'phone');
             res.json(xres({ code: 0 }, xfilter(result[0], '_id', 'order_id', 'create_user', 'products', 'create_time', 'update_time')));
         });
     })
@@ -76,77 +76,82 @@ module.exports = _router
 
     // 创建订单
     .post('/', (req, res) => {
-        let {products} = req.body;
-        let d = new Date();
-        let order_id = new Date().toISOString().replace(/[-T:Z\.]/g, '').substr(0, 14);
+        let {order} = req.body;
+        let products = utils.deepCopy(order);
+        let now = new Date();
+        let order_id = now.toISOString().replace(/[-T:Z\.]/g, '').substr(0, 14);
 
-        let newData = {
-            order_id,
-            user_id: req.session.user_id,
-            products,
-        };
+        // 添加子订单初始状态 
+        Object.keys(products).forEach(category_id => {
 
-        // 添加初始状态
-        for (let template_id in newData.products) {
-
-            newData.products[template_id].map((rowData, row) => {
-                rowData.token = newData.order_id + '_' + template_id + '_' + row;
-                rowData.progress = [{ status: 'pending', time: d }];
+            // 位子订单添加进度和token
+            products[category_id].forEach((childOrder, childOrderIndex) => {
+                childOrder.token = `${order_id}_${category_id}_${childOrderIndex}`;
+                childOrder.progress = [{ status: 'pending', time: now }];
             });
-        }
 
-        orderModel.create(newData, (result) => {
-            res.json(xres({ code: 0 }, result));
+            // 创建订单
+            let newData = { order_id, create_user: req.session.user_id, products };
+            orderModel.create(newData, orderData => {
+                res.json(xres({ code: 0 }, orderData));
 
-            // init product
-            let templateQueue = [];
-            for (let template_id in newData.products) {
-                templateQueue.push((cb) => categoryModel.detail(template_id, {}, (result) => cb(null, result)));
-            }
-
-            async.series(templateQueue, (err, result) => {
-                // 获取模板详情列表
-                let templates = {};
-                result.forEach((item) => templates[item._id] = item.template.map((field) => field.key));
-
-                // 转换产品列表数据
-                let products = [];
-                let hashs = {};
-                for (let template_id in templates) {
-
-                    newData.products[template_id].forEach((rowData) => {
-                        let product = { template_id, user_id: newData.user_id, hash: '', data: {} };
-
-                        templates[template_id].forEach((key) => {
-                            product.data[key] = rowData[key];
-                        });
-
-                        product.hash = utils.hash(JSON.stringify(product.data));
-                        hashs[product.hash] = false;
-                        products.push(product);
-                    });
-
-                }
-
-                // 筛选重复数据
-                products = products.filter((product) => {
-                    if (!hashs[product.hash]) {
-                        return hashs[product.hash] = true;
-                    } else {
-                        return false;
-                    }
-                });
-
-                // 保存数据
-                let productQueue = products.map((product) => (cb) => {
-                    productModel.upsert({ template_id: product.template_id, hash: product.hash }, product, (result) => {
-                        cb(null, result);
-                    });
-                });
-
-                async.series(productQueue, (err, result) => { });
+                // 创建产品 
             });
         });
+
+
+        // orderModel.create(newData, (result) => {
+        //     res.json(xres({ code: 0 }, result));
+
+        //     // init product
+        //     let categoryQueue = [];
+        //     for (let category_id in newData.products) {
+        //         categoryQueue.push((cb) => categoryModel.detail(category_id, {}, (result) => cb(null, result)));
+        //     }
+
+        //     async.series(categoryQueue, (err, result) => {
+        //         // 获取模板详情列表
+        //         let categories = {};
+        //         result.forEach((item) => categories[item._id] = item.category.map((field) => field.key));
+
+        //         // 转换产品列表数据
+        //         let products = [];
+        //         let hashs = {};
+        //         for (let category_id in categories) {
+
+        //             newData.products[category_id].forEach((rowData) => {
+        //                 let product = { category_id, user_id: newData.user_id, hash: '', data: {} };
+
+        //                 categories[category_id].forEach((key) => {
+        //                     product.data[key] = rowData[key];
+        //                 });
+
+        //                 product.hash = utils.hash(JSON.stringify(product.data));
+        //                 hashs[product.hash] = false;
+        //                 products.push(product);
+        //             });
+
+        //         }
+
+        //         // 筛选重复数据
+        //         products = products.filter((product) => {
+        //             if (!hashs[product.hash]) {
+        //                 return hashs[product.hash] = true;
+        //             } else {
+        //                 return false;
+        //             }
+        //         });
+
+        //         // 保存数据
+        //         let productQueue = products.map((product) => (cb) => {
+        //             productModel.upsert({ category_id: product.category_id, hash: product.hash }, product, (result) => {
+        //                 cb(null, result);
+        //             });
+        //         });
+
+        //         async.series(productQueue, (err, result) => { });
+        //     });
+        // });
     })
 
 
@@ -168,12 +173,12 @@ module.exports = _router
         let {order_id} = req.params;
         let {status, token} = req.body;
 
-        let template_id = token.split('_')[1];
+        let category_id = token.split('_')[1];
         let rowIndex = parseInt(token.split('_')[2]);
 
         orderModel.list({ order_id }, (orders) => {
             let order = orders[0];
-            let currentProduct = order.products[template_id][rowIndex];
+            let currentProduct = order.products[category_id][rowIndex];
             let currentStatus = currentProduct.progress[currentProduct.progress.length - 1].status;
 
             let currentStatusIndex = statusArr.indexOf(currentStatus);
@@ -205,12 +210,12 @@ module.exports = _router
         });
     });
 
-
-function createProduct(user_id, template_id, data, cb) {
+// 创建产品
+function createProduct(user_id, category_id, data, cb) {
     let hash = utils.hash(JSON.stringify(data));
-    productModel.list({ template_id, hash }, (products) => {
+    productModel.list({ category_id, hash }, (products) => {
         if (!products.length) {
-            productModel.create({ user_id, template_id, hash, data }, (result) => {
+            productModel.create({ user_id, category_id, hash, data }, (result) => {
                 cb(result);
             });
         } else {

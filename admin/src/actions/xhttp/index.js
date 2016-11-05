@@ -65,7 +65,13 @@ function handleUrl(api, params, conditions) {
     // 拼装查询
     var queryStr = '?';
     for (let key in conditions) {
-        queryStr += `${key}=${conditions[key]}&`;
+
+        if (Array.isArray(conditions[key])) {
+            queryStr += conditions[key].map((item) => (`${key}=${item}&`)).join('');
+        } else {
+            queryStr += `${key}=${conditions[key]}&`;
+        }
+        
     }
     if (queryStr.length > 1) url += queryStr.substr(0, queryStr.length - 1);
 
