@@ -22,9 +22,7 @@ module.exports = _router
 
         if (typeof orders === 'string') orders = [orders];
 
-        let queue = [];
-
-        orders.map((order_id) => queue.push((cb) => orderModel.detail(order_id, {}, (result) => cb(null, result))));
+        let queue = orders.map((order_id) => cb => orderModel.detail(order_id, {}, (result) => cb(null, result)));
 
         async.series(queue, (err, result) => {
             let excelData = result.map((order, order_index) => {
@@ -36,28 +34,23 @@ module.exports = _router
 
     // 订单列表
     .get('/', (req, res) => {
-        orderModel.list({ populateKeys: ['user_id'] }, (result) => {
-            result.map((order, index) => {
+        orderModel.list({ populateKeys: ['create_user'] }, (result) => {
 
-                // init total
+            result.forEach(order => {
+                // 各状态子订单统计
                 let total = order.total = {};
-                statusArr.forEach((status, index) => {
+                statusArr.forEach(status => {
                     total[status] = 0;
                 });
 
-                let product_type = [];
-
-                for (let category_id in order.products) {
-                    order.products[category_id].forEach((rowData, row) => {
-                        total[rowData.progress[rowData.progress.length - 1].status]++;
+                Object.keys(order.products).forEach(category_id => {
+                    order.products[category_id].forEach(row => {
+                        total[row.progress[row.progress.length - 1].status]++;
                     });
-                }
+                });
+                order._doc.create_user = order.create_user.name || order.create_user.username;
 
-                order.product_type = product_type;
-
-                order.create_user = order.user_id.name || order.user_id.username;
             });
-
 
             res.json(xres({ code: 0 }, xfilter(result, '_id', 'order_id', 'create_user', 'total', 'create_time', 'update_time')));
         });
@@ -67,8 +60,9 @@ module.exports = _router
     // 订单详情
     .get('/:order_id', (req, res) => {
         let {order_id} = req.params;
-        orderModel.list({ where: { order_id }, populateKeys: ['user_id'] }, (result) => {
-            result[0].create_user = xfilter(result[0].user_id, '_id', 'name', 'username', 'phone');
+
+        orderModel.list({ where: { order_id }, populateKeys: ['create_user'] }, (result) => {
+            result[0]._doc.create_user = xfilter(result[0].create_user, '_id', 'name', 'username', 'phone');
             res.json(xres({ code: 0 }, xfilter(result[0], '_id', 'order_id', 'create_user', 'products', 'create_time', 'update_time')));
         });
     })
@@ -80,6 +74,10 @@ module.exports = _router
         let products = utils.deepCopy(order);
         let now = new Date();
         let order_id = now.toISOString().replace(/[-T:Z\.]/g, '').substr(0, 14);
+
+        // todo 验证
+
+
 
         // 添加子订单初始状态 
         Object.keys(products).forEach(category_id => {
@@ -93,9 +91,19 @@ module.exports = _router
             // 创建订单
             let newData = { order_id, create_user: req.session.user_id, products };
             orderModel.create(newData, orderData => {
-                res.json(xres({ code: 0 }, orderData));
+                res.json(xres({ code: 0 }, xfilter(orderData, '_id', 'order_id', 'create_user', 'products', 'create_time')));
 
-                // 创建产品 
+                // 创建产品
+                
+                // 查询品类数据
+                let categoryQueue = Object.keys(newData.products).map(category_id => cb => categoryModel.detail(category_id, {}, result => cb(null, result))); 
+                async.series(categoryQueue, (err, categories) => {
+                
+                // todo
+
+
+
+                })
             });
         });
 
@@ -160,7 +168,6 @@ module.exports = _router
         let {order_id} = req.params;
         let newOrderData = req.body;
 
-
         // 当前订单
         orderModel.detail(order_id, {}, (result) => {
 
@@ -198,7 +205,11 @@ module.exports = _router
             }
 
             orderModel.update(order._id, { products: order.products }, (_result) => {
-                res.json(xres({ code: 0 }, order));
+
+                // 重新获取create_user
+                orderModel.detail(order._id, {populateKeys: ['create_user']}, result => {
+                    res.json(xres({ code: 0 }, result));
+                });
             });
 
             function genProgress(status) {
@@ -210,16 +221,21 @@ module.exports = _router
         });
     });
 
+
+
 // 创建产品
 function createProduct(user_id, category_id, data, cb) {
     let hash = utils.hash(JSON.stringify(data));
     productModel.list({ category_id, hash }, (products) => {
         if (!products.length) {
-            productModel.create({ user_id, category_id, hash, data }, (result) => {
-                cb(result);
-            });
+            productModel.create({ user_id, category_id, hash, data }, cb);
         } else {
             cb(false);
         }
     });
+}
+
+// 获取品类详情
+function getCategoryDetail(category_id, cb) {
+    categoryModel.detail(category_id, {}, cb);
 }

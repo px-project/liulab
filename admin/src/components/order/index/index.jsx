@@ -17,17 +17,13 @@ export class OrderComponent extends Component {
 	render() {
 		let {entities, order} = this.props;
 
-		let toggleStatusFilterArr = [];
-
-		for (let key in consts.ORDER_STATUS) {
-			toggleStatusFilterArr.push({
-				key: key,
-				text: consts.ORDER_STATUS[key]
-			});
-		}
+		let toggleStatusFilterArr = Object.keys(consts.ORDER_STATUS).map(status => ({
+			key: status,
+			text: consts.ORDER_STATUS[status]
+		}));
 
 		return (
-			<div>
+			<div className="order-detail-page">
 				<header className="list-header">
 					<button className="ui button primary">下载</button>
 				</header>

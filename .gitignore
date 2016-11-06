@@ -10,3 +10,7 @@ typings/
 
 # prod
 build
+
+
+# vscode
+.vscode
