@@ -94,72 +94,41 @@ module.exports = _router
                 res.json(xres({ code: 0 }, xfilter(orderData, '_id', 'order_id', 'create_user', 'products', 'create_time')));
 
                 // 创建产品
-                
+
                 // 查询品类数据
-                let categoryQueue = Object.keys(newData.products).map(category_id => cb => categoryModel.detail(category_id, {}, result => cb(null, result))); 
+                let categoryQueue = Object.keys(newData.products).map(category_id => cb => categoryModel.detail(category_id, {}, result => cb(null, result)));
                 async.series(categoryQueue, (err, categories) => {
-                
-                // todo
 
+                    // 转化为产品数据
+                    let newProductDatas = [];
+                    categories.forEach(category => {
+                        newProductDatas = newProductDatas.concat(order[category._id].map(childOrder => {
+                            let result = {
+                                category: category._id,
+                                name: childOrder.name,
+                                code: childOrder.code,
+                                unit_price: childOrder.unit_price,
+                                attrs: {}
+                            };
+                            category.attrs.forEach(attr => result.attrs[attr.field] = childOrder[attr.field]);
+                            result.hash = utils.hash(JSON.stringify(result.attrs));
+                            return result;
+                        }));
+                    });
 
+                    // 筛选重复产品
+                    let hashs = {};
+                    newProductDatas = newProductDatas.filter(product => !hashs[product.hash]);
 
-                })
+                    // upsert产品数据
+                    let productQueue = newProductDatas.map(product => cb => {
+                        productModel.upsert({ category_id: product.category_id, hash: product.hash }, product, result => cb(null, result));
+                    });
+
+                    async.series(productQueue, (err, result) => { });
+                });
             });
         });
-
-
-        // orderModel.create(newData, (result) => {
-        //     res.json(xres({ code: 0 }, result));
-
-        //     // init product
-        //     let categoryQueue = [];
-        //     for (let category_id in newData.products) {
-        //         categoryQueue.push((cb) => categoryModel.detail(category_id, {}, (result) => cb(null, result)));
-        //     }
-
-        //     async.series(categoryQueue, (err, result) => {
-        //         // 获取模板详情列表
-        //         let categories = {};
-        //         result.forEach((item) => categories[item._id] = item.category.map((field) => field.key));
-
-        //         // 转换产品列表数据
-        //         let products = [];
-        //         let hashs = {};
-        //         for (let category_id in categories) {
-
-        //             newData.products[category_id].forEach((rowData) => {
-        //                 let product = { category_id, user_id: newData.user_id, hash: '', data: {} };
-
-        //                 categories[category_id].forEach((key) => {
-        //                     product.data[key] = rowData[key];
-        //                 });
-
-        //                 product.hash = utils.hash(JSON.stringify(product.data));
-        //                 hashs[product.hash] = false;
-        //                 products.push(product);
-        //             });
-
-        //         }
-
-        //         // 筛选重复数据
-        //         products = products.filter((product) => {
-        //             if (!hashs[product.hash]) {
-        //                 return hashs[product.hash] = true;
-        //             } else {
-        //                 return false;
-        //             }
-        //         });
-
-        //         // 保存数据
-        //         let productQueue = products.map((product) => (cb) => {
-        //             productModel.upsert({ category_id: product.category_id, hash: product.hash }, product, (result) => {
-        //                 cb(null, result);
-        //             });
-        //         });
-
-        //         async.series(productQueue, (err, result) => { });
-        //     });
-        // });
     })
 
 
@@ -207,7 +176,7 @@ module.exports = _router
             orderModel.update(order._id, { products: order.products }, (_result) => {
 
                 // 重新获取create_user
-                orderModel.detail(order._id, {populateKeys: ['create_user']}, result => {
+                orderModel.detail(order._id, { populateKeys: ['create_user'] }, result => {
                     res.json(xres({ code: 0 }, result));
                 });
             });

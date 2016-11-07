@@ -22,13 +22,13 @@ export class BookComponent extends Component {
 
 
 	render() {
-		let {changeBookState, bookPageState, category, entities} = this.props;
+		let {changeBookState, bookPageState, category, product, entities} = this.props;
 		let status = bookPageState.pageState;
 
 		return (
 			<div className="book-index-page page">
-				{!category.fetching && category.items.length ? (
-					<div>
+				{!category.fetching && !product.fetching ? (
+					<div className="book-index-index">
 						<header className="header-menu">
 							<div className="upload">
 								<Link to={'/book/upload'} className="ui button primary">批量上传</Link>
@@ -72,6 +72,7 @@ export class BookComponent extends Component {
 
 	// 获取产品列表
 	getProductList(xhttp, condition, cb) {
+		console.log(111);
 		xhttp({ action: 'list', api: 'product', condition }, res => {
 			if (res.success) cb(res.result);
 		});

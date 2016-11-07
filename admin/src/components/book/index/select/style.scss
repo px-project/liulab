@@ -1,2 +1,39 @@
-.book-select-select {
+.book-index-select {
+    .list {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -1rem;
+        padding-top: 1rem;
+        li {
+            width: 20%;
+            padding: 0 1rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            p {
+                margin: 0;
+            }
+            .avatar {
+                width: 100%;
+                padding-bottom: 0.5rem;
+                img {
+                    width: 100%;
+                }
+            }
+            .info {
+                .name {
+                    font-weight: 500;
+                    font-size: 1.3rem;
+                }
+                .code {
+                }
+            }
+            .action {
+                margin-left: auto;
+                a {
+                    height: 33px;
+                }
+            }
+        }
+    }
 }

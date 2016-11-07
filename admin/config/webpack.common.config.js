@@ -28,7 +28,13 @@ module.exports = {
             { test: /\.jsx?$/, loader: 'babel', exclude: /node_modules/ },
             { test: /\.scss$/, loaders: ['style', 'css', 'sass'] },
             { test: /\.json$/, loader: 'json' },
-            { test: /\.(jpe?g|png|gif|svg)$/i, loader: 'file' },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                loaders: [
+                    'file?hash=sha512&digest=hex&name=[hash].[ext]',
+                    'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+                ]
+            }
             // { test: /\.html$/, loader: 'html' }
         ]
     },
