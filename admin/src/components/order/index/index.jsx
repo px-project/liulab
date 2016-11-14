@@ -2,68 +2,50 @@
  * 订单列表组件
  */
 import React, { Component } from 'react';
-import moment from 'moment';
-import { Row, Col, Table, Button } from 'antd';
 import { Link } from 'react-router';
 import * as consts from '../../../constants/';
-import './style.scss';
+import { OrderListComponent as OrderList } from './order_list/';
+import { ChildOrderListComponent as ChildOrderList } from './child_order_list/';
 
 export class OrderComponent extends Component {
 
-	componentWillMount() {
-		this.getOrderList(this.props.xhttp);
-	}
-
 	render() {
 		let {entities, order} = this.props;
-
-		let toggleStatusFilterArr = Object.keys(consts.ORDER_STATUS).map(status => ({
-			key: status,
-			text: consts.ORDER_STATUS[status]
-		}));
+		let {order_type = 'order'} = this.props.location.query;
 
 		return (
 			<div className="order-detail-page">
 				<header className="list-header">
-					<button className="ui button primary">下载</button>
-				</header>
-				{order.items.length ?
-					<table className="ui table">
-						<thead>
-							<tr>
-								<th><input type="checkbox" /></th>
-								<th>序号</th>
-								<th>订单号</th>
-								<th>进度</th>
-								<th>订购人</th>
-								<th>创建时间</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<tbody>
-							{order.items.map((order_id, index) => (
-								<tr key={index}>
-									<td><input type="checkbox" /></td>
-									<td>{index + 1}</td>
-									<td>{entities[order_id].order_id}</td>
-									<td className="progress">
-										{toggleStatusFilterArr.map((item, index) => (
-											<span className="item" key={index}><span>{item.text}</span><span>({entities[order_id].total[item.key]})</span></span>
-										))}
-									</td>
-									<td>{entities[order_id].create_user}</td>
-									<td>{moment(entities[order_id].create_time).format('YYYY-MM-DD hh:mm:ss')}</td>
-									<td><Link to={'/order/' + entities[order_id].order_id}>详情</Link></td>
-								</tr>
+					<div className="add">
+						<button className="ui button primary">下载</button>
+					</div>
+					<div className="nav">
+						<ul>
+							<li><Link to={'/order'}>订单</Link></li>
+							<li><Link to={'/order?order_type=child_order'}>子订单</Link></li>
+						</ul>
+					</div>
+					<div className="group">
+						<select className="ui select dropdown">
+							<option value="">所有状态</option>
+							{Object.keys(consts.ORDER_STATUS).map((status, index) => (
+								<option key={index} value={status}>{consts.ORDER_STATUS[status]}</option>
 							))}
-						</tbody>
-					</table> : ''}
+						</select>
+					</div>
+					<div className="ui search">
+						<div className="ui icon input">
+							<input className="prompt" type="text" placeholder="" />
+							<i className="search icon"></i>
+						</div>
+					</div>
+				</header>
+
+				<div className="list">
+					{order_type === 'order' ? (<OrderList {...this.props}></OrderList>) : ''}
+					{order_type === 'child_order' ? (<ChildOrderList {...this.props}></ChildOrderList>) : ''}
+				</div>
 			</div>
 		);
-	}
-
-	// 获取订单列表
-	getOrderList(xhttp, conditions = {}) {
-		xhttp({ action: 'list', api: 'order', conditions, reload: true });
 	}
 }

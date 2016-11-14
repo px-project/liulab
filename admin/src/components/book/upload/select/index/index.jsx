@@ -3,7 +3,6 @@
  */
 import React, {Component} from 'react';
 import {ProductType} from '../product_type/';
-import {Button} from 'antd';
 import './style.scss';
 
 export class BookUploadSelectComponent extends Component {

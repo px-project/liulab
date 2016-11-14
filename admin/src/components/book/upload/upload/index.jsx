@@ -3,7 +3,6 @@
  */
 import React, { Component } from 'react';
 import './style.scss';
-import { Icon } from 'antd';
 let apiConfig = require('../../../../config/api.json');
 apiConfig.server = window.server;
 
@@ -50,7 +49,7 @@ export class BookUploadUploadComponent extends Component {
 					<a href={apiConfig.server + apiConfig.categoryDownload + '?category_id=' + (category.items.filter((item, index) => productTypeIndex[index])).join('&category_id=')}>下载模板文件</a>
 				</div>
 				<div className="upload">
-					<Icon type="upload" />
+					<i className="upload"></i>
 					<p className="main">点击上传订单数据</p>
 					<p className="describe">请先下载模板文件并严格按照其规则填写，且无修改模板文件。</p>
 					<input type="file" onChange={this.uploadOrderExcel.bind(this, this.props)} />

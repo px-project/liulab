@@ -3,7 +3,6 @@
  */
 import React, {Component} from 'react';
 import classname from 'classname';
-import {Icon} from 'antd';
 import './style.scss';
 
 export class ProductType extends Component {

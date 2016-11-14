@@ -34,25 +34,34 @@ module.exports = _router
 
     // 订单列表
     .get('/', (req, res) => {
-        orderModel.list({ populateKeys: ['create_user'] }, (result) => {
+        let {order_type = 'order'} = req.query;
 
-            result.forEach(order => {
-                // 各状态子订单统计
-                let total = order.total = {};
-                statusArr.forEach(status => {
-                    total[status] = 0;
-                });
+        orderModel.list({ where: { order_type }, populateKeys: ['create_user', 'children_order'] }, (result) => {
+            if (order_type === 'order') {
 
-                Object.keys(order.products).forEach(category_id => {
-                    order.products[category_id].forEach(row => {
-                        total[row.progress[row.progress.length - 1].status]++;
+                result.forEach(order => {
+
+                    // 各状态子订单统计
+                    let total = order.total = {};
+                    statusArr.forEach(status => {
+                        total[status] = 0;
                     });
+
+                    order.children_order.forEach(child_order => {
+                        total[child_order.status]++;
+                    });
+
+                    order._doc.create_user = order.create_user.name || order.create_user.username;
                 });
-                order._doc.create_user = order.create_user.name || order.create_user.username;
+                res.json(xres({ code: 0 }, xfilter(result, '_id', 'order_id', 'create_user', 'total', 'create_time', 'update_time')));
 
-            });
+            } else if (order_type === 'child_order') {
 
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'order_id', 'create_user', 'total', 'create_time', 'update_time')));
+                result.forEach(child_order => {
+                    child_order._doc.create_user = child_order.create_user.name || child_order.create_user.username;
+                });
+                res.json(xres({ code: 0 }, xfilter(result, '_id', 'order_id', 'create_user','status', 'product', 'create_time', 'update_time')));
+            }
         });
     })
 
@@ -61,7 +70,7 @@ module.exports = _router
     .get('/:order_id', (req, res) => {
         let {order_id} = req.params;
 
-        orderModel.list({ where: { order_id }, populateKeys: ['create_user'] }, (result) => {
+        orderModel.list({ where: { order_id }, populateKeys: ['create_user', 'children_order'] }, (result) => {
             result[0]._doc.create_user = xfilter(result[0].create_user, '_id', 'name', 'username', 'phone');
             res.json(xres({ code: 0 }, xfilter(result[0], '_id', 'order_id', 'create_user', 'products', 'create_time', 'update_time')));
         });
@@ -71,32 +80,46 @@ module.exports = _router
     // 创建订单
     .post('/', (req, res) => {
         let {order} = req.body;
-        let products = utils.deepCopy(order);
         let now = new Date();
         let order_id = now.toISOString().replace(/[-T:Z\.]/g, '').substr(0, 14);
 
-        // todo 验证
+        // 转换子订单
+        let childOrders = [];
+        for (let category_id in order) {
+            childOrders = childOrders.concat(order[category_id].map(childOrder => {
+                let child = utils.deepCopy(childOrder);
+                child.category_id = category_id;
+                child.create_user = req.session.user_id;
+                child.order_id = order_id;
+                child.order_type = 'child_order';
+                child.status = 'pending';
+                child.product = childOrder;
+                child.progress = [{ status: 'pending', time: now }];
+                return child;
+            }));
+        }
 
-
-
-        // 添加子订单初始状态 
-        Object.keys(products).forEach(category_id => {
-
-            // 位子订单添加进度和token
-            products[category_id].forEach((childOrder, childOrderIndex) => {
-                childOrder.token = `${order_id}_${category_id}_${childOrderIndex}`;
-                childOrder.progress = [{ status: 'pending', time: now }];
+        // 创建子订单
+        let createChildOrderQueue = childOrders.map(child_order => cb => {
+            orderModel.create(child_order, result => {
+                cb(null, result._id);
             });
+        });
+        async.series(createChildOrderQueue, (err, result) => {
 
             // 创建订单
-            let newData = { order_id, create_user: req.session.user_id, products };
-            orderModel.create(newData, orderData => {
-                res.json(xres({ code: 0 }, xfilter(orderData, '_id', 'order_id', 'create_user', 'products', 'create_time')));
+            let orderData = {
+                create_user: req.session.user_id,
+                order_id,
+                children_order: result
+            };
+
+            orderModel.create(orderData, result => {
+                res.json(xres({ code: 0 }, xfilter(result, '_id', 'order_id', 'create_time')));
 
                 // 创建产品
-
                 // 查询品类数据
-                let categoryQueue = Object.keys(newData.products).map(category_id => cb => categoryModel.detail(category_id, {}, result => cb(null, result)));
+                let categoryQueue = Object.keys(order).map(category_id => cb => categoryModel.detail(category_id, {}, result => cb(null, result)));
                 async.series(categoryQueue, (err, categories) => {
 
                     // 转化为产品数据

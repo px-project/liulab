@@ -8,26 +8,32 @@ import './style.scss';
 export class ProductComponent extends Component {
 
     componentWillMount() {
-        let {xhttp} = this.props;
-
-        this.getCategoryList(xhttp);
+        this.getProductList();
+        this.getCategoryList();
     }
 
     render() {
         let {entities, category, productPageState, product} = this.props;
         let {category_id} = productPageState;
         return (
-            <div>
+            <div className="product-index-page page">
                 <header className="list-header">
                     <Link className="button ui primary" to="/product/add">添加</Link>
 
-                    <div className="select-product-type">
+                    <div className="select-product-type group">
                         <select className="ui select dropdown" onChange={this.categoryChange.bind(this, this.props)}>
-                            <option value="">请选择产品类型</option>
+                            <option value="">所有品类</option>
                             {category.items.length && category.items.map((category_id, index) => (
                                 <option key={index} value={category_id}>{entities[category_id].name}</option>
                             ))}
                         </select>
+                    </div>
+
+                    <div className="ui search">
+                        <div className="ui icon input">
+                            <input className="prompt" type="text" placeholder="" />
+                            <i className="search icon"></i>
+                        </div>
                     </div>
                 </header>
 
@@ -69,18 +75,18 @@ export class ProductComponent extends Component {
         props.selectCategoryId(category_id);
 
         if (category_id) {
-            this.getProductList(props.xhttp, { category_id });
+            this.getProductList({ category_id });
         }
     }
 
 
     // 获取品类列表
-    getCategoryList(xhttp, conditions = {}) {
-        xhttp({ action: 'list', api: 'category', conditions })
+    getCategoryList(conditions = {}) {
+        this.props.xhttp({ action: 'list', api: 'category', conditions });
     }
 
     // 获取产品列表
-    getProductList(xhttp, conditions = {}) {
-        xhttp({ action: 'list', api: 'product', conditions });
+    getProductList(conditions = {}) {
+        this.props.xhttp({ action: 'list', api: 'product', conditions });
     }
 }

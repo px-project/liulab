@@ -29,11 +29,11 @@ export class BookComponent extends Component {
 			<div className="book-index-page page">
 				{!category.fetching && !product.fetching ? (
 					<div className="book-index-index">
-						<header className="header-menu">
-							<div className="upload">
+						<header className="list-header">
+							<div className="upload add">
 								<Link to={'/book/upload'} className="ui button primary">批量上传</Link>
 							</div>
-							<div className="category">
+							<div className="category group">
 								<select className="ui selection dropdown" ref="dropdown" onChange={this.selectCategory.bind(this, this.props)}>
 									<option value="">所有品类</option>
 									{category.items.map((category_id, category_index) => (

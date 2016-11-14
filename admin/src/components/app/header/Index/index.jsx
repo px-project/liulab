@@ -2,7 +2,6 @@
  * 头部之间
  */
 import React, { Component } from 'react';
-import { Row, Col } from 'antd';
 
 import './style.scss';
 

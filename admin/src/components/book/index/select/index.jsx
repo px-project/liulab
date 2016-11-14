@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import './style.scss';
-import defaultCategoryPhoto from '../../../../public/images/huluwa.jpeg';
+import defaultCategoryPhoto from '../../../../public/images/huluwa.jpg';
 
 export class BookSelectSelectComponent extends Component {
 	componentWillMount() {

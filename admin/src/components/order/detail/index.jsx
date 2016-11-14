@@ -3,10 +3,8 @@
  */
 import React, { Component } from 'react';
 import './style.scss';
-import { Tabs, Table, Button, Timeline, Row, Col } from 'antd';
 import moment from 'moment';
 import * as consts from '../../../constants/';
-const TabPane = Tabs.TabPane;
 import classname from 'classname';
 
 

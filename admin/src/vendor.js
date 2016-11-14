@@ -6,4 +6,3 @@ import 'react-redux';
 import 'isomorphic-fetch';
 import 'moment';
 import 'redux-thunk';
-import 'antd';

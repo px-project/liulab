@@ -3,8 +3,6 @@
  */
 import React, {Component} from 'react';
 import './style.scss';
-import { Tabs, Table, Button } from 'antd';
-const TabPane = Tabs.TabPane;
 
 export class BookUploadPreviewComponent extends Component {
 	// 创建订单

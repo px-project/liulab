@@ -19,8 +19,17 @@ module.exports = {
         filename: '[name].bundle.js'
     },
 
+    externals: {
+        // 'react': 'React',
+        // 'react-router': 'ReactRouter',
+        // 'react-dom': 'ReactDom',
+        // 'redux': 'Redux',
+        // 'react-redux': 'ReactRedux',
+        // 'moment': 'moment',
+    },
+
     resolve: {
-        extensions: ['', '.js', '.json', '.jsx', '.scss', '.jpe?g', '.png']
+        extensions: ['', '.js', '.json', '.jsx', '.scss', '.jpeg', '.png']
     },
 
     module: {

@@ -3,7 +3,6 @@
  */
 import React, {Component} from 'react';
 import moment from 'moment';
-import {Row, Col, Table, Button} from 'antd';
 import {Link} from 'react-router';
 import * as consts from '../../../constants/';
 import './style.scss';
