@@ -28,7 +28,7 @@ class UserDetailComponent extends Component {
 
 		return (
 			<div className="user-detail">
-			111
+				
 			</div>
 		)
 	}

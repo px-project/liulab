@@ -9,12 +9,10 @@ import { BookSelectSelectComponent as Select } from '../select/';
 
 export class BookComponent extends Component {
 	componentWillMount() {
-		let {xhttp, changeBookState} = this.props;
+		this.props.changeBookState('select');
 
-		changeBookState('select');
-
-		this.getCategoryList(xhttp);
-		this.getProductList(xhttp);
+		this.getCategoryList();
+		this.getProductList();
 	}
 
 	componentDidMount() {
@@ -23,7 +21,7 @@ export class BookComponent extends Component {
 
 	render() {
 		let {changeBookState, bookPageState, category, product, entities} = this.props;
-		let status = bookPageState.pageState;
+		let {pageState, productList} = bookPageState;
 
 		return (
 			<div className="book-index-page page">
@@ -34,7 +32,7 @@ export class BookComponent extends Component {
 								<Link to={'/book/upload'} className="ui button primary">批量上传</Link>
 							</div>
 							<div className="category group">
-								<select className="ui selection dropdown" ref="dropdown" onChange={this.selectCategory.bind(this, this.props)}>
+								<select className="ui selection dropdown" ref="dropdown" onChange={this.selectCategory.bind(this)}>
 									<option value="">所有品类</option>
 									{category.items.map((category_id, category_index) => (
 										<option key={category_index} value={category_id}>{entities[category_id].name}</option>
@@ -42,12 +40,15 @@ export class BookComponent extends Component {
 								</select>
 							</div>
 							<div className="shop">
-								<button className="ui button red">购物车</button>
+								<button className="ui button red" onClick={this.props.changeBookState.bind(this, 'confirm')}>
+									<span>购物车</span>
+									<span>({Object.keys(productList).reduce((a, b) => (a + productList[b]), 0)})</span>
+								</button>
 							</div>
 						</header>
 						<div>
-							{status === 'confirm' && <Confirm {...this.props}></Confirm>}
-							{status === 'select' && <Select {...this.props}></Select>}
+							{pageState === 'confirm' && <Confirm {...this.props}></Confirm>}
+							{pageState === 'select' && <Select {...this.props}></Select>}
 						</div>
 					</div>
 				) : ''}
@@ -56,24 +57,23 @@ export class BookComponent extends Component {
 	}
 
 	// 选择品类
-	selectCategory(props, e) {
+	selectCategory(e) {
 		let category_id = e.target.value;
 		let condition = {};
 		if (category_id) condition.category_id = category_id;
-		this.getProductList(props.xhttp, condition, () => { });
+		this.getProductList(condition, () => { });
 	}
 
 	// 获取品类列表
-	getCategoryList(xhttp, cb) {
-		xhttp({ action: 'list', api: 'category' }, res => {
+	getCategoryList(cb) {
+		this.props.xhttp({ action: 'list', api: 'category' }, res => {
 			if (res.success) cb(res.result);
 		});
 	}
 
 	// 获取产品列表
-	getProductList(xhttp, condition, cb) {
-		console.log(111);
-		xhttp({ action: 'list', api: 'product', condition }, res => {
+	getProductList(condition, cb) {
+		this.props.xhttp({ action: 'list', api: 'product', condition }, res => {
 			if (res.success) cb(res.result);
 		});
 	}

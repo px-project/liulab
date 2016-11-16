@@ -7,8 +7,17 @@ ul {
     }
 }
 
+a {
+    &:hover {
+        cursor: pointer;
+    }
+}
 body {
     background: #eff3f5;
+}
+
+.hide {
+    display: none;
 }
 
 table {

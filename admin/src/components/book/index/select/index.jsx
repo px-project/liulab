@@ -21,8 +21,8 @@ export class BookSelectSelectComponent extends Component {
 	}
 
 	// 添加到购物车
-	addProductTo(props, product_id) {
-		props.addProduct(product_id, 1);
+	addProductTo(product_id) {
+		this.props.addProduct(product_id, 1);
 	}
 
 
@@ -57,7 +57,7 @@ export class BookSelectSelectComponent extends Component {
 										<p className="code">{entities[product_id].code}</p>
 									</div>
 									<div className="action">
-										<a href="#" className="ui button icon circular red"><i className="fa fa-plus"></i></a>
+										<a onClick={this.addProductTo.bind(this, product_id)} className="ui button icon circular red"><i className="fa fa-plus"></i></a>
 									</div>
 								</li>
 							))}

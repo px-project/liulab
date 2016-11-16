@@ -4,15 +4,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import './style.scss';
+import detailUserAvatar from '../../../public/images/huluwa.jpg';
 
 export class UserEditComponent extends Component {
     componentWillMount() {
         let {xhttp, xform, params} = this.props;
         let {user_id} = params;
 
-        this.getRoleList(xhttp, (result) => {
+        this.getRoleList(result => {
             if (user_id) {
-                this.getUserDetail(xhttp, user_id, (result) => {
+                this.getUserDetail(user_id, (result) => {
                     xform(result);
                 });
             } else {
@@ -33,6 +34,14 @@ export class UserEditComponent extends Component {
             <div className="user-edit">
                 {!user_id || entities[user_id] ? (
                     <div className="ui form">
+                        <div className="avatar">
+                            <a>
+                                <img src={detailUserAvatar} />
+                                <i className="fa fa-upload"></i>
+                            </a>
+                            <input type="file" className="hide"/>
+                        </div>
+
                         <div className="form-group field">
                             <label>姓名</label>
                             <input type="text" value={formData.name} onChange={this.fieldChange.bind(this, xform, 'name')} />
@@ -93,29 +102,29 @@ export class UserEditComponent extends Component {
 
 
     // 获取用户详情
-    getUserDetail(xhttp, user_id, cb) {
-        xhttp({ action: 'detail', api: 'user', params: [user_id] }, (result) => {
+    getUserDetail(user_id, cb) {
+        this.props.xhttp({ action: 'detail', api: 'user', params: [user_id] }, (result) => {
             cb(result);
         });
     }
 
     // 获取角色角色列表
-    getRoleList(xhttp, cb) {
-        xhttp({ action: 'list', api: 'role' }, (result) => {
+    getRoleList(cb) {
+        this.props.xhttp({ action: 'list', api: 'role' }, (result) => {
             cb(result);
         });
     }
 
     // 更新用户信息
-    updateUserDetail(xhttp, user_id, data, cb) {
-        xhttp({ action: 'update', api: 'user', params: [user_id], data }, (result) => {
+    updateUserDetail(user_id, data, cb) {
+        this.props.xhttp({ action: 'update', api: 'user', params: [user_id], data }, (result) => {
             cb(result);
         });
     }
 
     // 创建用户信息
-    createUserDetail(xhttp, data, cb) {
-        xhttp({ action: 'create', api: 'user', data }, (result) => {
+    createUserDetail(data, cb) {
+        this.props.xhttp({ action: 'create', api: 'user', data }, (result) => {
             cb(result);
         });
     }
