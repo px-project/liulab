@@ -4,35 +4,36 @@
 import React, { Component } from 'react';
 import './style.scss';
 import classname from 'classname';
+import DefaultCover from '../../../../public/images/huluwa.jpg';
 
 export class BookSelectConfirmComponent extends Component {
 
 	// 更改数量
-	changeProductNum(props, product_id, changeNum) {
-		props.addProduct(product_id, changeNum);
+	changeProductNum(product_id, changeNum) {
+		this.props.addProduct(product_id, changeNum);
 	}
 
 	// 下单
-	saveOrder(props, productList) {
-		let {xhttp, entities, template} = props;
+	saveOrder(productList) {
+		let {xhttp, entities, category, history} = this.props;
 		let newData = {};
 
 		for (let product_id in productList) {
 			let num = productList[product_id];
 
-			let template = newData[entities[product_id].template_id._id] = [];
+			let category = newData[entities[product_id].category_id._id] = [];
 
 			let productData = Object.assign({}, entities[product_id].data, { num });
 
-			template.push(productData);
+			category.push(productData);
 		}
-		xhttp({ action: 'create', api: 'order', data: { products: newData } }, (result) => {
-			props.history.pushState(null, '/order/' + result.order_id);
+		this.saveOrder(newData, result => {
+			history.pushState(null, '/order/' + result.order_id);
 		});
 	}
 
 	render() {
-		let {entities, template, xhttp, product, changeBookState, bookPageState} = this.props;
+		let {entities, category, xhttp, product, changeBookState, bookPageState} = this.props;
 		let {productList} = bookPageState;
 
 		return (
@@ -41,42 +42,47 @@ export class BookSelectConfirmComponent extends Component {
 					<a className="button ui labeled left icon confirm" onClick={changeBookState.bind(this, 'select')}><i className="left arrow icon"></i>选择产品</a>
 				</header>
 
-				{template.items.map((template_id, template_index) => (
-					<div key={template_index}>
-						<h5>{entities[template_id].name}</h5>
-						<table className="ui table">
-							<thead>
-								<tr>
-									<th>序号</th>
-									{entities[template_id].template.map((field, field_index) => (
-										<th key={field_index}>{field.title}</th>
-									))}
-									<th>数量</th>
-								</tr>
-							</thead>
-							<tbody>
-								{product.items.map((product_id, product_index) => (productList[product_id] && (
-									<tr key={product_index}>
-										<td>{product_index + 1}</td>
-										{entities[template_id].template.map((field, field_index) => (
-											<td key={field_index}>{entities[product_id].data[field.key]}</td>
-										))}
-										<td>
-											<a className={classname({ hide: !productList[product_id] })} onClick={this.changeProductNum.bind(this, this.props, product_id, -1)}>-</a>
-											<span>{productList[product_id]}</span>
-											<a onClick={this.changeProductNum.bind(this, this.props, product_id, 1)}>+</a>
-										</td>
-									</tr>)
-								))}
-							</tbody>
-						</table>
-					</div>
-				))}
+				<table className="ui table">
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>产品</th>
+							<th>货号</th>
+							<th>单价</th>
+							<th>数量</th>
+							<th>合计</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{Object.keys(productList).map((product_id, product_index) => (
+							<tr key={product_index}>
+								<td>{product_index + 1}</td>
+								<td className="product">
+									<img src={DefaultCover} />
+									<span className="name">{entities[product_id].name}</span>
+								</td>
+								<td>{entities[product_id].code}</td>
+								<td>{entities[product_id].unit_price}</td>
+								<td>{productList[product_id]}</td>
+								<td>{entities[product_id].unit_price * productList[product_id]}</td>
+								<td>
+									<a>移除</a>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
 
 				<div className="btn-group">
-					<button className="ui button primary" onClick={this.saveOrder.bind(this, this.props, productList)}>下单</button>
+					<button className="ui button primary" onClick={this.saveOrder.bind(this, productList)}>下单</button>
 				</div>
 			</div>
 		);
+	}
+
+	// 创建订单
+	createOrder(newData, cb) {
+		this.props.xhttp({ action: 'create', api: 'order', data: { products: newData } }, cb);
 	}
 }

@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import './style.scss';
 import { Link } from 'react-router';
+import classname from 'classname';
 import { BookSelectConfirmComponent as Confirm } from '../confirm/';
 import { BookSelectSelectComponent as Select } from '../select/';
 
@@ -27,7 +28,7 @@ export class BookComponent extends Component {
 			<div className="book-index-page page">
 				{!category.fetching && !product.fetching ? (
 					<div className="book-index-index">
-						<header className="list-header">
+						<header className={classname({'list-header': true, hide: pageState === 'confirm'})}>
 							<div className="upload add">
 								<Link to={'/book/upload'} className="ui button primary">批量上传</Link>
 							</div>

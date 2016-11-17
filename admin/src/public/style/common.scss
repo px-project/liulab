@@ -12,6 +12,7 @@ a {
         cursor: pointer;
     }
 }
+
 body {
     background: #eff3f5;
 }
@@ -65,6 +66,11 @@ table {
             }
         }
     }
+}
+
+
+.hide {
+    display: none!important;
 }
 
 
