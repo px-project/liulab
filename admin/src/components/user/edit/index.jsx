@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import './style.scss';
-import detailUserAvatar from '../../../public/images/huluwa.jpg';
+let avatar = require('../../../public/images/huluwa.jpg');
 
 export class UserEditComponent extends Component {
     componentWillMount() {
@@ -26,6 +26,25 @@ export class UserEditComponent extends Component {
         $('select.dropdown').dropdown();
     }
 
+
+    uploadAvatar (e) {
+		let {xhttp,xform} = this.props;
+		let file = e.target.files[0];
+		let reqData = new FormData();
+		reqData.append('file', file);
+		xhttp({
+			action: 'create',
+			api: 'resource',
+			reload: true,
+			data: reqData
+		}, result => {
+            console.log(result);
+            // this.
+		});
+    }
+
+
+
     render() {
         let {role, entities, xform, params, formData} = this.props;
         let {user_id} = params;
@@ -36,10 +55,10 @@ export class UserEditComponent extends Component {
                     <div className="ui form">
                         <div className="avatar">
                             <a>
-                                <img src={detailUserAvatar} />
+                                <img src={avatar} />
                                 <i className="fa fa-upload"></i>
+                                <input ref="fileupload" type="file" onChange={this.uploadAvatar.bind(this)}/>
                             </a>
-                            <input type="file" className="hide"/>
                         </div>
 
                         <div className="form-group field">
@@ -61,18 +80,18 @@ export class UserEditComponent extends Component {
                         </div>
                         <div className="form-group field">
                             <label>密码</label>
-                            <input type="password" placeholder="******" onChange={this.fieldChange.bind(this, xform, 'password')} />
+                            <input type="password" onChange={this.fieldChange.bind(this, xform, 'password')} />
                         </div>
                         <div className="form-group field">
                             <label>确认密码</label>
-                            <input type="password" placeholder="******" onChange={this.fieldChange.bind(this, xform, 'pwdrepeat')} />
+                            <input type="password" onChange={this.fieldChange.bind(this, xform, 'pwdrepeat')} />
                         </div>
                         <div className="form-group field">
                             <label>联系方式</label>
                             <input type="text" value={formData.phone} onChange={this.fieldChange.bind(this, xform, 'phone')} />
                         </div>
                         <div className="btn-group">
-                            <button className="ui button primary" onClick={this.save.bind(this, this.props, { user_id }, formData)}>确认</button>
+                            <button className="ui button primary" onClick={this.save.bind(this, { user_id }, formData)}>确认</button>
                             <Link className="ui button red" to={'/user'}>取消</Link>
                         </div>
                     </div>) : ''}
@@ -85,17 +104,17 @@ export class UserEditComponent extends Component {
     }
 
     // 保存
-    save(props, option, data, e) {
+    save(option, data, e) {
         e.target.disabled = true;
-        let {xhttp} = props;
+        let {xhttp, history} = this.props;
 
         if (option.user_id) {
-            this.updateUserDetail(xhttp, option.user_id, data, (result) => {
-                props.history.pushState(null, '/user');
+            this.updateUserDetail(option.user_id, data, result => {
+                history.pushState(null, '/user');
             });
         } else {
-            this.createUserDetail(xhttp, data, (result) => {
-                props.history.pushState(null, '/user');
+            this.createUserDetail(data, result => {
+                history.pushState(null, '/user');
             });
         }
     }

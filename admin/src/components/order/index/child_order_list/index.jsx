@@ -41,7 +41,9 @@ export class ChildOrderListComponent extends Component {
                                     <td>{entities[order_id].product.num}</td>
                                     <td>{entities[order_id].product.num * entities[order_id].product.unit_price}</td>
                                     <td>{consts.ORDER_STATUS[entities[order_id].status]}</td>
-                                    <td></td>
+                                    <td>
+                                        
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

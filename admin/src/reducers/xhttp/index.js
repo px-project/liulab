@@ -14,7 +14,7 @@ for (let currentApi in apiConfig) {
 
     let stateKey = currentApi.split('-')[0];
 
-    let initState = { items: [] };
+    let initState = { items: [], fetching: false };
 
     // 各接口reducer
     let reducer = (state = initState, action) => {
@@ -36,7 +36,6 @@ for (let currentApi in apiConfig) {
         }
 
         if (action.type === consts.XHTTP_RECEIVE && action.options.api === currentApi) {
-            newState.fetching = false;
 
             switch (action.options.action) {
 
@@ -71,6 +70,7 @@ for (let currentApi in apiConfig) {
                     console.error('param error: action is not one of [list, detail, create, update, delete]');
             }
         }
+        newState.fetching = false;
         return newState;
     }
 

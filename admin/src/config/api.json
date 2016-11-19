@@ -17,5 +17,7 @@
     "categoryUpload": "/category/upload",
     "categoryDownload": "/category/download",
 
-    "permission": "/role/permission"
+    "permission": "/role/permission",
+
+    "resource": "/resource"
 }

@@ -46,7 +46,7 @@ export class BookSelectConfirmComponent extends Component {
 					<thead>
 						<tr>
 							<th>序号</th>
-							<th>产品</th>
+							<th className="product">产品</th>
 							<th>货号</th>
 							<th>单价</th>
 							<th>数量</th>
@@ -64,7 +64,11 @@ export class BookSelectConfirmComponent extends Component {
 								</td>
 								<td>{entities[product_id].code}</td>
 								<td>{entities[product_id].unit_price}</td>
-								<td>{productList[product_id]}</td>
+								<td className="num">
+									<a onClick={this.changeProductNum.bind(this, product_id, -1)}>-</a>
+									<span>{productList[product_id]}</span>
+									<a onClick={this.changeProductNum.bind(this, product_id, 1)}>+</a>
+								</td>
 								<td>{entities[product_id].unit_price * productList[product_id]}</td>
 								<td>
 									<a>移除</a>

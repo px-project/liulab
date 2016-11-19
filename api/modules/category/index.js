@@ -8,9 +8,9 @@ const xfilter = require('../../common/xfilter');
 const async = require('async');
 const utils = require('../../common/utils');
 const multer = require('multer');
-const upload = multer({ dest: './uploads/' });
-const fs = require('fs');
 const path = require('path');
+const upload = multer({ dest: path.join(__dirname, './uploads/') });
+const fs = require('fs');
 
 
 module.exports = _router
