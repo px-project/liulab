@@ -54,7 +54,7 @@ module.exports = _router
     .get('/', (req, res) => {
         userModel.list({ populateKeys: ['role'] }, (result) => {
             result.forEach((item) => item.role_name = item.role.name);
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'username', 'role_name', 'name', 'phone', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'avatar', 'username', 'role_name', 'name', 'phone', 'create_time', 'update_time')));
         });
     })
 
@@ -64,7 +64,7 @@ module.exports = _router
         let user_id = req.session.user_id;
         userModel.detail(user_id, { populateKeys: ['role'] }, (result) => {
             result.role_name = result.role.name;
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'username', 'role_name', 'name', 'phone', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'avatar', 'username', 'role_name', 'name', 'phone', 'create_time', 'update_time')));
         });
     })
 
@@ -77,13 +77,13 @@ module.exports = _router
     .get('/:user_id', (req, res) => {
         let {user_id} = req.params;
         userModel.detail(user_id, {}, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'username', 'role', 'name', 'phone', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'username', 'avatar', 'role', 'name', 'phone', 'create_time', 'update_time')));
         });
     })
 
     // 创建用户
     .post('/', (req, res) => {
-        let { username, password, role, name, phone } = req.body;
+        let { avatar, username, password, role, name, phone } = req.body;
 
         userModel.list({ where: { username } }, (result) => {
             if (result.length) {
@@ -92,6 +92,7 @@ module.exports = _router
             }
 
             let newData = {
+                avatar,
                 username,
                 password: utils.md5(password),
                 role,
@@ -109,7 +110,7 @@ module.exports = _router
     .patch('/:user_id', (req, res) => {
         let {user_id} = req.params;
 
-        let newData = xfilter(req.body, 'username', 'password', 'role', 'name', 'phone');
+        let newData = xfilter(req.body, 'username', 'avatar', 'password', 'role', 'name', 'phone');
 
         if (newData.password) newData.password = utils.md5(newData.password);
         if (req.body.role_id) {

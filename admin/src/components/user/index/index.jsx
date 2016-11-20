@@ -37,11 +37,11 @@ export class UserComponent extends Component {
 								<li key={user_index}>
 									<Link to={`/user/${user_id}`}>
 										<div className="avatar">
-											<img src={entities[user_id].avatar || detailUserAvatar} />
+											<img src={entities[user_id].avatar ? `${window.server}/resource/${entities[user_id].avatar}`: detailUserAvatar} />
 										</div>
 										<div className="info">
 											<p className="name">{entities[user_id].name}</p>
-											<p className="describe">{entities[user_id].describe || '暂无描述'}</p>
+											<p className="role">{entities[user_id].role_name || '暂无角色'}</p>
 										</div>
 									</Link>
 								</li>

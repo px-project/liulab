@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import './style.scss';
-let avatar = require('../../../public/images/huluwa.jpg');
+let defaultAvatar = require('../../../public/images/huluwa.jpg');
 
 export class UserEditComponent extends Component {
     componentWillMount() {
@@ -38,8 +38,8 @@ export class UserEditComponent extends Component {
 			reload: true,
 			data: reqData
 		}, result => {
-            console.log(result);
-            // this.
+            console.log(result.filename);
+            xform(result.filename, 'avatar');
 		});
     }
 
@@ -55,7 +55,7 @@ export class UserEditComponent extends Component {
                     <div className="ui form">
                         <div className="avatar">
                             <a>
-                                <img src={avatar} />
+                                <img src={formData.avatar ? `${window.server}/resource/${formData.avatar}`: defaultAvatar}/>
                                 <i className="fa fa-upload"></i>
                                 <input ref="fileupload" type="file" onChange={this.uploadAvatar.bind(this)}/>
                             </a>

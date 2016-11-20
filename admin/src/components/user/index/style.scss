@@ -3,11 +3,14 @@
         padding-top: 1rem;
         ul {
             display: flex;            
+            flex-wrap: wrap;
             li {
+                width: 25%;
+                padding-bottom: 2rem;
                 a {
                     display: flex;
                     height: 5em;
-                    width: 20rem;
+                    width: 100%;
                     .avatar {
                         height: 100%;
                         border-radius: 5rem;
@@ -33,7 +36,7 @@
                             font-size: 1.3rem;
                             color: #333;
                         }
-                        .describe {
+                        .role {
                             flex-grow: 1;
                             color: #999;
                             font-size: 0.9rem;
