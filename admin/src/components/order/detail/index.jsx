@@ -34,7 +34,7 @@ export class OrderDetailComponent extends Component {
 		let statusStr = consts.ORDER_STATUS;
 
 		return (
-			<div>
+			<div className="order-detail-page page">
 				{orderData && category.items.length === Object.keys(orderData.products).length ? (
 					<div className="book-order-detail">
 						<div className="basic">

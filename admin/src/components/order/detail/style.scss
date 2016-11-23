@@ -1,23 +1,24 @@
-.action {
-	div {
-		display: inline-block;
-	}
-}
-
-.product-detail {
-	padding-bottom: 2rem;
-	h5 {
-		text-align: center;
-	}
-}
-.basic {
-	padding: 1rem 0 0.5rem;
-	border-bottom: 1px dashed #ccc;
-	margin-bottom: 2rem;
-	.info {
-		p {
-			display: inline-block;
-			padding-right: 2rem;
-		}
-	}
+.order-detail-page {
+    .action {
+        div {
+            display: inline-block;
+        }
+    }
+    .product-detail {
+        padding-bottom: 2rem;
+        h5 {
+            text-align: center;
+        }
+    }
+    .basic {
+        padding: 1rem 0 0.5rem;
+        border-bottom: 1px dashed #ccc;
+        margin-bottom: 2rem;
+        .info {
+            p {
+                display: inline-block;
+                padding-right: 2rem;
+            }
+        }
+    }
 }

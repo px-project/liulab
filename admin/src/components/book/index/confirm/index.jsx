@@ -21,13 +21,13 @@ export class BookSelectConfirmComponent extends Component {
 		for (let product_id in productList) {
 			let num = productList[product_id];
 
-			let category = newData[entities[product_id].category_id._id] = [];
+			let category = newData.order[entities[product_id].category._id] = [];
 
 			let productData = Object.assign({}, entities[product_id].data, { num });
 
 			category.push(productData);
 		}
-		this.saveOrder(newData, result => {
+		this.createOrder(newData, result => {
 			history.pushState(null, '/order/' + result.order_id);
 		});
 	}

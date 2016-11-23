@@ -92,7 +92,7 @@ module.exports = _router
     .get('/', (req, res) => {
         let condition = {};
         categoryModel.list(condition, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'photo', 'describe', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'photo', 'description', 'create_time', 'update_time')));
         });
     })
 
@@ -101,14 +101,14 @@ module.exports = _router
     .get('/:category_id', (req, res) => {
         let {category_id} = req.params;
         categoryModel.detail(category_id, {}, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'photo', 'describe', 'attrs', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'photo', 'description', 'attrs', 'create_time', 'update_time')));
         });
     })
 
 
     // 添加
     .post('/', (req, res) => {
-        let newData = xfilter(req.body, 'name', 'photo', 'describe', 'attrs');
+        let newData = xfilter(req.body, 'name', 'photo', 'description', 'attrs');
         categoryModel.create(newData, (result) => {
             res.json(xres({ code: 0 }, xfilter(result, '_id', 'create_time')));
         });
@@ -119,7 +119,7 @@ module.exports = _router
     .patch('/:category_id', (req, res) => {
         let {category_id} = req.params;
 
-        let newData = xfilter(req.body, 'name', 'photo', 'describe', 'attrs');
+        let newData = xfilter(req.body, 'name', 'photo', 'description', 'attrs');
 
         categoryModel.update(category_id, newData, (result) => {
             res.json(xres({ code: 0 }, xfilter(result, '_id', 'update_time')));

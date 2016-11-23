@@ -1,18 +1,61 @@
-.template-add {
-    width: 65rem;
-    margin: 0 auto;
-    p {
-        display: inline-block;
-        padding-right: 3rem;
-
-        .title {
-            &:after {
-                content: '：';
-                margin-right: 0.5rem;
+$photo_sec_width: 30%;
+.category-add-page {
+    .basic {
+        display: flex;
+        flex-wrap: wrap;
+        .photo {
+            width: $photo_sec_width;
+            text-align: right;
+            padding-right: 1rem;
+            .wrap {
+                width: 8rem;
+                display: inline-block;
+                border: 1px solid #eee;
+                img {
+                    display: block;
+                    width: 100%;
+                }
             }
         }
-        .value {
-
+        .info {
+            width: 100% - $photo_sec_width;
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: center;
+            .field {
+                width: 100%;
+            }
+            .description {
+                input {
+                    width: 25rem;
+                }
+            }
+        }
+    }
+    .field-config {
+        .list {
+            width: 60rem;
+            margin: 0 auto;
+            padding-left: 0;
+            display: flex;
+            flex-wrap: wrap;
+            li {
+                display: flex;
+                flex-wrap: wrap;
+                .index {
+                    width: 3rem;
+                    text-align: right;
+                }
+                .detail {
+                    .map {
+                        display: inline-flex;
+                        min-width: 10rem;
+                    }
+                }
+                .field-title {
+                    width: 100%;
+                }
+            }
         }
     }
 }

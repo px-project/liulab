@@ -1,43 +1,49 @@
 $header_height: 3.5rem; // 50px
 // reset
-ul {
-    padding: 0;
-    li {
-        list-style: none;
-    }
-}
-
-a {
-    &:hover {
-        cursor: pointer;
-    }
-}
-
 body {
     background: #eff3f5;
-}
-
-.hide {
-    display: none;
-}
-
-table {
-    td {
-        a {
-            display: inline-block;
-            margin-right: 0.5rem;
-            &:last-child {
-                margin-right: 0;
+    table {
+        td {
+            a {
+                display: inline-block;
+                margin-right: 0.5rem;
+                &:last-child {
+                    margin-right: 0;
+                }
             }
         }
     }
+    ul {
+        padding: 0;
+        li {
+            list-style: none;
+        }
+    }
+    a {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    p {
+        margin-bottom: 0;
+        line-height: 2rem;
+    }
 }
 
-.ui.form .field label {
+.ui.form .field label,
+.map .title {
+    display: inline-block;
+    min-width: 5rem;
+    text-align: right;
     &:after {
+        padding-right: 0.5rem;
         content: ':';
     }
 }
+.ui.form .field {
+    margin-bottom: 0;
+}
+
 
 .page {
     .list-header {
@@ -58,7 +64,7 @@ table {
             margin-right: 1rem;
             select {
                 width: 8rem;
-                min-width:auto;
+                min-width: auto;
                 margin-right: 1rem;
                 &:last-child {
                     margin-right: 0;
@@ -66,13 +72,23 @@ table {
             }
         }
     }
+    .sec {
+        border-top: 1px dashed #ccc;
+        padding: 2rem 0;
+        &:first-child {
+            padding-top: 0;
+            border-top: none;
+        }
+        .sec-title {
+            display: block;
+            width: 100%;
+        }
+    }
 }
-
 
 .hide {
     display: none!important;
 }
-
 
 .ui.search .prompt {
     border-radius: 0.4rem;

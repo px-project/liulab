@@ -1,11 +1,29 @@
-.template-new-field {
-    .inline.field {
-    line-height: 38px;
+.category-new-field {
+    width: 60rem;
+    margin: 0 auto;
+    .new-field-sec {
+        display: flex;
+        padding: 1rem 0;
     }
-    .btn-group {
-        padding-left: 1rem;
-        .button {
-            margin-right: 0.5rem;
+    .new-field-basic {
+        display: flex;
+        align-items: center;
+        .field-new-title {
+            margin-right: 3rem;
+            input {
+                width: 25rem!important;
+            }
+        }
+        .field-required {
+            height: 100%;
+        }
+    }
+    .new-field-other {
+        .field-new-key {
+            margin-right: 3rem;
+        }
+        .actions {
+            padding-left: 1rem;
         }
     }
 }

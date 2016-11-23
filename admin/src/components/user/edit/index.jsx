@@ -38,7 +38,6 @@ export class UserEditComponent extends Component {
 			reload: true,
 			data: reqData
 		}, result => {
-            console.log(result.filename);
             xform(result.filename, 'avatar');
 		});
     }
