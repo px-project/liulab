@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { TemplateNewFieldComponent as NewField } from '../new_field/';
-import DefaultCover from '../../../../public/images/huluwa.jpg';
+import {UploadImgComponent as UploadImg} from '../../../common/upload_img';
 import './style.scss';
 
 export class CategoryAddComponent extends Component {
@@ -23,10 +23,7 @@ export class CategoryAddComponent extends Component {
 				<div className="basic sec">
 					<h3 className="sec-title">品类信息</h3>
 					<div className="photo">
-
-						<div className="wrap">
-							<img src={DefaultCover} />
-						</div>
+						<UploadImg filename={formData.photo} fileKey="photo" {...this.props}></UploadImg>
 					</div>
 					<div className="info">
 						<div className="field inline">
@@ -68,7 +65,8 @@ export class CategoryAddComponent extends Component {
 						)) : ''}
 					</ol>
 				</div>
-				<NewField {...this.props}></NewField>
+				
+				{formData.newField ? (<NewField {...this.props}></NewField>): ''}
 
 				<div className="btn-group sec">
 					<button className="ui button primary" onClick={this.createCategory.bind(this, xhttp, formData)}>保存</button>
@@ -88,7 +86,9 @@ export class CategoryAddComponent extends Component {
 		xhttp({
 			action: 'create',
 			api: 'category',
-			data: { name: formData.name, template: formData.fields }
+			data: { name: formData.name, attrs: formData.fields, description: formData.description }
+		}, () => {
+			this.props.history.pushState(null, '/category');
 		});
 	}
 

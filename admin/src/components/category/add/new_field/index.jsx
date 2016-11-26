@@ -23,23 +23,23 @@ export class TemplateNewFieldComponent extends Component {
                 <div className="new-field-sec new-field-basic">
                     <div className="field inline field-new-title">
                         <label>字段名</label>
-                        <input type="text" onChange={this.handleChange.bind(this, xform, 'newField.title')} />
+                        <input type="text" value={formData.newField.title} onChange={this.handleChange.bind(this, 'newField.title')} />
                     </div>
                     <div className="field inline field-required">
                         <div className="ui toggle checkbox">
                             <label>必填</label>
-                            <input type="checkbox" onChange={this.handleChange.bind(this, xform, 'newField.required')} />
+                            <input type="checkbox" value={formData.newField.required} onChange={this.handleChange.bind(this, 'newField.required')} />
                         </div>
                     </div>
                 </div>
                 <div className="new-field-sec new-field-other">
                     <div className="field inline field-new-key">
                         <label>数据名</label>
-                        <input type="text" onChange={this.handleChange.bind(this, xform, 'newField.key')} />
+                        <input type="text" value={formData.newField.key} onChange={this.handleChange.bind(this, 'newField.key')} />
                     </div>
                     <div className="field inline">
                         <label>字段类型</label>
-                        <select className="dropdown" onChange={this.handleChange.bind(this, xform, 'newField.type')}>
+                        <select className="dropdown" value={formData.newField.type} onChange={this.handleChange.bind(this, 'newField.type')}>
                             <option value="">请选择类型</option>
                             <option value="string">文本</option>
                             <option value="number">数字</option>
@@ -47,7 +47,7 @@ export class TemplateNewFieldComponent extends Component {
                         </select>
                     </div>
                     <div className="ui buttons btn-group actions">
-                        <button className="ui button icon primary" onClick={this.addNewField.bind(this, xform, formData)}><i className="icon checkmark"></i></button>
+                        <button className="ui button icon primary" onClick={this.addNewField.bind(this, formData)}><i className="icon checkmark"></i></button>
                         <button className="ui button icon red"><i className="icon remove"></i></button>
                     </div>
                 </div>
@@ -56,17 +56,19 @@ export class TemplateNewFieldComponent extends Component {
     }
 
     // 处理表单元素变动
-    handleChange(xform, field, e) {
+    handleChange(field, e) {
         if (e.target.type === 'checkbox') {
-            xform(e.target.checked, field);
+            this.props.xform(e.target.checked, field);
         } else {
-            xform(e.target.value, field);
+            this.props.xform(e.target.value, field);
         }
     }
 
-    addNewField(xform, formData, e) {
+    // 保存新字段
+    addNewField(formData, e) {
         let fields = deepCopy(formData.fields);
         fields.push(deepCopy(formData.newField));
-        xform({ fields, newField: { key: '', title: '', type: '', required: false } });
+        this.props.xform(fields, 'fields');
+        this.props.xform({ key: '', title: '', type: '', required: false }, 'newField');
     }
 }

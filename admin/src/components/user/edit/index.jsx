@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import './style.scss';
-let defaultAvatar = require('../../../public/images/huluwa.jpg');
+import {UploadImgComponent as UploadImg} from '../../common/upload_img';
 
 export class UserEditComponent extends Component {
     componentWillMount() {
@@ -27,23 +27,6 @@ export class UserEditComponent extends Component {
     }
 
 
-    uploadAvatar (e) {
-		let {xhttp,xform} = this.props;
-		let file = e.target.files[0];
-		let reqData = new FormData();
-		reqData.append('file', file);
-		xhttp({
-			action: 'create',
-			api: 'resource',
-			reload: true,
-			data: reqData
-		}, result => {
-            xform(result.filename, 'avatar');
-		});
-    }
-
-
-
     render() {
         let {role, entities, xform, params, formData} = this.props;
         let {user_id} = params;
@@ -52,12 +35,9 @@ export class UserEditComponent extends Component {
             <div className="user-edit">
                 {!user_id || entities[user_id] ? (
                     <div className="ui form">
+
                         <div className="avatar">
-                            <a>
-                                <img src={formData.avatar ? `${window.server}/resource/${formData.avatar}`: defaultAvatar}/>
-                                <i className="fa fa-upload"></i>
-                                <input ref="fileupload" type="file" onChange={this.uploadAvatar.bind(this)}/>
-                            </a>
+                            <UploadImg filename={formData.avatar} circle={true} fileKey="avatar" {...this.props}></UploadImg>
                         </div>
 
                         <div className="form-group field">

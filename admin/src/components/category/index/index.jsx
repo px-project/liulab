@@ -1,15 +1,16 @@
 /**
  * 品类列表组件
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import moment from 'moment';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 import * as consts from '../../../constants/';
+import defaultPhoto from '../../../public/images/huluwa.jpg';
 import './style.scss';
 
-export class CategoryComponent extends Component  {
+export class CategoryComponent extends Component {
 
-	componentWillMount () {
+	componentWillMount() {
 		this.props.xhttp({
 			action: 'list',
 			api: 'category',
@@ -17,39 +18,34 @@ export class CategoryComponent extends Component  {
 		});
 	}
 
-    render () {
-    	let {entities, category} = this.props;
+	render() {
+		let {entities, category} = this.props;
 
-        return (
-			<div>
+		return (
+			<div className="category-list-page page">
 				<header className="list-header">
 					<Link className="ui button primary" to="/category/add">添加</Link>
 				</header>
-				<table className="ui table">
-					<thead>
-						<tr>
-							<th>序号</th>
-							<th>产品类型</th>
-							<th>备注</th>
-							<th>创建时间</th>
-							<th>操作</th>
-						</tr>
-					</thead>
-					<tbody>
-						{category.items.map((category, category_index) => (
-							<tr key={category_index}>
-								<td>{category_index + 1}</td>
-								<td>{entities[category].name}</td>
-								<td>{entities[category].describe}</td>
-								<td>{moment(entities[category].create_time).format('YYYY-MM-DD hh:mm:ss')}</td>
-								<td>
-									<Link to={'/template/' + category}>详情</Link>
-								</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
+				<div className="list">
+					{!category.fetching ? (
+						<ul>
+							{category.items.map((category_id, category_index) => (
+								<li key={category_index}>
+									<Link to={'/category/' + category_id}>
+										<div className="photo">
+											<img src={entities[category_id].photo ? `${window.server}/resource/${entities[category_id].photo}` : defaultPhoto} />
+										</div>
+										<div className="info">
+											<div className="name">{entities[category_id].name}</div>
+											<div className="description">{entities[category_id].description}</div>
+										</div>
+									</Link>
+								</li>
+							))}
+						</ul>
+					) : ''}
+				</div>
 			</div>
-        );
-    }
+		);
+	}
 }
