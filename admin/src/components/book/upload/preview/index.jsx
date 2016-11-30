@@ -27,14 +27,14 @@ export class BookUploadPreviewComponent extends Component {
 
 	render () {
 		let {categoryUpload, entities, bookPageState} = this.props;
-
-		let category_ids = this.props.category.items.filter((item, index) => bookPageState.productTypeIndex[index]);
-
+		let {selectCategory} = bookPageState;
+		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
+		console.log(categoryArr);
 		let {result} = entities[categoryUpload.items[categoryUpload.items.length - 1]];
 
 		return (
 			<div>
-				{category_ids.map((category_id, index) => (
+				{categoryArr.map((category_id, index) => (
 					<div key={index} className="product">
 						<h5>{entities[category_id].name}</h5>
 						<div className="data">
@@ -52,7 +52,7 @@ export class BookUploadPreviewComponent extends Component {
 										<tr key={row_index}>
 											<td>{row_index + 1}</td>
 											{entities[category_id].attrs.map((attr, attr_index) => (
-												<td key={attr_index}>{row[attr.field]}</td>
+												<td key={attr_index}>{row[attr.key]}</td>
 											))}
 										</tr>
 									))}

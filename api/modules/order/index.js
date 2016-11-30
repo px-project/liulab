@@ -133,7 +133,7 @@ module.exports = _router
                                 unit_price: childOrder.unit_price,
                                 attrs: {}
                             };
-                            category.attrs.forEach(attr => result.attrs[attr.field] = childOrder[attr.field]);
+                            category.attrs.forEach(attr => result.attrs[attr.key] = childOrder[attr.key]);
                             result.hash = utils.hash(JSON.stringify(result.attrs));
                             return result;
                         }));

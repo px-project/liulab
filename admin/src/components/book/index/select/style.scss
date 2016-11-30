@@ -5,33 +5,50 @@
         margin: 0 -1rem;
         padding-top: 1rem;
         li {
-            width: 20%;
-            padding: 0 1rem 2rem;
+            background: white;
+            width: 23%;
+            margin: 0 1% 2rem;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             p {
                 margin: 0;
             }
-            .avatar {
+            .photo {
                 width: 100%;
-                padding-bottom: 0.5rem;
                 img {
                     width: 100%;
                 }
             }
-            .info {
-                .name {
-                    font-weight: 500;
-                    font-size: 1.3rem;
+            .detail {
+                display: flex;
+                height: 5rem;
+                width: 100%;
+                padding: 1rem;
+                .l {
+                    flex-grow: 0;
+                    width: 70%;
+                    .name {
+                        font-weight: 500;
+                        font-size: 1.3rem;
+                        line-height: 1;
+                    }
+                    .code {
+
+                    }
                 }
-                .code {
-                }
-            }
-            .action {
-                margin-left: auto;
-                a {
-                    height: 33px;
+                .r {
+                    flex-grow: 0;
+                    width: 30%;
+                    text-align: right;
+                    .action {
+                        a {
+                            display: inline-block;
+                            color: white;
+                            font-weight: bolder;
+                            padding: 0.5rem 0.7rem;
+                        }
+                    }
                 }
             }
         }

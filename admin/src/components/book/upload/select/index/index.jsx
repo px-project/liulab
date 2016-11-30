@@ -1,13 +1,13 @@
 /**
  * 上传方式选择界面
  */
-import React, {Component} from 'react';
-import {ProductType} from '../product_type/';
+import React, { Component } from 'react';
+import { ProductType } from '../product_type/';
 import './style.scss';
 
 export class BookUploadSelectComponent extends Component {
 
-	componentWillMount () {
+	componentWillMount() {
 		let {entities, xhttp, category} = this.props;
 
 		xhttp({
@@ -16,23 +16,21 @@ export class BookUploadSelectComponent extends Component {
 		});
 	}
 
-	render () {
+	render() {
 		let {category, entities, changeBookState, bookPageState} = this.props;
-		let {productTypeIndex} = bookPageState;
+		let {selectCategory} = bookPageState;
 		return (
 			<div className="upload-select">
 				<div className="select">
-				{
-					category.items.map((category_id, index, arr) => {
-						return (
-							<ProductType len={arr.length} index={index} key={index} productType={entities[category_id]} {...this.props}></ProductType>
-						);
-					})
-				}
+					{!category.fetching ? (
+						<div className="category-list">
+							{category.items.map((category_id, category_index) => (
+								<ProductType key={category_index} categoryData={entities[category_id]} selected={!!selectCategory[category_id]} {...this.props}></ProductType>
+							))}
+						</div>) : ''}
 				</div>
 				<div className="btn-group">
-					<button className="ui button primary"
-						disabled={productTypeIndex.indexOf(true) === -1} onClick={changeBookState.bind(this, 'upload')}>继续</button>
+					<button className="ui button primary" onClick={changeBookState.bind(this, 'upload')}>继续</button>
 				</div>
 			</div>
 		);

@@ -4,7 +4,7 @@
 import * as consts from '../../constants/';
 
 // 生成状态
-function genBookState (newState) {
+function BookStateAction (newState) {
 	return {
 		type: consts.BOOK_PAGE_STATE,
 		newState
@@ -12,12 +12,11 @@ function genBookState (newState) {
 }
 
 
-// 选择对应产品类型
-function selectType (index, len) {
+// 选择品类
+function selectCategoryAction (category_id) {
 	return {
-		type: consts.BOOK_SELECT_INDEX,
-		index,
-		len
+		type: consts.BOOK_SELECT_CATEGORY,
+		category_id
 	};
 }
 
@@ -32,7 +31,7 @@ function addProductAction (product_id, num) {
 
 
 // 选择产品模式下选择模板id
-function selectTypeId (id) {
+function selectTypeIdAction (id) {
 	return {
 		type: consts.BOOK_SELECT_ID,
 		id
@@ -42,22 +41,22 @@ function selectTypeId (id) {
 // 变动上传状态
 export function changeBookState (newState) {
 	return function (dispatch) {
-		dispatch(genBookState(newState));
+		dispatch(BookStateAction(newState));
 	};
 }
 
 
-// 选择对应产品类型
-export function selectProductType (index, len) {
+// 选择品类
+export function selectCategory (category_id) {
 	return function (dispatch) {
-		dispatch(selectType(index, len));
+		dispatch(selectCategoryAction(category_id));
 	};
 }
 
 // 选择id
 export function selectProductId (id) {
 	return function (dispatch) {
-		dispatch(selectTypeId(id));
+		dispatch(selectTypeIdAction(id));
 	};
 }
 

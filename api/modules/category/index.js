@@ -18,19 +18,22 @@ module.exports = _router
     // 解析模板文件
     .post('/upload/:categorys', upload.single('file'), (req, res) => {
         getMultiCategoryDetail(req.params.categorys.split(','), categorys => {
+            console.log(categorys);
 
             let excelData = utils.decodeXlsx(req.file.path);
 
             let result = {};
 
             categorys.forEach((category, index) => {
-                result[category._id] = excelData[index].filter((item, index) => index > 1).map((rowData, row) => {
-                    let currentRow = {};
-                    rowData.map((colData, col) => {
-                        currentRow[category.attrs[col].field] = colData;
+                result[category._id] = excelData[index]
+                    .filter((item, index) => index > 1)   // 忽略第一行
+                    .map((rowData, row) => {
+                        let currentRow = {};
+                        rowData.forEach((colData, col) => {
+                            currentRow[category.attrs[col].key] = colData;
+                        });
+                        return currentRow;
                     });
-                    return currentRow;
-                });
             });
 
             // 删除文件
@@ -49,28 +52,31 @@ module.exports = _router
             result.forEach((category) => {
                 fileName += '_' + category.name;
 
-                categoryData[category.name] = category.attrs.map(attr => [attr.title, [attr.attr_type].map((type) => {
-                    let result = "";
+                categoryData[category.name] = category.attrs.map(attr => [attr.title, (() => {
+                    console.log(attr);
+                    let result = '';
 
-                    switch (type) {
+                    switch (attr.attr_type) {
                         case 'string':
-                            result += '请在下方输入文字';
+                            result += '类型：文本';
                             break;
-
+                        
                         case 'number':
-                            result += '请在下方输入数字';
+                            result += '类型：数字';
                             break;
-
+                        
                         case 'select':
-                            result += '请在下方输入一下选项';
+                            result += '类型：选项';
                             break;
 
                         default:
                             console.error('type 有误');
                     }
 
+                    if (attr.attr_required) result += '(必填)';
+
                     return result;
-                })[0]]);
+                })()]);
             });
 
             // 生成xlsx
@@ -92,7 +98,7 @@ module.exports = _router
     .get('/', (req, res) => {
         let condition = {};
         categoryModel.list(condition, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'photo', 'description', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'photo', 'attrs', 'description', 'create_time', 'update_time')));
         });
     })
 

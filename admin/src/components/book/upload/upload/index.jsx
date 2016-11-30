@@ -9,31 +9,24 @@ apiConfig.server = window.server;
 export class BookUploadUploadComponent extends Component {
 
 	componentWillMount() {
-		this.props.category.items.filter((item, index) => this.props.bookPageState.productTypeIndex[index])
-			.forEach((_id) => {
-				this.props.xhttp({
-					action: 'detail',
-					api: 'category',
-					reload: true,
-					params: [_id]
-				});
-			});
 	}
 
 	// 上传excel
 	uploadOrderExcel(props, e) {
-		let {xhttp, changeBookState} = props;
+		let {xhttp, changeBookState, bookPageState} = props;
+		let {selectCategory} = bookPageState;
+		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
+		
 		let file = e.target.files[0];
 		let reqData = new FormData();
 		reqData.append('file', file);
-		let category_id = props.category.items.filter((item, index) => props.bookPageState.productTypeIndex[index]);
+
 		xhttp({
 			action: 'create',
 			api: 'categoryUpload',
-			params: [category_id],
-			reload: true,
+			params: [categoryArr.join(',')],
 			data: reqData
-		}, (result) => {
+		}, result => {
 			changeBookState('preview');
 		});
 	}
@@ -41,19 +34,23 @@ export class BookUploadUploadComponent extends Component {
 	render() {
 
 		let {bookPageState, category, xhttp} = this.props;
-		let {productTypeIndex} = bookPageState;
+		let {selectCategory} = bookPageState;
+		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
 
 		return (
 			<div className="book-upload-upload">
-				<div className="download">
-					<a href={apiConfig.server + apiConfig.categoryDownload + '?category_id=' + (category.items.filter((item, index) => productTypeIndex[index])).join('&category_id=')}>下载模板文件</a>
+				<div className="download-sec">
+					<a href={`${apiConfig.server}${apiConfig.categoryDownload}?category_id=${categoryArr.join('&category_id=')}`}>
+						<i className="icon cloud download"></i>
+						<span className="main">下载模板文件</span>
+					</a>
 				</div>
-				<div className="upload">
-					<i className="upload"></i>
-					<p className="main">点击上传订单数据</p>
-					<p className="describe">请先下载模板文件并严格按照其规则填写，且无修改模板文件。</p>
+				<div className="upload-sec">
+					<i className="icon cloud upload"></i>
+					<p className="main">上传订单数据</p>
 					<input type="file" onChange={this.uploadOrderExcel.bind(this, this.props)} />
 				</div>
+				<p className="describe">注：请严格按照规则填写，切勿修改模板文件内容。</p>
 			</div>
 		);
 	}

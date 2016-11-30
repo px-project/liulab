@@ -12,7 +12,6 @@ export class BookUploadComponent extends Component {
 	componentWillMount() {
 		// init
 		this.props.changeBookState('select');
-		this.props.selectProductType(-1, 0);
 	}
 
 	render() {

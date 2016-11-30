@@ -4,26 +4,22 @@
 import React, {Component} from 'react';
 import classname from 'classname';
 import './style.scss';
+import defaultPhoto from '../../../../../public/images/huluwa.jpg';
 
 export class ProductType extends Component {
-	handleClick (props, e) {
-		let {index,len, selectProductType} = props;
-		selectProductType(index, len);
+	handleClick (e) {
 	}
 
 	render () {
-		let {selectProductType, productType, bookPageState, index} = this.props;
-		let {productTypeIndex} = bookPageState;
-		let {name} = productType;
+		let {categoryData, selected, selectCategory} = this.props;
 
 		return (
-			<div className={classname({'product-type': true, selected: !!productTypeIndex[index] })}
-				onClick={this.handleClick.bind(this, this.props)}>
+			<div className={classname({'product-type': true, selected })}
+				onClick={selectCategory.bind(this, categoryData._id)}>
 				<div className="logo">
-					<span className="value">{name.charAt(0).toUpperCase()}</span>
-					<div className="select-icon"><i className="icon checkmark"></i></div>
+					<img src={categoryData.photo ? `${window.server}/resource/${categoryData.photo}` : defaultPhoto}/>
 				</div>
-				<h4 className="name">{name}</h4>
+				<h4 className="name">{categoryData.name}</h4>
 			</div>
 		);
 	}

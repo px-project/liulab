@@ -28,7 +28,7 @@ export class TemplateNewFieldComponent extends Component {
                     <div className="field inline field-required">
                         <div className="ui toggle checkbox">
                             <label>必填</label>
-                            <input type="checkbox" value={formData.newField.required} onChange={this.handleChange.bind(this, 'newField.required')} />
+                            <input type="checkbox" value={formData.newField.attr_required} onChange={this.handleChange.bind(this, 'newField.required')} />
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@ export class TemplateNewFieldComponent extends Component {
                     </div>
                     <div className="field inline">
                         <label>字段类型</label>
-                        <select className="dropdown" value={formData.newField.type} onChange={this.handleChange.bind(this, 'newField.type')}>
+                        <select className="dropdown" value={formData.newField.attr_type} onChange={this.handleChange.bind(this, 'newField.type')}>
                             <option value="">请选择类型</option>
                             <option value="string">文本</option>
                             <option value="number">数字</option>
@@ -69,6 +69,6 @@ export class TemplateNewFieldComponent extends Component {
         let fields = deepCopy(formData.fields);
         fields.push(deepCopy(formData.newField));
         this.props.xform(fields, 'fields');
-        this.props.xform({ key: '', title: '', type: '', required: false }, 'newField');
+        this.props.xform({ key: '', title: '', attr_type: 'string', attr_required: false }, 'newField');
     }
 }

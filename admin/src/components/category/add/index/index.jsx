@@ -9,10 +9,16 @@ import './style.scss';
 export class CategoryAddComponent extends Component {
 	componentWillMount() {
 		// init form data
+		const initFields = [
+			{key: 'name', title: '产品名称', attr_type: 'string', attr_required: true},
+			{key: 'code', title: '货号', attr_type: 'string', attr_required: false},
+			{key: 'unit_price', title: '单价(元)',attr_type: 'number', attr_required: true},
+			{key: 'num', title: '数量', attr_type: 'number', attr_required: true}
+		];
 		this.props.xform({
 			name: '',
-			fields: [],
-			newField: { key: '', title: '', type: '', required: false }
+			fields: initFields,
+			newField: { key: '', title: '', attr_type: 'string', attr_required: false }
 		});
 	}
 
@@ -54,11 +60,11 @@ export class CategoryAddComponent extends Component {
 									</p>
 									<p className="map">
 										<span className="title">类型</span>
-										<span className="value">{item.type}</span>
+										<span className="value">{item.attr_type}</span>
 									</p>
 									<p className="map">
 										<span className="title">必填</span>
-										<span className="value">{item.required ? '是' : '否'}</span>
+										<span className="value">{item.attr_required ? '是' : '否'}</span>
 									</p>
 								</div>
 							</li>
@@ -86,7 +92,7 @@ export class CategoryAddComponent extends Component {
 		xhttp({
 			action: 'create',
 			api: 'category',
-			data: { name: formData.name, attrs: formData.fields, description: formData.description }
+			data: { name: formData.name, attrs: formData.fields, description: formData.description, photo: formData.photo }
 		}, () => {
 			this.props.history.pushState(null, '/category');
 		});

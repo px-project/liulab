@@ -39,27 +39,37 @@ exports.merge = (...targets) => {
 };
 
 
-// 解析xlsx
+/**
+ * 解析excel
+ * 
+ * result
+ * [
+ *      [           // sheet data
+ *          [       // row data
+ *                  // col data
+ *          ]      
+ *      ]
+ * ]
+ */
 exports.decodeXlsx = (filePath) => {
     let result = [];
 
     const workbook = xlsx.readFile(filePath);
 
-    workbook.SheetNames
-        .filter(k => k[0] !== '!')
-        .forEach((sheetName, index) => {
-            let sheetResult = result[index] = result[index] || [];
-            let sheetData = workbook.Sheets[sheetName];
+    workbook.SheetNames.forEach((sheetName, index) => {
+        let sheetResult = result[index] = result[index] || [];
+        let sheetData = workbook.Sheets[sheetName];
 
-            for (key in sheetData) {
-                let col = key.charCodeAt(0) - 'A'.charCodeAt(0);
-                let row = parseInt(key.substr(1)) - 1;
+        Object.keys(sheetData)
+            .filter(k => k[0] !== '!')
+            .forEach(local => {
+                let col = local.charCodeAt(0) - 'A'.charCodeAt(0);
+                let row = parseInt(local.substr(1)) - 1;
 
                 sheetResult[row] = sheetResult[row] || [];
-                sheetResult[row][col] = sheetData[key].v;
-            }
-        });
-
+                sheetResult[row][col] = sheetData[local].w;
+            });
+    });
     return result;
 };
 

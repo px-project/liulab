@@ -49,15 +49,20 @@ export class BookSelectSelectComponent extends Component {
 						<ul className="list">
 							{product.items.map((product_id, product_index) => (
 								<li key={product_index}>
-									<div className="avatar">
-										<img src={entities[product_id].category.photo || defaultCategoryPhoto} />
+									<div className="photo">
+										<img src={entities[product_id].category.photo ? `${window.server}/resource/${entities[product_id].category.photo}` : defaultCategoryPhoto} />
 									</div>
-									<div className="info">
-										<p className="name">{entities[product_id].name}</p>
-										<p className="code">{entities[product_id].code}</p>
-									</div>
-									<div className="action">
-										<a onClick={this.addProductTo.bind(this, product_id)} className="ui button icon circular red"><i className="fa fa-plus"></i></a>
+									<div className="detail">
+										<div className="l">
+											<p className="name">{entities[product_id].name}</p>
+											<p className="code">{entities[product_id].code}</p>
+										</div>
+										<div className="r">
+
+											<div className="action">
+												<a className="ui button red" onClick={this.addProductTo.bind(this, product_id)}>订购</a>
+											</div>
+										</div>
 									</div>
 								</li>
 							))}
