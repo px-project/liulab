@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import DefaultPhoto from '../../../public/images/huluwa.jpg';
 import './style.scss';
 
 export class ProductComponent extends Component {
@@ -14,14 +15,14 @@ export class ProductComponent extends Component {
 
     render() {
         let {entities, category, productPageState, product} = this.props;
-        let {category_id} = productPageState;
+
         return (
             <div className="product-index-page page">
                 <header className="list-header">
                     <Link className="button ui primary" to="/product/add">添加</Link>
 
                     <div className="select-product-type group">
-                        <select className="ui select dropdown" onChange={this.categoryChange.bind(this, this.props)}>
+                        <select className="ui select dropdown" onChange={this.categoryChange.bind(this)}>
                             <option value="">所有品类</option>
                             {category.items.length && category.items.map((category_id, index) => (
                                 <option key={index} value={category_id}>{entities[category_id].name}</option>
@@ -37,34 +38,28 @@ export class ProductComponent extends Component {
                     </div>
                 </header>
 
-                {category_id &&
-                    <div>
-                        <table className="ui table">
-                            <thead>
-                                <tr>
-                                    <th>序号</th>
-                                    {entities[category_id].category.map((field, index) => (<th key={index}>{field.title}</th>))}
-                                    <th>添加人</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {product.items.length && product.items.map((product_id, product_index) => (
-                                    <tr key={product_index}>
-                                        <td>{product_index + 1}</td>
-                                        {entities[category_id].category.map((field, field_index) => (
-                                            <td key={field_index}>{entities[product_id].data[field.key]}</td>
-                                        ))}
-                                        <td>{entities[product_id].create_user}</td>
-                                        <td>
-                                            <Link to={`/product/${product_id}/edit`}>编辑</Link>
-                                            <a href="#">删除</a>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>}
+                {!product.fetching ? (
+                    <div className="list">
+                        <ul>
+                            {product.items.map((product_id, product_index) => (
+                                <li>
+                                    <Link to={`/product/${product_id}`}>
+                                        <div className="photo">
+                                            <img src={entities[product_id].category.photo ? `${window.server}/resource/${entities[product_id].category.photo}` : DefaultPhoto} />
+                                        </div>
+                                        <div className="info">
+                                            <p className="name">{entities[product_id].name}</p>
+                                            <p className="code">{entities[product_id].code}</p>
+                                        </div>
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+
+                    </div>) : (
+                        <div>
+                            加载中
+                    </div>)}
             </div>
         );
     }
@@ -72,7 +67,7 @@ export class ProductComponent extends Component {
     // 处理品类变动
     categoryChange(props, e) {
         let category_id = e.target.value;
-        props.selectCategoryId(category_id);
+        this.props.selectCategoryId(category_id);
 
         if (category_id) {
             this.getProductList({ category_id });

@@ -65,12 +65,13 @@ module.exports = {
             server,
             template: './src/login.html',
             chunksSortMode: 'auto',
-            excludeChunks: ['app', 'vendor', 'polyfills', 'login']
+            excludeChunks: ['app', 'vendor', 'polyfills', 'common']
         }),
 
         // 代码分离
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['app', 'vendor', 'polyfills']
+            name: 'common',
+            chunks: ['app', 'vendor', 'polyfills']
         }),
     ]
 };

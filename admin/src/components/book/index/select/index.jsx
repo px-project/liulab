@@ -54,11 +54,11 @@ export class BookSelectSelectComponent extends Component {
 									</div>
 									<div className="detail">
 										<div className="l">
-											<p className="name">{entities[product_id].name}</p>
 											<p className="code">{entities[product_id].code}</p>
+											<p className="name">{entities[product_id].name}</p>
+											<p className="unit-price">￥{entities[product_id].unit_price}</p>
 										</div>
 										<div className="r">
-
 											<div className="action">
 												<a className="ui button red" onClick={this.addProductTo.bind(this, product_id)}>订购</a>
 											</div>

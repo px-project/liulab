@@ -1,6 +1,36 @@
-.list-header {
-    overflow: hidden;
-    .select-product-type {
-        float: right;
+.product-index-page {
+    .list {
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -0.5rem;
+            li {
+                width: 20%;
+                padding: 0 0.5rem 2rem;
+                
+                a {
+                    display: block;
+                    background: white;
+                    .photo {
+                        width: 100%;
+                        img {
+                            width: 100%;
+                        }
+                    }
+                    .info {
+                        padding: 0 1rem;
+                        .name {
+                            color: #333;
+                            font-size: 1rem;
+                            line-height: 1.4;
+                        }
+                        .code {
+                            color: #888;
+                            line-height: 1;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

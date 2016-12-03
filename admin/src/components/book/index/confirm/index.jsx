@@ -59,7 +59,7 @@ export class BookSelectConfirmComponent extends Component {
 							<tr key={product_index}>
 								<td>{product_index + 1}</td>
 								<td className="product">
-									<img src={DefaultCover} />
+									<img src={entities[product_id].category.photo ? `${window.server}/resource/${entities[product_id].category.photo}` : DefaultCover} />
 									<span className="name">{entities[product_id].name}</span>
 								</td>
 								<td>{entities[product_id].code}</td>

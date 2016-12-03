@@ -22,19 +22,25 @@
             }
             .detail {
                 display: flex;
-                height: 5rem;
                 width: 100%;
-                padding: 1rem;
+                padding: 0 1rem 1rem;
                 .l {
                     flex-grow: 0;
                     width: 70%;
+                    .code {
+                        color: #aaa;
+                        font-size: 0.9rem;
+                        line-height: 1.5rem;
+                    }
                     .name {
                         font-weight: 500;
                         font-size: 1.3rem;
                         line-height: 1;
                     }
-                    .code {
-
+                    .unit-price {
+                        line-height: 1.2;
+                        font-size: 1.3rem;
+                        color: red;
                     }
                 }
                 .r {
@@ -42,7 +48,13 @@
                     width: 30%;
                     text-align: right;
                     .action {
+                        width: 100%;
+                        height: 100%;
+                        display: inline-flex;
+                        align-items: flex-end;
+                        justify-content: flex-end;
                         a {
+                            width: 80%;
                             display: inline-block;
                             color: white;
                             font-weight: bolder;
