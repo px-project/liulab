@@ -9,7 +9,7 @@ class UserDetailComponent extends Component {
 		this.props.xhttp({
 			action: 'list',
 			api: 'role'
-		})
+		});
 	}
 
 	handleSubmit(props, e) {

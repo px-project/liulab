@@ -25,12 +25,16 @@
             margin: 0 3rem 0 0;
             height: 100%;
             &.user {
-                .logo {
+                .avatar {
                     height: $header_height / 1.5;
                     width: $header_height / 1.5;
                     margin-right: 1rem;
                     border-radius: $header_height / 1.5;
-                    background: #ccc;
+                    border: 1px solid #eee;
+                    overflow: hidden;
+                    img {
+                        width: 100%;
+                    }
                 }
                 .name {
                 }

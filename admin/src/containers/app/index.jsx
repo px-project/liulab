@@ -5,23 +5,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as actions from '../../actions/';
-import {Header, Sidebar} from '../../components/app/';
-import './style.scss';
+import {AppComponent} from '../../components/app/index/';
 
 export class AppContainer extends Component {
 
 	render() {
-		return (
-			<div className="container">
-				<Sidebar {...this.props}></Sidebar>
-				<div id="main">
-					<Header {...this.props}></Header>
-					<div className="page">
-						{React.cloneElement(this.props.children, this.props)}
-					</div>
-				</div>
-			</div>
-		);
+		return (<AppComponent {...this.props}></AppComponent>);
 	}
 
 }

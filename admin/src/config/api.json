@@ -17,6 +17,8 @@
     "categoryUpload": "/category/upload",
     "categoryDownload": "/category/download",
 
+    "userCurrent": "/user/current",
+
     "permission": "/role/permission",
 
     "resource": "/resource"
