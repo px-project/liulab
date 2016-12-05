@@ -42,7 +42,7 @@ export class ProductComponent extends Component {
                     <div className="list">
                         <ul>
                             {product.items.map((product_id, product_index) => (
-                                <li>
+                                <li key={product_index}>
                                     <Link to={`/product/${product_id}`}>
                                         <div className="photo">
                                             <img src={entities[product_id].category.photo ? `${window.server}/resource/${entities[product_id].category.photo}` : DefaultPhoto} />

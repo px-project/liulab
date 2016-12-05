@@ -49,21 +49,23 @@ export class BookSelectSelectComponent extends Component {
 						<ul className="list">
 							{product.items.map((product_id, product_index) => (
 								<li key={product_index}>
-									<div className="photo">
-										<img src={entities[product_id].category.photo ? `${window.server}/resource/${entities[product_id].category.photo}` : defaultCategoryPhoto} />
-									</div>
-									<div className="detail">
-										<div className="l">
-											<p className="code">{entities[product_id].code}</p>
-											<p className="name">{entities[product_id].name}</p>
-											<p className="unit-price">￥{entities[product_id].unit_price}</p>
+									<Link to={`/product/${product_id}`}>
+										<div className="photo">
+											<img src={entities[product_id].category.photo ? `${window.server}/resource/${entities[product_id].category.photo}` : defaultCategoryPhoto} />
 										</div>
-										<div className="r">
-											<div className="action">
-												<a className="ui button red" onClick={this.addProductTo.bind(this, product_id)}>订购</a>
+										<div className="detail">
+											<div className="l">
+												<p className="code">{entities[product_id].code}</p>
+												<p className="name">{entities[product_id].name}</p>
+												<p className="unit-price">￥{entities[product_id].unit_price}</p>
+											</div>
+											<div className="r">
+												<div className="action">
+													<a className="ui button red" onClick={this.addProductTo.bind(this, product_id)}>订购</a>
+												</div>
 											</div>
 										</div>
-									</div>
+									</Link>
 								</li>
 							))}
 						</ul>

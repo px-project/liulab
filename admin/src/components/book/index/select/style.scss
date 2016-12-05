@@ -1,13 +1,13 @@
 .book-index-select {
     .list {
-        display: flex;
-        flex-wrap: wrap;
         margin: 0 -1rem;
         padding-top: 1rem;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
         li {
-            background: white;
-            width: 23%;
-            margin: 0 1% 2rem;
+            width: 20%;
+            padding: 1rem;
             display: flex;
             flex-wrap: wrap;
             align-items: center;

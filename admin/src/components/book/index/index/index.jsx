@@ -16,8 +16,7 @@ export class BookComponent extends Component {
 		this.getProductList();
 	}
 
-	componentDidMount() {
-	}
+	componentDidMount() {}
 
 
 	render() {

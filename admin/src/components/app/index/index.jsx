@@ -19,7 +19,7 @@ export class AppComponent extends Component {
                 <Sidebar {...this.props}></Sidebar>
                 <div id="main">
                     <Header {...this.props}></Header>
-                    <div className="page">
+                    <div className="views">
                         {React.cloneElement(this.props.children, this.props)}
                     </div>
                 </div>
