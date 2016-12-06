@@ -9,12 +9,16 @@ import { ChildOrderListComponent as ChildOrderList } from './child_order_list/';
 
 export class OrderComponent extends Component {
 
+	componentDidMount () {
+		$(this.refs.dropdown).dropdown();
+	}
+
 	render() {
 		let {entities, order} = this.props;
 		let {order_type = 'order'} = this.props.location.query;
 
 		return (
-			<div className="order-detail-page">
+			<div className="order-detail-page page">
 				<header className="list-header">
 					<div className="add">
 						<button className="ui button primary">下载</button>
@@ -26,7 +30,7 @@ export class OrderComponent extends Component {
 						</ul>
 					</div>
 					<div className="group">
-						<select className="ui select dropdown">
+						<select className="ui select dropdown" ref="dropdown">
 							<option value="">所有状态</option>
 							{Object.keys(consts.ORDER_STATUS).map((status, index) => (
 								<option key={index} value={status}>{consts.ORDER_STATUS[status]}</option>

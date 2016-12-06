@@ -16,7 +16,9 @@ export class BookComponent extends Component {
 		this.getProductList();
 	}
 
-	componentDidMount() {}
+    componentDidUpdate () {
+        $(this.refs.dropdown).dropdown();
+    }
 
 
 	render() {
@@ -27,7 +29,7 @@ export class BookComponent extends Component {
 			<div className="book-index-page page">
 				{!category.fetching && !product.fetching ? (
 					<div className="book-index-index">
-						<header className={classname({'list-header': true, hide: pageState === 'confirm'})}>
+						<header className={classname({ 'list-header': true, hide: pageState === 'confirm' })}>
 							<div className="upload add">
 								<Link to={'/book/upload'} className="ui button primary">批量上传</Link>
 							</div>
@@ -39,11 +41,13 @@ export class BookComponent extends Component {
 									))}
 								</select>
 							</div>
-							<div className="shop">
-								<button className="ui button red" onClick={this.props.changeBookState.bind(this, 'confirm')}>
-									<span>购物车</span>
-									<span>({Object.keys(productList).reduce((a, b) => (a + productList[b]), 0)})</span>
-								</button>
+
+
+							<div className="ui search">
+								<div className="ui icon input">
+									<input className="prompt" type="text" placeholder="" />
+									<i className="search icon"></i>
+								</div>
 							</div>
 						</header>
 						<div>

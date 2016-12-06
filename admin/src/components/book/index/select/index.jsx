@@ -11,9 +11,10 @@ export class BookSelectSelectComponent extends Component {
 
 	}
 
-	componentDidMount() {
-		// $(this.refs.dropdown.getDOMNode()).dropdown();
-	}
+    componentDidUpdate () {
+        $(this.refs.dropdown).dropdown();
+    }
+
 
 	// 变换界面状态
 	changeCurrentPageState(props, status, e) {
@@ -49,23 +50,25 @@ export class BookSelectSelectComponent extends Component {
 						<ul className="list">
 							{product.items.map((product_id, product_index) => (
 								<li key={product_index}>
-									<Link to={`/product/${product_id}`}>
-										<div className="photo">
+									<div className="photo">
+
+										<Link to={`/product/${product_id}`}>
 											<img src={entities[product_id].category.photo ? `${window.server}/resource/${entities[product_id].category.photo}` : defaultCategoryPhoto} />
+										</Link>
+
+									</div>
+									<div className="detail">
+										<div className="l">
+											<p className="code">{entities[product_id].code}</p>
+											<p className="name">{entities[product_id].name}</p>
+											<p className="unit-price">￥{entities[product_id].unit_price}</p>
 										</div>
-										<div className="detail">
-											<div className="l">
-												<p className="code">{entities[product_id].code}</p>
-												<p className="name">{entities[product_id].name}</p>
-												<p className="unit-price">￥{entities[product_id].unit_price}</p>
-											</div>
-											<div className="r">
-												<div className="action">
-													<a className="ui button red" onClick={this.addProductTo.bind(this, product_id)}>订购</a>
-												</div>
+										<div className="r">
+											<div className="action">
+												<a className="ui button red" onClick={this.addProductTo.bind(this, product_id)}>订购</a>
 											</div>
 										</div>
-									</Link>
+									</div>
 								</li>
 							))}
 						</ul>

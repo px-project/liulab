@@ -10,9 +10,9 @@ export class TemplateNewFieldComponent extends Component {
 
     }
 
-    componentDidMount() {
-        $('select.dropdown').dropdown();
-        $('.ui.checkbox').checkbox();
+    componentDidUpdate () {
+        $(this.refs.dropdown).dropdown();
+        $(this.refs.checkbox).checkbox();
     }
 
 
@@ -28,7 +28,7 @@ export class TemplateNewFieldComponent extends Component {
                     <div className="field inline field-required">
                         <div className="ui toggle checkbox">
                             <label>必填</label>
-                            <input type="checkbox" value={formData.newField.attr_required} onChange={this.handleChange.bind(this, 'newField.required')} />
+                            <input type="checkbox" ref="checkbox" value={formData.newField.attr_required} onChange={this.handleChange.bind(this, 'newField.required')} />
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@ export class TemplateNewFieldComponent extends Component {
                     </div>
                     <div className="field inline">
                         <label>字段类型</label>
-                        <select className="dropdown" value={formData.newField.attr_type} onChange={this.handleChange.bind(this, 'newField.type')}>
+                        <select className="ui dropdown" ref="dropdown" value={formData.newField.attr_type} onChange={this.handleChange.bind(this, 'newField.type')}>
                             <option value="">请选择类型</option>
                             <option value="string">文本</option>
                             <option value="number">数字</option>

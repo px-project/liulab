@@ -20,7 +20,10 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps (dispatch) {
-	return bindActionCreators(Object.assign({}, ...Object.keys(actions).map(key => ({[key]: actions[key]}))), dispatch);
+	return bindActionCreators(
+		Object.assign({}, ...Object.keys(actions).map(key => ({[key]: actions[key]}))),
+		dispatch
+	);
 }
 
 export const App = connect(mapStateToProps, mapDispatchToProps)(AppContainer);

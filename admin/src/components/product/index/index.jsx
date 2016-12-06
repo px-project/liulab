@@ -13,6 +13,10 @@ export class ProductComponent extends Component {
         this.getCategoryList();
     }
 
+    componentDidMount () {
+        $(this.refs.dropdown).dropdown();
+    }
+
     render() {
         let {entities, category, productPageState, product} = this.props;
 
@@ -22,7 +26,7 @@ export class ProductComponent extends Component {
                     <Link className="button ui primary" to="/product/add">添加</Link>
 
                     <div className="select-product-type group">
-                        <select className="ui select dropdown" onChange={this.categoryChange.bind(this)}>
+                        <select className="ui select dropdown" onChange={this.categoryChange.bind(this)} ref="dropdown">
                             <option value="">所有品类</option>
                             {category.items.length && category.items.map((category_id, index) => (
                                 <option key={index} value={category_id}>{entities[category_id].name}</option>
