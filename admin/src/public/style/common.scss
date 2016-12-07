@@ -41,10 +41,10 @@ body {
         content: ':';
     }
 }
+
 .ui.form .field {
     margin-bottom: 0;
 }
-
 
 .page {
     .list-header {
@@ -63,8 +63,8 @@ body {
         .group {
             margin-left: auto;
             margin-right: 1rem;
-            select {
-                width: 8rem;
+            .dropdown {
+                width: 10rem;
                 min-width: auto;
                 margin-right: 1rem;
                 &:last-child {

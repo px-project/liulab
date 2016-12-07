@@ -10,24 +10,36 @@ import detailUserAvatar from '../../../public/images/huluwa.jpg';
 
 export class UserComponent extends Component {
 	componentWillMount() {
-		this.props.xhttp({
-			api: 'role',
-			reload: true
-		});
+		this.props.xhttp({ action: 'list', api: 'role', reload: true });
+		this.props.xhttp({ action: 'list', api: 'user', reload: true });
+	}
 
-		this.props.xhttp({
-			api: 'user',
-			reload: true
-		});
+	componentDidMount() {
+		$(this.refs.dropdown).dropdown();
+	}
+
+
+	// 角色变动
+	roleChange(e) {
+		this.props.xhttp({action: 'list', api: 'user', reload: true, conditions: {role: e.target.value}})
 	}
 
 	render() {
-		let {user, entities} = this.props;
+		let {user, entities, role} = this.props;
 
 		return (
 			<div className="user-index-page page">
 				<header className="list-header">
 					<Link className="ui button primary" to="/user/add">添加</Link>
+
+					<div className="group">
+						<select className="ui select dropdown" onChange={this.roleChange.bind(this)} ref="dropdown">
+							<option value="">所有角色</option>
+							{!role.fetching ? role.items.map((role_id, index) => (
+								<option key={index} value={role_id}>{entities[role_id].name}</option>
+							)): ''}
+						</select>
+					</div>
 				</header>
 
 				{!user.fetching && user.items.length ? (
@@ -37,7 +49,7 @@ export class UserComponent extends Component {
 								<li key={user_index}>
 									<Link to={`/user/${user_id}`}>
 										<div className="avatar">
-											<img src={entities[user_id].avatar ? `${window.server}/resource/${entities[user_id].avatar}`: detailUserAvatar} />
+											<img src={entities[user_id].avatar ? `${window.server}/resource/${entities[user_id].avatar}` : detailUserAvatar} />
 										</div>
 										<div className="info">
 											<p className="name">{entities[user_id].name}</p>

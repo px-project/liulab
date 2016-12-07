@@ -2,11 +2,12 @@
  * 选择商品下单的确认界面
  */
 import React, { Component } from 'react';
+import {Link} from 'react-router';
 import './style.scss';
 import classname from 'classname';
-import DefaultCover from '../../../../public/images/huluwa.jpg';
+import DefaultCover from '../../../public/images/huluwa.jpg';
 
-export class BookSelectConfirmComponent extends Component {
+export class BookConfirmComponent extends Component {
 
 	// 更改数量
 	changeProductNum(product_id, changeNum) {
@@ -79,7 +80,7 @@ export class BookSelectConfirmComponent extends Component {
 				</table>
 
 				<div className="btn-group">
-					<button className="ui button primary" onClick={this.saveOrder.bind(this, productList)}>下单</button>
+					<Link to="/book/confirm" className="ui button primary" onClick={this.saveOrder.bind(this, productList)}>下单</Link>
 				</div>
 			</div>
 		);

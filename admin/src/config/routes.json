@@ -13,6 +13,11 @@
                 "path": "upload",
                 "componentName": "BookUploadComponent",
                 "name": "批量预订"
+            },
+            {
+                "path": "confirm",
+                "componentName": "BookConfirmComponent",
+                "name": "确认订单"
             }
         ]
     },
