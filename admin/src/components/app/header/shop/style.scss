@@ -1,20 +1,35 @@
 @import '../../../../public/style/common.scss';
 .header-shop {
-    margin-left: auto;
-    padding: 0 2rem;
+    margin: 0 2rem 0 auto;
     position: relative;
+    height: 100%;
+
+    &.active {
+        .show {
+            background: #eee;
+            transition: $transition_time;            
+        }
+        .list {
+            display: block;
+        }
+    }
     .show {
         height: 100%;
         display: inline-flex;
         align-items: center;
         justify-content: flex-end;
+        padding-right: 1rem;
+        background: white;
+        transition: $transition_time;            
         i {
             font-size: 1.3rem;
             display: inline-block;
             padding: 0 1rem;
         }
     }
+
     .list {
+        display: none;
         position: absolute;
         top: $header_height;
         border: 1px solid #eee;
