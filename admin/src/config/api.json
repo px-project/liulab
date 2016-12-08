@@ -9,7 +9,6 @@
 
     "product": "/product",
 
-
     "order": "/order",
     "orderStatus": "/order/{order_id}/status",
 

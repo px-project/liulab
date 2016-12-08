@@ -9,7 +9,7 @@ import './style.scss';
 
 export class AppHeaderShopComponent extends Component {
 
-    componentDidMount () {
+    componentDidMount() {
         document.querySelector('body').addEventListener('click', e => {
             if (!this.refs.shop_list.contains(e.target) && !this.refs.shop_show.contains(e.target)) {
                 this.props.appShopShow(false);
@@ -23,7 +23,7 @@ export class AppHeaderShopComponent extends Component {
         let {productList} = bookPageState;
 
         return (
-            <div className={`header-shop ${classname({active: app.shop})}`}>
+            <div className={`header-shop ${classname({ active: app.shop })}`}>
                 <div className="show" onClick={appShopShow.bind(this, true)} ref="shop_show">
                     <i className="fa fa-shopping-cart"></i>
                     <span className="name">购物车</span>
@@ -54,8 +54,7 @@ export class AppHeaderShopComponent extends Component {
                             </ul>
 
                             <div className="btn-group">
-                                <Link to="/book/confirm" className="ui button red block">确认订单</Link>
-
+                                <Link to="/book/confirm" className="ui button red block" onClick={appShopShow.bind(this, false)}>确认订单</Link>
                             </div>
                         </div>
                     ) : (

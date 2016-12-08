@@ -1,0 +1,29 @@
+/**
+ * 订单首页
+ */
+import React, { Component } from 'react';
+import { Link } from 'react-router';
+import './style.scss';
+
+export class OrderComponent extends Component {
+    render() {
+        return (
+            <div className="page order-index-page">
+                <header className="list-header">
+                    <button className="ui button primary">下载</button>
+
+                    <ul>
+                        <li><Link to={'/order'}>订单</Link></li>
+                        <li><Link to={'/order/child'}>子订单</Link></li>
+                    </ul>
+
+                </header>
+
+            </div>
+        );
+    }
+}
+
+
+// <div className="list">{React.cloneElement(this.props.children, this.props)}</div>
+// 
