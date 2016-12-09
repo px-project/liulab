@@ -2,25 +2,29 @@
     {
         "path": "index",
         "name": "首页",
-        "icon": "home"
+        "icon": "home",
+        "pages": [
+            {
+                "path": "",
+                "name": "首页"
+            }
+        ]
     },
     {
         "path": "book",
         "name": "预订",
         "icon": "shopping-bag",
-        "page": [
+        "pages": [
             {
                 "path": "",
-                "component": "BookComponent"
+                "name": "选择产品"
             },
             {
                 "path": "upload",
-                "component": "BookUploadComponent",
                 "name": "批量预订"
             },
             {
                 "path": "confirm",
-                "component": "BookConfirmComponent",
                 "name": "确认订单"
             }
         ]
@@ -29,26 +33,24 @@
         "path": "order",
         "name": "订单",
         "icon": "file text outline",
-        "page": [
+        "pages": [
             {
                 "path": "",
-                "component": "OrderComponent",
+                "index": "total",
                 "children": [
                     {
-                        "path": "",
-                        "component": "OrderOrderComponent",
-                        "name": "订单"
+                        "path": "total",
+                        "name": "总览"
                     },
                     {
                         "path": "child",
-                        "component": "OrderChildComponent",
                         "name": "子订单"
                     }
                 ]
             },
             {
                 "path": ":order_id",
-                "component": "OrderDetailComponent",
+                "component": "detail",
                 "name": "订单详情"
             }
         ]
@@ -57,24 +59,23 @@
         "path": "product",
         "name": "产品",
         "icon": "product-hunt",
-        "page": [
+        "pages": [
             {
                 "path": "",
-                "component": "ProductComponent"
+                "name": "产品列表"
             },
             {
                 "path": "add",
-                "component": "ProductAddComponent",
                 "name": "新产品"
             },
             {
                 "path": ":product_id",
-                "component": "ProductDetailComponent",
+                "component": "detail",
                 "name": "产品详情"
             },
             {
                 "path": ":product_id/edit",
-                "component": "ProductEditComponent",
+                "component": "edit",
                 "name": "编辑产品"
             }
         ]
@@ -83,19 +84,19 @@
         "path": "user",
         "name": "用户",
         "icon": "users",
-        "page": [
+        "pages": [
             {
                 "path": "",
-                "component": "UserComponent"
+                "name": "用户列表"
             },
             {
                 "path": "add",
-                "component": "UserEditComponent",
+                "component": "edit",
                 "name": "新用户"
             },
             {
                 "path": ":user_id",
-                "component": "UserEditComponent",
+                "component": "edit",
                 "name": "编辑用户"
             }
         ]
@@ -104,20 +105,24 @@
         "path": "category",
         "name": "品类",
         "icon": "book",
-        "page": [
+        "pages": [
             {
                 "path": "",
-                "component": "CategoryComponent"
+                "name": "品类列表"
             },
             {
                 "path": "add",
-                "component": "CategoryAddComponent",
                 "name": "新品类"
             },
             {
                 "path": ":category_id",
-                "component": "CategoryDetailComponent",
+                "component": "detail",
                 "name": "品类详情"
+            },
+            {
+                "path": ":category_id/edit",
+                "component": "edit",
+                "name": "编辑品类"
             }
         ]
     },
@@ -125,25 +130,10 @@
         "path": "role",
         "name": "角色",
         "icon": "cog",
-        "page": [
+        "pages": [
             {
                 "path": "",
-                "component": "RoleComponent"
-            },
-            {
-                "path": "add",
-                "component": "RoleEditComponent",
-                "name": "新角色"
-            },
-            {
-                "path": ":role_id",
-                "component": "RoleDetailComponent",
-                "name": "角色详情"
-            },
-            {
-                "path": ":role_id/edit",
-                "component": "RoleEditComponent",
-                "name": "编辑角色"
+                "name": "角色管理"
             }
         ]
     }

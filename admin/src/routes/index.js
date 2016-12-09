@@ -14,23 +14,21 @@ const history = useRouterHistory(createHistory)({ basename: window.location.orig
 
 export default class Routes extends Component {
     render() {
-        let routeArr = [];
-        routes
-            .filter(topLevel => window.permission.filter(item => item.module === topLevel.path)[0].allow)
-            .forEach(topLevel => {
-                routeArr.push({ path: topLevel.path, componentName: toCamcel(true, topLevel.path, 'component'), name: topLevel.name });
-                routeArr = routeArr.concat((topLevel.children || []).map(child => {
-                    child.path = topLevel.path + '/' + child.path;
-                    return child;
-                }));
-            });
+        let router = routes.filter(topLevel => window.permission.filter(item => item.module === topLevel.path)[0].allow);
 
         return (
             <Router history={history}>
                 <Route path="/" component={containers.App}>
-                    <IndexRedirect to="/index" />
-                    {routeArr.map((r, index) => (
-                        <Route key={index} path={r.path} component={components[r.componentName]}></Route>
+                    {router.map((module, module_index) => (
+                        <Route path={module.path} component={containers[toCamcel(true, module.path, 'container')]} key={module_index}>
+                            {module.pages.map((page, page_index) => (
+                                <Route path={page.path} component={components[toCamcel(true, module.path, page.component || page.path, 'component')]} key={[page_index]}>
+                                    {page.children ? (page.children.map((child, child_index) => (
+                                        <Route path={child.path} component={components[toCamcel(true, module.path, page.component || page.path, child.component || child.component, 'component')]} key={child_index}></Route>
+                                    ))) : ''}
+                                </Route>
+                            ))}
+                        </Route>
                     ))}
                 </Route>
             </Router>

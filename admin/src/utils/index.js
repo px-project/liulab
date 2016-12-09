@@ -6,7 +6,7 @@
 export function toCamcel(big, ...strArr) {
 
 
-	function handleCamcel(str, big = true) {
+	function handleCamcel(str = '', big = true) {
 		return (big ? str.charAt(0).toUpperCase() : str.charAt(0).toLowerCase()) + str.slice(1);
 	}
 
