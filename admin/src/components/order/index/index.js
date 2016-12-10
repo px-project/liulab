@@ -1,3 +1,3 @@
 export * from './index/index';
 export * from './child/';
-export * from './order/';
+export * from './total/';

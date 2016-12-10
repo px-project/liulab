@@ -4,10 +4,10 @@
 import React, { Component } from 'react';
 import './style.scss';
 
-export class OrderOrderComponent extends Component {
+export class OrderTotalComponent extends Component {
     render() {
         return (
-            <div className="order-order">
+            <div className="order-total">
                 订单列表
             </div>
         );

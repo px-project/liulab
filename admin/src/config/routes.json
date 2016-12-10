@@ -33,10 +33,10 @@
         "path": "order",
         "name": "订单",
         "icon": "file text outline",
+        "index": "total",
         "pages": [
             {
                 "path": "",
-                "index": "total",
                 "children": [
                     {
                         "path": "total",

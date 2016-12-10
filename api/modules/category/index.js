@@ -9,7 +9,7 @@ const async = require('async');
 const utils = require('../../common/utils');
 const multer = require('multer');
 const path = require('path');
-const upload = multer({ dest: path.join(__dirname, '../../uploads/') });
+const upload = multer({ dest: path.join(__dirname, '../../uploads') });
 const fs = require('fs');
 
 

@@ -19,11 +19,10 @@ export class OrderComponent extends Component {
 
                 </header>
 
+                <div className="list">{React.cloneElement(this.props.children, Object.assign({}, ...Object.keys(this.props).filter(key => key !== 'children').map(key => ({[key]: this.props[key]}))))}</div>
+
             </div>
         );
     }
 }
 
-
-// <div className="list">{React.cloneElement(this.props.children, this.props)}</div>
-// 
