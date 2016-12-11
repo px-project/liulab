@@ -58,7 +58,13 @@ export class AppHeaderShopComponent extends Component {
                             </div>
                         </div>
                     ) : (
-                            <div className="no-data">暂无数据</div>
+                            <div className="no-data">
+                                <span className="txt">购物车是空的！</span>
+
+                                <div className="btn-group">
+                                    <Link to="/book" className="ui button red bock" onClick={appShopShow.bind(this, false)}>前去选购</Link>
+                                </div>
+                            </div>
                         )}
                 </div>
             </div>

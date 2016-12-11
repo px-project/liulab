@@ -3,11 +3,10 @@
     margin: 0 2rem 0 auto;
     position: relative;
     height: 100%;
-
     &.active {
         .show {
             background: #eee;
-            transition: $transition_time;            
+            transition: $transition_time;
         }
         .list {
             display: block;
@@ -20,14 +19,16 @@
         justify-content: flex-end;
         padding-right: 1rem;
         background: white;
-        transition: $transition_time;            
+        transition: $transition_time;
+        &:hover {
+            cursor: pointer;
+        }
         i {
             font-size: 1.3rem;
             display: inline-block;
             padding: 0 1rem;
         }
     }
-
     .list {
         display: none;
         position: absolute;
@@ -103,26 +104,26 @@
                     }
                 }
             }
-            .btn-group {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                display: block;
-                width: 100%;
-                padding: 0 2rem;
-                padding-bottom: 1rem;
-                .button {
-                    display: block;
-                    width: 100%;
-                }
-            }
         }
         .no-data {
             display: flex;
-            height: 100%;
-            align-items: center;
+            height: 10rem;
+            line-height: 8rem;
             justify-content: center;
+        }
+        .btn-group {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: block;
+            width: 100%;
+            padding: 0 2rem;
+            padding-bottom: 1rem;
+            .button {
+                display: block;
+                width: 100%;
+            }
         }
     }
 }
