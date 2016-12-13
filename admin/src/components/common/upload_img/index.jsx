@@ -2,7 +2,7 @@
  * 上传图片组件
  */
 import React, { Component } from 'react';
-import defaultPic from '../../../public/images/huluwa.jpg';
+import defaultPic from '../../../public/images/default.png';
 import classname from 'classname';
 import './style.scss';
 

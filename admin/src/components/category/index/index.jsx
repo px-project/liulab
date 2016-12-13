@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router';
 import * as consts from '../../../constants/';
-import defaultPhoto from '../../../public/images/huluwa.jpg';
+import defaultPhoto from '../../../public/images/default.png';
 import './style.scss';
 
 export class CategoryComponent extends Component {

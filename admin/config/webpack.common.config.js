@@ -25,7 +25,8 @@ module.exports = {
         // 'react-dom': 'ReactDom',
         // 'redux': 'Redux',
         // 'react-redux': 'ReactRedux',
-        // 'moment': 'moment',
+        'moment': 'moment',
+        "loadsh": "_"
     },
 
     resolve: {

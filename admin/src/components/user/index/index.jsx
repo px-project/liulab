@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
 import './style.scss';
-import detailUserAvatar from '../../../public/images/huluwa.jpg';
+import detailUserAvatar from '../../../public/images/default.png';
 
 
 export class UserComponent extends Component {

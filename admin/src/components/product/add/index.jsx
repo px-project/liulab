@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import defaultPhoto from '../../../public/images/huluwa.jpg';
+import defaultPhoto from '../../../public/images/default.png';
 import './style.scss';
 
 export class ProductAddComponent extends Component {

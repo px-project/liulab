@@ -2,7 +2,7 @@
  * 产品详情界面
  */
 import React, {Component} from 'react';
-import defaultPhoto from '../../../public/images/huluwa.jpg';
+import defaultPhoto from '../../../public/images/default.png';
 import './style.scss';
 
 export class ProductDetailComponent extends Component {

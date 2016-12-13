@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import classname from 'classname';
 import './style.scss';
-import defaultPhoto from '../../../../../public/images/huluwa.jpg';
+import defaultPhoto from '../../../../../public/images/default.png';
 
 export class ProductType extends Component {
 	handleClick (e) {

@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import classname from 'classname';
-import defaultPhoto from '../../../../public/images/huluwa.jpg';
+import defaultPhoto from '../../../../public/images/default.png';
 import './style.scss';
 
 export class AppHeaderShopComponent extends Component {

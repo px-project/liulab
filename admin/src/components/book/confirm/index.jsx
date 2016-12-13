@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import {Link} from 'react-router';
 import './style.scss';
 import classname from 'classname';
-import DefaultCover from '../../../public/images/huluwa.jpg';
+import DefaultCover from '../../../public/images/default.png';
 
 export class BookConfirmComponent extends Component {
 
