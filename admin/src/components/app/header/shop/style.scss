@@ -32,10 +32,12 @@
     .list {
         display: none;
         position: absolute;
+        padding: 1rem 2rem;
         top: $header_height;
         border: 1px solid #eee;
+        box-shadow: 0 0 0.3rem 0 rgba(0, 0, 0, 0.15);
         background: white;
-        width: 20rem;
+        width: 30rem;
         right: 0;
         .products {
             padding: 1rem;
@@ -57,7 +59,7 @@
                     line-height: 2rem;
                     display: flex;
                     border-top: 1px solid #eee;
-                    padding: 0.5rem;
+                    padding: 1rem;
                     &:first-child {
                         border-top: none;
                     }
@@ -65,6 +67,7 @@
                         display: flex;
                         align-items: center;
                         width: 4rem;
+                        padding: 0.2rem;
                         img {
                             width: 100%;
                             display: block;
@@ -82,7 +85,7 @@
                         }
                         .code {
                             font-size: 0.9rem;
-                            color: #777;
+                            color: #999;
                             display: block;
                         }
                         .num {
@@ -118,10 +121,13 @@
             right: 0;
             display: block;
             width: 100%;
-            padding: 0 2rem;
-            padding-bottom: 1rem;
+            padding: 2rem;
             .button {
-                display: block;
+                height: 3rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 0;
                 width: 100%;
             }
         }

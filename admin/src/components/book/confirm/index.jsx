@@ -80,7 +80,7 @@ export class BookConfirmComponent extends Component {
 				</table>
 
 				<div className="btn-group">
-					<Link to="/book/confirm" className="ui button primary" onClick={this.saveOrder.bind(this, productList)}>下单</Link>
+					<Link to={'/book/confirm'} className="ui button primary" onClick={this.saveOrder.bind(this, productList)}>下单</Link>
 				</div>
 			</div>
 		);
