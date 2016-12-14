@@ -1,14 +1,19 @@
+@import '../../../../../public/style/common.scss';
+$logo_size: 7rem;
+$icon_size: 1.5rem;
+$icon_color: #208bfd;
 .product-type {
-    display: inline-block;
-    text-align: center;
-    padding: 1rem;
-	.logo {
-		display: flex;
-		flex-wrap: wrap;
-		width: 7rem;
-		height: 7rem;
+    display: inline-flex;
+    flex-wrap: wrap;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    .logo {
+        width: $logo_size;
+        height: $logo_size;
         border: 1px solid #eee;
-		font-size: 1.5rem;
+        border-radius: $logo_size;
+        overflow: hidden;
         img {
             display: block;
             width: 100%;
@@ -16,33 +21,33 @@
         &:hover {
             cursor: pointer;
         }
-	}
-    .name {
-        text-align: center;
-        line-height: 3rem;
-        margin-top: 0;
-        font-weight: normal;
     }
-    .select-icon {
-        opacity: 0;
+    .fa {
         position: absolute;
-        font-size: 1.5rem;
-        top: -0.6rem;
-        right: -0.8rem;
-        transition: opacity 0.3s;
-        i {
-            position: relative;
-            height: 100%;
-            &:before {
-                position: absolute;
-                top: -7rem;
-                right: 0;
-            }
-        }
+        background: $icon_color;
+        top: 1rem;
+        right: 1rem;
+        color: white;
+        font-size: 0.3rem;
+        width: $icon_size;
+        height: $icon_size;
+        line-height: $icon_size;
+        border-radius: $icon_size;
+        overflow: hidden;
+        text-align: center;
+        display: none;
+    }
+    .name {
+        width: 100%;
+        font-size: 1rem;
     }
     &.selected {
         .logo {
-            border-color: red;
+            border-color: $icon_color;
+            transition: $transition_time;
+        }
+        .fa {
+            display: block;
         }
     }
 }

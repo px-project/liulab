@@ -5,6 +5,14 @@
         width: 49rem;
         margin: 0 auto;
         text-align: center;
+        .category-list {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            .product-type {
+                width: 20%;
+            }
+        }
     }
     .btn-group {
     	padding-top: 1rem;

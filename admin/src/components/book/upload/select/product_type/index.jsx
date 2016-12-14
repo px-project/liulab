@@ -19,6 +19,8 @@ export class ProductType extends Component {
 				<div className="logo">
 					<img src={categoryData.photo ? `${window.server}/resource/${categoryData.photo}` : defaultPhoto}/>
 				</div>
+				<i className="fa fa-check"></i>
+				
 				<h4 className="name">{categoryData.name}</h4>
 			</div>
 		);
