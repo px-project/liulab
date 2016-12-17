@@ -1,0 +1,49 @@
+.order-total-item {
+    display: inline-block;
+    padding: 0 0.5rem 1rem;
+    .info {
+        background: white;
+        padding: 1rem;
+        border-radius: 0.2rem;
+        overflow: hidden;
+        &>div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .order-id {
+            height: 3.5rem;
+            font-size: 1.6rem;
+        }
+        .chart {
+            height: 10rem;
+        }
+        .user-time {
+            height: 3rem;
+            font-weight: 0.8rem;
+            & > div {
+                display: inline-block;
+                text-align: center;
+                color: #aaa;
+            }
+            .user {
+                padding-right: 1.5rem;
+            }
+            .time {
+            }
+        }
+        .actions {
+            margin: 0 -1rem -1rem;
+            a {
+                display: flex;
+                width: 100%;
+                justify-content: center;
+                align-items: center;
+                font-weight: bolder;
+                color: white;
+                background: #44aaa2;
+                height: 2.8rem;
+            }
+        }
+    }
+}

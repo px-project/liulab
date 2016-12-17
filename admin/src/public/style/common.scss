@@ -47,6 +47,9 @@ body {
 }
 
 .page {
+    .page .list-header{
+        display: none;
+    }
     .list-header {
         display: flex;
         height: 4rem;
