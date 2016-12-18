@@ -16,7 +16,12 @@
             font-size: 1.6rem;
         }
         .chart {
-            height: 10rem;
+            height: 12rem;
+            padding: 1rem;
+            canvas {
+                height: 100%!important;
+                width: auto!important;
+            }
         }
         .user-time {
             height: 3rem;
