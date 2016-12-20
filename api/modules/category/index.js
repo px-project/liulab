@@ -9,7 +9,7 @@ const async = require('async');
 const utils = require('../../common/utils');
 const multer = require('multer');
 const path = require('path');
-const upload = multer({ dest: path.join(__dirname, '../../uploads') });
+const upload = multer({ dest: path.join(__dirname, '../../../uploads') });
 const fs = require('fs');
 
 
@@ -86,9 +86,9 @@ module.exports = _router
             fileName = '模板：' + fileName.substr(1) + '.xlsx';
             fileName.replace(/[\s\,\.]/, '');
 
-            res.download(path.join(__dirname, '../../uploads/output.xlsx'), fileName, (err) => {
+            res.download(path.join(__dirname, '../../../uploads/output.xlsx'), fileName, (err) => {
                 // 删除文件
-                fs.unlink(path.join(__dirname, '../../uploads/output.xlsx'), () => {});
+                fs.unlink(path.join(__dirname, '../../../uploads/output.xlsx'), () => {});
             });
         });
     })

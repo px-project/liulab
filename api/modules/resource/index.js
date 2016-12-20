@@ -9,7 +9,7 @@ const path = require('path');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '../../uploads/'));
+        cb(null, path.join(__dirname, '../../../uploads/'));
     },
     filename: function (req, file, cb) {
         let fileFormat = (file.originalname).split(".");
@@ -22,7 +22,7 @@ const upload = multer({ storage: storage });
 module.exports = _router
     // 获取资源
     .get('/:filename', (req, res) => {
-        res.sendFile(path.join(__dirname, '../../uploads/', req.params.filename));
+        res.sendFile(path.join(__dirname, '../../../uploads/', req.params.filename));
     })
 
     // 创建资源

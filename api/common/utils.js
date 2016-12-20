@@ -120,7 +120,7 @@ exports.encodeXlsx = (data) => {
         return String.fromCharCode('A'.charCodeAt(0) + row) + (col + 1);
     }
 
-    xlsx.writeFile(workbook, path.join(__dirname, '../uploads/', 'output.xlsx'));
+    xlsx.writeFile(workbook, path.join(__dirname, '../../uploads/', 'output.xlsx'));
 };
 
 
