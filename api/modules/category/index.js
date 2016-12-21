@@ -60,11 +60,11 @@ module.exports = _router
                         case 'string':
                             result += '类型：文本';
                             break;
-                        
+
                         case 'number':
                             result += '类型：数字';
                             break;
-                        
+
                         case 'select':
                             result += '类型：选项';
                             break;
@@ -88,7 +88,7 @@ module.exports = _router
 
             res.download(path.join(__dirname, '../../../uploads/output.xlsx'), fileName, (err) => {
                 // 删除文件
-                fs.unlink(path.join(__dirname, '../../../uploads/output.xlsx'), () => {});
+                fs.unlink(path.join(__dirname, '../../../uploads/output.xlsx'), () => { });
             });
         });
     })
@@ -98,7 +98,7 @@ module.exports = _router
     .get('/', (req, res) => {
         let condition = {};
         categoryModel.list(condition, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'photo', 'attrs', 'description', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'photo', 'abbr', 'attrs', 'description', 'create_time', 'update_time')));
         });
     })
 
@@ -107,14 +107,14 @@ module.exports = _router
     .get('/:category_id', (req, res) => {
         let {category_id} = req.params;
         categoryModel.detail(category_id, {}, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'photo', 'description', 'attrs', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'photo', 'description', 'attr', 'attrs', 'create_time', 'update_time')));
         });
     })
 
 
     // 添加
     .post('/', (req, res) => {
-        let newData = xfilter(req.body, 'name', 'photo', 'description', 'attrs');
+        let newData = xfilter(req.body, 'name', 'photo', 'description', 'abbr', 'attrs');
         categoryModel.create(newData, (result) => {
             res.json(xres({ code: 0 }, xfilter(result, '_id', 'create_time')));
         });
@@ -125,7 +125,7 @@ module.exports = _router
     .patch('/:category_id', (req, res) => {
         let {category_id} = req.params;
 
-        let newData = xfilter(req.body, 'name', 'photo', 'description', 'attrs');
+        let newData = xfilter(req.body, 'name', 'photo', 'description', 'abbr', 'attrs');
 
         categoryModel.update(category_id, newData, (result) => {
             res.json(xres({ code: 0 }, xfilter(result, '_id', 'update_time')));

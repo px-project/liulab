@@ -3,17 +3,17 @@
  */
 import React, { Component } from 'react';
 import { TemplateNewFieldComponent as NewField } from '../new_field/';
-import {UploadImgComponent as UploadImg} from '../../../common/upload_img';
+import { UploadImgComponent as UploadImg } from '../../../common/upload_img';
 import './style.scss';
 
 export class CategoryAddComponent extends Component {
 	componentWillMount() {
 		// init form data
 		const initFields = [
-			{key: 'name', title: '产品名称', attr_type: 'string', attr_required: true},
-			{key: 'code', title: '货号', attr_type: 'string', attr_required: false},
-			{key: 'unit_price', title: '单价(元)',attr_type: 'number', attr_required: true},
-			{key: 'num', title: '数量', attr_type: 'number', attr_required: true}
+			{ key: 'name', title: '产品名称', attr_type: 'string', attr_required: true },
+			{ key: 'code', title: '货号', attr_type: 'string', attr_required: false },
+			{ key: 'unit_price', title: '单价(元)', attr_type: 'number', attr_required: true },
+			{ key: 'num', title: '数量', attr_type: 'number', attr_required: true }
 		];
 		this.props.xform({
 			name: '',
@@ -35,6 +35,11 @@ export class CategoryAddComponent extends Component {
 						<div className="field inline">
 							<label>名称</label>
 							<input type="text" onChange={this.fieldChange.bind(this, 'name')} />
+						</div>
+
+						<div className="field inline">
+							<label>缩写</label>
+							<input type="text" onChange={this.fieldChange.bind(this, 'abbr')} />
 						</div>
 
 						<div className="field inline description">
@@ -71,8 +76,8 @@ export class CategoryAddComponent extends Component {
 						)) : ''}
 					</ol>
 				</div>
-				
-				{formData.newField ? (<NewField {...this.props}></NewField>): ''}
+
+				{formData.newField ? (<NewField {...this.props}></NewField>) : ''}
 
 				<div className="btn-group sec">
 					<button className="ui button primary" onClick={this.createCategory.bind(this, xhttp, formData)}>保存</button>
@@ -92,7 +97,7 @@ export class CategoryAddComponent extends Component {
 		xhttp({
 			action: 'create',
 			api: 'category',
-			data: { name: formData.name, attrs: formData.fields, description: formData.description, photo: formData.photo }
+			data: { name: formData.name, abbr: formData.abbr, attrs: formData.fields, description: formData.description, photo: formData.photo }
 		}, () => {
 			this.props.history.pushState(null, '/category');
 		});
