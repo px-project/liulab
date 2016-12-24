@@ -8,13 +8,17 @@ import './style.scss';
 
 export class RoleComponent extends Component {
     componentWillMount() {
+        this.props.xhttp({action: 'list', api: 'role'});
     }
 
     render() {
+        let {role, entities} = this.props;
 
         return (
-            <div className="role-index">
-                <Link to={'/role/add'}>添加角色</Link>
+            <div className="role-page page">
+                <aside>
+                    1111
+                </aside>
             </div>
         );
     }

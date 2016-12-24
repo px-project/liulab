@@ -80,7 +80,7 @@ export class CategoryAddComponent extends Component {
 				{formData.newField ? (<NewField {...this.props}></NewField>) : ''}
 
 				<div className="btn-group sec">
-					<button className="ui button primary" onClick={this.createCategory.bind(this, xhttp, formData)}>保存</button>
+					<button className="ui button primary" onClick={this.createCategory.bind(this)}>保存</button>
 					<button className="ui button red">取消</button>
 				</div>
 			</div>
@@ -93,13 +93,14 @@ export class CategoryAddComponent extends Component {
 	}
 
 	// 创建模板数据
-	createCategory(xhttp, formData) {
+	createCategory() {
+		let {xhttp, formData, history} = this.props;
 		xhttp({
 			action: 'create',
 			api: 'category',
 			data: { name: formData.name, abbr: formData.abbr, attrs: formData.fields, description: formData.description, photo: formData.photo }
 		}, () => {
-			this.props.history.pushState(null, '/category');
+			history.pushState(null, '/category');
 		});
 	}
 

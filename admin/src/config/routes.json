@@ -133,7 +133,23 @@
         "pages": [
             {
                 "path": "",
-                "name": "角色管理"
+                "name": "角色管理",
+                "children": [
+                    {
+                        "path": "add",
+                        "name": "新角色"
+                    },
+                    {
+                        "path": ":role_id",
+                        "component": "detail",
+                        "name": "角色详情"
+                    },
+                    {
+                        "path": ":role_id/edit",
+                        "component": "edit",
+                        "name": "编辑角色"
+                    }
+                ]
             }
         ]
     }
