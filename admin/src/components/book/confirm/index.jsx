@@ -40,13 +40,13 @@ export class BookConfirmComponent extends Component {
 									<span className="name">{entities[product_id].name}</span>
 								</td>
 								<td>{entities[product_id].code}</td>
-								<td>{entities[product_id].unit_price}</td>
+								<td>{window.accounting.formatMoney(entities[product_id].unit_price / 100, '￥')}</td>
 								<td className="num">
 									<a onClick={this.changeProductNum.bind(this, product_id, -1)}>-</a>
 									<span>{productList[product_id]}</span>
 									<a onClick={this.changeProductNum.bind(this, product_id, 1)}>+</a>
 								</td>
-								<td>{entities[product_id].unit_price * productList[product_id]}</td>
+								<td>{window.accounting.formatMoney(entities[product_id].unit_price * productList[product_id] / 100, '￥')}</td>
 								<td>
 									<a>移除</a>
 								</td>

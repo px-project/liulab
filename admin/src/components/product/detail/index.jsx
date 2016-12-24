@@ -29,7 +29,7 @@ export class ProductDetailComponent extends Component {
                                 <p className="code">{entities[product_id].code}</p>
                                 <p className="unit_price map">
                                     <span className="title">单价</span>
-                                    <span className="value">￥{entities[product_id].unit_price}</span>
+                                    <span className="value">{window.accounting.formatMoney(entities[product_id].unit_price / 100, '￥')}</span>
                                 </p>
                             </div>
                         </div>
