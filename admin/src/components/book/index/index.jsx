@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import './style.scss';
 import { Link } from 'react-router';
 import classname from 'classname';
+import defaultCategoryPhoto from '../../../public/images/default.png';
 
 export class BookComponent extends Component {
 	componentWillMount() {

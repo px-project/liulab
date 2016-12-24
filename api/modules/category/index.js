@@ -18,7 +18,6 @@ module.exports = _router
     // 解析模板文件
     .post('/upload/:categorys', upload.single('file'), (req, res) => {
         getMultiCategoryDetail(req.params.categorys.split(','), categorys => {
-            console.log(categorys);
 
             let excelData = utils.decodeXlsx(req.file.path);
 

@@ -14,14 +14,14 @@ module.exports = _router
     // 获取产品列表
     .get('/', (req, res) => {
         productModel.list({ populateKeys: ['category'] }, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'category', 'name', 'code', 'unit_price', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, result));
         });
     })
 
     // 产品详情
     .get('/:product_id', (req, res) => {
         productModel.detail(req.params.product_id, { populateKeys: ['category'] }, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'category', 'name', 'code', 'unit_price', 'attrs', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, result));
         });
     })
 

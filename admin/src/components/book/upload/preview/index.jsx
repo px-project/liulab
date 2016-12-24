@@ -1,35 +1,50 @@
 /**
  * 上传方式预览界面
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './style.scss';
 
 export class BookUploadPreviewComponent extends Component {
 	// 创建订单
-	createOrder (props, e) {
-		let {xhttp, categoryUpload, entities} = props;
-		let newData = {order: entities[categoryUpload.items[categoryUpload.items.length - 1]].result};
+	createOrder(e) {
+		let {xhttp, categoryUpload, entities, formData, history} = this.props;
+		let newData = { description: formData.description, child_orders: [] };
+
+		let orders = entities[categoryUpload.items[categoryUpload.items.length - 1]].result;
+
+
+		Object.keys(orders).map(category_id => {
+			orders[category_id].forEach(product => {
+				newData.child_orders.push({
+					name: product.name,
+					code: product.code,
+					num: product.num,
+					unit_price: product.unit_price,
+					category_id,
+					attrs: Object.assign({}, ...entities[category_id].attrs.filter((item, index) => index > 3).map(attr => ({ [attr.key]: product[attr.key] })))
+				});
+			});
+		});
 
 		xhttp({
 			action: 'create',
 			api: 'order',
 			data: newData
 		}, (result) => {
-			props.history.pushState(null, '/order/' + result.order_id);
+			history.pushState(null, '/order/' + result.order_id);
 		});
 	}
 
 	// 重新上传
-	reUpload (props, e) {
+	reUpload(props, e) {
 		let {changeBookState} = props;
 		props.changeBookState('upload');
 	}
 
-	render () {
+	render() {
 		let {categoryUpload, entities, bookPageState} = this.props;
 		let {selectCategory} = bookPageState;
 		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
-		console.log(categoryArr);
 		let {result} = entities[categoryUpload.items[categoryUpload.items.length - 1]];
 
 		return (
@@ -61,11 +76,24 @@ export class BookUploadPreviewComponent extends Component {
 						</div>
 					</div>
 				))}
+
+				<div className="ui form">
+					<div className="field description">
+						<label>备注</label>
+						<textarea onChange={this.chnageField.bind(this, 'description')}></textarea>
+					</div>
+				</div>
+
 				<div className="btn-group">
-					<button className="ui primary button" onClick={this.createOrder.bind(this, this.props)}>确认</button>
+					<button className="ui primary button" onClick={this.createOrder.bind(this)}>确认</button>
 					<button className="ui red button" onClick={this.reUpload.bind(this, this.props)}>重新上传</button>
 				</div>
-  			</div>
+			</div>
 		);
+	}
+
+	// 处理表单变动
+	chnageField(field, e) {
+		this.props.xform(e.target.value, field);
 	}
 }

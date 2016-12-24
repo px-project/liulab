@@ -2,36 +2,12 @@
  * 选择商品下单的确认界面
  */
 import React, { Component } from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 import './style.scss';
 import classname from 'classname';
 import DefaultCover from '../../../public/images/default.png';
 
 export class BookConfirmComponent extends Component {
-
-	// 更改数量
-	changeProductNum(product_id, changeNum) {
-		this.props.addProduct(product_id, changeNum);
-	}
-
-	// 下单
-	saveOrder(productList) {
-		let {xhttp, entities, category, history} = this.props;
-		let newData = {};
-
-		for (let product_id in productList) {
-			let num = productList[product_id];
-
-			let category = newData.order[entities[product_id].category._id] = [];
-
-			let productData = Object.assign({}, entities[product_id].data, { num });
-
-			category.push(productData);
-		}
-		this.createOrder(newData, result => {
-			history.pushState(null, '/order/' + result.order_id);
-		});
-	}
 
 	render() {
 		let {entities, category, xhttp, product, changeBookState, bookPageState} = this.props;
@@ -40,7 +16,7 @@ export class BookConfirmComponent extends Component {
 		return (
 			<div className="book-select-confirm-page">
 				<header className="list-header">
-					<a className="button ui labeled left icon confirm" onClick={changeBookState.bind(this, 'select')}><i className="left arrow icon"></i>选择产品</a>
+					<Link to={'/order'} className="button ui labeled left icon confirm"><i className="left arrow icon"></i>选择产品</Link>
 				</header>
 
 				<table className="ui table">
@@ -78,16 +54,49 @@ export class BookConfirmComponent extends Component {
 						))}
 					</tbody>
 				</table>
-
+				<div className="ui form">
+					<div className="field description">
+						<label>备注</label>
+						<textarea onChange={this.fieldChange.bind(this, 'description')}></textarea>
+					</div>
+				</div>
 				<div className="btn-group">
-					<Link to={'/book/confirm'} className="ui button primary" onClick={this.saveOrder.bind(this, productList)}>下单</Link>
+					<button className="ui button primary" onClick={this.saveOrder.bind(this, productList)}>下单</button>
 				</div>
 			</div>
 		);
 	}
 
-	// 创建订单
-	createOrder(newData, cb) {
-		this.props.xhttp({ action: 'create', api: 'order', data: { products: newData } }, cb);
+	// 更改数量
+	changeProductNum(product_id, changeNum) {
+		this.props.addProduct(product_id, changeNum);
 	}
+
+	// 表单字段变动
+	fieldChange (field, e) {
+		this.props.xform(e.target.value, field);
+	}
+
+	// 下单
+	saveOrder(productList) {
+		let {xhttp, entities, category, history, formData} = this.props;
+		let newData = {description: formData.description, child_orders: []};
+
+		newData.child_orders = Object.keys(productList).map(product_id => {
+			let product = entities[product_id];
+			return {
+				name: product.name,
+				code: product.code,
+				num: productList[product_id],
+				unit_price: product.unit_price,
+				category_id: product.category._id,
+				attrs: Object.assign({}, ...product.category.attrs.filter((item, index) => index > 3).map(attr => ({[attr.key]: product.attrs[attr.key]})))
+			}
+		});
+
+		this.props.xhttp({ action: 'create', api: 'order', data: newData }, result => {
+			history.pushState(null, '/order/' + result.order_id);
+		});
+	}
+
 }

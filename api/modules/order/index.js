@@ -56,7 +56,7 @@ module.exports = _router
      *     child_orders  {Array}      子订单数据
      * }
      * 
-     * child_order {
+     * child_orders {
      *      name,
      *      code,
      *      category_id,
