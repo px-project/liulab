@@ -24,7 +24,7 @@ export class BookConfirmComponent extends Component {
 						<tr>
 							<th>序号</th>
 							<th className="product">产品</th>
-							<th>货号</th>
+							<th>编号</th>
 							<th>单价</th>
 							<th>数量</th>
 							<th>合计</th>

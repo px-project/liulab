@@ -11,7 +11,7 @@ export class CategoryAddComponent extends Component {
 		// init form data
 		const initFields = [
 			{ key: 'name', title: '产品名称', attr_type: 'string', attr_required: true },
-			{ key: 'code', title: '货号', attr_type: 'string', attr_required: false },
+			{ key: 'code', title: '编号', attr_type: 'string', attr_required: false },
 			{ key: 'unit_price', title: '单价(元)', attr_type: 'number', attr_required: true },
 			{ key: 'num', title: '数量', attr_type: 'number', attr_required: true }
 		];

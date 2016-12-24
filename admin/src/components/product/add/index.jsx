@@ -40,7 +40,7 @@ export class ProductAddComponent extends Component {
                             <input type="text" />
                         </div>
                         <div className="inline field code">
-                            <label>货号</label>
+                            <label>编号</label>
                             <input type="text" />
                         </div>
                         <div className="inline field unit_price">
