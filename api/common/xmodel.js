@@ -22,80 +22,115 @@ const commonSchema = {
 }
 
 
-
-function handleDbErr(err) {
-    throw err;
-}
-
-
-module.exports = (modelDirName) => {
+/**
+ * model
+ */
+function Xmodel(modelDirName) {
     let name = utils.toCancel(true, modelDirName);
-
     let model = null;
-
     try {
         model = mongoose.model(name);
     } catch (e) {
         model = mongoose.model(name, new mongoose.Schema(utils.merge(commonSchema, require(path.join(__dirname, `../modules/${modelDirName}/schema`)))));
     }
+    this.model = model;
+}
 
-    return {
-        list: (options = {}, cb) => {
-            let { populateKeys = [], where = {}, skip = 0, limit = LIMIT } = options;
 
-            model.find(where)
-                .skip(skip)
-                .limit(limit)
-                .populate(populateKeys.join(' '))
-                .exec((err, result) => {
-                    if (err) handleDbErr(err);
-                    cb(result);
-                });
-        },
+/**
+ * model list action
+ */
+Xmodel.prototype.list = function (options = {}, cb) {
+    let { populateKeys = [], where = {}, skip = 0, limit = LIMIT } = options;
 
-        detail: (_id, options, cb) => {
-            options.populateKeys = options.populateKeys || [];
-
-            model.findOne({ _id })
-                .populate(options.populateKeys.join(' '))
-                .exec((err, result) => {
-                    if (err) handleDbErr(err);
-                    cb(result);
-                });
-        },
-
-        create: (newData, cb) => {
-            new model(newData).save((err, result) => {
-                if (err) handleDbErr(err);
-                cb(result);
-            });
-        },
-
-        update: (_id, newData, cb) => {
-            newData.$set = newData.$set || {};
-            newData.$set.update_time = Date.now();
-            model.update({ _id }, newData, (err) => {
-                if (err) handleDbErr(err);
-                cb({ update_time: newData.$set.update_time });
-            });
-        },
-
-        upsert: (condition, newData, cb) => {
-            model.findOneAndUpdate(condition, newData, { upsert: true }, (err, result) => {
-                if (err) handleDbErr(err);
-                cb(result);
-            });
-        },
-
-        delete: (_id, cb) => {
-            let update_time = Date.now();
-            let newData = { $set: { isDeleted: false, update_time } };
-            model.update({ _id }, newData, (err, result) => {
-                if (err) handleDbErr(err);
-                cb({ _id, update_time });
-            });
-        },
-
-        remove: () => { }
-    };
+    console.log('===============')
+    console.log(this);
+    this.model.find(where)
+        .skip(skip)
+        .limit(limit)
+        .populate(populateKeys.join(' '))
+        .exec((err, result) => {
+            console.log(result);
+            if (err) return handleDbErr(err);
+            cb(result);
+        });
 };
+
+
+/**
+ * model detail action
+ */
+Xmodel.prototype.detail = function (_id, options, cb) {
+    options.populateKeys = options.populateKeys || [];
+
+    this.model.findOne({ _id })
+        .populate(options.populateKeys.join(' '))
+        .exec((err, result) => {
+            if (err) return handleDbErr(err);
+            cb(result);
+        });
+};
+
+
+/**
+ * model create action
+ */
+Xmodel.prototype.create = function (newData, cb) {
+    new this.model(newData).save((err, result) => {
+        if (err) return handleDbErr(err);
+        cb(result);
+    });
+};
+
+
+/**
+ * model update action
+ */
+Xmodel.prototype.update = function (_id, newData, cb) {
+    newData.$set = newData.$set || {};
+    newData.$set.update_time = Date.now();
+    this.model.update({ _id }, newData, (err) => {
+        if (err) return handleDbErr(err);
+        cb({ update_time: newData.$set.update_time });
+    });
+};
+
+
+/**
+ * model upset action
+ */
+Xmodel.prototype.upsert = function (condition, newData, cb) {
+    this.model.findOneAndUpdate(condition, newData, { upsert: true }, (err, result) => {
+        if (err) return handleDbErr(err);
+        cb(result);
+    });
+};
+
+
+/**
+ * omdel delete action 
+ */
+Xmodel.prototype.delete = function (_id, cb) {
+    let update_time = Date.now();
+    let newData = { $set: { isDeleted: false, update_time } };
+    this.model.update({ _id }, newData, (err, result) => {
+        if (err) return handleDbErr(err);
+        cb({ _id, update_time });
+    });
+};
+
+
+/**
+ * model remve action
+ */
+Xmodel.prototype.remove = () => { }
+
+/**
+ * get model
+ */
+Xmodel.prototype.model = function () {
+    return this.model;
+};
+
+
+module.exports = modelDirName => new Xmodel(modelDirName);

@@ -8,12 +8,23 @@ const xres = require('../../common/xres');
 const async = require('async');
 const xfilter = require('../../common/xfilter');
 const utils = require('../../common/utils');
+const mongoose = require('mongoose');
 
 
 module.exports = _router
+
+    // 获取指定分类编号
+    .get('/code/:category_id', (req, res) => {
+        let {category_id} = req.params;
+        productModel.model.count({category: category_id}, count => {
+            console.log(count);
+        })
+    })
+
     // 获取产品列表
     .get('/', (req, res) => {
         productModel.list({ populateKeys: ['category'] }, (result) => {
+            // console.log(result);
             res.json(xres({ code: 0 }, result));
         });
     })
