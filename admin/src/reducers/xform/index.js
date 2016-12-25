@@ -3,7 +3,7 @@
  */
 import * as consts from '../../constants/';
 import { combineReducers } from 'redux';
-import {deepCopy} from '../../utils/';
+const _ = require('lodash');
 
 export default function XformReducer (state = {}, action) {
     switch (action.type) {
@@ -11,10 +11,10 @@ export default function XformReducer (state = {}, action) {
             let locals = action.field.split('.');
             getRef(state, locals.slice(0, -1))[locals.slice(-1)] = action.value;
             
-            return deepCopy(state);
+            return _.cloneDeepWith(state);
         
         case consts.FORM_INIT:
-            return deepCopy(action.data);
+            return _.cloneDeepWith(action.data);
 
         default:
             return state;

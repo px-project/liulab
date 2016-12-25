@@ -122,25 +122,3 @@ exports.encodeXlsx = (data) => {
 
     xlsx.writeFile(workbook, path.join(__dirname, '../../uploads/', 'output.xlsx'));
 };
-
-
-
-exports.deepCopy = (target) => {
-
-    if (Array.isArray(target)) {
-        return target.map((item) => {
-            if (item instanceof Object) return this.deepCopy(item);
-            return item;
-        });
-    }
-
-    if (target instanceof Object) {
-        let result = {};
-        for (let key in target) {
-            result[key] = target[key] instanceof Object ? this.deepCopy(target[key]) : target[key];
-        }
-        return result;
-    }
-
-    return target;
-};

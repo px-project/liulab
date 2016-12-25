@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import './style.scss';
-import { deepCopy } from '../../../../utils/';
+const _ = require('lodash');
 
 export class TemplateNewFieldComponent extends Component {
     componentWillMount() {
@@ -66,8 +66,8 @@ export class TemplateNewFieldComponent extends Component {
 
     // 保存新字段
     addNewField(formData, e) {
-        let fields = deepCopy(formData.fields);
-        fields.push(deepCopy(formData.newField));
+        let fields = _.cloneDeepWith(formData.fields);
+        fields.push(_.cloneDeepWith(formData.newField));
         this.props.xform(fields, 'fields');
         this.props.xform({ key: '', title: '', attr_type: 'string', attr_required: false }, 'newField');
     }
