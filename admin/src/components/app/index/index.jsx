@@ -2,11 +2,11 @@
  * app 组件
  */
 import React, { Component } from 'react';
-import {Header, Sidebar} from '../';
+import { Header, Sidebar } from '../';
 import './style.scss';
 
 export class AppComponent extends Component {
-    componentWillMount () {
+    componentWillMount() {
         this.props.xhttp({
             action: 'detail',
             api: 'userCurrent'

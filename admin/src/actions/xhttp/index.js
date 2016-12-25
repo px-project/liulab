@@ -153,3 +153,29 @@ export function xhttp(options, cb) {
         // });
     }
 }
+
+
+// 生成指定方法
+const genXhttpMethod = method => (api = '', params = [], ...args) => {
+    let options = {};
+
+    // xhttp.list(api, params, conditions, options)
+    // xhttp.detail(api, params, conditions, options)
+    if (method === 'list' || method === 'detail') options = {api, params, conditions: args[0], options: args[1]};
+
+    // xhttp.create(api, params, newData, options)
+    // xhttp.update(api, params, newData, options)
+    if (method === 'create' || method === 'update') {
+        options = {api, params, newData: args[0], options: args[1]};
+    }
+
+    // xhttp.delete(api, params, options)
+    if  (method === 'delete') options = {api, params, options: args[0]};
+
+
+    return dispatch => {
+
+    };
+}
+
+export const newXhttp = Object.assign({}, ...['list', 'detail', 'create', 'update', 'delete'].map(method => ({[method]: genXhttpMethod(method)})));
