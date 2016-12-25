@@ -26,7 +26,7 @@ export class ProductDetailComponent extends Component {
                             </div>
                             <div className="info">
                                 <h4 className="name">{entities[product_id].name}</h4>
-                                <p className="code">{entities[product_id].code}</p>
+                                <p className="code">No. {entities[product_id].code}</p>
                                 <p className="unit_price map">
                                     <span className="title">单价</span>
                                     <span className="value">{window.accounting.formatMoney(entities[product_id].unit_price / 100, '￥')}</span>

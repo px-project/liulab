@@ -83,7 +83,7 @@ export class BookComponent extends Component {
 												</div>
 												<div className="detail">
 													<div className="l">
-														<p className="code">{entities[product_id].code}</p>
+														<p className="code">No. {entities[product_id].code}</p>
 														<p className="name">{entities[product_id].name}</p>
 														<p className="unit-price">{window.accounting.formatMoney(entities[product_id].unit_price / 100, '￥')}</p>
 													</div>

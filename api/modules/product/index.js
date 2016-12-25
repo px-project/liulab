@@ -4,21 +4,27 @@
 const express = require('express');
 const _router = express.Router();
 const productModel = require('../../common/xmodel')('product');
+const categoryModel = require('../../common/xmodel')('category');
 const xres = require('../../common/xres');
 const async = require('async');
 const xfilter = require('../../common/xfilter');
 const utils = require('../../common/utils');
 const mongoose = require('mongoose');
-
+const _ = require('lodash');
 
 module.exports = _router
 
     // 获取指定分类编号
     .get('/code/:category_id', (req, res) => {
         let {category_id} = req.params;
-        productModel.model.count({category: category_id}, count => {
-            console.log(count);
-        })
+
+        categoryModel.detail(category_id, {}, category => {
+            let code = category.abbr;
+            productModel.model.count({ category: category_id }, (err, count = 0) => {
+                code += _.padStart((count + ''), 7 - (count + 1 + '').length, '0');
+                res.json(xres({code: 0}, {code}));
+            });
+        });
     })
 
     // 获取产品列表

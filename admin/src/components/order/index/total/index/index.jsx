@@ -18,13 +18,19 @@ export class OrderTotalComponent extends Component {
             <div className="order-total">
                 {order.fetching ? (
                     <div className="loading">加载中</div>
-                ) : order.items.length ? (
+                ) : ''}
+
+                {!order.fetching && order.items.length ? (
                     <ul className="list">
                         {order.items.map((order_id, order_index) => (
                             <TotalItem order={entities[order_id]} key={order_index}></TotalItem>
                         ))}
                     </ul>
-                ) : (<div className="nodata">暂无数据</div>)}
+                ) : ''}
+
+                {!order.fetching && !order.items.length ? (
+                    <div className="nodata">暂无数据</div>
+                ) : ''}
             </div>
         );
     }

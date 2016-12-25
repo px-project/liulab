@@ -52,7 +52,7 @@ export class ProductAddComponent extends Component {
                 {formData.category_id && !category.fetching ? (
                     <div className="detail sec">
                         <div className="ui form">
-                            {entities[formData.category_id].attrs.map((attr, index) => (
+                            {entities[formData.category_id].attrs.filter((item, index) => index > 3).map((attr, index) => (
                                 <div className={`inline field ${attr.key}`} key={index}>
                                     <label>{attr.title}</label>
                                     {attr.attr_type === 'string' ? (<input type="text" />) : ''}
@@ -68,7 +68,7 @@ export class ProductAddComponent extends Component {
 
                 <div className="btn-group">
                     <button className="ui button primary">保存</button>
-                    <button className="ui button red" onClick={this.props.history.push.bind(this, '/product')}>取消</button>
+                    <Link to={'/product'} className="ui button red">取消</Link>
                 </div>
             </div>
         );
@@ -78,6 +78,7 @@ export class ProductAddComponent extends Component {
         let category_id = e.target.value;
         let {xhttp, xform} = this.props;
         xhttp({ action: 'detail', api: 'category', params: [category_id] });
+        xhttp({ action: 'detail', api: 'productCode', params: [category_id] });
         xform(category_id, 'category_id');
     }
 }

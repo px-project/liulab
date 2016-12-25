@@ -35,7 +35,7 @@ function handleNetErr(err) {
 function handleBusinessErr(err) {
     switch (err.code) {
         case 6000:
-            window.location.href = window.location.origin + '/login.html'; 
+            window.location.href = window.location.origin + '/login.html';
     }
 }
 
@@ -71,7 +71,7 @@ function handleUrl(api, params, conditions) {
         } else {
             queryStr += `${key}=${conditions[key]}&`;
         }
-        
+
     }
     if (queryStr.length > 1) url += queryStr.substr(0, queryStr.length - 1);
 
@@ -111,9 +111,9 @@ export function xhttp(options, cb) {
         delete: 'DELETE'
     };
 
-    return function(dispatch) {
+    return function (dispatch) {
 
-        dispatch(gettingFetchData);
+        dispatch(gettingFetchData(action, api, params, conditions));
 
         // fetch配置
         let fetchOption = {
@@ -123,7 +123,7 @@ export function xhttp(options, cb) {
         };
 
         // body
-        if (toggleMethod[action]!== 'GET' && !!data) {
+        if (toggleMethod[action] !== 'GET' && !!data) {
             if (data instanceof FormData) {
                 // 表单
                 fetchOption.body = data;
@@ -148,8 +148,8 @@ export function xhttp(options, cb) {
                     handleBusinessErr(json.error);
                 }
             })
-            // .catch(err => {
-            // handleNetErr(err);
-            // });
+        // .catch(err => {
+        // handleNetErr(err);
+        // });
     }
 }

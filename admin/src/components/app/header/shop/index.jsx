@@ -42,7 +42,7 @@ export class AppHeaderShopComponent extends Component {
                                         </div>
                                         <div className="info">
                                             <span className="name">{entities[product_id].name}</span>
-                                            <span className="code">{entities[product_id].code}</span>
+                                            <span className="code">No. {entities[product_id].code}</span>
                                             <span className="num">
                                                 <a className="action">-</a>
                                                 <span className="value">{productList[product_id]}</span>

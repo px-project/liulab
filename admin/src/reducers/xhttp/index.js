@@ -35,6 +35,8 @@ for (let currentApi in apiConfig) {
             newState.fetching = true;
         }
 
+        console.log(newState);
+
         if (action.type === consts.XHTTP_RECEIVE && action.options.api === currentApi) {
 
             switch (action.options.action) {

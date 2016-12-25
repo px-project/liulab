@@ -8,6 +8,7 @@
     "role": "/role",
 
     "product": "/product",
+    "productCode": "/product/code/{category_id}",
 
     "order": "/order",
     "orderStatus": "/order/{order_id}/status",

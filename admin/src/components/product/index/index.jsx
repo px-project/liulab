@@ -53,7 +53,7 @@ export class ProductComponent extends Component {
                                         </div>
                                         <div className="info">
                                             <p className="name">{entities[product_id].name}</p>
-                                            <p className="code">{entities[product_id].code}</p>
+                                            <p className="code">No. {entities[product_id].code}</p>
                                         </div>
                                     </Link>
                                 </li>
