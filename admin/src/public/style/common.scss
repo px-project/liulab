@@ -60,6 +60,15 @@ body {
                 display: flex;
                 li {
                     margin: 0 0.5rem;
+                    a {
+                        display: block;
+                        color: #777;
+                    }
+                    &.active {
+                        a {
+                            color: blue;
+                        }
+                    }
                 }
             }
         }

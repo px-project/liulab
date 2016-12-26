@@ -4,28 +4,6 @@
 import apiConfig from '../../config/api.json';
 import * as consts from '../../constants/';
 
-// 发送请求
-function gettingFetchData(action, api, params, conditions) {
-    return {
-        type: consts.XHTTP_BEGIN,
-        action,
-        api,
-        params,
-        conditions
-    };
-}
-
-
-// 接受响应
-function receiveFetchData(options, result) {
-    return {
-        type: consts.XHTTP_RECEIVE,
-        options,
-        result,
-        receiveAt: Date.now()
-    };
-}
-
 // 系统错误
 function handleNetErr(err) {
     console.error(err);
@@ -113,7 +91,9 @@ export function xhttp(options, cb) {
 
     return function (dispatch) {
 
-        dispatch(gettingFetchData(action, api, params, conditions));
+        options = { action, api, params, conditions, reload, data };
+
+        dispatch(beginAction(options));
 
         // fetch配置
         let fetchOption = {
@@ -135,13 +115,12 @@ export function xhttp(options, cb) {
             }
         }
 
-        options = { action, api, params, conditions, reload, data };
 
         return fetch(handleUrl(api, params, conditions), fetchOption)
             .then(res => res.json())
             .then(json => {
                 if (json.success) {
-                    dispatch(receiveFetchData(options, json.result));
+                    dispatch(receiveAction(options, json.result));
                     if (cb) cb(json.result);
                 }
                 else {
@@ -154,6 +133,30 @@ export function xhttp(options, cb) {
     }
 }
 
+// 发送请求action
+function beginAction(options) {
+    return {
+        type: consts.XHTTP_BEGIN,
+        options
+    };
+}
+
+// 接受请求action
+function receiveAction(options, result) {
+    return {
+        type: consts.XHTTP_RECEIVE,
+        options,
+        result,
+        receiveAt: Date.now()
+    };
+}
+
+// 发生错误action
+function errorAction() {
+
+}
+
+
 
 // 生成指定方法
 const genXhttpMethod = method => (api = '', params = [], ...args) => {
@@ -161,16 +164,16 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
 
     // xhttp.list(api, params, conditions, options)
     // xhttp.detail(api, params, conditions, options)
-    if (method === 'list' || method === 'detail') options = {api, params, conditions: args[0], options: args[1]};
+    if (method === 'list' || method === 'detail') options = { api, params, conditions: args[0], options: args[1] };
 
     // xhttp.create(api, params, newData, options)
     // xhttp.update(api, params, newData, options)
     if (method === 'create' || method === 'update') {
-        options = {api, params, newData: args[0], options: args[1]};
+        options = { api, params, newData: args[0], options: args[1] };
     }
 
     // xhttp.delete(api, params, options)
-    if  (method === 'delete') options = {api, params, options: args[0]};
+    if (method === 'delete') options = { api, params, options: args[0] };
 
 
     return dispatch => {
@@ -178,4 +181,4 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
     };
 }
 
-export const newXhttp = Object.assign({}, ...['list', 'detail', 'create', 'update', 'delete'].map(method => ({[method]: genXhttpMethod(method)})));
+export const newXhttp = Object.assign({}, ...['list', 'detail', 'create', 'update', 'delete'].map(method => ({ [method]: genXhttpMethod(method) })));

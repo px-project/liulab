@@ -35,8 +35,6 @@ for (let currentApi in apiConfig) {
             newState.fetching = true;
         }
 
-        console.log(newState);
-
         if (action.type === consts.XHTTP_RECEIVE && action.options.api === currentApi) {
 
             switch (action.options.action) {
@@ -71,8 +69,8 @@ for (let currentApi in apiConfig) {
                 default:
                     console.error('param error: action is not one of [list, detail, create, update, delete]');
             }
+            newState.fetching = false;
         }
-        newState.fetching = false;
         return newState;
     }
 

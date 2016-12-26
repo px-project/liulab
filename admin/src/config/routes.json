@@ -40,7 +40,7 @@
                 "children": [
                     {
                         "path": "total",
-                        "name": "总览"
+                        "name": "概述"
                     },
                     {
                         "path": "child",
