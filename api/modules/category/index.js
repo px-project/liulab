@@ -106,7 +106,7 @@ module.exports = _router
     .get('/:category_id', (req, res) => {
         let {category_id} = req.params;
         categoryModel.detail(category_id, {}, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'photo', 'description', 'attr', 'attrs', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, result));
         });
     })
 

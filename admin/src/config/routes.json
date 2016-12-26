@@ -112,12 +112,8 @@
             },
             {
                 "path": "add",
+                "component": "edit",
                 "name": "新品类"
-            },
-            {
-                "path": ":category_id",
-                "component": "detail",
-                "name": "品类详情"
             },
             {
                 "path": ":category_id/edit",

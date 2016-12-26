@@ -31,7 +31,7 @@ export class CategoryComponent extends Component {
 						<ul>
 							{category.items.map((category_id, category_index) => (
 								<li key={category_index}>
-									<Link to={'/category/' + category_id}>
+									<Link to={`/category/${category_id}/edit`}>
 										<div className="photo">
 											<img src={entities[category_id].photo ? `${window.server}/resource/${entities[category_id].photo}` : defaultPhoto} />
 										</div>
