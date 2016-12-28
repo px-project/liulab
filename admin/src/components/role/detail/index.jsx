@@ -23,9 +23,4 @@ export class RoleDetailComponent extends Component {
         );
     }
 
-
-    // 获取角色详情
-    getRoleDetail (xhttp, role_id) {
-        xhttp({action: 'detail', api: 'role', params: [role_id]});
-    }
 }

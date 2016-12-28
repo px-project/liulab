@@ -8,7 +8,7 @@ import './style.scss';
 
 export class OrderTotalComponent extends Component {
     componentWillMount() {
-        this.props.xhttp({ action: 'list', api: 'order' });
+        this.props.xhttp.list('order');
     }
 
     render() {

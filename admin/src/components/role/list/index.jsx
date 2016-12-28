@@ -10,9 +10,7 @@ import './style.scss';
 export class RoleListComponent extends Component {
     componentWillMount() {
         let {xhttp} = this.props;
-
-        // 获取角色列表
-        this.getRoleList(xhttp);
+        xhttp.list('role');
     }
 
     render() {
@@ -29,10 +27,5 @@ export class RoleListComponent extends Component {
                 </ul>
             </aside>
         )
-    }
-
-    // 获取角色列表
-    getRoleList(xhttp) {
-        xhttp({ action: 'list', api: 'role' });
     }
 }

@@ -16,24 +16,19 @@ export class BookUploadUploadComponent extends Component {
 		let {xhttp, changeBookState, bookPageState} = props;
 		let {selectCategory} = bookPageState;
 		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
-		
+
 		let file = e.target.files[0];
 		let reqData = new FormData();
 		reqData.append('file', file);
 
-		xhttp({
-			action: 'create',
-			api: 'categoryUpload',
-			params: [categoryArr.join(',')],
-			data: reqData
-		}, result => {
+		xhttp.create('categoryUpload', [categoryArr.join(',')], reqData, result => {
 			changeBookState('preview');
 		});
 	}
 
 	render() {
 
-		let {bookPageState, category, xhttp} = this.props;
+		let {bookPageState, category} = this.props;
 		let {selectCategory} = bookPageState;
 		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
 

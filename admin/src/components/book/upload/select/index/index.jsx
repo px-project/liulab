@@ -9,11 +9,7 @@ export class BookUploadSelectComponent extends Component {
 
 	componentWillMount() {
 		let {entities, xhttp, category} = this.props;
-
-		xhttp({
-			action: 'list',
-			api: 'category'
-		});
+		xhttp.list('category');
 	}
 
 	render() {

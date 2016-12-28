@@ -9,8 +9,9 @@ import defaultCategoryPhoto from '../../../public/images/default.png';
 
 export class BookComponent extends Component {
 	componentWillMount() {
-		this.getCategoryList();
-		this.getProductList();
+		let {xhttp} = this.props;
+		xhttp.list('category', [], {});
+		xhttp.list('product', [], {});
 	}
 
 	componentDidUpdate() {
@@ -27,18 +28,6 @@ export class BookComponent extends Component {
 		this.props.addProduct(product_id, 1);
 	}
 
-
-	// 变换产品类型
-	handleChangeTemplate(props, event) {
-		let {xhttp, selectProductId} = props;
-		let template_id = event.target.value;
-
-		selectProductId(template_id);
-		if (!template_id) return;
-
-		this.getProductList(xhttp, { template_id });
-		this.getTemplateDetail(xhttp, template_id);
-	}
 
 	render() {
 		let {changeBookState, bookPageState, xhttp, category, product, entities} = this.props;
@@ -112,19 +101,5 @@ export class BookComponent extends Component {
 		let condition = {};
 		if (category_id) condition.category_id = category_id;
 		this.getProductList(condition, () => { });
-	}
-
-	// 获取品类列表
-	getCategoryList(cb) {
-		this.props.xhttp({ action: 'list', api: 'category' }, res => {
-			if (res.success) cb(res.result);
-		});
-	}
-
-	// 获取产品列表
-	getProductList(condition, cb) {
-		this.props.xhttp({ action: 'list', api: 'product', condition }, res => {
-			if (res.success) cb(res.result);
-		});
 	}
 }

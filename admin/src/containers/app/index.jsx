@@ -21,31 +21,16 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-	let result = bindActionCreators(
-		Object.assign({}, ...Object.keys(actions).map(key => ({[key]: actions[key]}))),
-		dispatch
-	);
-
-	// console.log(bindActionCreators(actions.xhttp, dispatch))
-	// return {
-	// // 	// actions: Object.assign({}, ...Object.keys(actions).map(key => {
-	// // 	// 	if (typeof actions[key] === 'function') return {[key]: bindActionCreators(actions[key], dispatch)};
-	// // 	// }))
-	// 	actions: {
-	// 		xhttp: bindActionCreators(actions.xhttp, dispatch),
-	// 		xform: bindActionCreators(actions.xform, dispatch),
-	// 		aaa: {
-	// 			a: bindActionCreators(actions.xhttp, dispatch),
-	// 			b: bindActionCreators(actions.xhttp, dispatch),
-
-	// 		}
-	// 	}
-	// }
-
-	// console.log(result);
+	let result = {};
+	Object.keys(actions).forEach(key => {
+		if (typeof actions[key] === 'function') return result[key] = bindActionCreators(actions[key], dispatch);
+		console.log(Object.keys(actions[key]).map(ck => ({ [ck]: actions[key][ck] })))
+		result[key] = bindActionCreators(
+			Object.assign({}, ...Object.keys(actions[key]).map(ck => ({ [ck]: actions[key][ck] })))
+			, dispatch
+		);
+	});
 	return result;
-
-
 }
 
 export const App = connect(mapStateToProps, mapDispatchToProps)(AppContainer);

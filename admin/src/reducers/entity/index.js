@@ -3,17 +3,17 @@
  */
 import * as consts from '../../constants/xhttp';
 
-export default function EntityReducer (state = {}, action) {
+export default function EntityReducer(state = {}, action) {
     if (action.type === consts.XHTTP_RECEIVE) {
 
         if (!action.options) return state;
 
         let newState = Object.assign({}, state);
 
-        switch (action.options.action) {
+        switch (action.options.method) {
             case 'list':
                 newState = Object.assign(newState, ...action.result.map((item, index) => {
-                    return {[item._id]: item};
+                    return { [item._id]: item };
                 }));
                 break;
 

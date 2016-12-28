@@ -5,11 +5,11 @@ import React, { Component } from 'react';
 import './style.scss';
 
 export class AppHeaderUserComponent extends Component {
-    
+
     render() {
 
-		let {xhttp, userCurrent, entities} = this.props;
-		let currentUser = entities[userCurrent.items[0]];
+        let {xhttp, userCurrent, entities} = this.props;
+        let currentUser = entities[userCurrent.items[0]];
 
         return (
             <div className="header-user">
@@ -28,9 +28,9 @@ export class AppHeaderUserComponent extends Component {
         );
     }
 
-	logout() {
-		this.props.xhttp({ action: 'list', api: 'userLogout' }, () => {
-			window.location.href = '/logout.html';
-		});
-	}
+    logout() {
+        this.props.xhttp.list('userLogout', [], {}, () => {
+            window.location.href = '/logout.html';
+        });
+    }
 }

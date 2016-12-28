@@ -4,11 +4,12 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router';
+import { RoleListComponent as RoleList, RoleDetailComponent as RoleDetail } from '../index.js';
 import './style.scss';
 
 export class RoleComponent extends Component {
     componentWillMount() {
-        this.props.xhttp({action: 'list', api: 'role'});
+        this.props.xhttp.list('role');
     }
 
     render() {
@@ -16,9 +17,7 @@ export class RoleComponent extends Component {
 
         return (
             <div className="role-page page">
-                <aside>
-                    1111
-                </aside>
+                <RoleList {...this.props}></RoleList>
             </div>
         );
     }

@@ -37,7 +37,7 @@ for (let currentApi in apiConfig) {
 
         if (action.type === consts.XHTTP_RECEIVE && action.options.api === currentApi) {
 
-            switch (action.options.action) {
+            switch (action.options.method) {
 
                 case 'list':
                     // 获取列表

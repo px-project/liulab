@@ -10,8 +10,9 @@ import detailUserAvatar from '../../../public/images/default.png';
 
 export class UserComponent extends Component {
 	componentWillMount() {
-		this.props.xhttp({ action: 'list', api: 'role', reload: true });
-		this.props.xhttp({ action: 'list', api: 'user', reload: true });
+		let {xhttp} = this.props;
+		xhttp.list('role', [], {});
+		xhttp.list('user', [], {});
 	}
 
 	componentDidMount() {
@@ -21,7 +22,7 @@ export class UserComponent extends Component {
 
 	// 角色变动
 	roleChange(e) {
-		this.props.xhttp({action: 'list', api: 'user', reload: true, conditions: {role: e.target.value}})
+		this.props.xhttp.list('user', [], { role: e.target.value });
 	}
 
 	render() {
@@ -37,7 +38,7 @@ export class UserComponent extends Component {
 							<option value="">所有角色</option>
 							{!role.fetching ? role.items.map((role_id, index) => (
 								<option key={index} value={role_id}>{entities[role_id].name}</option>
-							)): ''}
+							)) : ''}
 						</select>
 					</div>
 				</header>

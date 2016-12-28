@@ -11,7 +11,7 @@ export class UploadImgComponent extends Component {
     render() {
         let {filename, fileKey, circle} = this.props;
         return (
-            <div className={classname({'upload-img': true, circle})}>
+            <div className={classname({ 'upload-img': true, circle })}>
                 <a>
                     <img src={filename ? `${window.server}/resource/${filename}` : defaultPic} />
                     <i className="fa fa-upload"></i>
@@ -26,12 +26,8 @@ export class UploadImgComponent extends Component {
         let file = e.target.files[0];
         let reqData = new FormData();
         reqData.append('file', file);
-        xhttp({
-            action: 'create',
-            api: 'resource',
-            reload: true,
-            data: reqData
-        }, result => {
+
+        xhttp.create('resource', [], reqData, result => {
             xform(result.filename, fileKey);
         });
     }

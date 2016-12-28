@@ -73,14 +73,14 @@ export class BookConfirmComponent extends Component {
 	}
 
 	// 表单字段变动
-	fieldChange (field, e) {
+	fieldChange(field, e) {
 		this.props.xform(e.target.value, field);
 	}
 
 	// 下单
 	saveOrder(productList) {
 		let {xhttp, entities, category, history, formData} = this.props;
-		let newData = {description: formData.description, child_orders: []};
+		let newData = { description: formData.description, child_orders: [] };
 
 		newData.child_orders = Object.keys(productList).map(product_id => {
 			let product = entities[product_id];
@@ -90,11 +90,11 @@ export class BookConfirmComponent extends Component {
 				num: productList[product_id],
 				unit_price: product.unit_price,
 				category_id: product.category._id,
-				attrs: Object.assign({}, ...product.category.attrs.filter((item, index) => index > 3).map(attr => ({[attr.key]: product.attrs[attr.key]})))
+				attrs: Object.assign({}, ...product.category.attrs.filter((item, index) => index > 3).map(attr => ({ [attr.key]: product.attrs[attr.key] })))
 			}
 		});
 
-		this.props.xhttp({ action: 'create', api: 'order', data: newData }, result => {
+		xhttp.create('order', [], newData, () => {
 			history.pushState(null, '/order/' + result.order_id);
 		});
 	}

@@ -6,21 +6,19 @@ import './style.scss';
 
 class UserDetailComponent extends Component {
 	componentWillMount() {
-		this.props.xhttp({
-			action: 'list',
-			api: 'role'
-		});
+		this.props.xhttp.list('role');
 	}
 
-	handleSubmit(props, e) {
-		e.preventDefault();
-		props.xhttp({
-			action: 'create',
-			api: 'user',
-			data: props.form.getFieldsValue()
-		}, () => {
-			props.history.pushState(null, '/user');
-		});
+	handleSubmit(e) {
+		// e.preventDefault();
+		// props.xhttp({
+		// 	action: 'create',
+		// 	api: 'user',
+		// 	data: props.form.getFieldsValue()
+		// }, () => {
+		// 	props.history.pushState(null, '/user');
+		// });
+		// this.props.
 	}
 
 	render() {
@@ -28,7 +26,7 @@ class UserDetailComponent extends Component {
 
 		return (
 			<div className="user-detail">
-				
+
 			</div>
 		)
 	}

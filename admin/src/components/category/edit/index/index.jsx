@@ -27,7 +27,7 @@ export class CategoryEditComponent extends Component {
 
 		// 编辑
 		if (routes[2].path === ':category_id/edit') {
-			xhttp({ action: 'detail', api: 'category', params: [params.category_id] }, category => {
+			xhttp.detail('category', [params.category_id], {}, category => {
 				category.fields = _.cloneDeepWith(category.attrs);
 				delete category.attrs;
 				this.props.xform(Object.assign({}, category, newField));
@@ -111,11 +111,9 @@ export class CategoryEditComponent extends Component {
 	// 创建模板数据
 	createCategory() {
 		let {xhttp, formData, history} = this.props;
-		xhttp({
-			action: 'create',
-			api: 'category',
-			data: { name: formData.name, abbr: formData.abbr, attrs: formData.fields, description: formData.description, photo: formData.photo }
-		}, () => {
+
+		let newData = { name: formData.name, abbr: formData.abbr, attrs: formData.fields, description: formData.description, photo: formData.photo };
+		xhttp.create('category', [], newData, () => {
 			history.pushState(null, '/category');
 		});
 	}

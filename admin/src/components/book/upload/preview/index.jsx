@@ -26,11 +26,7 @@ export class BookUploadPreviewComponent extends Component {
 			});
 		});
 
-		xhttp({
-			action: 'create',
-			api: 'order',
-			data: newData
-		}, (result) => {
+		xhttp.create('order', newData, result => {
 			history.pushState(null, '/order/' + result.order_id);
 		});
 	}

@@ -8,7 +8,7 @@ import './style.scss';
 
 export class ProductAddComponent extends Component {
     componentWillMount() {
-        this.props.xhttp({ action: 'list', api: 'category' });
+        this.props.xhttp.list('category');
     }
 
     componentDidUpdate() {
@@ -77,8 +77,10 @@ export class ProductAddComponent extends Component {
     selectCategory(e) {
         let category_id = e.target.value;
         let {xhttp, xform} = this.props;
-        xhttp({ action: 'detail', api: 'category', params: [category_id] });
-        xhttp({ action: 'detail', api: 'productCode', params: [category_id] });
+
+        xhttp.detail('category', [category_id]);
+        xhttp.detail('productCode', [category_id]);
+
         xform(category_id, 'category_id');
     }
 }

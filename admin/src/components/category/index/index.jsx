@@ -11,11 +11,7 @@ import './style.scss';
 export class CategoryComponent extends Component {
 
 	componentWillMount() {
-		this.props.xhttp({
-			action: 'list',
-			api: 'category',
-			reload: true
-		});
+		this.props.xhttp.list('category');
 	}
 
 	render() {
