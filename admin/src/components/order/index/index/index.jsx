@@ -6,7 +6,8 @@ import { Link } from 'react-router';
 import classname from 'classname';
 import './style.scss';
 import routes from '../../../../config/routes.json';
-import { SelectComponent as Select } from '../../../common/';
+import { SelectComponent as Select, LoaderComponent as Loader } from '../../../common/';
+import { OrderItemComponent as OrderItem } from '../item/';
 
 
 export class OrderComponent extends Component {
@@ -16,7 +17,7 @@ export class OrderComponent extends Component {
     }
 
     render() {
-        let {category, entities} = this.props;
+        let {category, order, entities} = this.props;
         return (
             <div className="page order-index-page">
                 <header className="list-header">
@@ -26,6 +27,14 @@ export class OrderComponent extends Component {
                         ))}
                     </Select>
                 </header>
+
+                <Loader loading={order.fetching} data={order.items}>
+                    <ul>
+                        {order.items.map((order_id, order_index) => (
+                            <OrderItem order={entities[order_id]}></OrderItem>
+                        ))}
+                    </ul>
+                </Loader>
             </div>
         );
     }

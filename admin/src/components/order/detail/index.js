@@ -1,2 +1,2 @@
-export * from './total/';
+export * from './index/index';
 export * from './child/';
