@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { LoaderComponent as Loader } from '../../common/';
+import { LoaderComponent as Loader, SelectComponent as Select } from '../../common/';
 import moment from 'moment';
 import './style.scss';
 import detailUserAvatar from '../../../public/images/default.png';
@@ -15,11 +15,6 @@ export class UserComponent extends Component {
 		xhttp.list('role', [], {});
 		xhttp.list('user', [], {});
 	}
-
-	componentDidMount() {
-		$(this.refs.dropdown).dropdown();
-	}
-
 
 	// 角色变动
 	roleChange(e) {
@@ -34,14 +29,12 @@ export class UserComponent extends Component {
 				<header className="list-header">
 					<Link className="ui button primary" to="/user/add">添加</Link>
 
-					<div className="group">
-						<select className="ui select dropdown" onChange={this.roleChange.bind(this)} ref="dropdown">
-							<option value="">所有角色</option>
-							{!role.fetching ? role.items.map((role_id, index) => (
-								<option key={index} value={role_id}>{entities[role_id].name}</option>
-							)) : ''}
-						</select>
-					</div>
+					<Select className="category group" placeholder="所有角色" empty={true}>
+						{role.items.map((role_id, role_index) => (
+							<option key={role_index} value={role_id}>{entities[role_id].name}</option>
+						))}
+					</Select>
+
 				</header>
 
 				<Loader loading={user.fetching} data={user.items}>

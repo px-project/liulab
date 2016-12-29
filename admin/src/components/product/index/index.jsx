@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import DefaultPhoto from '../../../public/images/default.png';
-import { LoaderComponent as Loader } from '../../common/';
+import { LoaderComponent as Loader, SelectComponent as Select } from '../../common/';
 import './style.scss';
 
 export class ProductComponent extends Component {
@@ -15,10 +15,6 @@ export class ProductComponent extends Component {
         xhttp.list('category');
     }
 
-    componentDidMount() {
-        $(this.refs.dropdown).dropdown();
-    }
-
     render() {
         let {entities, category, productPageState, product} = this.props;
 
@@ -27,14 +23,11 @@ export class ProductComponent extends Component {
                 <header className="list-header">
                     <Link className="button ui primary" to="/product/add">添加</Link>
 
-                    <div className="select-product-type group">
-                        <select className="ui select dropdown" ref="dropdown">
-                            <option value="">所有品类</option>
-                            {category.items.length && category.items.map((category_id, index) => (
-                                <option key={index} value={category_id}>{entities[category_id].name}</option>
-                            ))}
-                        </select>
-                    </div>
+                    <Select className="category group" placeholder="所有品类" empty={true}>
+                        {category.items.map((category_id, category_index) => (
+                            <option key={category_index} value={category_id}>{entities[category_id].name}</option>
+                        ))}
+                    </Select>
 
                     <div className="ui search">
                         <div className="ui icon input">

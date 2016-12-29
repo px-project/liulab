@@ -33,25 +33,20 @@
         "path": "order",
         "name": "订单",
         "icon": "file text outline",
-        "index": "total",
         "pages": [
             {
                 "path": "",
-                "children": [
-                    {
-                        "path": "total",
-                        "name": "概述"
-                    },
-                    {
-                        "path": "child",
-                        "name": "子订单"
-                    }
-                ]
+                "name": "订单列表"
             },
             {
                 "path": ":order_id",
                 "component": "detail",
                 "name": "订单详情"
+            },
+            {
+                "path": "child/:child_order_id",
+                "component": "childDetail",
+                "name": "子订单详情"
             }
         ]
     },

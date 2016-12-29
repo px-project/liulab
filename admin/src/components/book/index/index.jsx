@@ -6,17 +6,13 @@ import './style.scss';
 import { Link } from 'react-router';
 import classname from 'classname';
 import defaultCategoryPhoto from '../../../public/images/default.png';
-import { LoaderComponent as Loader } from '../../common/';
+import { LoaderComponent as Loader, SelectComponent as Select } from '../../common/';
 
 export class BookComponent extends Component {
 	componentWillMount() {
 		let {xhttp} = this.props;
 		xhttp.list('category', [], {});
 		xhttp.list('product', [], {});
-	}
-
-	componentDidUpdate() {
-		$(this.refs.dropdown).dropdown();
 	}
 
 	// 变换界面状态
@@ -40,15 +36,12 @@ export class BookComponent extends Component {
 					<div className="upload add">
 						<Link to={'/book/upload'} className="ui button primary">批量上传</Link>
 					</div>
-					<div className="category group">
-						<select className="ui selection dropdown" ref="dropdown" onChange={this.selectCategory.bind(this)}>
-							<option value="">所有品类</option>
-							{category.items.map((category_id, category_index) => (
-								<option key={category_index} value={category_id}>{entities[category_id].name}</option>
-							))}
-						</select>
-					</div>
 
+					<Select className="category group" placeholder="所有品类" empty={true} change={this.selectCategory.bind(this)}>
+						{category.items.map((category_id, category_index) => (
+							<option key={category_index} value={category_id}>{entities[category_id].name}</option>
+						))}
+					</Select>
 
 					<div className="ui search">
 						<div className="ui icon input">
