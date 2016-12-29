@@ -1,25 +1,18 @@
 {
     "user": "/user",
     "userLogout": "/user/logout",
-
     "agent": "/agent",
     "agentProduct": "/agent/{agent_id}/product",
-
     "role": "/role",
-
     "product": "/product",
     "productCode": "/product/code/{category_id}",
-
     "order": "/order",
     "orderStatus": "/order/{order_id}/status",
-
+    "childOrder": "/child_order",
     "category": "/category",
     "categoryUpload": "/category/upload",
     "categoryDownload": "/category/download",
-
     "userCurrent": "/user/current",
-
     "permission": "/role/permission",
-
     "resource": "/resource"
 }

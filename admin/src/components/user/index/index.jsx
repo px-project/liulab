@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { LoaderComponent as Loader } from '../../common/';
 import moment from 'moment';
 import './style.scss';
 import detailUserAvatar from '../../../public/images/default.png';
@@ -43,25 +44,23 @@ export class UserComponent extends Component {
 					</div>
 				</header>
 
-				{!user.fetching && user.items.length ? (
-					<div className="list">
-						<ul>
-							{user.items.map((user_id, user_index) => (
-								<li key={user_index}>
-									<Link to={`/user/${user_id}`}>
-										<div className="avatar">
-											<img src={entities[user_id].avatar ? `${window.server}/resource/${entities[user_id].avatar}` : detailUserAvatar} />
-										</div>
-										<div className="info">
-											<p className="name">{entities[user_id].name}</p>
-											<p className="role">{entities[user_id].role_name || '暂无角色'}</p>
-										</div>
-									</Link>
-								</li>
-							))}
-						</ul>
-					</div>
-				) : ''}
+				<Loader loading={user.fetching} data={user.items}>
+					<ul>
+						{user.items.map((user_id, user_index) => (
+							<li key={user_index}>
+								<Link to={`/user/${user_id}`}>
+									<div className="avatar">
+										<img src={entities[user_id].avatar ? `${window.server}/resource/${entities[user_id].avatar}` : detailUserAvatar} />
+									</div>
+									<div className="info">
+										<p className="name">{entities[user_id].name}</p>
+										<p className="role">{entities[user_id].role_name || '暂无角色'}</p>
+									</div>
+								</Link>
+							</li>
+						))}
+					</ul>
+				</Loader>
 			</div>
 		);
 	}

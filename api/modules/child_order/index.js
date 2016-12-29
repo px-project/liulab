@@ -3,6 +3,7 @@
  */
 const _router = require('express').Router();
 const childOrderModel = require('../../common/xmodel')('child_order');
+const xres = require('../../common/xres');
 
 
 module.exports = _router
@@ -14,7 +15,9 @@ module.exports = _router
 
     // 子订单列表
     .get('/', (req, res) => {
-
+        childOrderModel.list({}, result => {
+            res.json(xres({ code: 0 }, result));
+        });
     })
 
     // 子订单详情

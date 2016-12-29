@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import DefaultPhoto from '../../../public/images/default.png';
+import { LoaderComponent as Loader } from '../../common/';
 import './style.scss';
 
 export class ProductComponent extends Component {
@@ -43,28 +44,23 @@ export class ProductComponent extends Component {
                     </div>
                 </header>
 
-                {!product.fetching ? (
-                    <div className="list">
-                        <ul>
-                            {product.items.map((product_id, product_index) => (
-                                <li key={product_index}>
-                                    <Link to={`/product/${product_id}`}>
-                                        <div className="photo">
-                                            <img src={entities[product_id].category.photo ? `${window.server}/resource/${entities[product_id].category.photo}` : DefaultPhoto} />
-                                        </div>
-                                        <div className="info">
-                                            <p className="name">{entities[product_id].name}</p>
-                                            <p className="code">No. {entities[product_id].code}</p>
-                                        </div>
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-
-                    </div>) : (
-                        <div>
-                            加载中
-                    </div>)}
+                <Loader loading={product.fetching} data={product.items}>
+                    <ul>
+                        {product.items.map((product_id, product_index) => (
+                            <li key={product_index}>
+                                <Link to={`/product/${product_id}`}>
+                                    <div className="photo">
+                                        <img src={entities[product_id].category.photo ? `${window.server}/resource/${entities[product_id].category.photo}` : DefaultPhoto} />
+                                    </div>
+                                    <div className="info">
+                                        <p className="name">{entities[product_id].name}</p>
+                                        <p className="code">No. {entities[product_id].code}</p>
+                                    </div>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </Loader>
             </div>
         );
     }
