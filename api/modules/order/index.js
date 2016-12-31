@@ -33,7 +33,7 @@ module.exports = _router
 
                 order._doc.create_user = order.create_user.name || order.create_user.username;
             });
-            return res.json(xres({ code: 0 }, xfilter(result, '_id', 'order_id', 'create_user', 'total', 'create_time', 'update_time')));
+            return res.json(xres({ code: 0 }, result));
 
         });
     })
@@ -92,7 +92,7 @@ module.exports = _router
                 child_order_id: order_id + '-' + (child_order_index + 1),
                 create_user,
                 status: 'pending',
-                progress: [{ status: 'pending', time: now, user: create_user, description}],
+                progress: [{ status: 'pending', time: now, user: create_user, description }],
                 num,
                 product: child_order
             };

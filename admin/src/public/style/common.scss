@@ -47,34 +47,18 @@ body {
 }
 
 .page {
-    .page .list-header{
+    .page .list-header {
         display: none;
     }
     .list-header {
         display: flex;
         height: 4rem;
         align-items: center;
-        .nav {
-            padding-left: 1rem;
-            ul {
-                display: flex;
-                li {
-                    margin: 0 0.5rem;
-                    a {
-                        display: block;
-                        color: #777;
-                    }
-                    &.active {
-                        a {
-                            color: blue;
-                        }
-                    }
-                }
-            }
-        }
         .group {
-            margin-left: auto;
             margin-right: 1rem;
+            &:first-child {
+                margin-left: auto;
+            }
             .dropdown {
                 width: 10rem;
                 min-width: auto;
@@ -84,6 +68,12 @@ body {
                 }
             }
         }
+        .group:first-child {
+            background: red;
+        }
+        //  :first-child.group {
+        //     background: red;
+        // }
     }
     .sec {
         border-top: 1px dashed #ccc;

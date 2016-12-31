@@ -94,7 +94,7 @@ export class BookConfirmComponent extends Component {
 			}
 		});
 
-		xhttp.create('order', [], newData, () => {
+		xhttp.create('order', [], newData).then(result => {
 			history.pushState(null, '/order/' + result.order_id);
 		});
 	}

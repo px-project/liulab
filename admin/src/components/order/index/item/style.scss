@@ -1,0 +1,13 @@
+.order-item {
+    margin-bottom: 3rem;
+    .header {
+        background: white;
+        display: flex;
+        align-items: center;
+        height: 3rem;
+        padding: 0 1rem;
+        .actions {
+            margin-left: auto;
+        }
+    }
+}

@@ -6,7 +6,7 @@ import './style.scss';
 import { Link } from 'react-router';
 import classname from 'classname';
 import defaultCategoryPhoto from '../../../public/images/default.png';
-import { LoaderComponent as Loader, SelectComponent as Select } from '../../common/';
+import { Loader, Select, Search } from '../../common/';
 
 export class BookComponent extends Component {
 	componentWillMount() {
@@ -14,6 +14,7 @@ export class BookComponent extends Component {
 		xhttp.list('category', [], {});
 		xhttp.list('product', [], {});
 	}
+
 
 	// 变换界面状态
 	changeCurrentPageState(props, status, e) {
@@ -43,12 +44,7 @@ export class BookComponent extends Component {
 						))}
 					</Select>
 
-					<div className="ui search">
-						<div className="ui icon input">
-							<input className="prompt" type="text" placeholder="" />
-							<i className="search icon"></i>
-						</div>
-					</div>
+					<Search></Search>
 				</header>
 				<Loader loading={product.fetching} data="product.items">
 					<ul>

@@ -1,6 +1,4 @@
 {
-    "user": "/user",
-    "userLogout": "/user/logout",
     "agent": "/agent",
     "agentProduct": "/agent/{agent_id}/product",
     "role": "/role",
@@ -13,6 +11,8 @@
     "categoryUpload": "/category/upload",
     "categoryDownload": "/category/download",
     "userCurrent": "/user/current",
+    "user": "/user",
+    "userLogout": "/user/logout",
     "permission": "/role/permission",
     "resource": "/resource"
 }

@@ -141,11 +141,12 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
                 if (json.success) {
                     dispatch(receiveAction(options, json.result));
                     // if (cb) cb(json.result);
+                    return json;
                 }
                 else {
                     handleBusinessErr(json.error);
                 }
-            })
+            });
         // .catch(err => {
         // handleNetErr(err);
         // });

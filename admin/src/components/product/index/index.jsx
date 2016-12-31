@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import DefaultPhoto from '../../../public/images/default.png';
-import { LoaderComponent as Loader, SelectComponent as Select } from '../../common/';
+import { Loader, Select } from '../../common/';
 import './style.scss';
 
 export class ProductComponent extends Component {

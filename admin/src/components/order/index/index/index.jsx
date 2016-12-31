@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import classname from 'classname';
 import './style.scss';
 import routes from '../../../../config/routes.json';
-import { SelectComponent as Select, LoaderComponent as Loader } from '../../../common/';
+import { Select, Loader, Search } from '../../../common/';
 import { OrderItemComponent as OrderItem } from '../item/';
 
 
@@ -21,17 +21,20 @@ export class OrderComponent extends Component {
         return (
             <div className="page order-index-page">
                 <header className="list-header">
+                    
                     <Select className="category group" empty={true} placeholder="所有品类" change={this.getOrderList.bind(this)}>
                         {category.items.map((category_id, category_index) => (
                             <option key={category_index} value={category_id}>{entities[category_id].name}</option>
                         ))}
                     </Select>
+                    <Select className="status group" placeholder="所有状态" empty={true}></Select>
+                    <Search></Search>
                 </header>
 
                 <Loader loading={order.fetching} data={order.items}>
                     <ul>
                         {order.items.map((order_id, order_index) => (
-                            <OrderItem order={entities[order_id]}></OrderItem>
+                            <OrderItem key={order_index} order={entities[order_id]}></OrderItem>
                         ))}
                     </ul>
                 </Loader>

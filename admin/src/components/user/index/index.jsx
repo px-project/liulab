@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { LoaderComponent as Loader, SelectComponent as Select } from '../../common/';
+import { Loader, Select } from '../../common/';
 import moment from 'moment';
 import './style.scss';
 import detailUserAvatar from '../../../public/images/default.png';

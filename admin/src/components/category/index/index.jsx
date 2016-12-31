@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router';
-import { LoaderComponent as Loader } from '../../common/';
+import { Loader } from '../../common/';
 import * as consts from '../../../constants/';
 import defaultPhoto from '../../../public/images/default.png';
 import './style.scss';
