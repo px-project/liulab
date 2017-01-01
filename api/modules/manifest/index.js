@@ -15,7 +15,10 @@ module.exports = _router
 
     // 货单列表
     .get('/', (req, res) => {
-        manifestModel.list({}, result => {
+        manifestModel.list({ populateKeys: ['create_user'] }, result => {
+            result.forEach(manifest => {
+                manifest._doc.create_user = manifest.create_user.name || manifest.create_user.username;
+            })
             res.json(xres({ code: 0 }, result));
         });
     })

@@ -1,8 +1,8 @@
 /**
- * 订单界面使用常量
+ * 货单界面常量
  */
 
-export const ORDER_STATUS = {
+export const MANIFEST_STATUS = {
 	pending: {
 		name: '待审核',
 		color: 'rgb(255, 99, 132)'

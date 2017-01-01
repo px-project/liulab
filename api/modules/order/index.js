@@ -78,12 +78,12 @@ module.exports = _router
         let createManifestQueue = products.map((product, product_index) => cb => {
             let newManifest = {
                 order_id,
-                manifest: order_id + '-' + (product_index + 1),
+                manifest_id: order_id + '-' + (product_index + 1),
                 create_user,
                 status: 'pending',
                 progress: [{ status: 'pending', time: now, user: create_user, description }],
                 num: product.num,
-                product: Object.assign({}, ...Object.keys(product).filter(key => key !== 'num').map(key => ({ [key]: product.key })))
+                product: Object.assign({}, ...Object.keys(product).filter(key => key !== 'num').map(key => ({ [key]: product[key] })))
             };
             manifestModel.create(newManifest, result => cb(null, result));
         });
