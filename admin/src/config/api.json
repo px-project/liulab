@@ -6,7 +6,7 @@
     "productCode": "/product/code/{category_id}",
     "order": "/order",
     "orderStatus": "/order/{order_id}/status",
-    "childOrder": "/child_order",
+    "manifest": "/manifest",
     "category": "/category",
     "categoryUpload": "/category/upload",
     "categoryDownload": "/category/download",

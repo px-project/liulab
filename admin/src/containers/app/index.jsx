@@ -10,7 +10,6 @@ import { AppComponent } from '../../components/app/index/';
 export class AppContainer extends Component {
 
 	render() {
-		console.log(this.props)
 		return (<AppComponent {...this.props}></AppComponent>);
 	}
 
@@ -24,7 +23,6 @@ function mapDispatchToProps(dispatch) {
 	let result = {};
 	Object.keys(actions).forEach(key => {
 		if (typeof actions[key] === 'function') return result[key] = bindActionCreators(actions[key], dispatch);
-		console.log(Object.keys(actions[key]).map(ck => ({ [ck]: actions[key][ck] })))
 		result[key] = bindActionCreators(
 			Object.assign({}, ...Object.keys(actions[key]).map(ck => ({ [ck]: actions[key][ck] })))
 			, dispatch

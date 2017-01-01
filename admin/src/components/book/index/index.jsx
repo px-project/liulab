@@ -6,7 +6,7 @@ import './style.scss';
 import { Link } from 'react-router';
 import classname from 'classname';
 import defaultCategoryPhoto from '../../../public/images/default.png';
-import { Loader, Select, Search } from '../../common/';
+import { Loader, Select, Search, Lazy } from '../../common/';
 
 export class BookComponent extends Component {
 	componentWillMount() {
@@ -51,11 +51,9 @@ export class BookComponent extends Component {
 						{product.items.map((product_id, product_index) => (
 							<li key={product_index}>
 								<div className="photo">
-
 									<Link to={`/product/${product_id}`}>
-										<img src={entities[product_id].category.photo ? `${window.server}/resource/${entities[product_id].category.photo}` : defaultCategoryPhoto} />
+										<Lazy photo={entities[product_id].category.photo}></Lazy>
 									</Link>
-
 								</div>
 								<div className="detail">
 									<div className="l">

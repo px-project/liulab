@@ -80,9 +80,9 @@ export class BookConfirmComponent extends Component {
 	// 下单
 	saveOrder(productList) {
 		let {xhttp, entities, category, history, formData} = this.props;
-		let newData = { description: formData.description, child_orders: [] };
+		let newData = { description: formData.description, products: [] };
 
-		newData.child_orders = Object.keys(productList).map(product_id => {
+		newData.products = Object.keys(productList).map(product_id => {
 			let product = entities[product_id];
 			return {
 				name: product.name,

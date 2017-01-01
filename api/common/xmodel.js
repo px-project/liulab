@@ -42,15 +42,11 @@ function Xmodel(modelDirName) {
  */
 Xmodel.prototype.list = function (options = {}, cb) {
     let { populateKeys = [], where = {}, skip = 0, limit = LIMIT } = options;
-
-    console.log('===============')
-    console.log(this);
     this.model.find(where)
         .skip(skip)
         .limit(limit)
         .populate(populateKeys.join(' '))
         .exec((err, result) => {
-            console.log(result);
             if (err) return handleDbErr(err);
             cb(result);
         });

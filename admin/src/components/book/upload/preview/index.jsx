@@ -8,14 +8,14 @@ export class BookUploadPreviewComponent extends Component {
 	// 创建订单
 	createOrder(e) {
 		let {xhttp, categoryUpload, entities, formData, history} = this.props;
-		let newData = { description: formData.description, child_orders: [] };
+		let newData = { description: formData.description, products: [] };
 
 		let orders = entities[categoryUpload.items[categoryUpload.items.length - 1]].result;
 
 
 		Object.keys(orders).map(category_id => {
 			orders[category_id].forEach(product => {
-				newData.child_orders.push({
+				newData.products.push({
 					name: product.name,
 					code: product.code,
 					num: product.num,

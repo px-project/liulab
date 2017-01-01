@@ -42,11 +42,22 @@
                 "path": ":order_id",
                 "component": "detail",
                 "name": "订单详情"
+            }
+        ]
+    },
+    {
+        "path": "manifest",
+        "name": "货单",
+        "icon": "truck",
+        "pages": [
+            {
+                "path": "",
+                "name": "货单列表"
             },
             {
-                "path": "child/:child_order_id",
-                "component": "childDetail",
-                "name": "子订单详情"
+                "path": ":manifest_id",
+                "component": "detail",
+                "name": "货单详情"
             }
         ]
     },

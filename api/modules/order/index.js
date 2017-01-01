@@ -3,7 +3,7 @@
  */
 const _router = require('express').Router();
 const orderModel = require('../../common/xmodel')('order');
-const childOrderModel = require('../../common/xmodel')('child_order');
+const manifestModel = require('../../common/xmodel')('manifest');
 const productModel = require('../../common/xmodel')('product');
 const xres = require('../../common/xres');
 const async = require('async');
@@ -23,29 +23,22 @@ module.exports = _router
 
     // 获取订单列表
     .get('/', (req, res) => {
-        orderModel.list({ populateKeys: ['create_user', 'child_orders'] }, result => {
-            result.forEach(order => {
-
-                // 各状态子订单统计
-                let total = order.total = Object.assign({}, ...orderStatus.map(status => ({ [status]: 0 })));
-
-                order.child_orders.forEach(child_order => total[child_order.status]++);
-
+        orderModel.list({ populateKeys: ['create_user'] }, orders => {
+            let manifestQueue = orders.map(order => cb => {
                 order._doc.create_user = order.create_user.name || order.create_user.username;
+                manifestModel.list({ where: { order_id: order.order_id } }, (result = []) => cb(null, result));
             });
-            return res.json(xres({ code: 0 }, result));
-
+            async.series(manifestQueue, (err, manifests) => {
+                orders.forEach((order, order_index) => {
+                    order._doc.manifests = manifests[order_index];
+                });
+                res.json(xres({ code: 0 }, orders));
+            });
         });
     })
 
     // 获取订单详情
     .get('/:order_id', (req, res) => {
-        let {order_id} = req.params;
-        orderModel.list({ where: { order_id }, populateKeys: ['child_orders', 'create_user'] }, orderList => {
-            if (!orderList.length) return res.json(xres({ code: 404 }));
-            orderList[0]._doc.create_user = orderList[0].create_user.name || orderList[0].create_user.username;
-            res.json(xres({ code: 0 }, orderList[0]));
-        });
     })
 
     /**
@@ -53,10 +46,10 @@ module.exports = _router
      * 
      * body {
      *     description   {string}     订单备注
-     *     child_orders  {Array}      子订单数据
+     *     products      {Array}      产品数据
      * }
      * 
-     * child_orders {
+     * products {
      *      name,
      *      code,
      *      category_id,
@@ -66,7 +59,7 @@ module.exports = _router
      * }
      */
     .post('/', (req, res) => {
-        let {description, child_orders} = req.body;
+        let {description, products} = req.body;
 
         let now = new Date();
         let order_id = now.toISOString().replace(/[-T:Z\.]/g, '').substr(0, 14);
@@ -77,53 +70,43 @@ module.exports = _router
             order_id,
             create_user,
             description,
-            children_orders: null,
             create_time: now,
             update_time: now
         };
 
-        // 创建子订单
-        let createChildOrderQueue = child_orders.map((child_order, child_order_index) => cb => {
-            let child = _.cloneDeepWith(child_order);
-            let num = child.num;
-            delete child_order.num;
-            let newChildOrder = {
+        // 创建货单
+        let createManifestQueue = products.map((product, product_index) => cb => {
+            let newManifest = {
                 order_id,
-                child_order_id: order_id + '-' + (child_order_index + 1),
+                manifest: order_id + '-' + (product_index + 1),
                 create_user,
                 status: 'pending',
                 progress: [{ status: 'pending', time: now, user: create_user, description }],
-                num,
-                product: child_order
+                num: product.num,
+                product: Object.assign({}, ...Object.keys(product).filter(key => key !== 'num').map(key => ({ [key]: product.key })))
             };
-            childOrderModel.create(newChildOrder, result => cb(null, result));
+            manifestModel.create(newManifest, result => cb(null, result));
         });
-        async.series(createChildOrderQueue, (err, childOrders) => {
+        async.series(createManifestQueue, (err, manifests) => {
             // 创建订单
-            newOrderData.child_orders = childOrders.map(childOrder => childOrder._id);
             orderModel.create(newOrderData, order => {
+                order._doc.manifests = manifests;
                 res.json(xres({ code: 0 }, order));
 
                 // 创建产品
-                let createProductQueue = child_orders.map((child_order, child_order_index) => cb => {
-                    productModel.list({ where: { code: child_order.code } }, result => {
-                        let newProductDatas = {
-                            name: child_order.name,
-                            code: child_order.code,
-                            category: child_order.category_id,
-                            unit_price: child_order.unit_price,
-                            attrs: child_order.attrs
-                        };
+                let createProductQueue = manifests.map((manifest, manifest_index) => cb => {
+                    productModel.list({ where: { code: manifest.product.code } }, result => {
+                        let newProductData = manifest.product;
 
-                        newProductDatas.hash = utils.hash(JSON.stringify(newProductDatas));
+                        newProductData.hash = utils.hash(JSON.stringify(newProductData));
 
                         // 不存在：创建
-                        if (!result.length) return productModel.create(newProductDatas, result => cb(null, result));
+                        if (!result.length) return productModel.create(newProductData, result => cb(null, result));
 
                         // 已存在
-                        if (result[0].hash === newProductDatas.hash) return;
+                        if (result[0].hash === newProductData.hash) return;
 
-                        productModel.update(result[0]._id, newProductDatas, result => cb(null, result));
+                        productModel.update(result[0]._id, newProductData, result => cb(null, result));
                     });
                 });
                 async.series(createProductQueue);

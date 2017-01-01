@@ -52,7 +52,6 @@ module.exports = _router
                 fileName += '_' + category.name;
 
                 categoryData[category.name] = category.attrs.map(attr => [attr.title, (() => {
-                    console.log(attr);
                     let result = '';
 
                     switch (attr.attr_type) {

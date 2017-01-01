@@ -54,11 +54,14 @@ body {
         display: flex;
         height: 4rem;
         align-items: center;
+        &>.group {
+            margin-left: auto;
+            &~.group {
+                margin-left: 0;
+            }
+        }
         .group {
             margin-right: 1rem;
-            &:first-child {
-                margin-left: auto;
-            }
             .dropdown {
                 width: 10rem;
                 min-width: auto;
@@ -68,12 +71,6 @@ body {
                 }
             }
         }
-        .group:first-child {
-            background: red;
-        }
-        //  :first-child.group {
-        //     background: red;
-        // }
     }
     .sec {
         border-top: 1px dashed #ccc;

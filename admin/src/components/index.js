@@ -6,3 +6,4 @@ export * from './setting/';
 export * from './category/';
 export * from './product/';
 export * from './role/';
+export * from './manifest/';

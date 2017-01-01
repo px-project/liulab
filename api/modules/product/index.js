@@ -30,7 +30,6 @@ module.exports = _router
     // 获取产品列表
     .get('/', (req, res) => {
         productModel.list({ populateKeys: ['category'] }, (result) => {
-            // console.log(result);
             res.json(xres({ code: 0 }, result));
         });
     })

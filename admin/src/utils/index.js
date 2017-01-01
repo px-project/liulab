@@ -15,3 +15,8 @@ export function toCamcel(big, ...strArr) {
 	return big ? result : handleCamcel(result, false);
 
 }
+
+
+export function currency (price) {
+	return window.accounting.formatMoney(price / 100, '￥');
+}

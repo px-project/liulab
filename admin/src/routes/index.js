@@ -14,7 +14,8 @@ const history = useRouterHistory(createHistory)({ basename: window.location.orig
 
 export default class Routes extends Component {
     render() {
-        let router = routes.filter(topLevel => window.permission.filter(item => item.module === topLevel.path)[0].allow);
+        // let router = routes.filter(topLevel => window.permission.filter(item => item.module === topLevel.path)[0].allow);
+        let router = routes;
 
         // return (
         //     <Router history={history}>

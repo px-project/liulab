@@ -135,6 +135,8 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
             }
         }
 
+        console.log(options);
+
         return fetch(handleUrl(options.api, options.params, options.conditions), fetchOption)
             .then(res => res.json())
             .then(json => {
@@ -153,4 +155,6 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
     };
 }
 
-export const xhttp = Object.assign({}, ...['list', 'detail', 'create', 'update', 'delete'].map(method => ({ [method]: genXhttpMethod(method) })));
+export const xhttp = Object.assign({
+    url: handleUrl
+}, ...['list', 'detail', 'create', 'update', 'delete'].map(method => ({ [method]: genXhttpMethod(method) })));

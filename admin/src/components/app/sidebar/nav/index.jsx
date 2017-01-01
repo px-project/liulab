@@ -13,7 +13,6 @@ export class AppSidebarNavComponent extends Component {
 			<nav className="sidebar-nav">
 				<ul>
 					{routes
-						.filter(topLevel => permission.filter(item => item.module === topLevel.path)[0].allow)
 						.map((item, index) => (
 							<li key={index} className={classname({ active: item.path === this.props.routes[1].path.split('/')[0] })}>
 								<Link to={item.path}>
@@ -27,3 +26,7 @@ export class AppSidebarNavComponent extends Component {
 		);
 	}
 }
+
+
+						// .filter(topLevel => permission.filter(item => item.module === topLevel.path)[0].allow)
+// 
