@@ -10,8 +10,8 @@ import DefaultCover from '../../../public/images/default.png';
 export class BookConfirmComponent extends Component {
 
 	render() {
-		let {entities, category, xhttp, product, changeBookState, bookPageState} = this.props;
-		let {productList} = bookPageState;
+		let {entities, category, xhttp, product, changeBookState, book} = this.props;
+		let {productList} = book;
 
 		return (
 			<div className="book-select-confirm-page">

@@ -28,7 +28,7 @@ export class ManifestComponent extends Component {
                 <Loader loading={manifest.fetching} data={manifest.items}>
                     <ul>
                         {manifest.items.map((manifest_id, manifest_index) => (
-                            <Item key={manifest_index} manifest={entities[manifest_id]} entities={entities}></Item>
+                            <Item key={manifest_index} {...this.props} manifest_id={manifest_id}></Item>
                         ))}
                     </ul>
                 </Loader>

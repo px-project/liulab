@@ -4,7 +4,7 @@
 import * as consts from '../../constants/';
 import { combineReducers } from 'redux';
 
-function bookPageStateReducer(state = 'select', action) {
+function bookReducer(state = 'select', action) {
 	switch (action.type) {
 		case consts.BOOK_PAGE_STATE:
 			return action.newState;
@@ -52,7 +52,7 @@ function addProductReducer(state = {}, action) {
 
 
 export const BookReducers = combineReducers({
-	pageState: bookPageStateReducer,
+	pageState: bookReducer,
 	selectCategory: selectCategoryReducer,
 	template_id: selectProductIdReducer,
 	productList: addProductReducer

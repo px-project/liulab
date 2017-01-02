@@ -38,8 +38,8 @@ export class BookUploadPreviewComponent extends Component {
 	}
 
 	render() {
-		let {categoryUpload, entities, bookPageState} = this.props;
-		let {selectCategory} = bookPageState;
+		let {categoryUpload, entities, book} = this.props;
+		let {selectCategory} = book;
 		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
 		let {result} = entities[categoryUpload.items[categoryUpload.items.length - 1]];
 

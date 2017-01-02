@@ -13,7 +13,7 @@ const _ = require('lodash');
 
 export default combineReducers(Object.assign(
 	{
-		xform: XformReducer,
+		formData: XformReducer,
 		entities: EntityReducer
 	},
 	...Object.keys(api).map(key => ({ [key]: combineReducers(xhttp[key]) })),

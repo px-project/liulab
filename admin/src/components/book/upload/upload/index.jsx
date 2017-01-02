@@ -13,8 +13,8 @@ export class BookUploadUploadComponent extends Component {
 
 	// 上传excel
 	uploadOrderExcel(props, e) {
-		let {xhttp, changeBookState, bookPageState} = props;
-		let {selectCategory} = bookPageState;
+		let {xhttp, changeBookState, book} = props;
+		let {selectCategory} = book;
 		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
 
 		let file = e.target.files[0];
@@ -28,8 +28,8 @@ export class BookUploadUploadComponent extends Component {
 
 	render() {
 
-		let {bookPageState, category} = this.props;
-		let {selectCategory} = bookPageState;
+		let {book, category} = this.props;
+		let {selectCategory} = book;
 		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
 
 		return (

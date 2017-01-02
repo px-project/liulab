@@ -25,7 +25,9 @@ $detail_icon_size: 5rem;
                 color: #ddd;
             }
             &.selected {
-                color: blue;
+                a {
+                    color: blue;
+                }
             }
         }
         .manifest-id {

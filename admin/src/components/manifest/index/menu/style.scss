@@ -1,8 +1,19 @@
+@import '../../../../public/style/common.scss';
 .manifest-menu {
     position: fixed;
-    top: 0;
+    top: $header_height;
     right: 0;
     bottom: 0;
     width: 20rem;
     background: white;
+    padding: 1rem;
+    .btn-group {
+        display: flex;
+        flex-wrap: wrap;
+        & > div {
+            button {
+
+            }
+        }
+    }
 }

@@ -13,8 +13,8 @@ export class BookUploadSelectComponent extends Component {
 	}
 
 	render() {
-		let {category, entities, changeBookState, bookPageState} = this.props;
-		let {selectCategory} = bookPageState;
+		let {category, entities, changeBookState, book} = this.props;
+		let {selectCategory} = book;
 		return (
 			<div className="upload-select">
 				<div className="select">

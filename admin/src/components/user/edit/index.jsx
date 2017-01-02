@@ -8,18 +8,18 @@ import {UploadImgComponent as UploadImg} from '../../common/upload_img';
 
 export class UserEditComponent extends Component {
     componentWillMount() {
-        let {xhttp, xform, params} = this.props;
-        let {user_id} = params;
+        // let {xhttp, xform, params} = this.props;
+        // let {user_id} = params;
 
-        this.getRoleList(result => {
-            if (user_id) {
-                this.getUserDetail(user_id, (result) => {
-                    xform(result);
-                });
-            } else {
-                xform({});
-            }
-        });
+        // this.getRoleList(result => {
+        //     if (user_id) {
+        //         this.getUserDetail(user_id, (result) => {
+        //             xform(result);
+        //         });
+        //     } else {
+        //         xform({});
+        //     }
+        // });
     }
 
     componentDidMount() {
