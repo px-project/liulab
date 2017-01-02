@@ -19,7 +19,7 @@ export class ManifestComponent extends Component {
         let {xhttp, manifest, entities, category} = this.props;
         return (
             <div className="page manifest-page">
-                <header className="list-header">
+                <header className="page-header">
                     <Select className="group" placeholder="所有状态" empty="true"></Select>
                     <Select className="group" placeholder="所有品类" empty="true" data={category}></Select>
                     <Search></Search>

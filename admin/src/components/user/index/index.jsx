@@ -26,7 +26,7 @@ export class UserComponent extends Component {
 
 		return (
 			<div className="user-index-page page">
-				<header className="list-header">
+				<header className="page-header">
 					<Link className="ui button primary" to="/user/add">添加</Link>
 
 					<Select className="category group" placeholder="所有角色" empty={true}>

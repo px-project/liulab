@@ -15,7 +15,7 @@ export class BookConfirmComponent extends Component {
 
 		return (
 			<div className="book-select-confirm-page">
-				<header className="list-header">
+				<header className="page-header">
 					<Link to={'/order'} className="button ui labeled left icon confirm"><i className="left arrow icon"></i>选择产品</Link>
 				</header>
 

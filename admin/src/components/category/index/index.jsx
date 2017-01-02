@@ -20,7 +20,7 @@ export class CategoryComponent extends Component {
 
 		return (
 			<div className="category-list-page page">
-				<header className="list-header">
+				<header className="page-header">
 					<Link className="ui button primary" to="/category/add">添加</Link>
 				</header>
 				<Loader loading={category.fetching} data={category.items}>

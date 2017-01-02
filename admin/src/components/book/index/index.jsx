@@ -33,7 +33,7 @@ export class BookComponent extends Component {
 		return (
 			<div className="book-index-page page">
 
-				<header className={classname({ 'list-header': true, hide: pageState === 'confirm' })}>
+				<header className={classname({ 'page-header': true, hide: pageState === 'confirm' })}>
 					<div className="upload add">
 						<Link to={'/book/upload'} className="ui button primary">批量上传</Link>
 					</div>

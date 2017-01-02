@@ -8,7 +8,6 @@ import './style.scss';
 import routes from '../../../../config/routes.json';
 import { Select, Loader, Search } from '../../../common/';
 import { OrderItemComponent as OrderItem } from '../item/';
-import { OrderMenuComponent as OrderMenu } from '../menu/';
 
 
 export class OrderComponent extends Component {
@@ -19,8 +18,10 @@ export class OrderComponent extends Component {
     render() {
         let {category, childOrder, entities} = this.props;
         return (
-            <div className="page order-index-page">
-                menu list
+            <div className="page order-page">
+                <header className="page-header">
+                    
+                </header>
             </div>
         );
     }

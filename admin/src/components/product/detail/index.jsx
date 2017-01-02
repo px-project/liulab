@@ -19,7 +19,7 @@ export class ProductDetailComponent extends Component {
             <div className="product-detail-page">
                 {entities[product_id] ? (
                     <div className="page">
-                        <div className="list-header">
+                        <div className="page-header">
                             <button className="ui button red" onClick={history.goBack.bind(this)}>返回</button>
                         </div>
                         <div className="basic sec">

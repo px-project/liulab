@@ -20,7 +20,7 @@ export class ProductComponent extends Component {
 
         return (
             <div className="product-index-page page">
-                <header className="list-header">
+                <header className="page-header">
                     <Link className="button ui primary" to="/product/add">添加</Link>
 
                     <Select className="category group" placeholder="所有品类" empty={true}>
