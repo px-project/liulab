@@ -7,7 +7,7 @@ export class ManifestDetailComponent extends Component {
     render() {
         return (
             <div className="page manifest-detail-page">
-                货单详情
+                
             </div>
         );
     }

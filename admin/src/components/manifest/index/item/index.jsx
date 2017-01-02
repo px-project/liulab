@@ -12,7 +12,7 @@ import './style.scss';
 export class ManifestItemComponent extends Component {
     render() {
         let {manifest, entities, manifestSelect, manifest_id} = this.props;
-        let selected = manifest.selected.includes(manifest_id);
+        let selected = manifest.selected.indexOf(manifest_id) >= 0;
         let manifestData = entities[manifest_id];
         let category = manifestData.product.category_id;
         return (
