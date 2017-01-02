@@ -1,80 +1,19 @@
 /**
- * xhttp reducers
+ * xhttp reducer total
  */
-import * as consts from '../../constants/';
-import apiConfig from '../../config/api.json';
+import XhttpItemsReducers from './items';
+import XhttpFetchingReducers from './fetching';
+import XhttpConditionsReducers from './conditions';
+import apis from '../../config/api.json';
 
-let exportColl = {};
+let xhttp = {};
 
-/**
- * 各接口生成封装
- */
-for (let currentApi in apiConfig) {
-    if (currentApi === 'server') continue;
-
-    let stateKey = currentApi.split('-')[0];
-
-    let initState = { items: [], fetching: false };
-
-    // 各接口reducer
-    let reducer = (state = initState, action) => {
-
-        if (!action.options) return state;
-
-        // 新状态初始化
-        let newState = null;
-        if (action.options.reload) {
-            // 重新加载
-            newState = Object.assign({}, initState);
-        } else {
-            // 不覆盖
-            newState = Object.assign({}, state);
-        }
-
-        if (action.type === consts.XHTTP_BEGIN) {
-            newState.fetching = true;
-        }
-
-        if (action.type === consts.XHTTP_RECEIVE && action.options.api === currentApi) {
-
-            switch (action.options.method) {
-
-                case 'list':
-                    // 获取列表
-                    action.result.map((item) => {
-                        if (newState.items.indexOf(item._id) < 0) newState.items.push(item._id);
-                    });
-                    break;
-
-                case 'detail':
-                    // 获取详情
-                    if (newState.items.indexOf(action.result._id) < 0) {
-                        newState.items.push(action.result._id);
-                    }
-                    break;
-
-                case 'create':
-                    // 创建
-                    newState.items.push(action.result._id);
-                    break;
-
-                case 'update':
-                    // 更新
-                    break;
-
-                case 'delete':
-                    // 删除
-                    break;
-
-                default:
-                    console.error('param error: action is not one of [list, detail, create, update, delete]');
-            }
-            newState.fetching = false;
-        }
-        return newState;
-    }
-
-    exportColl[currentApi] = reducer;
+for (let api in apis) {
+    xhttp[api] = {
+        items: XhttpItemsReducers[api],
+        fetching: XhttpFetchingReducers[api],
+        conditions: XhttpConditionsReducers[api]
+    };
 }
 
-export default exportColl;
+export default xhttp;

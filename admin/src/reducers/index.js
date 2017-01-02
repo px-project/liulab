@@ -2,19 +2,20 @@
  * reducer合成
  */
 import { combineReducers } from 'redux';
-import AppContainerReducers from './app/';
 import XhttpReducers from './xhttp/';
-import BookReducers from './book/';
 import EntityReducer from './entity/';
-import ProductReducers from './product/';
 import XformReducer from './xform/';
+import * as reducers from './reducers';
+import api from '../config/api.json';
+import xhttp from './xhttp/';
 
-const AppReducers = combineReducers(Object.assign({}, XhttpReducers, {
-	entities: EntityReducer,
-	bookPageState: BookReducers,
-	productPageState: ProductReducers,
-	formData: XformReducer,
-	app: AppContainerReducers
-}));
+const _ = require('lodash');
 
-export default AppReducers;
+export default combineReducers(Object.assign(
+	{
+		xform: XformReducer,
+		entities: EntityReducer
+	},
+	...Object.keys(api).map(key => ({ [key]: combineReducers(xhttp[key]) })),
+	...Object.keys(reducers).map(key => ({ [key]: reducers[key] }))
+));

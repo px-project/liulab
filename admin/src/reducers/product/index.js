@@ -2,21 +2,21 @@
  * 产品界面reducer
  */
 import * as consts from '../../constants/';
+import xhttp from '../xhttp/';
 import { combineReducers } from 'redux';
+const _ = require('lodash');
 
 
-function selectTemplateId(state = '', action) {
-    switch (action.type) {
+function selectTemplateId(state = '', actions) {
+    switch (actions.type) {
         case consts.SELECT_TEMPLATE_ID:
-            return action.template_id;
+            return actions.template_id;
 
         default:
             return state;
     }
 }
 
-const ProductReducers = combineReducers({
-    template_id: selectTemplateId
-});
-
-export default ProductReducers;
+export const ProductReducers = combineReducers(Object.assign({}, xhttp.product, {
+    selected: selectTemplateId
+}));

@@ -2,6 +2,10 @@
  * 货单界面常量
  */
 
+// action类型
+export const SELECT_MANIFEST = 'SELECT_MANIFEST';
+
+// 货单状态
 export const MANIFEST_STATUS = {
 	pending: {
 		name: '待审核',

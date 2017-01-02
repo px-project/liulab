@@ -25,7 +25,7 @@ export class OrderComponent extends Component {
                     <Search></Search>
                 </header>
 
-                <Loader loading={order.loading} data={order.items}>
+                <Loader loading={order.fetching} data={order.items}>
                     <ul>
                         {order.items.map((order_id, order_index) => (
                             <Item key={order_index} order={entities[order_id]}></Item>

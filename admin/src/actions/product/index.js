@@ -16,8 +16,5 @@ function selectTemplateIdAction(template_id) {
 
 // 选择template_id
 export function selectTemplateId(template_id) {
-    return function (dispatch) {
-        dispatch(selectTemplateIdAction(template_id));
-    };
+    return (dispatch) => dispatch(selectTemplateIdAction(template_id));
 }
-

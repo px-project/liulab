@@ -135,8 +135,6 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
             }
         }
 
-        console.log(options);
-
         return fetch(handleUrl(options.api, options.params, options.conditions), fetchOption)
             .then(res => res.json())
             .then(json => {

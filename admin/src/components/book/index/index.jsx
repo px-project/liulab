@@ -28,8 +28,8 @@ export class BookComponent extends Component {
 
 
 	render() {
-		let {changeBookState, bookPageState, xhttp, category, product, entities} = this.props;
-		let {pageState, productList} = bookPageState;
+		let {changeBookState, book, xhttp, category, product, entities} = this.props;
+		let {pageState, productList} = book;
 		return (
 			<div className="book-index-page page">
 

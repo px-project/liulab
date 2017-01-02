@@ -2,9 +2,9 @@
  * 订购界面reducer
  */
 import * as consts from '../../constants/';
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 
-function bookPageStateReducer (state = 'select', action) {
+function bookPageStateReducer(state = 'select', action) {
 	switch (action.type) {
 		case consts.BOOK_PAGE_STATE:
 			return action.newState;
@@ -14,7 +14,7 @@ function bookPageStateReducer (state = 'select', action) {
 	}
 }
 
-function selectCategoryReducer (state = {}, action) {
+function selectCategoryReducer(state = {}, action) {
 	switch (action.type) {
 		case consts.BOOK_SELECT_CATEGORY:
 
@@ -27,7 +27,7 @@ function selectCategoryReducer (state = {}, action) {
 	}
 }
 
-function selectProductIdReducer (state = '', action) {
+function selectProductIdReducer(state = '', action) {
 	switch (action.type) {
 		case consts.BOOK_SELECT_ID:
 			return action.id;
@@ -37,13 +37,13 @@ function selectProductIdReducer (state = '', action) {
 	}
 }
 
-function addProductReducer (state = {}, action) {
+function addProductReducer(state = {}, action) {
 	switch (action.type) {
 		case consts.BOOK_ADD_PRODUCT:
 			return Object.assign({}, state, {
 				[action.product_id]: (state[action.product_id] || 0) + parseInt(action.num)
 			});
-		
+
 		default:
 			return state;
 	}
@@ -51,12 +51,9 @@ function addProductReducer (state = {}, action) {
 
 
 
-const BookReducers = combineReducers({
+export const BookReducers = combineReducers({
 	pageState: bookPageStateReducer,
 	selectCategory: selectCategoryReducer,
 	template_id: selectProductIdReducer,
 	productList: addProductReducer
 });
-
-
-export default BookReducers;

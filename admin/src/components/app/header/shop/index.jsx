@@ -19,8 +19,8 @@ export class AppHeaderShopComponent extends Component {
 
 
     render() {
-        let {bookPageState, entities, app, appShopShow} = this.props;
-        let {productList} = bookPageState;
+        let {book, entities, app, appShopShow} = this.props;
+        let {productList} = book;
 
         return (
             <div className={`header-shop ${classname({ active: app.shop })}`}>

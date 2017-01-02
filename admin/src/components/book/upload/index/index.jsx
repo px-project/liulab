@@ -15,7 +15,7 @@ export class BookUploadComponent extends Component {
 	}
 
 	render() {
-		let status = this.props.bookPageState.pageState;
+		let status = this.props.book.pageState;
 
 		let allState = {
 			'select': '选择品类',

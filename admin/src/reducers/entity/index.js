@@ -2,39 +2,29 @@
  * 实体reducer
  */
 import * as consts from '../../constants/xhttp';
+const _ = require('lodash');
 
-export default function EntityReducer(state = {}, action) {
-    if (action.type === consts.XHTTP_RECEIVE) {
+export default function EntityReducer(state = {}, actions) {
+    if (actions.type === consts.XHTTP_RECEIVE) {
+        let newState = _.cloneDeepWith(state);
 
-        if (!action.options) return state;
-
-        let newState = Object.assign({}, state);
-
-        switch (action.options.method) {
+        switch (actions.options.method) {
             case 'list':
-                newState = Object.assign(newState, ...action.result.map((item, index) => {
-                    return { [item._id]: item };
-                }));
-                break;
+                return Object.assign(newState, ...actions.result.map(item => ({ [item._id]: item })));
 
             case 'detail':
             case 'create':
             case 'update':
-                newState = Object.assign(newState, {
-                    [action.result._id]: action.result
-                });
-                break;
+                newState[actions.result._id] = actions.result;
+                return newState;
 
             case 'delete':
-                delete newState[action.result._id];
-                break;
+                delete newState[actions.result._id];
+                return newState;
 
             default:
-                console.error('param error: action is not one of [list, detail, create, update, delete]');
+                console.error('param error: actions is not one of [list, detail, create, update, delete]');
         }
-
-        state = newState;
     }
-
     return state;
 }
