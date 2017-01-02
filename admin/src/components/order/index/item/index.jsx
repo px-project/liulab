@@ -4,15 +4,52 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import moment from 'moment';
+import Chart from 'chart.js';
 import './style.scss';
 import { currency } from '../../../../utils/';
+import { MANIFEST_STATUS } from '../../../../constants/';
 
 export class OrderItemComponent extends Component {
+    componentDidMount() {
+        let {manifests} = this.props.order;
+        let total = Object.assign({}, ...Object.keys(MANIFEST_STATUS).map(status => ({ [status]: 0 })));
+        manifests.forEach(item => total[item.status]++);
+
+        Chart.defaults.global.legend.display = false;
+        new Chart(this.refs.chart, {
+            type: 'doughnut',
+            data: {
+                labels: Object.keys(MANIFEST_STATUS).map(status => MANIFEST_STATUS[status].name),
+                datasets: [
+                    {
+                        data: Object.keys(MANIFEST_STATUS).map(status => total[status]),
+                        backgroundColor: Object.keys(MANIFEST_STATUS).map(status => MANIFEST_STATUS[status].color),
+                        fontSize: '20px'
+                    }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true
+            }
+        });
+    }
     render() {
-        let {entities, category} = this.props;
+        let {order} = this.props;
         return (
             <li className="order-item">
-                order items.
+                <div className="info">
+                    <div className="order-id">{order.order_id}</div>
+                    <div className="chart">
+                        <canvas ref="chart"></canvas>
+                    </div>
+                    <div className="user-time">
+                        <div className="user">{order.create_user}</div>
+                        <div className="create-time">{moment(order.create_time).format('YYYY/MM/DD')}</div>
+                    </div>
+                    <div className="actions">
+                        <Link to={`/order/${order.order_id}`}>详情</Link>
+                    </div>
+                </div>
             </li>
         );
     }

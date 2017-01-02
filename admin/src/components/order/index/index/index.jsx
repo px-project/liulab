@@ -7,23 +7,43 @@ import classname from 'classname';
 import './style.scss';
 import routes from '../../../../config/routes.json';
 import { Select, Loader, Search } from '../../../common/';
-import { OrderItemComponent as OrderItem } from '../item/';
+import { OrderItemComponent as Item } from '../item/';
 
 
 export class OrderComponent extends Component {
     componentWillMount() {
-        this.props.xhttp.list('category', [], {});
+        this.getOrderList();
+        this.getCategoryList();
     }
 
     render() {
-        let {category, childOrder, entities} = this.props;
+        let {category, order, entities} = this.props;
         return (
             <div className="page order-page">
                 <header className="page-header">
-                    
+                    <Select className="group" placeholder="所有品类" empty={true}></Select>
+                    <Search></Search>
                 </header>
+
+                <Loader loading={order.loading} data={order.items}>
+                    <ul>
+                        {order.items.map((order_id, order_index) => (
+                            <Item key={order_index} order={entities[order_id]}></Item>
+                        ))}
+                    </ul>
+                </Loader>
             </div>
         );
+    }
+
+    // 获取品类列表
+    getCategoryList(conditions = {}) {
+        return this.props.xhttp.list('category', [], conditions);
+    }
+
+    // 获取订单列表
+    getOrderList(conditions = {}) {
+        return this.props.xhttp.list('order', [], conditions);
     }
 }
 

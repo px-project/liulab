@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { MANIFEST_STATUS } from '../../../../constants/';
 import moment from 'moment';
 import { currency } from '../../../../utils/';
+import { Link } from 'react-router';
 import './style.scss';
 
 export class ManifestItemComponent extends Component {
@@ -36,9 +37,7 @@ export class ManifestItemComponent extends Component {
                     </div>
                 </div>
 
-                <div className="detail-icon">
-                    <i className="fa fa-angle-right"></i>
-                </div>
+                <Link className="detail-icon" to={'/manifest/' + manifest.manifest_id}><i className="fa fa-angle-right"></i></Link>
             </li>
         );
     }

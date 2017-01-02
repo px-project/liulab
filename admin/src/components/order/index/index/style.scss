@@ -1,3 +1,10 @@
-.order-index-page {
-    padding-right: 20rem;
+.order-page {
+    .list {
+        ul {
+            margin: 0 -0.5rem;
+            li {
+                width: 25%;
+            }
+        }
+    }
 }
