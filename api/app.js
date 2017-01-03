@@ -37,7 +37,7 @@ app.use((req, res, next) => {
 
 
 // 认证登录状态
-app.use(require('./common/xauth'));
+// app.use(require('./common/xauth'));
 
 
 // 路由

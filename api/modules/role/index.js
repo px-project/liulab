@@ -16,23 +16,23 @@ module.exports = _router
     // 角色列表
     .get('/', (req, res) => {
         roleModel.list({}, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'describe', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'description', 'create_time', 'update_time')));
         });
     })
 
     // 角色详情
     .get('/:role_id', (req, res) => {
         roleModel.detail(req.params.role_id, [], (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'describe', 'permission', 'create_time', 'update_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'description', 'permission', 'create_time', 'update_time')));
         });
     })
 
     // 添加角色
     .post('/', (req, res) => {
-        let newData = xfilter(req.body, 'name', 'describe', 'permission');
+        let newData = xfilter(req.body, 'name', 'description', 'permission');
 
         roleModel.create(newData, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'describe', 'permission', 'create_time')));
+            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'description', 'permission', 'create_time')));
         });
     })
 
@@ -40,7 +40,7 @@ module.exports = _router
     // 更新角色
     .patch('/:role_id', (req, res) => {
         let {role_id} = req.params;
-        let newData = xfilter(req.body, 'name', 'describe', 'permission');
+        let newData = xfilter(req.body, 'name', 'description', 'permission');
 
         roleModel.update(role_id, newData, (result) => {
             res.json(xres({ code: 0 }, { _id: role_id, update_time: result.update_time }));

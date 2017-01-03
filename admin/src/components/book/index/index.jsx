@@ -46,7 +46,7 @@ export class BookComponent extends Component {
 
 					<Search></Search>
 				</header>
-				<Loader loading={product.fetching} data="product.items">
+				<Loader loading={product.fetching} data={product.items}>
 					<ul>
 						{product.items.map((product_id, product_index) => (
 							<li key={product_index}>
