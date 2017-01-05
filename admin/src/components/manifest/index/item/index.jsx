@@ -14,7 +14,7 @@ export class ManifestItemComponent extends Component {
         let {manifest, entities, manifestSelect, manifest_id} = this.props;
         let selected = !!manifest.selected && manifest.selected.indexOf(manifest_id) >= 0;
         let manifestData = entities[manifest_id];
-        let category = manifestData.product.category_id;
+        let category = manifestData.product.category;
         return (
             <li className="manifest-item" style={{ borderLeftColor: MANIFEST_STATUS[manifestData.status].color }}>
                 <header className="manifest-item-header">

@@ -60,6 +60,7 @@ module.exports = _router
      */
     .post('/', (req, res) => {
         let {description, products} = req.body;
+        console.log(products);
 
         let now = new Date();
         let order_id = now.toISOString().replace(/[-T:Z\.]/g, '').substr(0, 14);

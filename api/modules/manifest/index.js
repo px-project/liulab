@@ -24,11 +24,14 @@ module.exports = _router
     })
 
     // 货单详情
-    .get('/:manifest', (req, res) => {
-
+    .get('/:manifest_id', (req, res) => {
+        let {manifest_id} = req.params;
+        manifestModel.list({ where: { manifest_id }, populateKeys: ['create_user'] }, result => {
+            if (result.length) return res.json(xres({ code: 0 }, result[0]));
+        });
     })
 
     // 更新货单
-    .patch('/:manifest', (req, res) => {
+    .patch('/:manifest_id', (req, res) => {
 
     })

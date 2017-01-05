@@ -20,8 +20,16 @@ export class ManifestComponent extends Component {
         return (
             <div className="page manifest-page">
                 <header className="page-header">
-                    <Select className="group" placeholder="所有状态" empty="true"></Select>
-                    <Select className="group" placeholder="所有品类" empty="true" data={category}></Select>
+                    <Select className="group" placeholder="所有状态" empty="true">
+                        {Object.keys(MANIFEST_STATUS).map((status, index) => (
+                            <option key={index} value={status}>{MANIFEST_STATUS[status].name}</option>
+                        ))}
+                    </Select>
+                    <Select className="group" placeholder="所有品类" empty="true" data={category}>
+                        {category.items.map((category_id, category_index) => (
+                            <option key={category_index} value={category_id}>{entities[category_id].name}</option>
+                        ))}
+                    </Select>
                     <Search></Search>
                 </header>
 

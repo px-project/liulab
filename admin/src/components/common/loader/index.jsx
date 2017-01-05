@@ -7,7 +7,8 @@ import './style.scss';
 export class LoaderComponent extends Component {
     render() {
         let {loading = false, data = []} = this.props;
-        let len = Array.isArray(data) ? data.length : Object.keys(data);
+        let len = Array.isArray(data) ? data.length : Object.keys(data).length;
+        console.log(data);
         return (
             <div className="loader">
 

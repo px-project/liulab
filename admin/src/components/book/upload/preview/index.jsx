@@ -20,13 +20,13 @@ export class BookUploadPreviewComponent extends Component {
 					code: product.code,
 					num: product.num,
 					unit_price: product.unit_price,
-					category_id,
+					category: category_id,
 					attrs: Object.assign({}, ...entities[category_id].attrs.filter((item, index) => index > 3).map(attr => ({ [attr.key]: product[attr.key] })))
 				});
 			});
 		});
 
-		xhttp.create('order', newData, result => {
+		xhttp.create('order', [], newData).then(result => {
 			history.pushState(null, '/order/' + result.order_id);
 		});
 	}

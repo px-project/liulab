@@ -42,6 +42,7 @@ function Xmodel(modelDirName) {
  */
 Xmodel.prototype.list = function (options = {}, cb) {
     let { populateKeys = [], where = {}, skip = 0, limit = LIMIT } = options;
+
     this.model.find(where)
         .skip(skip)
         .limit(limit)

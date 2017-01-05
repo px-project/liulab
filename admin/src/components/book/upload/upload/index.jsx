@@ -21,7 +21,7 @@ export class BookUploadUploadComponent extends Component {
 		let reqData = new FormData();
 		reqData.append('file', file);
 
-		xhttp.create('categoryUpload', [categoryArr.join(',')], reqData, result => {
+		xhttp.create('categoryUpload', [categoryArr.join(',')], reqData).then(result => {
 			changeBookState('preview');
 		});
 	}

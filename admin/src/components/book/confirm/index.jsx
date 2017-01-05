@@ -89,7 +89,7 @@ export class BookConfirmComponent extends Component {
 				code: product.code,
 				num: productList[product_id],
 				unit_price: product.unit_price,
-				category_id: product.category._id,
+				category: product.category._id,
 				attrs: Object.assign({}, ...product.category.attrs.filter((item, index) => index > 3).map(attr => ({ [attr.key]: product.attrs[attr.key] })))
 			}
 		});

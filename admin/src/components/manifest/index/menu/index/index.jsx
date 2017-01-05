@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import classname from 'classname';
+import { ManifestMenuItemComponent as Item } from '../item/';
 import './style.scss';
 
 export class ManifestMenuComponent extends Component {
@@ -14,7 +15,7 @@ export class ManifestMenuComponent extends Component {
                 <ul>
                     {manifest.selected.map((manifest_id, manifest_index) => (
                         <li key={manifest_index}>
-                            <p>{entities[manifest_id].manifest_id}</p>
+                            <Item manifest={entities[manifest_id]}></Item>
                         </li>
                     ))}
                 </ul>
