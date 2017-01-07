@@ -39,6 +39,13 @@ module.exports = _router
 
     // 获取订单详情
     .get('/:order_id', (req, res) => {
+        let {order_id} = req.params;
+        orderModel.list({ where: { order_id }, populateKeys: ['create_user'] }, order => {
+
+            if (!order.length) res.json({});
+
+            res.json(xres({ code: 0 }, order[0]));
+        })
     })
 
     /**
@@ -60,7 +67,6 @@ module.exports = _router
      */
     .post('/', (req, res) => {
         let {description, products} = req.body;
-        console.log(products);
 
         let now = new Date();
         let order_id = now.toISOString().replace(/[-T:Z\.]/g, '').substr(0, 14);

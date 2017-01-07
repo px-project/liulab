@@ -4,18 +4,18 @@
 const _router = require('express').Router();
 const manifestModel = require('../../common/xmodel')('manifest');
 const xres = require('../../common/xres');
+const _ = require('lodash');
 
 
 module.exports = _router
 
     // 批量下载货单
     .get('/download', (req, res) => {
-
     })
 
     // 货单列表
     .get('/', (req, res) => {
-        manifestModel.list({ populateKeys: ['create_user'] }, result => {
+        manifestModel.list(_.mergeWith(req.l_query, { populateKeys: ['create_user'] }), result => {
             result.forEach(manifest => {
                 manifest._doc.create_user = manifest.create_user.name || manifest.create_user.username;
             })

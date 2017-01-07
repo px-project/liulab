@@ -21,7 +21,6 @@ require('./common/db');
 // 默认端口：9000
 app.set('PORT', process.env.PORT || 9000);
 
-
 // session
 app.use(session({
 	secret: 'liulab',
@@ -39,6 +38,9 @@ app.use((req, res, next) => {
 // 认证登录状态
 // app.use(require('./common/xauth'));
 
+
+// handle query
+app.use(require('./common/xquery'));
 
 // 路由
 app.use('/', require('./routes/'));
