@@ -6,27 +6,34 @@ import './style.scss';
 
 export class LoaderComponent extends Component {
     render() {
-        let {loading = false, data = []} = this.props;
-        let len = Array.isArray(data) ? data.length : Object.keys(data).length;
-        console.log(data);
+        let {loading = true, data, className} = this.props;
+        let empty = isEmpty(data);
+
         return (
-            <div className="loader">
+            <div className={'loader ' + className}>
 
                 {loading ? (
                     <div className="loading">加载中</div>
                 ) : ''}
 
-                {!loading && len ? (
-                    <div className="list">
-                        {this.props.children}
-                    </div>
+                {!loading && empty ? (
+                    <div className="empty">暂无数据</div>
                 ) : ''}
 
-                {!loading && !len ? (
-                    <div className="nodata">暂无数据</div>
+                {!loading && !empty ? (
+                    <div className="content">
+                        {this.props.children}
+                    </div>
                 ) : ''}
 
             </div>
         );
     }
+}
+
+function isEmpty(data) {
+    if (data) return false;
+    if (Array.isArray(data) && data.length) return false;
+    if (typeof data === 'object' && data && Object.keys(data).length) return false;
+    return true;
 }

@@ -44,6 +44,7 @@ module.exports = _router
 
             if (!order.length) res.json({});
 
+            order[0]._doc.create_user = order[0].create_user.name || order[0].create_user.username;
             res.json(xres({ code: 0 }, order[0]));
         })
     })
