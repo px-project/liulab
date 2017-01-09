@@ -88,8 +88,7 @@ module.exports = _router
                 order_id,
                 manifest_id: order_id + '-' + (product_index + 1),
                 create_user,
-                status: 'pending',
-                progress: [{ status: 'pending', time: now, user: create_user, description }],
+                progress: [{ time: now, user: create_user, description }],
                 num: product.num,
                 product: Object.assign({}, ...Object.keys(product).filter(key => key !== 'num').map(key => ({ [key]: product[key] })))
             };

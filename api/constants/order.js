@@ -1,8 +1,9 @@
-exports.ORDER_STATUS = [
-    'pending',
-    'pended',
-    'failed',
-    'processing',
-    'success',
-    'cancel'
-];
+exports.ORDER_STATUS = {
+    'created': '',
+    'auditPassed': '',
+    'booked': '',
+    'arrivaled': '',
+    'successed': '',
+    'auditFailed': '',
+    'canceled': ''
+}

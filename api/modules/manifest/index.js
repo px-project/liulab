@@ -5,6 +5,8 @@ const _router = require('express').Router();
 const manifestModel = require('../../common/xmodel')('manifest');
 const xres = require('../../common/xres');
 const _ = require('lodash');
+const async = require('async');
+const orderStatus = require('../../constants/order').ORDER_STATUS;
 
 
 module.exports = _router
@@ -31,7 +33,21 @@ module.exports = _router
         });
     })
 
-    // 更新货单
-    .patch('/:manifest_id', (req, res) => {
+    // 更新货单状态
+    .patch('/:manifest_id?', (req, res) => {
+        let {status, manifests, description} = req.body;
+        if (req.params.manifest_id) manifests = [req.params.manifest_id];
 
+
+        let now = new Date();
+        let updateQueue = manifests.map(manifest_id => cb => {
+            let newData = {
+                $set: { status, update_time: now },
+                $push: { progress: { status, time: now, user: req.session.user_id, desc: description } }
+            };
+            manifestModel.update(manifest_id, newData, (result) => cb(null, result));
+        });
+        async.series(updateQueue, (err, result) => {
+            res.json(xres({ code: 0 }, result));
+        });
     })
