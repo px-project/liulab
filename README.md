@@ -1,11 +1,11 @@
 1. 启动mongo
 ```
-docker run -v /root/data:/data/db -d mongo
+docker run -v /root/data:/data/db -p 27017:27017 -d mongo --auth
 ```
 
 2. 启动redis
 ```
-docer run -d redis
+docker run -d redis
 ```
 
 3. 安装依赖

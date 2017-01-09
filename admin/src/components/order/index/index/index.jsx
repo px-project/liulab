@@ -4,10 +4,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import classname from 'classname';
-import './style.scss';
 import routes from '../../../../config/routes.json';
 import { Select, Loader, Search } from '../../../common/';
 import { OrderItemComponent as Item } from '../item/';
+import './style.scss';
 
 
 export class OrderComponent extends Component {
