@@ -4,32 +4,31 @@
 import React, { Component } from 'react';
 import classname from 'classname';
 import { ManifestMenuItemComponent as Item } from '../item/';
+import { MANIFEST_STATUS } from '../../../../../constants/';
+import { Audit } from '../audit';
+import { Book } from '../book/';
+import { Arrival } from '../arrival/';
 import './style.scss';
 
 export class ManifestMenuComponent extends Component {
     render() {
         let {manifest, entities} = this.props;
 
+        let audit = [], book = [], arrival = [];
+
+        manifest.selected.forEach(manifest_id => {
+            let manifest = entities[manifest_id];
+            let {status} = manifest;
+            if (status === 'created') audit.push(manifest);
+            if (status === 'auditPassed') book.push(manifest);
+            if (status === 'booked') arrival.push(manifest);
+        });
+
         return (
             <div className="manifest-menu">
-                <ul>
-                    {manifest.selected.map((manifest_id, manifest_index) => (
-                        <li key={manifest_index}>
-                            <Item manifest={entities[manifest_id]}></Item>
-                        </li>
-                    ))}
-                </ul>
-
-                <div className="btn-group">
-                    <div className="boss">
-                        <button className="button ui">审核通过</button>
-                        <button className="button ui">审核不通过</button>
-                    </div>
-                    <div className="manager">
-                        <button className="button ui">已订货</button>
-                        <button className="button ui">已到货</button>
-                    </div>
-                </div>
+                {audit.length ? (<Audit list={audit}></Audit>) : ''}
+                {book.length ? (<Book list={book}></Book>) : ''}
+                {arrival.length ? (<Arrival list={arrival}></Arrival>) : ''}
             </div>
         );
     }

@@ -6,13 +6,25 @@
     bottom: 0;
     width: 20rem;
     background: white;
-    padding: 1rem;
-    .btn-group {
-        display: flex;
-        flex-wrap: wrap;
-        & > div {
-            button {
-
+    .menu-sec {
+        header {
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            height: 2.5rem;
+            background: #f7f7f7;
+            h3 {
+                font-size: 0.7rem;
+                margin: 0;
+                padding: 0;
+            }
+            .actions {
+                margin-left: auto;
+                a {
+                    margin: 0 0.5rem;
+                    font-size: 0.7rem;
+                    color: white;
+                }
             }
         }
     }
