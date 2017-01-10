@@ -6,7 +6,7 @@ const manifestModel = require('../../common/xmodel')('manifest');
 const xres = require('../../common/xres');
 const _ = require('lodash');
 const async = require('async');
-const orderStatus = require('../../constants/order').ORDER_STATUS;
+const manifestStatus = require('./constant').MANIFEST_STATUS;
 
 
 module.exports = _router
@@ -29,7 +29,11 @@ module.exports = _router
     .get('/:manifest_id', (req, res) => {
         let {manifest_id} = req.params;
         manifestModel.list({ where: { manifest_id }, populateKeys: ['create_user'] }, result => {
-            if (result.length) return res.json(xres({ code: 0 }, result[0]));
+
+            if (result.length) {
+                result[0]._doc.create_user = result[0].create_user.name || result[0].create_user.username;
+                return res.json(xres({ code: 0 }, result[0]));
+            }
         });
     })
 

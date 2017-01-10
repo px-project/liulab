@@ -6,9 +6,12 @@ import './style.scss';
 
 export class Timeline extends Component {
     render() {
+        let {entities, manifest} = this.props;
+        let {progress} = entities[manifest.detail];
         return (
             <div className="manifest-detail-timeline">
-                时间轴
+                <ul>
+                </ul>
             </div>
         );
     }

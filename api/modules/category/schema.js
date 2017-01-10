@@ -1,12 +1,76 @@
 /**
- * 品类模型
+ * 品类表结构
  */
+const mongoose = require('mongoose');
+
 module.exports = {
-    name: String,               // 品类名称
-    photo: String,              // 品类图片
-    description: String,        // 描述
-    abbr: String,               // 缩写
-    attrs: [                    // 品类属性
-        { title: String, key: String, attr_type: String, attr_required: {type: Boolean, default: false} }
-    ]
+
+    // 名称
+    name: {
+        type: String,
+        required: true,
+        unique: true
+    },
+
+    // 封面图片
+    photo: {
+        type: String,
+        default: ''
+    },
+
+    // 描述
+    description: {
+        type: String,
+        default: ''
+    },
+
+    // 缩写
+    abbr: {
+        type: String,
+        required: true,
+        unique: true
+    },
+
+    // 属性
+    attrs: [
+        {
+            title: {
+                type: String,
+                required: true,
+                unique: true
+            },
+            key: {
+                type: String,
+                required: true,
+                unique: true
+            },
+            attr_type: {
+                type: String,
+                default: 'string'
+            },
+            attr_required: {
+                type: Boolean,
+                default: false
+            }
+        }
+    ],
+
+    // 创建时间
+    create_time: {
+        type: Date,
+        default: Date.now
+    },
+
+    // 更新时间
+    update_time: {
+        type: Date,
+        default: Date.now
+    },
+
+    // 软删除
+    is_deleted: {
+        type: Boolean,
+        default: false
+    }
+
 };

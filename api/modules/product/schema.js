@@ -1,17 +1,56 @@
 /**
- * 产品模型
+ * 产品表结构
  */
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
 module.exports = {
-    category: {                              // 品类
-        type: Schema.Types.ObjectId,
-        ref: 'Category'
+
+    // 产品名称
+    name: {
+        type: String,
+        required: true
     },
-    name: String,                            // 产品名称
-    code: String,                            // 编号
-    unit_price: Number,                      // 单价
-    attrs: Object,                           // 产品属性
-    hash: String                             // 属性hash
+
+    // 产品编号
+    code: {
+        type: String,
+        required: true,
+        unique: true,
+        maxlength: 2
+    },
+
+    // 产品单价
+    unit_price: {
+        type: Number,
+        required: true,
+        min: 0
+    },
+
+    // 整个文档hash值
+    hash: {
+        type: String,
+        required: true
+    },
+
+    // 产品属性
+    attrs: {},
+
+    // 创建时间
+    create_time: {
+        type: Date,
+        default: Date.now
+    },
+
+    // 更新时间
+    update_time: {
+        type: Date,
+        default: Date.now
+    },
+
+    // 软删除
+    is_deleted: {
+        type: Boolean,
+        default: false
+    }
+
 };

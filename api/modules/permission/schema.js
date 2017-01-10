@@ -1,24 +1,17 @@
 /**
- * 订单表结构
+ * 权限表结构
  */
-const mongoose = require('mongoose');
 
 module.exports = {
 
-    // 订单号
-    order_id: {
+    // 权限名称
+    name: {
         type: String,
         required: true,
         unique: true
     },
 
-    // 下单用户
-    create_user: {
-        type: mongoose.Schema.Types.ObjectId,
-        refs: 'User'
-    },
-
-    // 订单备注
+    // 权限描述
     description: {
         type: String,
         default: ''

@@ -1,4 +1,4 @@
-exports.ORDER_STATUS = {
+exports.MANIFEST_STATUS = {
     'created': '',
     'auditPassed': '',
     'booked': '',
