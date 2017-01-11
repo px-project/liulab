@@ -2,6 +2,7 @@
  * 货单表结构
  */
 const mongoose = require('mongoose');
+const manifestStatus = require('./constant').MANIFEST_STATUS;
 
 module.exports = {
 
@@ -33,7 +34,7 @@ module.exports = {
 
     // 货单状态
     status: {
-        type: string,
+        type: String,
         enum: {
             values: Object.keys(manifestStatus),
             message: `status must be one of ${Object.keys(manifestStatus).join(',')}.`
