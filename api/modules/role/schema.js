@@ -19,7 +19,7 @@ module.exports = {
     },
 
     // 权限
-    permission: [
+    permissions: [
         {
             type: mongoose.Schema.Types.ObjectId,
             refs: 'Permission',

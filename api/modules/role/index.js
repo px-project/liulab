@@ -2,56 +2,38 @@
  * 角色控制器
  */
 const _router = require('express').Router();
-const xres = require('../../common/xres');
-const roleModel = require('../../common/xmodel')('role');
-const xfilter = require('../../common/xfilter');
-const permissionConfig = require('./permission.json');
+const roleHandlers = require('./handler');
 
 module.exports = _router
-    // 获取权限配置
-    .get('/permission', (req, res) => {
-        res.json(xres({ code: 0 }, { '_id': 'permission', config: permissionConfig }));
-    })
 
     // 角色列表
     .get('/', (req, res) => {
-        roleModel.list({}, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'description', 'create_time', 'update_time')));
-        });
+        roleHandlers.list(req.l_query)
+            .then(result => res.json(result));
     })
 
     // 角色详情
     .get('/:role_id', (req, res) => {
-        roleModel.detail(req.params.role_id, [], (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'description', 'permission', 'create_time', 'update_time')));
-        });
+        roleHandlers.detail(req.params.role_id)
+            .then(result => res.json(result));
     })
 
     // 添加角色
     .post('/', (req, res) => {
-        let newData = xfilter(req.body, 'name', 'description', 'permission');
-
-        roleModel.create(newData, (result) => {
-            res.json(xres({ code: 0 }, xfilter(result, '_id', 'name', 'description', 'permission', 'create_time')));
-        });
+        roleHandlers.create(req.body)
+            .then(result => res.json(result));
     })
 
 
     // 更新角色
     .patch('/:role_id', (req, res) => {
-        let {role_id} = req.params;
-        let newData = xfilter(req.body, 'name', 'description', 'permission');
-
-        roleModel.update(role_id, newData, (result) => {
-            res.json(xres({ code: 0 }, { _id: role_id, update_time: result.update_time }));
-        });
+        roleHandlers.update(req.params.role_id, req.body)
+            .then(result => res.json(result));
     })
 
 
     // 删除角色
     .delete('/:role_id', (req, res) => {
-        let {role_id} = req.params;
-        roleModel.delete(role_id, (result) => {
-            res.json(xres({ code: 0 }));
-        });
+        roleHandlers.delete(req.params.role_id)
+            .then(result => res.json(result));
     });

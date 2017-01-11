@@ -2,8 +2,6 @@
  * 权限处理器
  */
 const permissionModel = require('../../common/xmodel')('permission');
-const _ = require('lodash');
-
 
 /**
  * 权限列表
