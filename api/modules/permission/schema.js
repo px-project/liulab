@@ -11,6 +11,13 @@ module.exports = {
         unique: true
     },
 
+    // 权限代码
+    code: {
+        type: String,
+        required: true,
+        unique: true
+    },
+
     // 权限描述
     description: {
         type: String,
