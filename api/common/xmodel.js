@@ -4,6 +4,7 @@
 const mongoose = require('mongoose');
 const utils = require('./utils');
 const path = require('path');
+const _ = require('lodash');
 const LIMIT = 20;
 
 /**
@@ -66,8 +67,11 @@ Xmodel.prototype.create = function (newData = {}) {
  * model update action
  */
 Xmodel.prototype.update = function (_id, newData = {}) {
-    newData.update_time = newData.update_time || Date.now();
-    return this.model.findByIdAndUpdate(_id, newData);
+    delete newData.create_time;
+    delete newData.is_deleted;
+    newData.update_time = Date.now();
+
+    return this.model.findByIdAndUpdate(_id, newData).then(result => _.mergeWith(result, newData));
 };
 
 
