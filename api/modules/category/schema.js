@@ -28,7 +28,8 @@ module.exports = {
     abbr: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        maxLength: 2
     },
 
     // 属性
