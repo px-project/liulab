@@ -16,12 +16,20 @@ exports.hash = (tarStr) => {
 };
 
 
-// 转驼峰
-exports.toCancel = (big, ...strs) => {
-    let result = strs.map((str) => str.charAt(0).toUpperCase() + str.substr(1)).join('');
-    return big ? result : (result.charAt(0).toLowerCase() + result.substr(1));
+/**
+ * 转大驼峰
+ */
+exports.toBigCancel = (...strs) => {
+    return strs.map(str => str.charAt(0).toUpperCase() + str.substr(1).toLowerCase()).join('');
 };
 
+/**
+ * 转小驼峰
+ */
+exports.toSmallCancel = (...strs) => {
+    let bigCancel = exports.toBigCancel(...str);
+    return bigCancel.charAt(0).toLowerCase() + bigCancel.substr(1);
+};
 
 // 合并
 exports.merge = (...targets) => {
