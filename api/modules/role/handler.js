@@ -9,7 +9,7 @@ const _ = require('lodash');
  * 
  * @param condition {Object}
  */
-exports.list = conditions => roleModel.list(_.mergeWith(conditions));
+exports.list = conditions => roleModel.list(conditions);
 
 
 /**

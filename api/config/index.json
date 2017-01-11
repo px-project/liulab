@@ -8,5 +8,6 @@
         "DB_HOST": "127.0.0.1",
         "DB_PORT": "6379",
         "DB_NAME": "liulab"
-    }
+    },
+    "pwd_sec": "5876564946d58cf8fe01b9f3"
 }
