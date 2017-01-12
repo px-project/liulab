@@ -8,7 +8,7 @@ module.exports = {
 
     // 时间轴对应状态
     status: {
-        type: string,
+        type: String,
         enum: {
             values: Object.keys(manifestStatus),
             message: `status must be one of ${Object.keys(manifestStatus).join(',')}.`
