@@ -2,6 +2,7 @@
  * 用户处理器
  */
 const userModel = require('../../common/xmodel')('user');
+const pwdHandlers = require('../pwd/handler');
 const _ = require('lodash');
 const utils = require('../../common/utils');
 const config = require('../../config/index.json');
@@ -38,7 +39,11 @@ exports.create = newData => userModel.create(newData);
  * @param newData {Object}
  * 
  */
-exports.update = (_id, newData) => userModel.update(_id, newData);
+exports.update = (_id, newData) => userModel.update(_id, newData)
+    .then(result => {
+        if (newData.password) return pwdHandlers.update(_id, newData.password).then(pwd => result);
+        return result;
+    })
 
 
 /**
@@ -59,10 +64,11 @@ exports.delete = _id => userModel.delete(_id);
  */
 exports.check = (username, password) => {
     return userModel.list({ where: { username } })
-        .then(result => {
-            if (!result.length) return Promise.reject(4100);
-            if (result[0].password !== utils.md5(config.pwd_sec + password)) return Promise.reject(4200);
-            delete result[0].password;
-            return result[0];
+        .then(users => {
+            if (!users.length) return Promise.reject(4100);
+
+            let user = users[0];
+
+            return pwdHandlers.check(user._id, password).then(result => new Promise(result));
         });
-}
+};

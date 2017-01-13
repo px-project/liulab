@@ -12,12 +12,6 @@ module.exports = {
         unique: true
     },
 
-    // 登录密码
-    password: {
-        type: String,
-        required: true,
-    },
-
     // 头像路径 
     avatar: {
         type: String,
