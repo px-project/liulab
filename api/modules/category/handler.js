@@ -2,6 +2,7 @@
  * 品类处理器
  */
 const categoryModel = require('../../common/xmodel')('category');
+const productHandlers = require('../product/handler');
 const _ = require('lodash');
 
 /**
@@ -38,3 +39,11 @@ exports.create = newData => categoryModel.create(newData);
  */
 exports.update = (_id, newData) => categoryModel.update(_id, newData);
 
+
+/**
+ * 当前品类最新编号
+ * 
+ */
+exports.code = _id => productModel.model.count({ category: category._id }).then((count = 0) => {
+    return new Promise.resolve(category.abbr + _.padStart((count + ''), 7 - (count + 1 + '').length, '0'));
+});
