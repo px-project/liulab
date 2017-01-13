@@ -137,19 +137,8 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
 
         return fetch(handleUrl(options.api, options.params, options.conditions), fetchOption)
             .then(res => res.json())
-            .then(json => {
-                if (json.success) {
-                    dispatch(receiveAction(options, json.result));
-                    // if (cb) cb(json.result);
-                    return json;
-                }
-                else {
-                    handleBusinessErr(json.error);
-                }
-            });
-        // .catch(err => {
-        // handleNetErr(err);
-        // });
+            .then(json => dispatch(receiveAction(options, json)))
+            .catch(err => handleNetErr(err));
     };
 }
 
