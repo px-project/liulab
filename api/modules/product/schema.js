@@ -26,6 +26,13 @@ module.exports = {
         min: 0
     },
 
+    // 产品类别
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
+        required: true
+    },
+
     // 整个文档hash值
     hash: {
         type: String,
