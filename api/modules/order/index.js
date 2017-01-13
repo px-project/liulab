@@ -2,16 +2,8 @@
  * 订单控制器
  */
 const _router = require('express').Router();
-const orderModel = require('../../common/xmodel')('order');
-const manifestModel = require('../../common/xmodel')('manifest');
-const productModel = require('../../common/xmodel')('product');
-const xres = require('../../common/xres');
-const async = require('async');
-const fs = require('fs');
-const path = require('path');
-const xfilter = require('../../common/xfilter');
 const utils = require('../../common/utils');
-const orderStatus = require('../../constants/order').ORDER_STATUS;
+const orderHandlers = require('../order/handler');
 const _ = require('lodash');
 
 module.exports = _router
@@ -23,6 +15,7 @@ module.exports = _router
 
     // 获取订单列表
     .get('/', (req, res) => {
+        
         orderModel.list({ populateKeys: ['create_user'] }, orders => {
             let manifestQueue = orders.map(order => cb => {
                 order._doc.create_user = order.create_user.name || order.create_user.username;
@@ -39,14 +32,8 @@ module.exports = _router
 
     // 获取订单详情
     .get('/:order_id', (req, res) => {
-        let {order_id} = req.params;
-        orderModel.list({ where: { order_id }, populateKeys: ['create_user'] }, order => {
-
-            if (!order.length) res.json({});
-
-            order[0]._doc.create_user = order[0].create_user.name || order[0].create_user.username;
-            res.json(xres({ code: 0 }, order[0]));
-        })
+        orderHandlers.detail(req.params.order_id)
+            .then(result => res.json(result));
     })
 
     /**
