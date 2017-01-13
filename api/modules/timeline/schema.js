@@ -6,6 +6,13 @@ const manifestStatus = require('../manifest/constant').MANIFEST_STATUS;
 
 module.exports = {
 
+    // 时间轴对应货单id
+    link_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        refs: 'Manifest',
+        required: true
+    },
+
     // 时间轴对应状态
     status: {
         type: String,
@@ -13,13 +20,6 @@ module.exports = {
             values: Object.keys(manifestStatus),
             message: `status must be one of ${Object.keys(manifestStatus).join(',')}.`
         },
-        required: true
-    },
-
-    // 时间轴对应货单id
-    link_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        refs: 'Manifest',
         required: true
     },
 
