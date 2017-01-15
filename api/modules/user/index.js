@@ -5,7 +5,7 @@ const _router = require('express').Router();
 const userhandlers = require('./handler');
 const utils = require('../../common/utils');
 const _ = require('lodash');
-const config = require('../../config/index.json');
+const pwdSec = require('../../config/').PWD_SEC;
 
 module.exports = _router
 
@@ -55,19 +55,13 @@ module.exports = _router
 
     // 创建用户
     .post('/', (req, res) => {
-        let newData = _.cloneDeepWith(req.body);
-        newData.password = utils.md5(config.pwd_sec + newData.password);
-
-        userhandlers.create(newData)
+        userhandlers.create(req.body)
             .then(result => res.json(result));
     })
 
 
     // 更新用户
     .patch('/:user_id', (req, res) => {
-        let newData = _.cloneDeepWith(req.body);
-        if (newData.password) newData.password = utils.md5(config.pwd_sec + newData.password);
-
         userhandlers.update(req.params.user_id, newData)
             .then(result => res.json(result));
     })

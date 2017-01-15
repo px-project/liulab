@@ -12,12 +12,6 @@ module.exports = {
         unique: true
     },
 
-    // 头像路径 
-    avatar: {
-        type: String,
-        default: ''
-    },
-
     // 用户姓名
     name: {
         type: String,

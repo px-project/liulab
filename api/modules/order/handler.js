@@ -2,6 +2,7 @@
  * 订单处理器
  */
 const orderModel = require('../../common/xmodel')('order');
+const manifestHandlers = require('../manifest/handler');
 const _ = require('lodash');
 
 /**
@@ -26,9 +27,28 @@ exports.detail = _id => orderModel.detail(_id, { populateKeys: 'create_user' });
  * 
  * @param newData {Object}
  */
-exports.create = newData => orderModel.create(newData).then(result => {
+exports.create = newData => {
+    let order_id = newData.order_id = new Date().toISOString().replace(/[-T:Z\.]/g, '').substr(0, 14);
+    return orderModel.create(newData).then(order => {
+        return Promise.all(newData.products.map((product, index) => {
+            let newManifest = {
+                create_user: newData.create_user,
+                order_id,
+                num: product.num,
+                manifest_id: order_id + '-' + (index + 1),
+                product,
+                description: newData.description
+            };
 
-});
+            delete newManifest.product.num;
+
+            return manifestHandlers.create(newManifest);
+        })).then(manifests => {
+            order.manifests = manifests;
+            return order;
+        });
+    });
+}
 
 
 /**

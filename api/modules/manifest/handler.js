@@ -3,6 +3,7 @@
  */
 const manifestModel = require('../../common/xmodel')('manifest');
 const timelineHandlers = require('../timeline/handler');
+const productHandlers = require('../product/handler');
 const _ = require('lodash');
 
 /**
@@ -28,7 +29,12 @@ exports.detail = _id => manifestModel.detail(_id, { populateKeys: 'create_user',
  * @param newData {Object}
  */
 exports.create = newData => manifestModel.create(newData)
-    .then(result => timelineHandlers.create({ link_id: result._id, user: newData.user, status: 'created', description: newData.description }));
+    .then(manifest => {
+        let newTimeline = { link_id: manifest._id, user: newData.create_user, status: 'created', description: newData.description };
+        return timelineHandlers.create(newTimeline)
+            .then(timeline => productHandlers.create(newData.products))
+            .then(product => _.mergeWith(manifest, { timeline, product }));
+    });
 
 
 /**
@@ -39,5 +45,5 @@ exports.create = newData => manifestModel.create(newData)
  * 
  */
 exports.update = (_id, newData) => manifestModel.update(_id, newData)
-    .then(result => timelineHandlers.create({link_id: _id, user: newData.user, status: newData.status, description: newData.description}));
+    .then(result => timelineHandlers.create({ link_id: _id, user: newData.user, status: newData.status, description: newData.description }));
 

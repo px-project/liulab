@@ -5,7 +5,6 @@ const userModel = require('../../common/xmodel')('user');
 const pwdHandlers = require('../pwd/handler');
 const _ = require('lodash');
 const utils = require('../../common/utils');
-const config = require('../../config/index.json');
 
 /**
  * 用户列表
@@ -29,7 +28,11 @@ exports.detail = _id => userModel.detail(_id, { populateKeys: 'role' });
  * 
  * @param newData {Object}
  */
-exports.create = newData => userModel.create(newData);
+exports.create = newData => userModel.create(newData)
+    .then(user => {
+        return pwdHandlers.create(user._id, newData.password)
+            .then(pwd => user);
+    });
 
 
 /**

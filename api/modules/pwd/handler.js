@@ -3,7 +3,7 @@
  */
 const pwdModel = require('../../common/xmodel')('pwd');
 const utils = require('../../common/utils');
-const config = require('../../config/');
+const pwdSec = require('../../config/').PWD_SEC;
 
 /**
  * 检验密码
@@ -12,7 +12,7 @@ const config = require('../../config/');
 exports.check = (user_id, password) => {
     return pwdModel.list({ user: user_id }).then(result => {
         if (!result.length) return Promise.reject(4000);
-        if (result[0].password !== utils.md5(pwd_sec.pwd_sec + password)) return Promise.reject(4100);
+        if (result[0].password !== utils.md5(pwdSec + password)) return Promise.reject(4100);
         return Promise.resolve(true);
     });
 };
@@ -22,7 +22,7 @@ exports.check = (user_id, password) => {
  * 创建密码
  * 
  */
-exports.create = (user_id, password) => pwdModel.create({ user: user_id, password: utils.md5(pwd_sec.pwd_sec + password) });
+exports.create = (user_id, password) => pwdModel.create({ user: user_id, password: utils.md5(pwdSec + password) });
 
 
 /**
@@ -32,6 +32,6 @@ exports.create = (user_id, password) => pwdModel.create({ user: user_id, passwor
 exports.update = (user_id, password) => {
     return pwdModel.list({ user: user_id }).then(result => {
         if (!result.length) return Promise.reject(4100);
-        return pwdModel.update({ password: utils.md5(pwd_sec.pwd_sec + password) });
+        return pwdModel.update({ password: utils.md5(pwdSec + password) });
     });
 };

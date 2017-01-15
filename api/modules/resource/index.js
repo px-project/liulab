@@ -1,15 +1,16 @@
 /**
  * 资源路由
  */
-const express = require('express');
-const _router = express.Router();
+const _router = require('express').Router();
+const resourceHandlers = require('./handler');
+const uploadPath = require('../../config').UPLOAD_PATH;
 const xres = require('../../common/xres');
 const multer = require('multer');
 const path = require('path');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '../../../uploads/'));
+        cb(null, uploadPath);
     },
     filename: function (req, file, cb) {
         let fileFormat = (file.originalname).split(".");
@@ -21,20 +22,20 @@ const upload = multer({ storage: storage });
 
 module.exports = _router
     // 获取资源
-    .get('/:filename', (req, res) => {
-        res.sendFile(path.join(__dirname, '../../../uploads/', req.params.filename));
+    .get('/:link_id', (req, res) => {
+        resourceHandlers.detail(req.params.link_id)
+            .then(result => res.sendFile(uploadPath + result.file_name));
     })
 
-    // 创建资源
-    .post('/', upload.single('file'), (req, res) => {
-        res.json(xres({ code: 0 }, { filename: req.file.filename }));
+    // 更新资源
+    .patch('/:link_id', upload.single('file'), (req, res) => {
+        resourceHandlers.update(req.params.link_id, req.file.path)
+            .then(result => res.json(result));
     })
-
-
 
 
     // 解析模板文件
-    .post('/upload/:categorys', upload.single('file'), (req, res) => {
+    .post('/template/:categorys', upload.single('file'), (req, res) => {
         getMultiCategoryDetail(req.params.categorys.split(','), categorys => {
 
             let excelData = utils.decodeXlsx(req.file.path);

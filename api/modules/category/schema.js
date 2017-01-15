@@ -12,12 +12,6 @@ module.exports = {
         unique: true
     },
 
-    // 封面图片
-    photo: {
-        type: String,
-        default: ''
-    },
-
     // 描述
     description: {
         type: String,

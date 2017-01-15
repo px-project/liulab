@@ -11,7 +11,7 @@ const LIMIT = 20;
  * model
  */
 function Xmodel(modelDirName) {
-    let name = utils.toBigCancel(modelDirName);
+    let name = utils.toBigCamel(modelDirName);
     let model = null;
 
     try {
