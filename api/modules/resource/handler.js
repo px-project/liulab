@@ -114,7 +114,9 @@ exports.genExcel = data => {
         return String.fromCharCode('A'.charCodeAt(0) + row) + (col + 1);
     }
 
-    xlsx.writeFile(workbook, path.join(__dirname, '../../uploads/', new Date().get, 'output.xlsx'));
-    
-    return 
+    const filePath = uploadPath + new Date().getTime() + '.xlsx';
+
+    xlsx.writeFile(workbook, filePath);
+
+    return filePath;
 }
