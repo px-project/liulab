@@ -2,12 +2,12 @@
  * 数据库实例
  */
 const mongoose = require('mongoose');
-const config = require('../config/index.json');
+const config = require('../config/');
 
 const dbUrl = 'mongodb://'
-                + config.db.DB_HOST + ':'
-                + config.db.DB_PORT + '/'
-                + config.db.DB_NAME;
+                + config.DB.HOST + ':'
+                + config.DB.PORT + '/'
+                + config.DB.NAME;
 
 const db = mongoose.connect(dbUrl);
 
