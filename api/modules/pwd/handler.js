@@ -13,7 +13,7 @@ exports.check = (user_id, password) => {
     return pwdModel.list({ user: user_id }).then(result => {
         if (!result.length) return Promise.reject(4000);
         if (result[0].password !== utils.md5(pwdSec + password)) return Promise.reject(4100);
-        return Promise.resolve(true);
+        return true;
     });
 };
 

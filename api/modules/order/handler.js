@@ -37,7 +37,8 @@ exports.create = newData => {
                 num: product.num,
                 manifest_id: order_id + '-' + (index + 1),
                 product,
-                description: newData.description
+                description: newData.description,
+                status: 'created'
             };
 
             delete newManifest.product.num;

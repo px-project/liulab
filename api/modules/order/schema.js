@@ -15,7 +15,7 @@ module.exports = {
     // 下单用户
     create_user: {
         type: mongoose.Schema.Types.ObjectId,
-        refs: 'User'
+        ref: 'User'
     },
 
     // 订单备注

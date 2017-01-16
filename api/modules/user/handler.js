@@ -71,7 +71,6 @@ exports.check = (username, password) => {
             if (!users.length) return Promise.reject(4100);
 
             let user = users[0];
-
-            return pwdHandlers.check(user._id, password).then(result => new Promise(result));
+            return pwdHandlers.check(user._id, password).then(result => user);
         });
 };

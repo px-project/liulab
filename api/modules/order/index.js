@@ -17,11 +17,14 @@ module.exports = _router
     // 获取订单列表
     .get('/', (req, res) => {
         orderHandlers.list(req.l_query)
-            .then(orders => Promise.all(orders.map(order => manifestHandlers.list({ order_id: order._id })))
-                .then(result => {
-                    orders.forEach((order, index) => orders._doc.manifests = result[index]);
-                    res.json(orders);
-                }));
+            .then(orders => {
+                return Promise.all(orders.map(order => manifestHandlers.list({ order_id: order._id })))
+                    .then(result => {
+                        orders.forEach((order, index) => order._doc.manifests = result[index]);
+                        res.json(orders);
+                    });
+            })
+            .catch(err => console.error(err));
     })
 
     // 获取订单详情
@@ -53,7 +56,8 @@ module.exports = _router
         let newData = { description, create_user: req.session.user_id, products };
 
         orderHandlers.create(newData)
-            .then(result => res.json(result));
+            .then(result => res.json(result))
+            .catch(err => console.error(err));
     })
 
 

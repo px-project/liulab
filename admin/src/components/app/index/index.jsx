@@ -7,7 +7,7 @@ import './style.scss';
 
 export class AppComponent extends Component {
     componentWillMount() {
-        this.props.xhttp.detail('userCurrent', [], {});
+        this.props.xhttp.detail('user_current', [], {});
     }
 
     render() {

@@ -9,7 +9,7 @@ module.exports = {
     // 资源对应实体id
     link_id: {
         type: mongoose.Schema.Types.ObjectId,
-        refs: 'Manifest',
+        ref: 'Manifest',
         required: true
     },
 

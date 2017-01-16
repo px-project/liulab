@@ -32,10 +32,14 @@ exports.detail = _id => productModel.detail(_.mergeWith(conditions, { populateKe
  * @param newData {Object}
  */
 exports.create = newData => {
-    let filterFields = ['name', 'unit_price', 'category', 'attrs'];
 
-    let _newData = Object.assign({}, Object.keys().filter(key => key in filterFields).map(key => ({ [key]: newData[key] })));
-    let hash = _newData.hash = utils.hash(_newData);
+    let _newData = {};
+    ['name', 'unit_price', 'category', 'attrs'].forEach(key => _newData[key] = newData[key]);
+    _newData = _.cloneDeepWith(_newData);
+
+    let hash = _newData.hash = utils.hash(JSON.stringify(_newData));
+
+    _newData.code = 'asda111222';
 
     return productModel.create(_newData);
 };

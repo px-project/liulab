@@ -43,10 +43,10 @@ exports.update = (_id, file_path) => resourceModel.update(_id, { file_path });
  * ]
  * 
  */
-exports.decodeExcel = fileName => {
+exports.decodeExcel = filePath => {
     let result = [];
 
-    const workbook = xlsx.readFile(uploadPath + '/' + filePath);
+    const workbook = xlsx.readFile(filePath);
 
 
     workbook.SheetNames.forEach((sheetName, index) => {

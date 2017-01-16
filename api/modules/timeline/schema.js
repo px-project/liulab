@@ -9,7 +9,7 @@ module.exports = {
     // 时间轴对应货单id
     link_id: {
         type: mongoose.Schema.Types.ObjectId,
-        refs: 'Manifest',
+        ref: 'Manifest',
         required: true
     },
 
@@ -26,7 +26,7 @@ module.exports = {
     // 操作人
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        refs: 'User',
+        ref: 'User',
         required: true
     },
 

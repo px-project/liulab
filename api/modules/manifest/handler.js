@@ -20,7 +20,7 @@ exports.list = conditions => manifestModel.list(conditions);
  * @param _id {String}
  * 
  */
-exports.detail = _id => manifestModel.detail(_id, { populateKeys: 'create_user', filter: 'create_user.password' });
+exports.detail = _id => manifestModel.detail(_id, { populateKeys: 'create_user' });
 
 
 /**
@@ -32,8 +32,8 @@ exports.create = newData => manifestModel.create(newData)
     .then(manifest => {
         let newTimeline = { link_id: manifest._id, user: newData.create_user, status: 'created', description: newData.description };
         return timelineHandlers.create(newTimeline)
-            .then(timeline => productHandlers.create(newData.products))
-            .then(product => _.mergeWith(manifest, { timeline, product }));
+            .then(timeline => productHandlers.create(newData.product))
+            .then(product => _.mergeWith(manifest, { product }));
     });
 
 

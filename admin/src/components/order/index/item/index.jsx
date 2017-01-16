@@ -12,6 +12,7 @@ import { MANIFEST_STATUS } from '../../../../constants/';
 export class OrderItemComponent extends Component {
     componentDidMount() {
         let {manifests} = this.props.order;
+        console.log(manifests);
         let total = Object.assign({}, ...Object.keys(MANIFEST_STATUS).map(status => ({ [status]: 0 })));
         manifests.forEach(item => total[item.status]++);
 

@@ -8,15 +8,15 @@ export class AppHeaderUserComponent extends Component {
 
     render() {
 
-        let {xhttp, userCurrent, entities} = this.props;
-        let currentUser = entities[userCurrent.items[0]];
+        let {xhttp, user_current, entities} = this.props;
+        let currentUser = entities[user_current.items[0]];
 
         return (
             <div className="header-user">
                 {currentUser ? (
                     <p className="user">
                         <a href="#" className="avatar">
-                            {currentUser ? (<img src={`${window.server}/resource/${currentUser.avatar}`} />) : ''}
+                            {currentUser ? (<img src={`${window.server}/resource/${currentUser._id}`} />) : ''}
                         </a>
                         <span className="name">{currentUser.username}</span>
                     </p>

@@ -28,7 +28,8 @@ module.exports = _router
     // 添加
     .post('/', (req, res) => {
         categoryHandlers.create(req.body)
-            .then(result => res.json(result));
+            .then(result => res.json(result))
+            .catch(err => console.error(err));
     })
 
 
@@ -125,7 +126,8 @@ module.exports = _router
                         });
                 });
 
+
                 // 删除文件
                 fs.unlink(req.file.path, () => res.json({ _id: new Date().getTime(), data: result }));
-            })
+            });
     })

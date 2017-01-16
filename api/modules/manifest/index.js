@@ -17,8 +17,8 @@ module.exports = _router
 
     // 货单列表
     .get('/', (req, res) => {
-        manifestHandlers.list(_.mergeWith(req.l_query, { populateKeys: 'create_user' })
-            .then(result => res.json(result)));
+        manifestHandlers.list(_.mergeWith(req.l_query, { populateKeys: 'create_user' }))
+            .then(result => res.json(result));
     })
 
     // 货单详情

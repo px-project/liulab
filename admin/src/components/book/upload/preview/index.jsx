@@ -7,10 +7,10 @@ import './style.scss';
 export class BookUploadPreviewComponent extends Component {
 	// 创建订单
 	createOrder(e) {
-		let {xhttp, categoryUpload, entities, formData, history} = this.props;
+		let {xhttp, categoryTemplate, entities, formData} = this.props;
 		let newData = { description: formData.description, products: [] };
 
-		let orders = entities[categoryUpload.items[categoryUpload.items.length - 1]].result;
+		let orders = entities[categoryTemplate.items[categoryTemplate.items.length - 1]].data;
 
 
 		Object.keys(orders).map(category_id => {
@@ -26,8 +26,10 @@ export class BookUploadPreviewComponent extends Component {
 			});
 		});
 
+		let {router} = this.props;
+		console.log(router);
 		xhttp.create('order', [], newData).then(result => {
-			history.pushState(null, '/order/' + result.order_id);
+			router.push('/order/' + result.order_id);
 		});
 	}
 
@@ -38,10 +40,10 @@ export class BookUploadPreviewComponent extends Component {
 	}
 
 	render() {
-		let {categoryUpload, entities, book} = this.props;
+		let {categoryTemplate, entities, book} = this.props;
 		let {selectCategory} = book;
 		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
-		let {result} = entities[categoryUpload.items[categoryUpload.items.length - 1]];
+		let {data} = entities[categoryTemplate.items[categoryTemplate.items.length - 1]];
 
 		return (
 			<div>
@@ -59,7 +61,7 @@ export class BookUploadPreviewComponent extends Component {
 									</tr>
 								</thead>
 								<tbody>
-									{result[category_id].map((row, row_index) => (
+									{data[category_id].map((row, row_index) => (
 										<tr key={row_index}>
 											<td>{row_index + 1}</td>
 											{entities[category_id].attrs.map((attr, attr_index) => (

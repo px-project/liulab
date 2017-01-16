@@ -15,8 +15,7 @@ module.exports = {
     code: {
         type: String,
         required: true,
-        unique: true,
-        maxlength: 2
+        // unique: true
     },
 
     // 产品单价
