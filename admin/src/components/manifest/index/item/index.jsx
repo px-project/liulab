@@ -26,7 +26,7 @@ export class ManifestItemComponent extends Component {
                     <div className="basic">
                         <p>
                             <i className="fa fa-user"></i>
-                            <span className="value">{manifestData.create_user}</span>
+                            <span className="value">{manifestData.create_user.name || manifestData.create_user.username}</span>
                         </p>
                         <p>
                             <i className="fa fa-clock-o"></i>
