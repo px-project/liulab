@@ -12,7 +12,6 @@ import { MANIFEST_STATUS } from '../../../../constants/';
 export class OrderItemComponent extends Component {
     componentDidMount() {
         let {manifests} = this.props.order;
-        console.log(manifests);
         let total = Object.assign({}, ...Object.keys(MANIFEST_STATUS).map(status => ({ [status]: 0 })));
         manifests.forEach(item => total[item.status]++);
 
@@ -44,7 +43,7 @@ export class OrderItemComponent extends Component {
                         <canvas ref="chart"></canvas>
                     </div>
                     <div className="user-time">
-                        <div className="user">{order.create_user}</div>
+                        <div className="user">{order.create_user.name || order.create_user.user_name}</div>
                         <div className="create-time">{moment(order.create_time).format('YYYY/MM/DD')}</div>
                     </div>
                     <div className="actions">

@@ -46,7 +46,7 @@ export class BookUploadPreviewComponent extends Component {
 		let {data} = entities[categoryTemplate.items[categoryTemplate.items.length - 1]];
 
 		return (
-			<div>
+			<div className="book-upload-preview">
 				{categoryArr.map((category_id, index) => (
 					<div key={index} className="product">
 						<h5>{entities[category_id].name}</h5>

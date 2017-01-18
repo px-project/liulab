@@ -19,7 +19,13 @@ exports.list = conditions => orderModel.list(_.mergeWith(conditions, { populateK
  * @param _id {String}
  * 
  */
-exports.detail = _id => orderModel.detail(_id, { populateKeys: 'create_user' });
+exports.detail = _id => {
+    if (_id.length === 24) return orderModel.detail(_id, { populateKeys: 'create_user' });
+    return orderModel.list({ order_id: _id, populateKeys: 'create_user' }).then(result => {
+        if (!result.length) return Promise.reject(404);
+        return result[0];
+    });
+}
 
 
 /**

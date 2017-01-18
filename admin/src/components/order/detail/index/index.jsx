@@ -14,12 +14,14 @@ export class OrderDetailComponent extends Component {
 
 		xhttp.detail('order', [order_id]);
 		xhttp.list('manifest', [], { order_id });
+		xhttp.list('category', []);
 	}
 
 	render() {
-		let {order, manifest} = this.props;
+		let {order, manifest, params, category} = this.props;
 		return (
-			<Loader className="order-detail-page page" loading={order.fetching || manifest.fetching} data={order.detail && manifest.items.length}>
+			<Loader className="order-detail-page page" loading={order.fetching || manifest.fetching || category.fetching} data={order.detail && manifest.items.length}>
+				<h4 className="order-id">{params.order_id}</h4>
 				<Info {...this.props}></Info>
 				<Manifest {...this.props}></Manifest>
 			</Loader>

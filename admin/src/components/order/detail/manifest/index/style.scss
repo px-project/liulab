@@ -1,0 +1,35 @@
+.order-detail-manifest {
+    ul {
+        li {
+            display: flex;
+            align-items: center;
+            height: 3rem;
+            & > p {
+                text-align: center;
+            }
+            .manifest-id {
+                width: 20%;
+            }
+            .category {
+                width: 18%;
+            }
+            .product {
+                width: 18%;
+            }
+            .unit-price {
+                width: 10%;
+            }
+            .num {
+                width: 10%;
+            }
+            .status {
+                width: 15%;
+            }
+            .actions {
+                flex-grow: 1;
+                text-align: center;
+            }
+
+        }
+    }
+}
