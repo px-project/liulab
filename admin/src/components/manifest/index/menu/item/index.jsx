@@ -8,14 +8,13 @@ export class ManifestMenuItemComponent extends Component {
     render() {
         let {manifest} = this.props;
         return (
-            <div className="manifest-menu-item">
-                {manifest.manifest_id}
-                <p className="manifest-id">{manifest.manifest}</p>
-                <div>
-                    <p>{manifest.product.name}({manifest.product.code})</p>
-                    <p>{manifest.num}</p>
+            <li className="manifest-menu-item">
+                <p className="manifest-id">{manifest.manifest_id}</p>
+                <div className="info">
+                    <p className="product">{manifest.product.name}({manifest.product.code})</p>
+                    <p className="num">{manifest.num}</p>
                 </div>
-            </div>
+            </li>
         );
     }
 }

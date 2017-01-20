@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { MANIFEST_STATUS } from '../../../../../constants/';
+import { ManifestMenuItemComponent as Item } from '../item/';
 import './style.scss';
 
 export class Audit extends Component {
@@ -11,23 +12,16 @@ export class Audit extends Component {
         return (
             <div className="manifest-menu-audit menu-sec">
                 <header>
-                    <h3 style={{ color: MANIFEST_STATUS.created.color }}><i className="fa fa-ellipsis-h"></i>未审核货单</h3>
+                    <h3 >未审核货单</h3>
                     <div className="actions">
-                        <a style={{ color: MANIFEST_STATUS.auditPassed.color }}>通过</a>
-                        <a style={{ color: MANIFEST_STATUS.auditFailed.color }}>不通过</a>
+                        <button className="ui button green mini">通过</button>
+                        <button className="ui button red mini">不通过</button>
                     </div>
                 </header>
 
                 <ul>
                     {list.map((item, index) => (
-                        <li key={index}>
-                            {item.manifest_id}
-                            <p className="manifest-id">{item.manifest}</p>
-                            <div>
-                                <p>{item.product.name}({item.product.code})</p>
-                                <p>{item.num}</p>
-                            </div>
-                        </li>
+                        <Item manifest={item} key={index}></Item>
                     ))}
                 </ul>
             </div>
