@@ -23,7 +23,9 @@ module.exports = _router
     // 获取资源
     .get('/:link_id', (req, res) => {
         resourceHandlers.detail(req.params.link_id)
-            .then(result => res.sendFile(uploadPath + result.file_name));
+            .then(result => console.log(result))
+            .then(result => res.sendFile(uploadPath + result.file_name))
+            .catch();
     })
 
     // 更新资源

@@ -6,6 +6,7 @@ const userhandlers = require('./handler');
 const utils = require('../../common/utils');
 const _ = require('lodash');
 const pwdSec = require('../../config/').PWD_SEC;
+const xerr = require('../../common/xerr');
 
 module.exports = _router
 
@@ -23,7 +24,7 @@ module.exports = _router
                 res.json(result);
             })
             .catch(err => {
-
+                res.status(400).json(xerr(err));
             });
     })
 
@@ -41,16 +42,20 @@ module.exports = _router
             .then(result => res.json(result));
     })
 
+    // 当前用户
+    .get('/current', (req, res) => {
+        userhandlers.detail(req.session.user_id)
+            .then(result => res.json(result));
+    })
+
 
     // 用户详情
     .get('/:user_id', (req, res) => {
         let {user_id} = req.params;
-        // 当前登录用户详情
-        if (user_id === 'current') user_id = req.session.user_id;
-
         userhandlers.detail(req.params.user_id)
             .then(result => res.json(result));
     })
+
 
 
     // 创建用户

@@ -68,7 +68,7 @@ exports.delete = _id => userModel.delete(_id);
 exports.check = (username, password) => {
     return userModel.list({ where: { username } })
         .then(users => {
-            if (!users.length) return Promise.reject(4100);
+            if (!users.length) return Promise.reject("ERR_LOGIN");
 
             let user = users[0];
             return pwdHandlers.check(user._id, password).then(result => user);

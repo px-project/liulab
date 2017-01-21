@@ -6,35 +6,39 @@
 	<title>
 		<%= htmlWebpackPlugin.options.title %>
 	</title>
-
+	<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 	<script type="text/javascript">
-        var loginAt = localStorage.getItem('login_time');
-        if (!loginAt || loginAt - new Date() >1000 * 60 * 60 * 24 * 7) {
-            location.href = '/login.html';
-        }
-    </script>
-	<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-	<link href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css" rel="stylesheet">
-	<base href="/">
-	<style>
-		table {
-			width: 100%;
-			overflow-x: auto!important;
-		}
-		
-		th,
-		td {
-			text-align: center!important;
-		}
-		
-		.btn-group {
-			text-align: center!important;
-		}
-	</style>
-	<script type="text/javascript">
-        window.server = "<%= htmlWebpackPlugin.options.server %>";
-		window.permission = JSON.parse(localStorage.user_permission);
-    </script>
+		window.server = "<%= htmlWebpackPlugin.options.server %>";
+		$.get({
+			url: server + '/user/current',
+			xhrFields: { withCredentials: true },
+			success: function () {
+				window.l_user = result;
+			},
+			error: function () {
+				let code = JSON.parse(err.responseText).code;
+				if (code === 'NOT_LOGIN') window.location = '/login.html';
+			}
+		})
+	</script>
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css" rel="stylesheet">
+<base href="/">
+<style>
+	table {
+		width: 100%;
+		overflow-x: auto!important;
+	}
+	
+	th,
+	td {
+		text-align: center!important;
+	}
+	
+	.btn-group {
+		text-align: center!important;
+	}
+</style>
 </head>
 
 <body>

@@ -11,8 +11,8 @@ const pwdSec = require('../../config/').PWD_SEC;
  */
 exports.check = (user_id, password) => {
     return pwdModel.list({ user: user_id }).then(result => {
-        if (!result.length) return Promise.reject(4000);
-        if (result[0].password !== utils.md5(pwdSec + password)) return Promise.reject(4100);
+        if (!result.length) return Promise.reject('ERR_LOGIN');
+        if (result[0].password !== utils.md5(pwdSec + password)) return Promise.reject('ERR_LOGIN');
         return true;
     });
 };

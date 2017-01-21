@@ -42,6 +42,7 @@
             if (!validateEmpty(loginData, ['username', 'password'])) return;
 
             $(this).html('登录中').attr('disabled', 'disabled');
+
             $.ajax({
                 method: "POST",
                 url: window.server + '/user/login',
@@ -50,18 +51,15 @@
                     withCredentials: true
                 },
                 success: function (res) {
-                    localStorage.setItem('role_name', res.result.role_name);
-                    localStorage.setItem('user_id', res.result._id);
-                    localStorage.setItem('user_name', res.result.name || res.result.username);
-                    localStorage.setItem('user_permission', JSON.stringify(res.result.permission));
-                    localStorage.setItem('login_time', new Date());
+                    window.location = '/index';
+                },
+                error: function (err) {
 
-                    window.location.href = '/index';
                 }
             });
         });
 
-        function initLoginData (fields) {
+        function initLoginData(fields) {
             let result = {};
             fields.forEach((field) => {
                 result[field] = $('.' + field + ' input').val();
@@ -70,7 +68,7 @@
         }
 
 
-        function validateEmpty (data, fields) {
+        function validateEmpty(data, fields) {
             let result = true;
             fields.forEach(function (field) {
                 if (!data[field]) {

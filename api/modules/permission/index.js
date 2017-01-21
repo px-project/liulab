@@ -3,7 +3,6 @@
  */
 const _router = require('express').Router();
 const permissionHandlers = require('./handler');
-const xres = require('../../common/xres');
 
 module.exports = _router
 

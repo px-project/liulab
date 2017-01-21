@@ -1,27 +1,18 @@
 /**
  * 验证中间件
  */
-const xres = require('./xres');
-
+const xerr = require('../common/xerr');
 
 module.exports = (req, res, next) => {
 
     // 登录接口
-    if (req.url === '/user/login') {
-        next();
-        return;
-    }
+    if (req.url === '/user/login') return next();
 
     // 未登录
-    if (!req.session.online) {
-        res.json(xres({code: 6000}));
-        return;
-    }
+    if (!req.session.online) return res.status(400).json(xerr('NOT_LOGIN'));
 
-    // 无权限
-    // if () {
-        // res.json(xres({code: 6001}));
-    // }
+    // 权限认证
+    // todo
 
     next();
 };

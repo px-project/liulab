@@ -23,3 +23,10 @@ exports.PWD_SEC = "5876564946d58cf8fe01b9f3";
 
 // 上传目录
 exports.UPLOAD_PATH = path.join(__dirname, '../../uploads/');
+
+// 错误文言
+exports.ERROR_MESSAGE = {
+    "NOT_LOGIN": "当前用户未登录",
+    "ERR_LOGIN": "用户名或密码错误",
+    "NO_PERMISSTION": "当前操作无权限"
+};

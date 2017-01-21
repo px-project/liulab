@@ -13,7 +13,7 @@ function handleNetErr(err) {
 function handleBusinessErr(err) {
     switch (err.code) {
         case 6000:
-            window.location.href = window.location.origin + '/login.html';
+            // window.location.href = window.location.origin + '/login.html';
     }
 }
 
