@@ -32,8 +32,8 @@ export class LoaderComponent extends Component {
 }
 
 function isEmpty(data) {
-    if (data) return false;
-    if (Array.isArray(data) && data.length) return false;
-    if (typeof data === 'object' && data && Object.keys(data).length) return false;
-    return true;
+    if (!data) return true;
+    if (Array.isArray(data) && !data.length) return true;
+    if (typeof data === 'object' && !Object.keys(data).length) return true;
+    return false;
 }

@@ -11,7 +11,21 @@ function selectAction(manifest_id) {
     };
 }
 
+function unselectAction (manifest_ids) {
+    return {
+        type: UNSELECT_MANIFEST,
+        manifest_ids
+    }
+}
+
+
+
 // 选择操作
 export function manifestSelect (manifest_id) {
     return dispatch => dispatch(selectAction(manifest_id));
+}
+
+// 取消选择
+export function manifestUnselect () {
+
 }

@@ -12,10 +12,10 @@
 		$.get({
 			url: server + '/user/current',
 			xhrFields: { withCredentials: true },
-			success: function () {
+			success: function (result) {
 				window.l_user = result;
 			},
-			error: function () {
+			error: function (err) {
 				let code = JSON.parse(err.responseText).code;
 				if (code === 'NOT_LOGIN') window.location = '/login.html';
 			}

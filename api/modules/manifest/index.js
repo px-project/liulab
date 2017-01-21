@@ -32,7 +32,6 @@ module.exports = _router
         let {status, manifests, description} = req.body;
         if (req.params.manifest_id) manifests = [req.params.manifest_id];
 
-
         let now = new Date();
         let updateQueue = manifests.map(manifest_id => cb => {
             let newData = {

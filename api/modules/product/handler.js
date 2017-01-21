@@ -12,7 +12,7 @@ const productSchema = require('./schema');
  * 
  * @param conditions {Object}
  */
-exports.list = conditions => productModel.list(conditions);
+exports.list = conditions => productModel.list(_.mergeWith(conditions, {populateKeys: 'category'}));
 
 
 /**

@@ -35,6 +35,7 @@ export class OrderItemComponent extends Component {
     }
     render() {
         let {order} = this.props;
+        console.log(order.create_user);
         return (
             <li className="order-item">
                 <div className="info">

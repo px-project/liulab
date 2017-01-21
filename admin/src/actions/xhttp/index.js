@@ -13,7 +13,7 @@ function handleNetErr(err) {
 function handleBusinessErr(err) {
     switch (err.code) {
         case 6000:
-            // window.location.href = window.location.origin + '/login.html';
+        // window.location.href = window.location.origin + '/login.html';
     }
 }
 
@@ -137,7 +137,10 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
 
         return fetch(handleUrl(options.api, options.params, options.conditions), fetchOption)
             .then(res => res.json())
-            .then(json => dispatch(receiveAction(options, json)))
+            .then(json => {
+                dispatch(receiveAction(options, json));
+                return json;
+            })
             .catch(err => handleNetErr(err));
     };
 }
