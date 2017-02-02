@@ -17,6 +17,8 @@ module.exports = _router
 
         userhandlers.check(username, password)
             .then(result => {
+                console.log(result);
+                console.log(req.session);
                 req.session.online = true;
                 req.session.user_id = result._id;
                 req.session.role_id = result.role;
@@ -24,7 +26,8 @@ module.exports = _router
                 res.json(result);
             })
             .catch(err => {
-                res.status(400).json(xerr(err));
+                console.log(err);
+                res.status(400).json(xerr(err))
             });
     })
 

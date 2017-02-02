@@ -5,7 +5,7 @@ docker run -v /root/data:/data/db -p 27017:27017 -d mongo --auth
 
 2. 启动redis
 ```
-docker run -d redis
+docker run -d -p 6379:6379 -e REDIS_PASS="**None**" redis
 ```
 
 3. 安装依赖
