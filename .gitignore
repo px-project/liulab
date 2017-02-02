@@ -14,3 +14,6 @@ build
 
 # vscode
 .vscode
+
+# deloy
+api/config/index.js

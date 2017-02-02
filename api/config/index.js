@@ -6,14 +6,14 @@ const path = require('path');
 
 // 数据库配置
 exports.DB = {
-    HOST: "127.0.0.1",
+    HOST: "139.129.29.110",
     PORT: "27017",
     NAME: "liulab"
 };
 
 // redis配置
 exports.REDIS = {
-    HOST: "127.0.0.1",
+    HOST: "139.129.29.110",
     PORT: "6379",
     NAME: "liulab"
 };
