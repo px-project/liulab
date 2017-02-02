@@ -17,7 +17,7 @@
 			},
 			error: function (err) {
 				let code = JSON.parse(err.responseText).code;
-				if (code === 'NOT_LOGIN') window.location = '/login.html';
+				if (code === 'USER_NOT_LOGIN') window.location = '/login.html';
 			}
 		})
 	</script>

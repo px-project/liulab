@@ -3,10 +3,9 @@
  */
 const _router = require('express').Router();
 const _ = require('lodash');
-const async = require('async');
 const manifestHandlers = require('./handler');
 const manifestStatus = require('./constant').MANIFEST_STATUS;
-
+const xerr = require('../../common/xerr');
 
 module.exports = _router
 
@@ -28,19 +27,10 @@ module.exports = _router
     })
 
     // 更新货单状态
-    .patch('/:manifest_id?', (req, res) => {
-        let {status, manifests, description} = req.body;
-        if (req.params.manifest_id) manifests = [req.params.manifest_id];
+    .patch('/:manifest_ids', (req, res) => {
+        let ids = req.params.manifest_ids.split(',');
 
-        let now = new Date();
-        let updateQueue = manifests.map(manifest_id => cb => {
-            let newData = {
-                $set: { status, update_time: now },
-                $push: { progress: { status, time: now, user: req.session.user_id, desc: description } }
-            };
-            manifestModel.update(manifest_id, newData, (result) => cb(null, result));
-        });
-        async.series(updateQueue, (err, result) => {
-            res.json(xres({ code: 0 }, result));
-        });
+        Promise.all(ids.map(id => manifestHandlers.updateStatus(id, _.mergeWith({}, req.body, { user: req.session.user_id }))))
+            .then(result => res.json(result))
+            .catch(error => res.status(402).json(xerr(error)));
     })

@@ -6,14 +6,14 @@ const path = require('path');
 
 // 数据库配置
 exports.DB = {
-    HOST: "139.129.29.110",
+    HOST: "127.0.0.1",
     PORT: "27017",
     NAME: "liulab"
 };
 
 // redis配置
 exports.REDIS = {
-    HOST: "139.129.29.110",
+    HOST: "127.0.0.1",
     PORT: "6379",
     NAME: "liulab"
 };
@@ -26,7 +26,8 @@ exports.UPLOAD_PATH = path.join(__dirname, '../../uploads/');
 
 // 错误文言
 exports.ERROR_MESSAGE = {
-    "NOT_LOGIN": "当前用户未登录",
-    "ERR_LOGIN": "用户名或密码错误",
-    "NO_PERMISSTION": "当前操作无权限"
+    "USER_NOT_LOGIN": "当前用户未登录",
+    "USER_ERR_LOGIN": "用户名或密码错误",
+    "USER_NO_PERMISSTION": "当前操作无权限",
+    "MANIFEST_STATUS_ERROR": "货单状态有误"
 };

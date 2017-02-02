@@ -14,7 +14,7 @@ export class Book extends Component {
                 <header>
                     <h3>审核通过订单</h3>
                     <div className="actions">
-                        <button className="ui button teal mini">已订购</button>
+                        <button className="ui button teal mini" onClick={this.book.bind(this, 'booked')}>已订购</button>
                     </div>
                 </header>
                 <ul>
@@ -24,5 +24,12 @@ export class Book extends Component {
                 </ul>
             </div>
         );
+    }
+    // 订货
+    book(status) {
+        let {xhttp, list} = this.props;
+        xhttp.update('manifest', [list.map(item => item._id).join(',')], { status }).then(result => {
+
+        });
     }
 }

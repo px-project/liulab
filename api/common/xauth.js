@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
     if (req.url === '/user/login') return next();
 
     // 未登录
-    if (!req.session.online) return res.status(400).json(xerr('NOT_LOGIN'));
+    if (!req.session.online) return res.status(400).json(xerr('USER_NOT_LOGIN'));
 
     // 权限认证
     // todo

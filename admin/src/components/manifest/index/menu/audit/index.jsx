@@ -14,8 +14,8 @@ export class Audit extends Component {
                 <header>
                     <h3 >未审核货单</h3>
                     <div className="actions">
-                        <button className="ui button green mini">通过</button>
-                        <button className="ui button red mini">不通过</button>
+                        <button className="ui button green mini" onClick={this.audit.bind(this, 'auditPassed')}>通过</button>
+                        <button className="ui button red mini" onClick={this.audit.bind(this, 'auditFailed')}>不通过</button>
                     </div>
                 </header>
 
@@ -26,6 +26,13 @@ export class Audit extends Component {
                 </ul>
             </div>
         );
+    }
+    // 审核
+    audit(status) {
+        let {xhttp, list} = this.props;
+        xhttp.update('manifest', [list.map(item => item._id).join(',')], { status }).then(result => {
+
+        });
     }
 }
 

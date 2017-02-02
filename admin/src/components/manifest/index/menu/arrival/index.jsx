@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { MANIFEST_STATUS } from '../../../../../constants/';
-import {ManifestMenuItemComponent as Item} from '../item/';
+import { ManifestMenuItemComponent as Item } from '../item/';
 import './style.scss';
 
 export class Arrival extends Component {
@@ -14,7 +14,7 @@ export class Arrival extends Component {
                 <header>
                     <h3>未到货货单</h3>
                     <div className="actions">
-                        <button className="ui button primary mini">已到货</button>
+                        <button className="ui button primary mini" onClick={this.arrival.bind(this, 'arrivaled')}>已到货</button>
                     </div>
                 </header>
 
@@ -25,5 +25,12 @@ export class Arrival extends Component {
                 </ul>
             </div>
         );
+    }
+    // 到货
+    arrival(status) {
+        let {xhttp, list} = this.props;
+        xhttp.update('manifest', [list.map(item => item._id).join(',')], { status }).then(result => {
+
+        });
     }
 }

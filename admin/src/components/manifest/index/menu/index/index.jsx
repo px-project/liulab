@@ -12,7 +12,7 @@ import './style.scss';
 
 export class ManifestMenuComponent extends Component {
     render() {
-        let {manifest, entities} = this.props;
+        let {manifest, entities, xhttp} = this.props;
 
         let audit = [], book = [], arrival = [];
 
@@ -26,9 +26,9 @@ export class ManifestMenuComponent extends Component {
 
         return (
             <div className="manifest-menu">
-                {audit.length ? (<Audit list={audit}></Audit>) : ''}
-                {book.length ? (<Book list={book}></Book>) : ''}
-                {arrival.length ? (<Arrival list={arrival}></Arrival>) : ''}
+                {audit.length ? (<Audit list={audit} xhttp={xhttp}></Audit>) : ''}
+                {book.length ? (<Book list={book} xhttp={xhttp}></Book>) : ''}
+                {arrival.length ? (<Arrival list={arrival} xhttp={xhttp}></Arrival>) : ''}
             </div>
         );
     }

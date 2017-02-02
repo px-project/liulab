@@ -4,6 +4,7 @@
 const manifestModel = require('../../common/xmodel')('manifest');
 const timelineHandlers = require('../timeline/handler');
 const productHandlers = require('../product/handler');
+const {MANIFEST_STATUS} = require('./constant');
 const _ = require('lodash');
 
 /**
@@ -44,6 +45,21 @@ exports.create = newData => manifestModel.create(newData)
  * @param newData {Object}
  * 
  */
-exports.update = (_id, newData) => manifestModel.update(_id, newData)
-    .then(result => timelineHandlers.create({ link_id: _id, user: newData.user, status: newData.status, description: newData.description }));
+exports.updateStatus = (_id, newData) => exports.detail(_id)
+    .then(manifest => {
+        let statusArr = Object.keys(MANIFEST_STATUS);
+        let nextIndex = statusArr.indexOf(newData.status);
+        let currentIndex = statusArr.indexOf(manifest.status);
+        let len = statusArr.length;
 
+        // 状态有误
+        if (nextIndex - currentIndex !== 1 && nextIndex !== len - 1 && nextIndex !== len - 2) return Promise.reject('MANIFEST_STATUS_ERROR');
+
+        return manifestModel.update(_id, newData)
+            .then(result => timelineHandlers.create({
+                link_id: _id,
+                user: newData.user,
+                status: newData.status,
+                description: newData.description
+            }));
+    });
