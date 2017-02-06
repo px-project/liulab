@@ -27,11 +27,10 @@ export class CategoryEditComponent extends Component {
 
 		// 编辑
 		if (routes[2].path === ':category_id/edit') {
-			xhttp.detail('category', [params.category_id], {}, category => {
-				category.fields = _.cloneDeepWith(category.attrs);
-				delete category.attrs;
-				this.props.xform(Object.assign({}, category, newField));
-			});
+			xhttp.detail('category', [params.category_id])
+				.then(category => {
+					this.props.xform(Object.assign({}, category, newField));
+				});
 		}
 
 	}
@@ -67,7 +66,7 @@ export class CategoryEditComponent extends Component {
 				<div className="field-config sec">
 					<h3 className="sec-title">字段配置</h3>
 					<ol className="list">
-						{formData.fields ? formData.fields.map((item, index) => (
+						{formData.attrs ? formData.attrs.map((item, index) => (
 							<li key={index}>
 								<p className="index">{index + 1}.</p>
 								<div className="detail">
@@ -112,7 +111,7 @@ export class CategoryEditComponent extends Component {
 	createCategory() {
 		let {xhttp, formData, history} = this.props;
 
-		let newData = { name: formData.name, abbr: formData.abbr, attrs: formData.fields, description: formData.description, photo: formData.photo };
+		let newData = { name: formData.name, abbr: formData.abbr, attrs: formData.attrs, description: formData.description, photo: formData.photo };
 		xhttp.create('category', [], newData, () => {
 			history.pushState(null, '/category');
 		});

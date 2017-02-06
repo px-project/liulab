@@ -3,5 +3,5 @@
  */
 exports.RESOURCE_TYPE = {
     USER_AVATAR: "用户头像",
-    CATEGORY_PHOTO: "类别封面"
+    CATEGORY_COVER: "类别封面"
 };

@@ -9,7 +9,7 @@ const xlsx = require('xlsx');
  * 获取资源详情
  * 
  */
-exports.detail = link_id => resourceModel.list({ link_id })
+exports.detail = (link_id, link_type) => resourceModel.list({ link_id, link_type })
     .then(result => {
         if (result.length) return result[0];
         Promise.reject(40100);

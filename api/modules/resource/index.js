@@ -21,8 +21,9 @@ const upload = multer({ storage: storage });
 
 module.exports = _router
     // 获取资源
-    .get('/:link_id', (req, res) => {
-        resourceHandlers.detail(req.params.link_id)
+    .get('/:link_type/:link_id', (req, res) => {
+        let {link_type, link_id} = req.params;
+        resourceHandlers.detail(link_id, link_type)
             .then(result => res.sendFile(uploadPath + result.file_name))
             .catch();
     })

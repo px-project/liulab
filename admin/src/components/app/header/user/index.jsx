@@ -2,6 +2,7 @@
  * 头部用户组件
  */
 import React, { Component } from 'react';
+import { Image } from '../../../common/';
 import './style.scss';
 
 export class AppHeaderUserComponent extends Component {
@@ -16,7 +17,7 @@ export class AppHeaderUserComponent extends Component {
                 {currentUser ? (
                     <p className="user">
                         <a href="#" className="avatar">
-                            {currentUser ? (<img src={`${window.server}/resource/${currentUser._id}`} />) : ''}
+                            <Image type="USER_AVATAR" link_id={currentUser._id}></Image>
                         </a>
                         <span className="name">{currentUser.username}</span>
                     </p>

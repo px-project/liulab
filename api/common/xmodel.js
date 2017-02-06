@@ -46,7 +46,7 @@ Xmodel.prototype.list = function (conditions = {}) {
  */
 Xmodel.prototype.detail = function (_id, conditions = {}) {
     let {populateKeys = []} = conditions;
-    if (typeof populateKeys === 'string') populateKeys = [populateKeys];
+    if (!Array.isArray(populateKeys)) populateKeys = [populateKeys];
 
     let query = this.model.findById(_id);
     if (populateKeys.length) query = query.populate(populateKeys.join(' '));

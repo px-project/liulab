@@ -20,7 +20,7 @@ module.exports = _router
 
     // 详情
     .get('/:category_id', (req, res) => {
-        categoryHandlers.detail(req.l_query)
+        categoryHandlers.detail(req.params.category_id, req.l_query)
             .then(result => res.json(result));
     })
 

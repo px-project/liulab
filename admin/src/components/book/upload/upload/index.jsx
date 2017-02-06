@@ -27,15 +27,10 @@ export class BookUploadUploadComponent extends Component {
 	}
 
 	render() {
-
-		let {book, category} = this.props;
-		let {selectCategory} = book;
-		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
-
 		return (
 			<div className="book-upload-upload">
 				<div className="download-sec">
-					<a href={`${apiConfig.server}${apiConfig.categoryDownload}?category_id=${categoryArr.join('&category_id=')}`}>
+					<a onClick={this.download.bind(this)}>
 						<i className="icon cloud download"></i>
 						<span className="main">下载模板文件</span>
 					</a>
@@ -48,5 +43,13 @@ export class BookUploadUploadComponent extends Component {
 				<p className="describe">注：请严格按照规则填写，切勿修改模板文件内容。</p>
 			</div>
 		);
+	}
+
+	download() {
+		let {book, category, xhttp} = this.props;
+		let {selectCategory} = book;
+		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
+		let categoryDownload = xhttp.url('categoryDownload', [], { category_id: categoryArr.join('&category_id=') });
+		console.log(categoryDownload);
 	}
 }

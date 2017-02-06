@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { Link } from 'react-router';
-import { Loader } from '../../common/';
+import { Loader, Image } from '../../common/';
 import * as consts from '../../../constants/';
 import defaultPhoto from '../../../public/images/default.png';
 import './style.scss';
@@ -20,16 +20,18 @@ export class CategoryComponent extends Component {
 
 		return (
 			<div className="category-list-page page">
+
 				<header className="page-header">
 					<Link className="ui button primary" to="/category/add">添加</Link>
 				</header>
+
 				<Loader loading={category.fetching} data={category.items}>
 					<ul>
 						{category.items.map((category_id, category_index) => (
 							<li key={category_index}>
 								<Link to={`/category/${category_id}/edit`}>
 									<div className="photo">
-										<img src={entities[category_id].photo ? `${window.server}/resource/${entities[category_id].photo}` : defaultPhoto} />
+										<Image type="CATEGORY_COVER" link_id={entities[category_id].photo}></Image>
 									</div>
 									<div className="info">
 										<div className="name">{entities[category_id].name}</div>
@@ -40,6 +42,7 @@ export class CategoryComponent extends Component {
 						))}
 					</ul>
 				</Loader>
+
 			</div>
 		);
 	}

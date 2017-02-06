@@ -6,7 +6,7 @@ import './style.scss';
 import { Link } from 'react-router';
 import classname from 'classname';
 import defaultCategoryPhoto from '../../../public/images/default.png';
-import { Loader, Select, Search, Lazy } from '../../common/';
+import { Loader, Select, Search, Image } from '../../common/';
 
 export class BookComponent extends Component {
 	componentWillMount() {
@@ -52,7 +52,7 @@ export class BookComponent extends Component {
 							<li key={product_index}>
 								<div className="photo">
 									<Link to={`/product/${product_id}`}>
-										<Lazy photo={entities[product_id].category.photo}></Lazy>
+										<Image photo={entities[product_id].category.photo}></Image>
 									</Link>
 								</div>
 								<div className="detail">
