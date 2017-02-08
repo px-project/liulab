@@ -134,17 +134,17 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
 
         return fetch(handleUrl(options.api, options.params, options.conditions), fetchOption)
             .then(res => {
-                console.log(res);
-                // if (res.status >= 400 && res.status < 500) return Promise.reject(res.json().code);
-                // if (res.status >= 500 && res.status < 600) return Promise.reject(res.status);
+                if (res.status >= 400 && res.status < 500) return res.json().then(json => Promise.reject(json.code));
+                if (res.status >= 500 && res.status < 600) return Promise.reject(res.status);
                 return res;
             })
-            .then(res => {
-                dispatch(receiveAction(options, res.json()));
-                return res.json();
+            .then(res => res.json())
+            .then(json => {
+                dispatch(receiveAction(options, json));
+                return new Promise(json);
             })
-            .catch((err) => {
-                handleError(err);
+            .catch((code) => {
+                handleError(code);
             });
     };
 }
