@@ -4,16 +4,12 @@
 import apiConfig from '../../config/api.json';
 import * as consts from '../../constants/';
 
-// 系统错误
-function handleNetErr(err) {
-    console.error(err);
-}
-
-// 业务逻辑错误
-function handleBusinessErr(err) {
-    switch (err.code) {
-        case 6000:
-        // window.location.href = window.location.origin + '/login.html';
+// 处理错误
+function handleError(code) {
+    console.log(code);
+    switch (code) {
+        case 'USER_NOT_LOGIN':
+            window.location = '/login.html';
     }
 }
 
@@ -118,8 +114,9 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
         // fetch配置
         let fetchOption = {
             method: toggleMethod[method],
-            headers: {},
-            credentials: 'include'
+            headers: {
+                'token': localStorage.getItem('token')
+            }
         };
 
         // body
@@ -136,12 +133,19 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
         }
 
         return fetch(handleUrl(options.api, options.params, options.conditions), fetchOption)
-            .then(res => res.json())
-            .then(json => {
-                dispatch(receiveAction(options, json));
-                return json;
+            .then(res => {
+                console.log(res);
+                // if (res.status >= 400 && res.status < 500) return Promise.reject(res.json().code);
+                // if (res.status >= 500 && res.status < 600) return Promise.reject(res.status);
+                return res;
             })
-            .catch(err => handleNetErr(err));
+            .then(res => {
+                dispatch(receiveAction(options, res.json()));
+                return res.json();
+            })
+            .catch((err) => {
+                handleError(err);
+            });
     };
 }
 

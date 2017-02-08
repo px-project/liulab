@@ -5,8 +5,9 @@ const _router = require('express').Router();
 const userhandlers = require('./handler');
 const utils = require('../../common/utils');
 const _ = require('lodash');
-const pwdSec = require('../../config/').PWD_SEC;
+const {PWD_SEC} = require('../../config/');
 const xerr = require('../../common/xerr');
+const jws = require('jws');
 
 module.exports = _router
 
@@ -17,24 +18,24 @@ module.exports = _router
 
         userhandlers.check(username, password)
             .then(result => {
-                console.log(result);
-                console.log(req.session);
-                req.session.online = true;
-                req.session.user_id = result._id;
-                req.session.role_id = result.role;
-
-                res.json(result);
+                res.json({
+                    token: jws.sign({
+                        header: { alg: 'HS256' },
+                        payload: {
+                            user_id: result._id
+                        },
+                        secret: PWD_SEC,
+                    })
+                });
             })
             .catch(err => {
-                console.log(err);
-                res.status(400).json(xerr(err))
+                res.status(400).json(xerr(err));
             });
     })
 
 
     // 用户登出
     .get('/logout', (req, res) => {
-        req.session.online = false;
         res.json({});
     })
 
@@ -47,7 +48,7 @@ module.exports = _router
 
     // 当前用户
     .get('/current', (req, res) => {
-        userhandlers.detail(req.session.user_id)
+        userhandlers.detail(JSON.parse(jws.decode(req.headers.token).payload).user_id)
             .then(result => res.json(result));
     })
 

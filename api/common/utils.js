@@ -14,6 +14,16 @@ exports.hash = (tarStr) => {
     return crypto.createHash('sha1').update(tarStr).digest('hex');
 };
 
+//  转base64
+exports.enBase64 = data => {
+    return new Buffer(data).toString('base64');
+};
+
+// 解base64
+exports.deBase64 = str => {
+    return new Buffer(str).toString();
+};
+
 
 /**
  * 转大驼峰

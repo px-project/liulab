@@ -51,6 +51,7 @@
                     withCredentials: true
                 },
                 success: function (res) {
+                    localStorage.setItem('token', res.token);
                     window.location = '/index';
                 },
                 error: function (err) {

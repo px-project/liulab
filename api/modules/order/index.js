@@ -53,7 +53,7 @@ module.exports = _router
     .post('/', (req, res) => {
         let {description, products} = req.body;
 
-        let newData = { description, create_user: req.session.user_id, products };
+        let newData = { description, create_user: req.user_id, products };
 
         orderHandlers.create(newData)
             .then(result => res.json(result))

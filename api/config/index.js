@@ -11,13 +11,6 @@ exports.DB = {
     NAME: "liulab"
 };
 
-// redis配置
-exports.REDIS = {
-    HOST: "139.129.29.110",
-    PORT: "6379",
-    NAME: "liulab"
-};
-
 // 密码混淆
 exports.PWD_SEC = "5876564946d58cf8fe01b9f3";
 

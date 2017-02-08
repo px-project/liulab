@@ -30,7 +30,7 @@ module.exports = _router
     .patch('/:manifest_ids', (req, res) => {
         let ids = req.params.manifest_ids.split(',');
 
-        Promise.all(ids.map(id => manifestHandlers.updateStatus(id, _.mergeWith({}, req.body, { user: req.session.user_id }))))
+        Promise.all(ids.map(id => manifestHandlers.updateStatus(id, _.mergeWith({}, req.body, { user: req.user_id }))))
             .then(result => res.json(result))
             .catch(error => res.status(402).json(xerr(error)));
     })
