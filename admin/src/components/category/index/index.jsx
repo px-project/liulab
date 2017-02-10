@@ -31,7 +31,7 @@ export class CategoryComponent extends Component {
 							<li key={category_index}>
 								<Link to={`/category/${category_id}/edit`}>
 									<div className="photo">
-										<Image type="CATEGORY_COVER" link_id={entities[category_id].photo}></Image>
+										<Image type="CATEGORY_COVER" link_id={category_id}></Image>
 									</div>
 									<div className="info">
 										<div className="name">{entities[category_id].name}</div>

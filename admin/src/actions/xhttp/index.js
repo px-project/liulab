@@ -6,7 +6,6 @@ import * as consts from '../../constants/';
 
 // 处理错误
 function handleError(code) {
-    console.log(code);
     switch (code) {
         case 'USER_NOT_LOGIN':
             window.location = '/login.html';
@@ -30,11 +29,11 @@ function handleUrl(api, params, conditions) {
     // 替换url中的{}为具体id
     for (let i = 0, len = urlIdArr.length; i < len; i++) {
         url = url.replace(idRegI, params[i]);
+        params.shift();
     }
 
-
-    // 详情
-    if (urlIdArr.length === params.length - 1) url += `/${params[params.length - 1]}`;
+    // 处理剩余参数
+    if (params.length) url += '/' + params.join('/');
 
     // 拼装查询
     var queryStr = '?';

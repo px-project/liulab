@@ -6,7 +6,7 @@ import defaultPic from '../../../public/images/default.png';
 import classname from 'classname';
 import './style.scss';
 
-export class UploadImgComponent extends Component {
+export class UploadComponent extends Component {
 
     render() {
         let {filename, fileKey, circle} = this.props;
@@ -22,12 +22,12 @@ export class UploadImgComponent extends Component {
     }
 
     upload(e) {
-        let {xhttp, xform, fileKey} = this.props;
+        let {xhttp, xform, fileKey, type, link_id} = this.props;
         let file = e.target.files[0];
         let reqData = new FormData();
         reqData.append('file', file);
 
-        xhttp.create('resource', [], reqData, result => {
+        xhttp.create('resource', [type, link_id], reqData, result => {
             xform(result.filename, fileKey);
         });
     }

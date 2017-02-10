@@ -28,6 +28,13 @@ module.exports = _router
             .catch();
     })
 
+    // 上传资源
+    .post('/:link_type/:link_id', upload.single('file'), (req, res) => {
+        let {link_id, link_type} = req.params;
+        resourceHandlers.create(link_id, link_type, req.file.path)
+            .then(result => res.json(result));
+    })
+
     // 更新资源
     .patch('/:link_id', upload.single('file'), (req, res) => {
         resourceHandlers.update(req.params.link_id, req.file.path)

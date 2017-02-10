@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { TemplateNewFieldComponent as NewField } from '../new_field/';
-import { UploadImgComponent as UploadImg } from '../../../common/upload_img';
+import { Upload } from '../../../common/';
 import './style.scss';
 
 // init form data
@@ -44,7 +44,7 @@ export class CategoryEditComponent extends Component {
 				<div className="basic sec">
 					<h3 className="sec-title">品类信息</h3>
 					<div className="photo">
-						<UploadImg filename={formData.photo} fileKey="photo" {...this.props}></UploadImg>
+						<Upload filename={formData.photo} fileKey="photo" {...this.props}></Upload>
 					</div>
 					<div className="info">
 						<div className="field inline">

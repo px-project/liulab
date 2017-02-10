@@ -14,7 +14,9 @@ export class ImageComponent extends Component {
     }
 
     render() {
-        let {type, link_id, className = ''} = this.props;
+        let {type, link_id, className = '', src} = this.props;
+        if (src) this.setState('img', src);
+
         return (
             <div className={"image " + className}>
                 <img src={this.state.image} />

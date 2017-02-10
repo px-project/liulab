@@ -3,8 +3,8 @@
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { Upload } from '../../common/';
 import './style.scss';
-import {UploadImgComponent as UploadImg} from '../../common/upload_img';
 
 export class UserEditComponent extends Component {
     componentWillMount() {
@@ -37,7 +37,7 @@ export class UserEditComponent extends Component {
                     <div className="ui form">
 
                         <div className="avatar">
-                            <UploadImg filename={formData.avatar} circle={true} fileKey="avatar" {...this.props}></UploadImg>
+                            <Upload filename={formData.avatar} circle={true} fileKey="avatar" {...this.props}></Upload>
                         </div>
 
                         <div className="form-group field">
