@@ -13,20 +13,21 @@ export class BookUploadSelectComponent extends Component {
 	}
 
 	render() {
-		let {category, entities, changeBookState, book} = this.props;
+		let {category, entities, book} = this.props;
 		let {selectCategory} = book;
+		let {changeState, toggleCategory} = this.props.xbook;
 		return (
 			<div className="upload-select">
 				<div className="select">
 					{!category.fetching ? (
 						<div className="category-list">
 							{category.items.map((category_id, category_index) => (
-								<ProductType key={category_index} categoryData={entities[category_id]} selected={!!selectCategory[category_id]} {...this.props}></ProductType>
+								<ProductType key={category_index} toggle={toggleCategory} category={entities[category_id]} selected={!!selectCategory[category_id]}></ProductType>
 							))}
 						</div>) : ''}
 				</div>
 				<div className="btn-group">
-					<button className="ui button primary" onClick={changeBookState.bind(this, 'upload')}>继续</button>
+					<button className="ui button primary" onClick={changeState.bind(this, 'upload')}>继续</button>
 				</div>
 			</div>
 		);

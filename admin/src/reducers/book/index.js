@@ -2,58 +2,53 @@
  * 订购界面reducer
  */
 import * as consts from '../../constants/';
+import * as _ from 'lodash';
 import { combineReducers } from 'redux';
 
-function bookReducer(state = 'select', action) {
-	switch (action.type) {
-		case consts.BOOK_PAGE_STATE:
-			return action.newState;
-
-		default:
-			return state;
-	}
+// 页面状态
+function bookStatusReducer(state = 'select', action) {
+	if (action.type === consts.BOOK_STATUS) return action.state;
+	return state;
 }
 
-function selectCategoryReducer(state = {}, action) {
-	switch (action.type) {
-		case consts.BOOK_SELECT_CATEGORY:
+// 选择品类
+function bookCategoryReducer(state = {}, action) {
 
-			let newState = Object.assign({}, state);
-			newState[action.category_id] = !newState[action.category_id];
-			return newState;
+	let newState = _.cloneDeepWith(state);
 
-		default:
-			return state;
+	if (action.type === consts.BOOK_CATEGORY_TOGGLE) {
+		newState[action.category_id] = !newState[action.category_id];
+		return newState;
 	}
+
+	return newState;
 }
 
-function selectProductIdReducer(state = '', action) {
-	switch (action.type) {
-		case consts.BOOK_SELECT_ID:
-			return action.id;
+// 选择产品
+function bookProductReducer(state = {}, action) {
 
-		default:
-			return state;
+	let newState = _.cloneDeepWith(state);
+	let {type, product_id, num} = action;
+
+	// 添加产品
+	if (type === consts.BOOK_PRODUCT_ADD) {
+		newState[product_id] = newState[product_id] || 0;
+		newState[product_id]++;
 	}
-}
 
-function addProductReducer(state = {}, action) {
-	switch (action.type) {
-		case consts.BOOK_ADD_PRODUCT:
-			return Object.assign({}, state, {
-				[action.product_id]: (state[action.product_id] || 0) + parseInt(action.num)
-			});
-
-		default:
-			return state;
+	// 改变产品数量
+	if (type === consts.BOOK_PRODUCT_CHANGE) {
+		if (num < 0) newState[product_id] += num;
+		else newState[product_id] = num;
+		if (newState[product_id] <= 0) delete newState[product_id];
 	}
+
+	return newState;
+
 }
-
-
 
 export const BookReducers = combineReducers({
-	pageState: bookReducer,
-	selectCategory: selectCategoryReducer,
-	template_id: selectProductIdReducer,
-	productList: addProductReducer
+	state: bookStatusReducer,
+	selectCategory: bookCategoryReducer,
+	selectProduct: bookProductReducer
 });

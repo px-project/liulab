@@ -22,15 +22,14 @@ export class CategoryEditComponent extends Component {
 
 		// 添加
 		if (routes[2].path === 'add') {
-			this.props.xform({ name: '', fields: initFields, newField });
+			xform.init({fields: initFields, newField });
 		}
 
 		// 编辑
 		if (routes[2].path === ':category_id/edit') {
-			xhttp.detail('category', [params.category_id])
-				.then(category => {
-					this.props.xform(Object.assign({}, category, newField));
-				});
+			xhttp.detail('category', [params.category_id]).then(result => {
+				xform.init(Object.assign({}, result, newField));
+			});
 		}
 
 	}
@@ -44,22 +43,22 @@ export class CategoryEditComponent extends Component {
 				<div className="basic sec">
 					<h3 className="sec-title">品类信息</h3>
 					<div className="photo">
-						<Upload filename={formData.photo} fileKey="photo" {...this.props}></Upload>
+						{/*<Upload src={this.xhttp.url('resource', ['CATEGORY_COVER', ])} fileKey="photo" {...this.props}></Upload>*/}
 					</div>
 					<div className="info">
 						<div className="field inline">
 							<label>名称</label>
-							<input type="text" value={formData.name} onChange={this.fieldChange.bind(this, 'name')} />
+							<input type="text" value={formData.name} onChange={xform.change.bind(this, 'name')} />
 						</div>
 
 						<div className="field inline">
 							<label>缩写</label>
-							<input type="text" value={formData.abbr} onChange={this.fieldChange.bind(this, 'abbr')} />
+							<input type="text" value={formData.abbr} onChange={xform.change.bind(this, 'abbr')} />
 						</div>
 
 						<div className="field inline description">
 							<label>简介</label>
-							<input type="text" value={formData.description} onChange={this.fieldChange.bind(this, 'description')} />
+							<input type="text" value={formData.description} onChange={xform.change.bind(this, 'description')} />
 						</div>
 					</div>
 				</div>

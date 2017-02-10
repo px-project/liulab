@@ -15,6 +15,7 @@
     "chart.js": "^2.4.0",
     "classname": "^0.0.0",
     "compression": "^1.6.2",
+    "downloadjs": "^1.4.7",
     "express": "^4.14.0",
     "express-history-api-fallback": "^2.0.0",
     "history": "^2.1.2",

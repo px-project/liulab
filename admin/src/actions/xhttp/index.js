@@ -140,7 +140,7 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
             .then(res => res.json())
             .then(json => {
                 dispatch(receiveAction(options, json));
-                return new Promise(json);
+                return json;
             })
             .catch((code) => {
                 handleError(code);

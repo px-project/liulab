@@ -2,6 +2,11 @@
  * 表单操作常量
  */
 
-export const FORM_CHANGE = 'FORM_CHANGE';
+// 初始化formData
+export const XFORM_INIT = 'XFORM_INIT';
 
-export const FORM_INIT = 'FORM_INIT';
+// 变动字段
+export const XFORM_CHANGE = 'XFORM_CHANGE';
+
+// 清除formData
+export const XFORM_CLEAR = 'XFORM_CLEAR';

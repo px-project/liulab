@@ -3,30 +3,64 @@
  */
 import * as consts from '../../constants/';
 
-function formChangeAction(field, value) {
+
+function xformInitAction(data) {
     return {
-        type: consts.FORM_CHANGE,
+        type: consts.XFORM_INIT,
+        data
+    };
+}
+
+function xformChangeAction(field, value) {
+    return {
+        type: consts.XFORM_CHANGE,
         field,
         value
     };
 }
 
-function formInitAction(data) {
+function xformClear() {
     return {
-        type: consts.FORM_INIT,
-        data
+        type: consts.XFORM_CLEAR
     };
 }
 
-export function xform(value, field) {
-    if (field) {
-        return (dispatch) => {
-            dispatch(formChangeAction(field, value));
-        };
-    } else {
-        return (dispatch) => {
-            dispatch(formInitAction(value));
-        };
-    }
-
+/**
+ * 初始化
+ */
+function xformInit(data) {
+    return dispatch => {
+        dispatch(xformInitAction(data));
+    };
 }
+
+/**
+ * 字段变动
+ */
+function xformChange(field, e) {
+    let el = e.target, value;
+
+    // radio
+    // if (el.checked !== undefined) value = el.checked;
+
+    // input textarea
+    // else value = el.value;
+    value = el.value;
+
+    return dispatch => {
+        dispatch(xformChangeAction(field, value));
+    }
+}
+
+/**
+ * 清楚表单数据
+ */
+function xformClear() {
+    return dispatch(xformClear());
+}
+
+export const xform = {
+    init: xformInit,
+    change: xformChange,
+    clear: xformClear
+};

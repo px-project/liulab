@@ -27,7 +27,8 @@ module.exports = {
         // 'react-redux': 'ReactRedux',
         'moment': 'moment',
         "loadsh": "_",
-        "chart.js": "Chart"
+        "chart.js": "Chart",
+        "downloadjs": "downloadjs"
     },
 
     resolve: {

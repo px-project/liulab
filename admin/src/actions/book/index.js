@@ -3,66 +3,62 @@
  */
 import * as consts from '../../constants/';
 
-// 生成状态
-function BookStateAction (newState) {
+// 页面状态
+function BookStateAction(state) {
 	return {
-		type: consts.BOOK_PAGE_STATE,
-		newState
+		type: consts.BOOK_STATUS,
+		state
 	};
 }
 
-
 // 选择品类
-function selectCategoryAction (category_id) {
+function toggleCategoryAction(category_id) {
 	return {
-		type: consts.BOOK_SELECT_CATEGORY,
+		type: consts.BOOK_CATEGORY_TOGGLE,
 		category_id
 	};
 }
 
-// 选择产品
-function addProductAction (product_id, num) {
+// 添加产品到购物车
+function addProductAction(product_id) {
 	return {
-		type: consts.BOOK_ADD_PRODUCT,
-		product_id,
-		num
-	}
+		type: consts.BOOK_PRODUCT_ADD,
+		product_id
+	};
 }
 
-
-// 选择产品模式下选择模板id
-function selectTypeIdAction (id) {
+// 改变购物车中产品数量
+function changeProductAction(product_id, num) {
 	return {
-		type: consts.BOOK_SELECT_ID,
-		id
+		type: consts.BOOK_PRODUCT_CHANGE,
+		product_id,
+		num
 	};
 }
 
 // 变动上传状态
-export function changeBookState (newState) {
-	return function (dispatch) {
-		dispatch(BookStateAction(newState));
-	};
+function changeState(state) {
+	return dispatch => dispatch(BookStateAction(state));
 }
-
 
 // 选择品类
-export function selectCategory (category_id) {
-	return function (dispatch) {
-		dispatch(selectCategoryAction(category_id));
-	};
+function toggleCategory(category_id) {
+	return dispatch => dispatch(toggleCategoryAction(category_id));
 }
 
-// 选择id
-export function selectProductId (id) {
-	return function (dispatch) {
-		dispatch(selectTypeIdAction(id));
-	};
+// 添加产品到购物车
+function addProduct(product_id) {
+	return dispatch => dispatch(addProductAction(product_id));
 }
 
-// 添加产品
-export function addProduct (product_id, num) {
-	return function (dispatch) {
-		dispatch(addProductAction(product_id, num));
-	};
+// 改变购物车产品数量
+function changeProduct(product_id, num) {
+	return dispatch => dispatch(changeProductAction(product_id, num));
 }
+
+export const xbook = {
+	changeState,
+	toggleCategory,
+	addProduct,
+	changeProduct
+};

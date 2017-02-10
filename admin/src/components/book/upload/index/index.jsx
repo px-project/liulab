@@ -11,11 +11,11 @@ import './style.scss';
 export class BookUploadComponent extends Component {
 	componentWillMount() {
 		// init
-		this.props.changeBookState('select');
+		this.props.xbook.changeState('select');
 	}
 
 	render() {
-		let status = this.props.book.pageState;
+		let {state} = this.props.book;
 
 		let allState = {
 			'select': '选择品类',
@@ -23,15 +23,15 @@ export class BookUploadComponent extends Component {
 			'preview': '确认订单'
 		}
 
-		let currentStatusIndex = Object.keys(allState).indexOf(status);
+		let currentIndex = Object.keys(allState).indexOf(state);
 
 		return (
 			<div className="book-upload-page page">
 				<div className="step">
 					<ul>
-						{Object.keys(allState).map((status, status_index, statusArr) => (
-							<li key={status_index} className={classname({ done: status_index < currentStatusIndex, active: status_index == currentStatusIndex, todo: status_index > currentStatusIndex })}>
-								<div className="index">{status_index + 1}</div>
+						{Object.keys(allState).map((status, index) => (
+							<li key={index} className={classname({ done: index < currentIndex, active: index == currentIndex, todo: index > currentIndex })}>
+								<div className="index">{index + 1}</div>
 								<div className="info">
 									<span className="title">{allState[status]}</span>
 								</div>
@@ -40,9 +40,9 @@ export class BookUploadComponent extends Component {
 					</ul>
 				</div>
 				<div className="page">
-					{status === 'select' && <UploadSelect {...this.props}></UploadSelect>}
-					{status === 'upload' && <UploadUpload {...this.props}></UploadUpload>}
-					{status === 'preview' && <UploadPreview {...this.props}></UploadPreview>}
+					{state === 'select' && <UploadSelect {...this.props}></UploadSelect>}
+					{state === 'upload' && <UploadUpload {...this.props}></UploadUpload>}
+					{state === 'preview' && <UploadPreview {...this.props}></UploadPreview>}
 				</div>
 			</div>
 		);

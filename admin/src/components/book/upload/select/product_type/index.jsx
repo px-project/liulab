@@ -1,27 +1,23 @@
 /**
  * 产品类型组件
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import classname from 'classname';
 import './style.scss';
-import defaultPhoto from '../../../../../public/images/default.png';
 
 export class ProductType extends Component {
-	handleClick (e) {
-	}
-
-	render () {
-		let {categoryData, selected, selectCategory} = this.props;
+	render() {
+		let {category, selected, toggle} = this.props;
 
 		return (
-			<div className={classname({'product-type': true, selected })}
-				onClick={selectCategory.bind(this, categoryData._id)}>
+			<div className={classname({ 'product-type': true, selected })}
+				onClick={toggle.bind(this, category._id)}>
 				<div className="logo">
-					<img src={categoryData.photo ? `${window.server}/resource/${categoryData.photo}` : defaultPhoto}/>
+					{/*<Image src={`${window.server}/resource/${category.photo}`}></Image>*/}
 				</div>
 				<i className="fa fa-check"></i>
-				
-				<h4 className="name">{categoryData.name}</h4>
+
+				<h4 className="name">{category.name}</h4>
 			</div>
 		);
 	}

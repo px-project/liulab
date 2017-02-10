@@ -2,14 +2,15 @@
  * 订购界面使用常量
  */
 
-// 选择品类
-export const BOOK_SELECT_CATEGORY = 'BOOK_SELECT_CATEGORY';
 
 // 订购模块状态
-export const BOOK_PAGE_STATE = 'BOOK_PAGE_STATE';
+export const BOOK_STATUS = 'BOOK_STATUS';
 
-// 选择模板ID
-export const BOOK_SELECT_ID = 'BOOK_SELECT_ID';
+// 选择品类
+export const BOOK_CATEGORY_TOGGLE = 'BOOK_CATEGORY_TOGGLE';
 
-// 添加产品
-export const BOOK_ADD_PRODUCT = 'BOOK_ADD_PRODUCT';
+// 选择产品
+export const BOOK_PRODUCT_ADD = 'BOOK_PRODUCT_ADD';
+
+// 改变产品数量
+export const BOOK_PRODUCT_CHANGE = 'BOOK_PRODUCT_CHANGE';
