@@ -3,15 +3,40 @@
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import './style.scss';
+import { currency } from '../../../utils';
 import classname from 'classname';
-import DefaultCover from '../../../public/images/default.png';
+import { Image } from '../../common';
+import './style.scss';
 
 export class BookConfirmComponent extends Component {
 
+	// 下单
+	saveOrder() {
+		let {xhttp, book, entities, category, history, formData} = this.props, {selectProduct} = book;
+
+		let newData = { description: formData.description, products: [] };
+
+		newData.products = Object.keys(selectProduct).map(product_id => {
+			let product = entities[product_id];
+			return {
+				name: product.name,
+				code: product.code,
+				num: selectProduct[product_id],
+				unit_price: product.unit_price,
+				category: product.category._id,
+				attrs: Object.assign({}, ...product.category.attrs.filter((item, index) => index > 3).map(attr => ({ [attr.key]: product.attrs[attr.key] })))
+			}
+		});
+
+		xhttp.create('order', [], newData).then(result => {
+			history.pushState(null, '/order/' + result.order_id);
+		});
+	}
+
+
 	render() {
-		let {entities, category, xhttp, product, changeBookState, book} = this.props;
-		let {productList} = book;
+		let {entities, category, xhttp, book, xbook, product, xform} = this.props,
+			{selectProduct} = book, {changeProduct, addProduct} = xbook;
 
 		return (
 			<div className="book-select-confirm-page">
@@ -32,21 +57,21 @@ export class BookConfirmComponent extends Component {
 						</tr>
 					</thead>
 					<tbody>
-						{Object.keys(productList).map((product_id, product_index) => (
+						{Object.keys(selectProduct).map((product_id, product_index) => (
 							<tr key={product_index}>
 								<td>{product_index + 1}</td>
 								<td className="product">
-									<img src={entities[product_id].category.photo ? `${window.server}/resource/${entities[product_id].category.photo}` : DefaultCover} />
+									<Image src={entities[product_id].category.photo}></Image>
 									<span className="name">{entities[product_id].name}</span>
 								</td>
 								<td>{entities[product_id].code}</td>
-								<td>{window.accounting.formatMoney(entities[product_id].unit_price / 100, '￥')}</td>
+								<td>{currency.bind(this, entities[product_id].unit_price)}</td>
 								<td className="num">
-									<a onClick={this.changeProductNum.bind(this, product_id, -1)}>-</a>
-									<span>{productList[product_id]}</span>
-									<a onClick={this.changeProductNum.bind(this, product_id, 1)}>+</a>
+									<a onClick={changeProduct.bind(this, product_id, -1)}>-</a>
+									<span>{selectProduct[product_id]}</span>
+									<a onClick={changeProduct.bind(this, product_id, 1)}>+</a>
 								</td>
-								<td>{window.accounting.formatMoney(entities[product_id].unit_price * productList[product_id] / 100, '￥')}</td>
+								<td>{currency.bind(this, entities[product_id].unit_price * selectProduct[product_id])}</td>
 								<td>
 									<a>移除</a>
 								</td>
@@ -57,47 +82,13 @@ export class BookConfirmComponent extends Component {
 				<div className="ui form">
 					<div className="field description">
 						<label>备注</label>
-						<textarea onChange={this.fieldChange.bind(this, 'description')}></textarea>
+						<textarea onChange={xform.change.bind(this, 'description')}></textarea>
 					</div>
 				</div>
 				<div className="btn-group">
-					<button className="ui button primary" onClick={this.saveOrder.bind(this, productList)}>下单</button>
+					<button className="ui button primary" onClick={this.saveOrder.bind(this)}>下单</button>
 				</div>
 			</div>
 		);
 	}
-
-	// 更改数量
-	changeProductNum(product_id, changeNum) {
-		this.props.addProduct(product_id, changeNum);
-	}
-
-	// 表单字段变动
-	fieldChange(field, e) {
-		this.props.xform(e.target.value, field);
-	}
-
-	// 下单
-	saveOrder(productList) {
-		let {xhttp, entities, category, history, formData} = this.props;
-		let newData = { description: formData.description, products: [] };
-
-		newData.products = Object.keys(productList).map(product_id => {
-			let product = entities[product_id];
-			return {
-				name: product.name,
-				code: product.code,
-				num: productList[product_id],
-				unit_price: product.unit_price,
-				category: product.category._id,
-				attrs: Object.assign({}, ...product.category.attrs.filter((item, index) => index > 3).map(attr => ({ [attr.key]: product.attrs[attr.key] })))
-			}
-		});
-
-		xhttp.create('order', [], newData).then(result => {
-			console.log(result);
-			history.pushState(null, '/order/' + result.order_id);
-		});
-	}
-
 }

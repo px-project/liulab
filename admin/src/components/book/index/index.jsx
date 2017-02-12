@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import classname from 'classname';
 import { Loader, Select, Search, Image } from '../../common/';
+import { currency } from '../../../utils';
 import './style.scss';
 
 export class BookComponent extends Component {
@@ -15,12 +16,10 @@ export class BookComponent extends Component {
 	}
 
 	render() {
-		let {book, category, product, entities, addProduct} = this.props;
-		let {state} = book;
+		let {book, category, product, entities, xbook} = this.props, {addProduct} = xbook;
 		return (
 			<div className="book-index-page page">
-
-				<header className={classname({ 'page-header': true, hide: state === 'confirm' })}>
+				<header className="page-header">
 					<div className="upload add">
 						<Link to={'/book/upload'} className="ui button primary">批量上传</Link>
 					</div>
@@ -46,7 +45,7 @@ export class BookComponent extends Component {
 									<div className="l">
 										<p className="code">No. {entities[product_id].code}</p>
 										<p className="name">{entities[product_id].name}</p>
-										<p className="unit-price">{window.accounting.formatMoney(entities[product_id].unit_price / 100, '￥')}</p>
+										<p className="unit-price">{currency.bind(this, entities[product_id].unit_price)}</p>
 									</div>
 									<div className="r">
 										<div className="action">
