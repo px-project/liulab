@@ -7,45 +7,29 @@ import './style.scss';
 export class BookUploadPreviewComponent extends Component {
 	// 创建订单
 	createOrder(e) {
-		let {xhttp, categoryTemplate, entities, formData, router} = this.props;
-		let newData = { description: formData.description, products: [] };
+		let {xhttp, formData, history} = this.props;
 
-		let orders = entities[categoryTemplate.items[categoryTemplate.items.length - 1]].data;
-
-		Object.keys(orders).map(category_id => {
-			orders[category_id].forEach(product => {
-				newData.products.push({
-					name: product.name,
-					code: product.code,
-					num: product.num,
-					unit_price: product.unit_price,
-					category: category_id,
-					attrs: Object.assign({}, ...entities[category_id].attrs.filter((item, index) => index > 3).map(attr => ({ [attr.key]: product[attr.key] })))
-				});
-			});
-		});
-
-		xhttp.create('order', [], newData).then(result => {
-			router.push('/order/' + result.order_id);
+		xhttp.create('order', [], formData).then(result => {
+			history.pushState(null, '/order/' + result.order_id);
 		});
 	}
 
 	// 重新上传
-	reUpload(props, e) {
-		let {changeBookState} = props;
-		props.changeBookState('upload');
+	reUpload(e) {
+		let {xbook} = this.props, {changeState} = xbook;
+		changeState('upload');
 	}
 
 	render() {
-		let {book, categoryTemplate, entities, xform} = this.props, {selectCategory} = book;
-		let categorys = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
-		let {data} = entities[categoryTemplate.upload];
+		let {entities, formData, xhttp, xform, book} = this.props, {products, description} = formData, {selectCategory} = book;
+
+		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
 
 		return (
 			<div className="book-upload-preview">
-				{categorys.map((category_id, index) => (
-					<div key={index} className="product">
-						<h5>{entities[category_id].name}</h5>
+				{categoryArr.map((category_id, category_index) => (
+					<div key={category_id} className="product">
+						<h3>{entities[category_id].name}</h3>
 						<div className="data">
 							<table className="ui table">
 								<thead>
@@ -57,11 +41,11 @@ export class BookUploadPreviewComponent extends Component {
 									</tr>
 								</thead>
 								<tbody>
-									{data[category_id].map((row, row_index) => (
-										<tr key={row_index}>
-											<td>{row_index + 1}</td>
-											{entities[category_id].attrs.map((attr, attr_index) => (
-												<td key={attr_index}>{row[attr.key]}</td>
+									{products.filter(product => product.category === category_id).map((product, product_index) => (
+										<tr key={product_index}>
+											<td>{product_index + 1}</td>
+											{entities[category_id].attrs.map((attr, index) => (
+												<td key={index}>{product[attr.key]}</td>
 											))}
 										</tr>
 									))}
@@ -74,20 +58,15 @@ export class BookUploadPreviewComponent extends Component {
 				<div className="ui form">
 					<div className="field description">
 						<label>备注</label>
-						<textarea onChange={xform.change.bind(this, 'description')}></textarea>
+						<textarea value={description} onChange={xform.change.bind(this, 'description')}></textarea>
 					</div>
 				</div>
 
 				<div className="btn-group">
 					<button className="ui primary button" onClick={this.createOrder.bind(this)}>确认</button>
-					<button className="ui red button" onClick={this.reUpload.bind(this, this.props)}>重新上传</button>
+					<button className="ui red button" onClick={this.reUpload.bind(this)}>重新上传</button>
 				</div>
 			</div>
 		);
-	}
-
-	// 处理表单变动
-	chnageField(field, e) {
-		this.props.xform(e.target.value, field);
 	}
 }

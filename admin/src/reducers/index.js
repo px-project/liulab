@@ -2,7 +2,7 @@
  * reducer合成
  */
 import { combineReducers } from 'redux';
-import EntityReducer from './entity/';
+import { EntityReducer } from './entity';
 import XformReducer from './xform/';
 import * as reducers from './reducers';
 import api from '../config/api.json';

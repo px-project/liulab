@@ -8,10 +8,28 @@ export class BookUploadUploadComponent extends Component {
 
 	// 上传excel
 	uploadOrderData(props, e) {
-		let {xhttp, book, xbook} = props, {selectCategory} = book, {changeState} = xbook;
+		let {xhttp, book, xbook, xform, entities} = props, {selectCategory} = book, {changeState} = xbook;
 		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
 
 		xhttp.upload('categoryTemplate', [categoryArr.join(',')], { file: e.target.files[0] }).then(result => {
+			let {data: orders} = result;
+
+			let newData = { description: '', products: [] };
+
+			Object.keys(orders).map(category_id => {
+				orders[category_id].forEach(product => {
+					newData.products.push({
+						name: product.name,
+						code: product.code,
+						num: product.num,
+						unit_price: product.unit_price,
+						category: category_id,
+						attrs: Object.assign({}, ...entities[category_id].attrs.filter((item, index) => index > 3).map(attr => ({ [attr.key]: product[attr.key] })))
+					});
+				});
+			});
+
+			xform.init(newData);
 			changeState('preview');
 		});
 	}

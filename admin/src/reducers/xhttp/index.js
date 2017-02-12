@@ -6,7 +6,6 @@ import { XhttpItemsReducers } from './items';
 import { XhttpFetchingReducers } from './fetching';
 import { XhttpConditionsReducers } from './conditions';
 import { XhttpDetailReducers } from './detail';
-import { XhttpUploadReducers } from './upload';
 
 export let XhttpReducers = {};
 
@@ -15,7 +14,6 @@ Object.keys(apis).map(api => {
         items: XhttpItemsReducers[api],
         fetching: XhttpFetchingReducers[api],
         conditions: XhttpConditionsReducers[api],
-        detail: XhttpDetailReducers[api],
-        upload: XhttpUploadReducers[api]
+        detail: XhttpDetailReducers[api]
     };
 });

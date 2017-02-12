@@ -113,7 +113,7 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
         }
 
         // post / patch
-        if (method === 'post' || method === 'patch') {
+        if (method === 'create' || method === 'update') {
             fetchOption.headers['Accept'] = 'application/json';
             fetchOption.headers['Content-Type'] = 'application/json';
             fetchOption.body = JSON.stringify(options.newData);
@@ -126,11 +126,11 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
         });
 
         if (method === 'download') {
-            fetchRef.then(res => res.blob).then(blob => downloadjs(blob, options.options.name));
+            fetchRef = fetchRef.then(res => res.blob).then(blob => downloadjs(blob, options.options.name));
         } else if (method === 'upload') {
-            fetchRef.then(res => res.json());
+            fetchRef = fetchRef.then(res => res.json());
         } else {
-            fetchRef.then(res => res.json()).then(json => {
+            fetchRef = fetchRef.then(res => res.json()).then(json => {
                 dispatch(receiveAction(options, json));
                 return json;
             });

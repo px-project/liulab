@@ -1,30 +1,27 @@
 /**
  * 实体reducer
  */
-import * as consts from '../../constants/xhttp';
-const _ = require('lodash');
+import { XHTTP_RECEIVE } from '../../constants';
+import * as _ from 'lodash';
 
-export default function EntityReducer(state = {}, actions) {
-    if (actions.type === consts.XHTTP_RECEIVE) {
-        let newState = _.cloneDeepWith(state);
+export const EntityReducer = (state = {}, action) => {
+    let {type, options = {}, result} = action, {method} = options;
 
-        switch (actions.options.method) {
-            case 'list':
-                return Object.assign(newState, ...actions.result.map(item => ({ [item._id]: item })));
+    let newState = _.cloneDeepWith(state);
 
-            case 'detail':
-            case 'create':
-            case 'update':
-                newState[actions.result._id] = actions.result;
-                return newState;
+    if (type !== XHTTP_RECEIVE) return newState;
 
-            case 'delete':
-                delete newState[actions.result._id];
-                return newState;
+    if (method === 'list') return Object.assign(newState, ...result.map(item => ({ [item._id]: item })));
 
-            default:
-                console.error('param error: actions is not one of [list, detail, create, update, delete]');
-        }
+    if (method === 'detail' || method === 'create' || method === 'update' || method === 'upload') {
+        newState[result._id] = result;
+        return newState;
     }
-    return state;
+
+    if (method === 'delete') {
+        delete newState[result._id];
+        return newState;
+    }
+
+    return newState;
 }
