@@ -1,13 +1,17 @@
 /**
- * xhttp detail reducer
+ * xhttp detail reducers
  */
-import * as consts from '../../constants/';
+import { XHTTP_RECEIVE } from '../../constants';
 import apis from '../../config/api.json';
-const _ = require('lodash');
 
-export function XhttpDetailReducer(api) {
-    return (state = '', actions) => {
-        if (actions.type === consts.XHTTP_RECEIVE && api === actions.options.api && actions.options.method === 'detail') return actions.result._id;
+export let XhttpDetailReducers = {};
+
+Object.keys(apis).map(_api => {
+    XhttpDetailReducers[_api] = (state = '', action) => {
+        let {type, options = {}, result} = action, {api, method} = options;
+
+        if (Object.keys(options).length && type === XHTTP_RECEIVE && api === _api && method === 'detail') return result._id;
+
         return state;
-    };
-}
+    }
+});

@@ -1,21 +1,26 @@
 /**
  * 货单reducer
  */
-import * as consts from '../../constants/';
-import xhttp from '../xhttp/';
+import { SELECT_MANIFEST } from '../../constants';
+import { XhttpReducers } from '../xhttp';
 import { combineReducers } from 'redux';
-const _ = require('lodash');
+import * as _ from 'lodash';
 
 // 选择表单
-function ManifestSelectReducer(status = [], actions) {
-    if (actions.type !== consts.SELECT_MANIFEST) return status;
+function ManifestSelectReducer(status = [], action) {
+    let {type, manifest_id} = action;
+
+    if (type !== SELECT_MANIFEST) return status;
 
     let newState = _.cloneDeepWith(status);
-    let index = newState.indexOf(actions.manifest_id);
-    index >= 0 ? newState.splice(index, 1) : newState.push(actions.manifest_id);
+
+    let index = newState.indexOf(manifest_id);
+
+    index >= 0 ? newState.splice(index, 1) : newState.push(manifest_id);
+
     return newState;
 }
 
-export const ManifestReducers = combineReducers(Object.assign({}, xhttp.manifest, {
+export const ManifestReducers = combineReducers(Object.assign({}, XhttpReducers.manifest, {
     selected: ManifestSelectReducer
 }));

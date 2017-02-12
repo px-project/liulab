@@ -106,7 +106,6 @@ module.exports = _router
 
     // 解析模板文件
     .post('/template/:categorys', upload.single('file'), (req, res) => {
-
         Promise.all(req.params.categorys.split(',').map(category_id => categoryHandlers.detail(category_id)))
             .then(categorys => {
 

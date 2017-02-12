@@ -1,22 +1,19 @@
 /**
  * 产品界面reducer
  */
-import * as consts from '../../constants/';
-import xhttp from '../xhttp/';
+import { SELECT_TEMPLATE_ID } from '../../constants/';
+import { XhttpReducers } from '../xhttp';
 import { combineReducers } from 'redux';
-const _ = require('lodash');
+import * as _ from 'lodash';
 
+function selectTemplateId(state = '', action) {
+    let {type, template_id} = action;
 
-function selectTemplateId(state = '', actions) {
-    switch (actions.type) {
-        case consts.SELECT_TEMPLATE_ID:
-            return actions.template_id;
+    if (type === SELECT_TEMPLATE_ID) return template_id;
 
-        default:
-            return state;
-    }
+    return state;
 }
 
-export const ProductReducers = combineReducers(Object.assign({}, xhttp.product, {
+export const ProductReducers = combineReducers(Object.assign({}, XhttpReducers.product, {
     selected: selectTemplateId
 }));

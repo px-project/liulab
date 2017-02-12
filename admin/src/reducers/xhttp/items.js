@@ -1,39 +1,38 @@
 /**
  * xhttp items reducer
  */
-import * as consts from '../../constants/';
+import { XHTTP_RECEIVE } from '../../constants/';
 import apis from '../../config/api.json';
-const _ = require('lodash');
+import * as _ from 'lodash';
 
+export let XhttpItemsReducers = {};
 
-let XhttpItemsReducers = {};
+Object.keys(apis).map(_api => {
+    XhttpItemsReducers[_api] = (state = [], action) => {
+        let {type, options = {}, result} = action, {method, api, params} = options;
 
-for (let api in apis) {
-    XhttpItemsReducers[api] = (state = [], actions) => {
-        if (!actions.options || actions.type !== consts.XHTTP_RECEIVE || api !== actions.options.api) return state;
+        if (!Object.keys(options).length || type !== XHTTP_RECEIVE || api !== _api) return state;
 
         let newState = _.cloneDeepWith(state);
 
-        switch (actions.options.method) {
+        switch (method) {
             case 'list':
-                return actions.result.map(item => item._id);
+                return result.map(item => item._id);
 
             case 'detail':
-                return newState.indexOf(actions.result._id) >= 0 ? newState : newState.concat([actions.result._id]);
+                return newState.indexOf(result._id) >= 0 ? newState : newState.concat([result._id]);
 
             case 'create':
-                return newState.concat([actions.result._id]);
+                return newState.concat([result._id]);
 
             case 'update':
                 return newState;
 
             case 'delete':
-                return newState.filter(_id => _id !== actions.options.params[actions.options.params.length - 1]);
+                return newState.filter(_id => _id !== options.params[options.params.length - 1]);
 
             default:
                 return newState;
         }
-    }
-}
-
-export default XhttpItemsReducers;
+    };
+});

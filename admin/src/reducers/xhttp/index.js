@@ -1,21 +1,21 @@
 /**
  * xhttp reducer total
  */
-import XhttpItemsReducers from './items';
-import XhttpFetchingReducers from './fetching';
-import XhttpConditionsReducers from './conditions';
-import { XhttpDetailReducer } from './detail';
 import apis from '../../config/api.json';
+import { XhttpItemsReducers } from './items';
+import { XhttpFetchingReducers } from './fetching';
+import { XhttpConditionsReducers } from './conditions';
+import { XhttpDetailReducers } from './detail';
+import { XhttpUploadReducers } from './upload';
 
-let xhttp = {};
+export let XhttpReducers = {};
 
-for (let api in apis) {
-    xhttp[api] = {
+Object.keys(apis).map(api => {
+    XhttpReducers[api] = {
         items: XhttpItemsReducers[api],
         fetching: XhttpFetchingReducers[api],
         conditions: XhttpConditionsReducers[api],
-        detail: XhttpDetailReducer(api)
+        detail: XhttpDetailReducers[api],
+        upload: XhttpUploadReducers[api]
     };
-}
-
-export default xhttp;
+});

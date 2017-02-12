@@ -7,7 +7,7 @@ import * as containers from '../containers/';
 import * as components from '../components/';
 import routes from '../config/routes.json';
 import { createHistory } from 'history';
-import { toCamcel } from '../utils/';
+import { toBigCamcelCase } from '../utils/';
 const _ = require('lodash');
 
 const history = useRouterHistory(createHistory)({ basename: window.location.origin + '/' });
@@ -77,17 +77,17 @@ export default class Routes extends Component {
                                 if (page.path === "") {
                                     if (page.children) {
                                         return (
-                                            <Route component={components[toCamcel(true, module.path, 'component')]} key={page_index}>
+                                            <Route component={components[toBigCamcelCase(module.path, 'component')]} key={page_index}>
                                                 {page.children.map((child, child_index) => (
-                                                    <Route path={child.path} component={components[toCamcel(true, module.path, page.component, child.component || child.path, 'component')]} key={child_index}></Route>
+                                                    <Route path={child.path} component={components[toBigCamcelCase(module.path, page.component, child.component || child.path, 'component')]} key={child_index}></Route>
                                                 ))}
                                             </Route>
                                         );
                                     } else {
-                                        return (<IndexRoute component={components[toCamcel(true, module.path, 'component')]} key={page_index} />);
+                                        return (<IndexRoute component={components[toBigCamcelCase(module.path, 'component')]} key={page_index} />);
                                     }
                                 } else {
-                                    return (<Route path={page.path} component={components[toCamcel(true, module.path, page.component || page.path, 'component')]} key={page_index}></Route>)
+                                    return (<Route path={page.path} component={components[toBigCamcelCase(module.path, page.component || page.path, 'component')]} key={page_index}></Route>)
                                 }
                             })}
                         </Route>

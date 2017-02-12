@@ -7,11 +7,10 @@ import './style.scss';
 export class BookUploadPreviewComponent extends Component {
 	// 创建订单
 	createOrder(e) {
-		let {xhttp, categoryTemplate, entities, formData} = this.props;
+		let {xhttp, categoryTemplate, entities, formData, router} = this.props;
 		let newData = { description: formData.description, products: [] };
 
 		let orders = entities[categoryTemplate.items[categoryTemplate.items.length - 1]].data;
-
 
 		Object.keys(orders).map(category_id => {
 			orders[category_id].forEach(product => {
@@ -26,8 +25,6 @@ export class BookUploadPreviewComponent extends Component {
 			});
 		});
 
-		let {router} = this.props;
-		console.log(router);
 		xhttp.create('order', [], newData).then(result => {
 			router.push('/order/' + result.order_id);
 		});
@@ -40,14 +37,13 @@ export class BookUploadPreviewComponent extends Component {
 	}
 
 	render() {
-		let {categoryTemplate, entities, book} = this.props;
-		let {selectCategory} = book;
-		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
-		let {data} = entities[categoryTemplate.items[categoryTemplate.items.length - 1]];
+		let {book, categoryTemplate, entities, xform} = this.props, {selectCategory} = book;
+		let categorys = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
+		let {data} = entities[categoryTemplate.upload];
 
 		return (
 			<div className="book-upload-preview">
-				{categoryArr.map((category_id, index) => (
+				{categorys.map((category_id, index) => (
 					<div key={index} className="product">
 						<h5>{entities[category_id].name}</h5>
 						<div className="data">
@@ -55,8 +51,8 @@ export class BookUploadPreviewComponent extends Component {
 								<thead>
 									<tr>
 										<th>序号</th>
-										{entities[category_id].attrs.map((attr, attr_index) => (
-											<th key={attr_index}>{attr.title}</th>
+										{entities[category_id].attrs.map((attr, index) => (
+											<th key={index}>{attr.title}</th>
 										))}
 									</tr>
 								</thead>
@@ -78,7 +74,7 @@ export class BookUploadPreviewComponent extends Component {
 				<div className="ui form">
 					<div className="field description">
 						<label>备注</label>
-						<textarea onChange={this.chnageField.bind(this, 'description')}></textarea>
+						<textarea onChange={xform.change.bind(this, 'description')}></textarea>
 					</div>
 				</div>
 

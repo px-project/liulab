@@ -25,8 +25,8 @@ app.use((req, res, next) => {
 });
 
 // // csp
-app.use(csp({
-}));
+// app.use(csp({
+// }));
 
 
 // 认证登录状态

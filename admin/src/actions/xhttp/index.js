@@ -89,7 +89,7 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
     if (methods[method] === 'POST') options = { method, api, params, newData: args[0], options: args[1] };
 
     // api, params, newData, option
-    if (methods[method] === 'patch') options = { method, api, params, newData: args[0], options: args[1] };
+    if (methods[method] === 'PATCH') options = { method, api, params, newData: args[0], options: args[1] };
 
     // api, params, options
     if (methods[method] === 'DELETE') options = { methods, api, params, options: args[0] };
@@ -108,9 +108,8 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
 
         // upload form data
         if (method === 'upload') {
-            let reqData = new FormData();
+            let reqData = fetchOption.body = new FormData();
             Object.keys(options.newData).map(key => reqData.append(key, options.newData[key]));
-            fetchOption.body = options.newData;
         }
 
         // post / patch

@@ -1,23 +1,17 @@
 /**
  * xhttp fetching reducer
  */
-import * as consts from '../../constants/';
+import { XHTTP_BEGIN } from '../../constants/';
 import apis from '../../config/api.json';
 
-let XhttpFetchingReducers = {};
+export let XhttpFetchingReducers = {};
 
-for (let api in apis) {
-    XhttpFetchingReducers[api] = (state = false, actions) => {
-        if (!actions.options || api !== actions.options.api) return state;
+Object.keys(apis).map(_api => {
+    XhttpFetchingReducers[_api] = (state = false, action) => {
+        let {type, options = {}} = action, {api} = options;
 
-        switch (actions.type) {
-            case consts.XHTTP_BEGIN:
-                return true;
+        if (!Object.keys(options).length || api !== _api) return state;
 
-            default:
-                return false;
-        }
-    };
-}
-
-export default XhttpFetchingReducers;
+        return type === XHTTP_BEGIN;
+    }
+});
