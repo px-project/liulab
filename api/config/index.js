@@ -2,7 +2,7 @@
  * 后台配置
  */
 const path = require('path');
-
+const {root} = require('../common/utils');
 
 // 数据库配置
 exports.DB = {
@@ -15,7 +15,7 @@ exports.DB = {
 exports.PWD_SEC = "5876564946d58cf8fe01b9f3";
 
 // 上传目录
-exports.UPLOAD_PATH = path.join(__dirname, '../../uploads/');
+exports.UPLOAD_PATH = root('../uploads');
 
 // 错误文言
 exports.ERROR_MESSAGE = {

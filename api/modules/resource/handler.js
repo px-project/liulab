@@ -48,7 +48,6 @@ exports.decodeExcel = filePath => {
 
     const workbook = xlsx.readFile(filePath);
 
-
     workbook.SheetNames.forEach((sheetName, index) => {
         let sheetResult = result[index] = result[index] || [];
         let sheetData = workbook.Sheets[sheetName];

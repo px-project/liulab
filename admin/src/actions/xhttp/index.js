@@ -2,7 +2,8 @@
  * 网络请求封装action
  */
 import apiConfig from '../../config/api.json';
-import * as consts from '../../constants/';
+const downloadjs = require('downloadjs');
+import { XHTTP_BEGIN, XHTTP_RECEIVE, XHTTP_ERROR, methods } from '../../constants/';
 
 // 处理错误
 function handleError(code) {
@@ -55,7 +56,7 @@ function handleUrl(api, params, conditions) {
 // 发送请求action
 function beginAction(options) {
     return {
-        type: consts.XHTTP_BEGIN,
+        type: XHTTP_BEGIN,
         options
     };
 }
@@ -64,7 +65,7 @@ function beginAction(options) {
 // 接受请求action
 function receiveAction(options, result) {
     return {
-        type: consts.XHTTP_RECEIVE,
+        type: XHTTP_RECEIVE,
         options,
         result,
         receiveAt: Date.now()
@@ -77,34 +78,21 @@ function errorAction() {
 
 }
 
-// 各action对应Http method
-const toggleMethod = {
-    list: 'GET',
-    detail: 'GET',
-    create: 'POST',
-    update: 'PATCH',
-    delete: 'DELETE'
-};
-
-
 // 生成指定方法
 const genXhttpMethod = method => (api = '', params = [], ...args) => {
     let options = {};
 
-    // xhttp.list(api, params, conditions, options)
-    // xhttp.detail(api, params, conditions, options)
-    if (method === 'list' || method === 'detail') options = { method, api, params, conditions: args[0], options: args[1] };
+    // api, params, conditions, options
+    if (methods[method] === 'GET') options = { method, api, params, conditions: args[0], options: args[1] };
 
-    // xhttp.create(api, params, newData, options)
-    // xhttp.update(api, params, newData, options)
-    if (method === 'create' || method === 'update') {
-        options = { method, api, params, newData: args[0], options: args[1] };
-    }
+    // api, params, newData, options
+    if (methods[method] === 'POST') options = { method, api, params, newData: args[0], options: args[1] };
 
-    // xhttp.delete(api, params, options)
-    if (method === 'delete') options = { method, api, params, options: args[0] };
+    // api, params, newData, option
+    if (methods[method] === 'patch') options = { method, api, params, newData: args[0], options: args[1] };
 
-
+    // api, params, options
+    if (methods[method] === 'DELETE') options = { methods, api, params, options: args[0] };
 
     return dispatch => {
 
@@ -112,42 +100,48 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
 
         // fetch配置
         let fetchOption = {
-            method: toggleMethod[method],
+            method: methods[method],
             headers: {
                 'token': localStorage.getItem('token')
             }
         };
 
-        // body
-        if (toggleMethod[method] !== 'GET' && !!options.newData) {
-            if (options.newData instanceof FormData) {
-                // 表单
-                fetchOption.body = options.newData;
-            } else {
-                // json
-                fetchOption.headers['Accept'] = 'application/json';
-                fetchOption.headers['Content-Type'] = 'application/json';
-                fetchOption.body = JSON.stringify(options.newData);
-            }
+        // upload form data
+        if (method === 'upload') {
+            let reqData = new FormData();
+            Object.keys(options.newData).map(key => reqData.append(key, options.newData[key]));
+            fetchOption.body = options.newData;
         }
 
-        return fetch(handleUrl(options.api, options.params, options.conditions), fetchOption)
-            .then(res => {
-                if (res.status >= 400 && res.status < 500) return res.json().then(json => Promise.reject(json.code));
-                if (res.status >= 500 && res.status < 600) return Promise.reject(res.status);
-                return res;
-            })
-            .then(res => res.json())
-            .then(json => {
+        // post / patch
+        if (method === 'post' || method === 'patch') {
+            fetchOption.headers['Accept'] = 'application/json';
+            fetchOption.headers['Content-Type'] = 'application/json';
+            fetchOption.body = JSON.stringify(options.newData);
+        }
+
+        let fetchRef = fetch(handleUrl(options.api, options.params, options.conditions), fetchOption).then(res => {
+            if (res.status >= 400 && res.status < 500) return res.json().then(json => Promise.reject(json.code));
+            if (res.status >= 500 && res.status < 600) return Promise.reject(res.status);
+            return res;
+        });
+
+        if (method === 'download') {
+            fetchRef.then(res => res.blob).then(blob => downloadjs(blob, options.options.name));
+        } else if (method === 'upload') {
+            fetchRef.then(res => res.json());
+        } else {
+            fetchRef.then(res => res.json()).then(json => {
                 dispatch(receiveAction(options, json));
                 return json;
-            })
-            .catch((code) => {
-                handleError(code);
             });
+        }
+
+        return fetchRef.catch(code => handleError(code));
+
     };
 }
 
 export const xhttp = Object.assign({
     url: handleUrl
-}, ...['list', 'detail', 'create', 'update', 'delete'].map(method => ({ [method]: genXhttpMethod(method) })));
+}, ...Object.keys(methods).map(method => ({ [method]: genXhttpMethod(method) })));

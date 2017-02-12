@@ -6,6 +6,7 @@ const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const csp = require('helmet-csp');
 
 // body解析
 app.use(bodyParser.json());
@@ -22,6 +23,10 @@ app.set('PORT', process.env.PORT || 9000);
 app.use((req, res, next) => {
 	cors({ origin: req.headers.origin, credentials: true })(req, res, next);
 });
+
+// // csp
+app.use(csp({
+}));
 
 
 // 认证登录状态

@@ -28,7 +28,7 @@ module.exports = {
         'moment': 'moment',
         "loadsh": "_",
         "chart.js": "Chart",
-        "downloadjs": "downloadjs"
+        "downloadjs": "download"
     },
 
     resolve: {

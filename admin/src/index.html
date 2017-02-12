@@ -3,6 +3,8 @@
 
 <head>
 	<meta charset="UTF-8">
+	<!--<meta name="referrer" content="unsafe-url">-->
+	<!--<meta http-equiv="Content-Security-Policy" content="child-src http: https:">-->
 	<title>
 		<%= htmlWebpackPlugin.options.title %>
 	</title>
@@ -11,24 +13,24 @@
 		window.server = "<%= htmlWebpackPlugin.options.server %>";
 		if (!localStorage.getItem('token')) window.location = '/login.html';
 	</script>
-<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-<link href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css" rel="stylesheet">
-<base href="/">
-<style>
-	table {
-		width: 100%;
-		overflow-x: auto!important;
-	}
-	
-	th,
-	td {
-		text-align: center!important;
-	}
-	
-	.btn-group {
-		text-align: center!important;
-	}
-</style>
+	<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+	<link href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css" rel="stylesheet">
+	<base href="/">
+	<style>
+		table {
+			width: 100%;
+			overflow-x: auto!important;
+		}
+		
+		th,
+		td {
+			text-align: center!important;
+		}
+		
+		.btn-group {
+			text-align: center!important;
+		}
+	</style>
 </head>
 
 <body>

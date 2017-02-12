@@ -8,26 +8,21 @@ export class BookUploadUploadComponent extends Component {
 
 	// 上传excel
 	uploadOrderData(props, e) {
-		let {xhttp, book} = props;
-		let {selectCategory} = book;
-		let {changeState} = this.props.xbook;
+		let {xhttp, book, xbook} = props, {selectCategory} = book, {changeState} = xbook;
 		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
 
-		let file = e.target.files[0];
-		let reqData = new FormData();
-		reqData.append('file', file);
-
-		xhttp.create('categoryTemplate', [categoryArr.join(',')], reqData).then(result => {
-			changeBookState('preview');
+		xhttp.upload('categoryTemplate', [categoryArr.join(',')], { file: e.target.files[0] }).then(result => {
+			changeState('preview');
 		});
 	}
 
 	// 下载模板
 	download() {
-		let {book, category, xhttp} = this.props;
-		let {selectCategory} = book;
+		let {book, category, xhttp, entities} = this.props, {selectCategory} = book;
 		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
-		xhttp.detail('categoryTemplate', [categoryArr.join(',')]);
+		let ids = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
+		let names = ids.map(id => entities[id].name);
+		xhttp.download('categoryTemplate', [categoryArr.join(',')], {}, { name: names.join('_') + '.xlsx' });
 	}
 
 	render() {

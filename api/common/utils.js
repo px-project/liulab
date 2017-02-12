@@ -4,6 +4,11 @@
 const crypto = require('crypto');
 const path = require('path');
 
+// root目录
+exports.root = _path => {
+    return path.join(__dirname, '..', _path);
+}
+
 // md5 加密
 exports.md5 = (tarStr) => {
     return crypto.createHash('md5').update(tarStr).digest('hex');
@@ -23,7 +28,6 @@ exports.enBase64 = data => {
 exports.deBase64 = str => {
     return new Buffer(str).toString();
 };
-
 
 /**
  * 转大驼峰

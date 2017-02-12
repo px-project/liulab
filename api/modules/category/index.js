@@ -5,8 +5,8 @@ const _router = require('express').Router();
 const categoryHandlers = require('../../common/xmodel')('category');
 const resourceHandlers = require('../resource/handler');
 const multer = require('multer');
-const updatePath = require('../../config/').UPLOAD_PATH;
-const upload = multer({ dest: updatePath });
+const {UPLOAD_PATH} = require('../../config/');
+const upload = multer({ dest: UPLOAD_PATH });
 const fs = require('fs');
 
 module.exports = _router
@@ -125,7 +125,6 @@ module.exports = _router
                             return currentRow;
                         });
                 });
-
 
                 // 删除文件
                 fs.unlink(req.file.path, () => res.json({ _id: new Date().getTime(), data: result }));
