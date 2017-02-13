@@ -12,6 +12,10 @@ function selectManifestAction(manifest_id) {
 }
 
 // 选择货单
-export function selectManifest(manifest_id) {
+function selectManifest(manifest_id) {
     return dispatch => dispatch(selectManifestAction(manifest_id));
 }
+
+export const xmanifest = {
+    selectManifest: selectManifest
+};

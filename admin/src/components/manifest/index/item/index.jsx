@@ -11,14 +11,13 @@ import './style.scss';
 
 export class ManifestItemComponent extends Component {
     render() {
-        let {manifest, entities, manifestSelect, manifest_id} = this.props;
+        let {entities, manifest, xmanifest, manifest_id} = this.props, manifestData = entities[manifest_id], {selectManifest} = xmanifest;
         let selected = !!manifest.selected && manifest.selected.indexOf(manifest_id) >= 0;
-        let manifestData = entities[manifest_id];
         let category = manifestData.product.category;
         return (
             <li className="manifest-item" style={{ borderLeftColor: MANIFEST_STATUS[manifestData.status].color }}>
                 <header className="manifest-item-header">
-                    <div className={'select-item ' + classname({ selected: selected })}><a onClick={manifestSelect.bind(this, manifestData._id)}><i className="fa fa-check-circle-o"></i></a></div>
+                    <div className={'select-item ' + classname({ selected: selected })}><a onClick={selectManifest.bind(this, manifestData._id)}><i className="fa fa-check-circle-o"></i></a></div>
                     <p className="manifest-id">{manifestData.manifest_id}</p>
                     <p className="status" style={{ backgroundColor: MANIFEST_STATUS[manifestData.status].color }}>{MANIFEST_STATUS[manifestData.status].name}</p>
                 </header>

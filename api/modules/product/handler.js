@@ -12,7 +12,7 @@ const productSchema = require('./schema');
  * 
  * @param conditions {Object}
  */
-exports.list = conditions => productModel.list(_.mergeWith(conditions, {populateKeys: 'category'}));
+exports.list = conditions => productModel.list(_.mergeWith(conditions, { populateKeys: 'category' }));
 
 
 /**
@@ -32,16 +32,35 @@ exports.detail = _id => productModel.detail(_.mergeWith(conditions, { populateKe
  * @param newData {Object}
  */
 exports.create = newData => {
-
     let _newData = {};
     ['name', 'unit_price', 'category', 'attrs'].forEach(key => _newData[key] = newData[key]);
     _newData = _.cloneDeepWith(_newData);
 
     let hash = _newData.hash = utils.hash(JSON.stringify(_newData));
 
-    _newData.code = 'asda111222';
+    if (newData.code) {
+        return productModel.list({ code: newData.code }).then(orders => {
+            // 已存在当前code
+            if (orders.length) return productModel.update(orders[0]._id, _.mergeWith(orders[0], _newData));
 
-    return productModel.create(_newData);
+            // 不存在当前code
+            return categoryHandlers.code(newData.category).then(code => {
+                _newData.code = code;
+                return productModel.create(_newData);
+            });
+        });
+    }
+
+    return productModel.list({ hash }).then(orders => {
+        // 已存在相同数据
+        if (orders.length) return productModel.update(orders[0]._id, _.mergeWith(orders[0], _newData));
+
+        // 不存在相同数据
+        return categoryHandlers.code(newData.category).then(code => {
+            _newData.code = code;
+            return productModel.create(_newData);
+        });
+    });
 };
 
 

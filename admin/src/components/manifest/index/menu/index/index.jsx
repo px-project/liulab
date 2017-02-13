@@ -11,18 +11,18 @@ export class ManifestMenuComponent extends Component {
     render() {
         let {manifest, entities, xhttp} = this.props;
 
-        let list = { audit: [], book: [], arrival: [] };
+        let list = { created: [], auditPassed: [], booked: [] };
 
         manifest.selected.forEach(manifest_id => {
             let manifest = entities[manifest_id], {status} = manifest;
-            if (status === 'created') list.audit.push(manifest);
-            if (status === 'auditPassed') list.book.push(manifest);
-            if (status === 'booked') list.arrival.push(manifest);
+            Object.keys(list).forEach(key => {
+                if (status === key) list[key].push(manifest);
+            });
         });
 
         return (
             <div className="manifest-menu">
-                {['audit', 'book', 'arrival'].map((type, index) => (
+                {Object.keys(list).map((type, index) => (
                     <Group key={index} type={type} list={list[type]} xhttp={xhttp}></Group>
                 ))}
             </div>

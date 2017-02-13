@@ -8,12 +8,11 @@ import './style.scss';
 
 export class ManifestMenuGroupComponent extends Component {
     render() {
-        let {list, type, actions} = this.props;
-        let status = Object.keys(MANIFEST_STATUS);
+        let {list, type, actions = []} = this.props, status = Object.keys(MANIFEST_STATUS);
         return (
             <div className={`manifest-menu-${type} menu-sec`}>
                 <header>
-                    <h3>{status[status.indexOf(type) - 1].name + '订单'}</h3>
+                    <h3>{MANIFEST_STATUS[type].name + '订单'}</h3>
                     <div className="actions">
                         {actions.map((action, index) => (
                             <button className={`ui button ${action.color} mini`} onClick={this.handleAction.bind(this, action.status)}></button>

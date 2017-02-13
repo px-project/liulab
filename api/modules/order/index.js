@@ -51,7 +51,6 @@ module.exports = _router
      * }
      */
     .post('/', (req, res) => {
-        console.log(req.body);
         orderHandlers.create( _.mergeWith(req.body, { create_user: req.user_id }))
             .then(result => res.json(result))
             .catch(err => console.error(err));
