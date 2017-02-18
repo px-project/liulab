@@ -29,10 +29,8 @@ module.exports = _router
     })
 
     // 上传资源
-    .post('/:link_type/:link_id', upload.single('file'), (req, res) => {
-        let {link_id, link_type} = req.params;
-        resourceHandlers.create(link_id, link_type, req.file.path)
-            .then(result => res.json(result));
+    .post('/', upload.single('file'), (req, res) => {
+        res.json({ path: req.file.path });
     })
 
     // 更新资源

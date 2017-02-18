@@ -23,9 +23,9 @@ function handleUrl(api, params, conditions) {
 
     // check个数是否对应
     let urlIdArr = url.match(idRegG) || [];
-    if (urlIdArr.length !== params.length && urlIdArr.length !== params.length - 1) {
-        throw new Error('传入的参数与api不匹配。');
-    }
+    // if (urlIdArr.length !== params.length && urlIdArr.length !== params.length - 1) {
+    //     throw new Error('传入的参数与api不匹配。');
+    // }
 
     // 替换url中的{}为具体id
     for (let i = 0, len = urlIdArr.length; i < len; i++) {

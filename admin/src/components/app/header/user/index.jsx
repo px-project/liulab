@@ -10,21 +10,17 @@ export class AppHeaderUserComponent extends Component {
     render() {
 
         let {xhttp, user_current, entities} = this.props;
-        let currentUser = entities[user_current.items[0]];
+        let currentUser = entities[user_current.detail] || {};
 
         return (
             <div className="header-user">
-                {currentUser ? (
-                    <p className="user">
-                        <a href="#" className="avatar">
-                            <Image type="USER_AVATAR" link_id={currentUser._id}></Image>
-                        </a>
-                        <span className="name">{currentUser.username}</span>
-                    </p>
-                ) : ''}
-                <p className="sign-out">
+                <div className="info">
+                    <Image className="avatar" type="USER_AVATAR" link_id={currentUser._id}></Image>
+                    <span className="name">{currentUser.username}</span>
+                </div>
+                <div className="actions">
                     <a onClick={this.logout.bind(this)}><i className="fa fa-sign-out"></i></a>
-                </p>
+                </div>
             </div>
         );
     }

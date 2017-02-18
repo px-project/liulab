@@ -20,7 +20,7 @@ app.set('PORT', process.env.PORT || 9000);
 
 // 跨域支持
 app.use((req, res, next) => {
-	cors({ origin: req.headers.origin, credentials: true })(req, res, next);
+    cors({ origin: req.headers.origin, credentials: true })(req, res, next);
 });
 
 // 认证登录状态
@@ -40,5 +40,5 @@ app.use(express.static(path.join(__dirname, './asset/')));
 
 // 启动服务
 app.listen(app.get('PORT'), () => {
-	console.log('api server running at ' + app.get('PORT') + ' port.');
+    console.log('api server running at ' + app.get('PORT') + ' port.');
 });

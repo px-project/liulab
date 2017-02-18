@@ -3,47 +3,38 @@
  */
 import React, { Component } from 'react';
 import { TemplateNewFieldComponent as NewField } from '../new_field/';
-import { Upload } from '../../../common/';
+import { INIT_ATTRS, NEW_ATTRS } from '../../../../constants/';
+import { Upload, Loader } from '../../../common/';
 import './style.scss';
 
-// init form data
-const initFields = [
-	{ key: 'name', title: '产品名称', attr_type: 'string', attr_required: true },
-	{ key: 'code', title: '编号', attr_type: 'string', attr_required: false },
-	{ key: 'unit_price', title: '单价(元)', attr_type: 'number', attr_required: true },
-	{ key: 'num', title: '数量', attr_type: 'number', attr_required: true }
-];
-
-const newField = { key: '', title: '', attr_type: '', attr_required: false };
-
 export class CategoryEditComponent extends Component {
+
 	componentWillMount() {
-		let {routes, xform, xhttp, params} = this.props;
+		let {routes, xform, xhttp, params} = this.props, { path } = routes[2];
 
 		// 添加
-		if (routes[2].path === 'add') {
-			xform.init({fields: initFields, newField });
+		if (path === 'add') {
+			xform.init({ attrs: INIT_ATTRS, new_attr: NEW_ATTRS });
 		}
 
 		// 编辑
-		if (routes[2].path === ':category_id/edit') {
+		if (path === ':category_id/edit') {
 			xhttp.detail('category', [params.category_id]).then(result => {
-				xform.init(Object.assign({}, result, newField));
+				xform.init(Object.assign({}, result, { new_attr: NEW_ATTRS }));
 			});
 		}
-
 	}
 
 	render() {
-		let {xform, formData, routes} = this.props;
+		let {xform, formData = { fields: [] }, routes, xhttp, category} = this.props;
 		let pageStatus = routes[2].path === 'add' ? 'add' : 'edit';
 
 		return (
-			<div className="category-add-page page ui form">
+			<Loader loading={category.fetching.detail} className="category-edit-page page ui form">
 				<div className="basic sec">
 					<h3 className="sec-title">品类信息</h3>
 					<div className="photo">
-						{/*<Upload src={this.xhttp.url('resource', ['CATEGORY_COVER', ])} fileKey="photo" {...this.props}></Upload>*/}
+						<Upload {...this.props}></Upload>
 					</div>
 					<div className="info">
 						<div className="field inline">
@@ -91,22 +82,24 @@ export class CategoryEditComponent extends Component {
 					</ol>
 				</div>
 
-				{formData.newField ? (<NewField {...this.props}></NewField>) : ''}
+				{formData.newAttrs ? (<NewField {...this.props}></NewField>) : ''}
 
 				<div className="btn-group sec">
 					<button className="ui button primary" onClick={this.createCategory.bind(this)}>保存</button>
 					<button className="ui button red">取消</button>
 				</div>
-			</div>
+			</Loader>
 		);
 	}
 
-	// 处理模板名称变动
-	fieldChange(field, e) {
-		this.props.xform(e.target.value, field);
+	// 保存品类
+	save() {
+		let {xhttp, formData, history} = this.props;
+
 	}
 
-	// 创建模板数据
+
+	// 保存品类
 	createCategory() {
 		let {xhttp, formData, history} = this.props;
 

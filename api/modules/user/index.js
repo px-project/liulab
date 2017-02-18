@@ -2,35 +2,30 @@
  * 用户控制器
  */
 const _router = require('express').Router();
-const userhandlers = require('./handler');
-const utils = require('../../common/utils');
 const _ = require('lodash');
-const {PWD_SEC} = require('../../config/');
-const xerr = require('../../common/xerr');
 const jws = require('jws');
+const {JWT_SEC, JWT_ALG, UPLOAD_PATH} = require('../../config/');
+const xerr = require('../../common/xerr');
+const userhandlers = require('./handler');
+const resourceHandlers = require('../resource/handler');
 
 module.exports = _router
-
 
     // 用户登录
     .post('/login', (req, res) => {
         let { username, password } = req.body;
 
-        userhandlers.check(username, password)
-            .then(result => {
-                res.json({
-                    token: jws.sign({
-                        header: { alg: 'HS256' },
-                        payload: {
-                            user_id: result._id
-                        },
-                        secret: PWD_SEC,
-                    })
-                });
-            })
-            .catch(err => {
-                res.status(400).json(xerr(err));
+        userhandlers.check(username, password).then(result => {
+            res.json({
+                token: jws.sign({
+                    header: { alg: JWT_ALG },
+                    secret: JWT_SEC,
+                    payload: {
+                        user_id: result._id
+                    }
+                })
             });
+        }).catch(err => res.status(400).json(xerr(err)));
     })
 
 
@@ -73,6 +68,13 @@ module.exports = _router
     .patch('/:user_id', (req, res) => {
         userhandlers.update(req.params.user_id, newData)
             .then(result => res.json(result));
+    })
+
+    // 用户头像
+    .get('/:user_id/avatar', (req, res) => {
+        resourceHandlers.detail(req.params.user_id, 'USER_AVATAR').then(result => {
+            res.sendFile(uploadPath + result.file_name);
+        }).catch(err => res.json(xerr(err)));
     })
 
 

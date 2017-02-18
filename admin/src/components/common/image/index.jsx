@@ -1,9 +1,12 @@
 /**
  * 图片组件
+ * 
+ * @param type   'CATEGORY_COVER', 'USER_AVATAR'
+ * @param link_id
  */
 import React, { Component } from 'react';
-import './style.scss';
 import defaultPhoto from '../../../public/images/default.png';
+import './style.scss';
 
 export class ImageComponent extends Component {
     constructor(props) {
@@ -14,13 +17,17 @@ export class ImageComponent extends Component {
     }
 
     render() {
-        let {type, link_id, className = '', src} = this.props;
-        if (src) this.setState('img', src);
+        let {type, link_id, className = '', src} = this.props, url = window.server;
+
+        if (src) this.setState({ image: src });
+
+        if (type === 'CATEGORY_COVER') url += '/category/' + link_id + '/cover';
+        if (type === 'USER_AVATAR') url += '/user/' + link_id + '/avatar';
 
         return (
             <div className={"image " + className}>
                 <img src={this.state.image} />
-                <img src={window.server + '/resource/' + type + '/' + link_id} className="hide" onLoad={this.load.bind(this)} />
+                {link_id ? (<img src={url} className="hide" onLoad={this.load.bind(this)} />) : ''}
             </div>
         );
     }

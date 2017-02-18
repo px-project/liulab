@@ -9,11 +9,11 @@ import './style.scss';
 export class UploadComponent extends Component {
 
     render() {
-        let {filename, fileKey, circle} = this.props;
+        let {circle, formData} = this.props;
         return (
             <div className={classname({ 'upload-img': true, circle })}>
                 <a>
-                    <img src={filename ? `${window.server}/resource/${filename}` : defaultPic} />
+                    <img src={formData.upload_image || defaultPic} />
                     <i className="fa fa-upload"></i>
                     <input ref="fileupload" type="file" onChange={this.upload.bind(this)} />
                 </a>
@@ -22,13 +22,10 @@ export class UploadComponent extends Component {
     }
 
     upload(e) {
-        let {xhttp, xform, fileKey, type, link_id} = this.props;
-        let file = e.target.files[0];
+        let {xhttp, xform} = this.props;
         let reqData = new FormData();
-        reqData.append('file', file);
+        reqData.append('file', e.target.files[0]);
 
-        xhttp.create('resource', [type, link_id], reqData, result => {
-            xform(result.filename, fileKey);
-        });
+        xhttp.upload('resource', [], reqData).then(result => xform.change('upload_image', result.filepath));
     }
 }
