@@ -28,10 +28,7 @@ exports.detail = _id => categoryModel.detail(_id);
  * 
  * @param newData {Object}
  */
-exports.create = newData => {
-    console.log(newData);
-    return categoryModel.create(newData)
-};
+exports.create = newData => categoryModel.create(newData);
 
 
 /**

@@ -113,7 +113,7 @@ exports.genExcel = data => {
         return String.fromCharCode('A'.charCodeAt(0) + row) + (col + 1);
     }
 
-    const filePath = uploadPath + new Date().getTime() + '.xlsx';
+    const filePath = uploadPath + '/' + new Date().getTime() + '.xlsx';
 
     xlsx.writeFile(workbook, filePath);
 

@@ -126,7 +126,7 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
         });
 
         if (method === 'download') {
-            fetchRef = fetchRef.then(res => res.blob).then(blob => downloadjs(blob, options.options.name));
+            fetchRef = fetchRef.then(res => res.blob()).then(blob => downloadjs(blob, options.options.name));
         } else if (method === 'upload') {
             fetchRef = fetchRef.then(res => res.json());
         } else {
