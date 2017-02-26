@@ -8,16 +8,13 @@ $icon_color: #208bfd;
     position: relative;
     align-items: center;
     justify-content: center;
-    .logo {
+    margin-bottom: 2rem;
+    .category-cover {
         width: $logo_size;
         height: $logo_size;
         border: 2px solid #eee;
         border-radius: $logo_size;
         overflow: hidden;
-        img {
-            display: block;
-            width: 100%;
-        }
         &:hover {
             cursor: pointer;
         }
@@ -42,7 +39,7 @@ $icon_color: #208bfd;
         font-size: 1rem;
     }
     &.selected {
-        .logo {
+        .category-cover {
             border-color: $icon_color;
             transition: $transition_time;
         }

@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import classname from 'classname';
+import { CategoryCover } from '../../../../common/';
 import './style.scss';
 
 export class ProductType extends Component {
@@ -10,13 +11,9 @@ export class ProductType extends Component {
 		let {category, selected, toggle} = this.props;
 
 		return (
-			<div className={classname({ 'product-type': true, selected })}
-				onClick={toggle.bind(this, category._id)}>
-				<div className="logo">
-					{/*<Image src={`${window.server}/resource/${category.photo}`}></Image>*/}
-				</div>
+			<div className={classname({ 'product-type': true, selected })} onClick={toggle.bind(this, category._id)}>
+				<CategoryCover className="category-cover" category_id={category._id}></CategoryCover>
 				<i className="fa fa-check"></i>
-
 				<h4 className="name">{category.name}</h4>
 			</div>
 		);

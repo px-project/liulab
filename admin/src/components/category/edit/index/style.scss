@@ -1,21 +1,12 @@
 $photo_sec_width: 30%;
-.category-add-page {
+.category-edit-page {
     .basic {
         display: flex;
         flex-wrap: wrap;
-        .photo {
+        .cover {
             width: $photo_sec_width;
             text-align: right;
             padding-right: 1rem;
-            .wrap {
-                width: 8rem;
-                display: inline-block;
-                border: 1px solid #eee;
-                img {
-                    display: block;
-                    width: 100%;
-                }
-            }
         }
         .info {
             width: 100% - $photo_sec_width;
@@ -34,27 +25,14 @@ $photo_sec_width: 30%;
         }
     }
     .field-config {
-        .content {
-            width: 60rem;
-            margin: 0 auto;
-            padding-left: 0;
-            display: flex;
-            flex-wrap: wrap;
+        .list {
             li {
-                display: flex;
-                flex-wrap: wrap;
-                .index {
-                    width: 3rem;
-                    text-align: right;
-                }
-                .detail {
-                    .map {
-                        display: inline-flex;
-                        min-width: 10rem;
+                padding: 0.5rem 10%;
+                &>div {
+                    display: flex;
+                    & > :first-child {
+                        width: 35%;
                     }
-                }
-                .field-title {
-                    width: 100%;
                 }
             }
         }

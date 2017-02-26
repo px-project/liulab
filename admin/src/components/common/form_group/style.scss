@@ -1,0 +1,8 @@
+.l-form-group {
+    label {
+        &:after {
+            content: ':';
+            margin-right: 1rem;
+        }
+    }
+}

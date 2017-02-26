@@ -9,9 +9,9 @@ import './style.scss';
 export class UploadComponent extends Component {
 
     render() {
-        let {circle, formData} = this.props;
+        let {circle, formData, className} = this.props;
         return (
-            <div className={classname({ 'upload-img': true, circle })}>
+            <div className={'l-upload ' + className + classname({ circle })}>
                 <a>
                     <img src={formData.upload_image || defaultPic} />
                     <i className="fa fa-upload"></i>

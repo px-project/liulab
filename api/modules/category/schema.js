@@ -22,8 +22,7 @@ module.exports = {
     abbr: {
         type: String,
         required: true,
-        unique: true,
-        maxLength: 2
+        unique: true
     },
 
     // 属性
@@ -31,13 +30,11 @@ module.exports = {
         {
             title: {
                 type: String,
-                required: true,
-                unique: true
+                required: true
             },
             key: {
                 type: String,
-                required: true,
-                unique: true
+                required: true
             },
             attr_type: {
                 type: String,

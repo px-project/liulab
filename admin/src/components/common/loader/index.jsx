@@ -6,8 +6,7 @@ import './style.scss';
 
 export class LoaderComponent extends Component {
     render() {
-        let {loading = true, data, className} = this.props;
-        let empty = isEmpty(data);
+        let {loading = true, data, className, children} = this.props, empty = this.isEmpty(data);
 
         return (
             <div className={'loader ' + className}>
@@ -22,18 +21,19 @@ export class LoaderComponent extends Component {
 
                 {!loading && !empty ? (
                     <div className="content">
-                        {this.props.children}
+                        {children}
                     </div>
                 ) : ''}
 
             </div>
         );
     }
-}
 
-function isEmpty(data) {
-    if (!data) return true;
-    if (Array.isArray(data) && !data.length) return true;
-    if (typeof data === 'object' && !Object.keys(data).length) return true;
-    return false;
+    isEmpty(data) {
+        if (data === undefined) return false;
+        if (!data) return true;
+        if (Array.isArray(data) && !data.length) return true;
+        if (typeof data === 'object' && !Object.keys(data).length) return true;
+        return false;
+    }
 }

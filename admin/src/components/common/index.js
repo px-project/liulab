@@ -3,3 +3,8 @@ export { SearchComponent as Search } from './search/';
 export { SelectComponent as Select } from './select/';
 export { ImageComponent as Image } from './image/';
 export { UploadComponent as Upload } from './upload/';
+export { FormGroupComponent as FormGroup } from './form_group/';
+export { FormToggleComponent as FormToggle } from './form_toggle/';
+export { MapComponent as Map } from './map/';
+export { UserAvatarComponent as UserAvatar } from './user_avatar';
+export { CategoryCoverComponent as CategoryCover } from './category_cover';

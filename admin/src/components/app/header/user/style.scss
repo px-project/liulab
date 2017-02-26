@@ -9,13 +9,11 @@
         display: flex;
         align-items: center;
         margin-right: 2rem;
-        .avatar {
-            height: $header_height / 1.5;
-            width: $header_height / 1.5;
-            margin-right: 1rem;
-            border-radius: 50%;
+        .user-avatar {
+            height: 80%;
             border: 1px solid #eee;
             overflow: hidden;
+            margin-right: 1rem;
         }
     }
 }

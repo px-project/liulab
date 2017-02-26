@@ -75,17 +75,16 @@ body {
     }
     .sec {
         border-top: 1px dashed #ccc;
-        padding: 2rem 0;
-        &:first-child {
-            padding-top: 0;
-            border-top: none;
-        }
+        padding: 4rem 0 2rem;
+        position: relative;
         .sec-title {
             display: block;
             width: 100%;
             border-left: 3px solid #1d5ff7;
             padding-left: 1rem;
-            margin-left: 1rem;
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
         }
     }
 }

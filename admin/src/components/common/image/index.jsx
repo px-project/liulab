@@ -6,6 +6,7 @@
  */
 import React, { Component } from 'react';
 import defaultPhoto from '../../../public/images/default.png';
+import classname from 'classname';
 import './style.scss';
 
 export class ImageComponent extends Component {
@@ -17,17 +18,12 @@ export class ImageComponent extends Component {
     }
 
     render() {
-        let {type, link_id, className = '', src} = this.props, url = window.server;
-
-        if (src) this.setState({ image: src });
-
-        if (type === 'CATEGORY_COVER') url += '/category/' + link_id + '/cover';
-        if (type === 'USER_AVATAR') url += '/user/' + link_id + '/avatar';
+        let {url} = this.props;
 
         return (
-            <div className={"image " + className}>
+            <div className="l-image">
                 <img src={this.state.image} />
-                {link_id ? (<img src={url} className="hide" onLoad={this.load.bind(this)} />) : ''}
+                {url ? <img src={url} className="hide" onLoad={this.load.bind(this)} /> : ''}
             </div>
         );
     }

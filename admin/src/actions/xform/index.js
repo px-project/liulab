@@ -37,18 +37,11 @@ function xformInit(data) {
 /**
  * 字段变动
  */
-function xformChange(field, e) {
-    let el = e.target, value;
-
-    // radio
-    // if (el.checked !== undefined) value = el.checked;
-
-    // input textarea
-    // else value = el.value;
-    value = el.value;
+function xformChange(field, newValue) {
+    let result = newValue.target ? newValue.target.value : newValue;
 
     return dispatch => {
-        dispatch(xformChangeAction(field, value));
+        dispatch(xformChangeAction(field, result));
     }
 }
 

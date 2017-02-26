@@ -1,0 +1,13 @@
+.l-map {
+    .title {
+        display: inline-flex;
+        width: 5rem;
+        &:after {
+            content: ':';
+            padding-right: 1rem;
+        }
+    }
+    .value {
+
+    }
+}

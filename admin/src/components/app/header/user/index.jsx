@@ -2,7 +2,7 @@
  * 头部用户组件
  */
 import React, { Component } from 'react';
-import { Image } from '../../../common/';
+import { UserAvatar } from '../../../common/';
 import './style.scss';
 
 export class AppHeaderUserComponent extends Component {
@@ -15,7 +15,7 @@ export class AppHeaderUserComponent extends Component {
         return (
             <div className="header-user">
                 <div className="info">
-                    <Image className="avatar" type="USER_AVATAR" link_id={currentUser._id}></Image>
+                    <UserAvatar user_id={currentUser._id}></UserAvatar>
                     <span className="name">{currentUser.username}</span>
                 </div>
                 <div className="actions">
