@@ -1,0 +1,50 @@
+@import '../../../../../style.scss';
+$logo_size: 7rem;
+$icon_size: 1.5rem;
+$icon_color: #208bfd;
+.product-type {
+    display: inline-flex;
+    flex-wrap: wrap;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    .category-cover {
+        width: $logo_size;
+        height: $logo_size;
+        border: 2px solid #eee;
+        border-radius: $logo_size;
+        overflow: hidden;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .fa {
+        position: absolute;
+        background: $icon_color;
+        top: 1rem;
+        right: 1rem;
+        color: white;
+        font-size: 0.3rem;
+        width: $icon_size;
+        height: $icon_size;
+        line-height: $icon_size;
+        border-radius: $icon_size;
+        overflow: hidden;
+        text-align: center;
+        display: none;
+    }
+    .name {
+        width: 100%;
+        font-size: 1rem;
+    }
+    &.selected {
+        .category-cover {
+            border-color: $icon_color;
+            transition: $transition_time;
+        }
+        .fa {
+            display: block;
+        }
+    }
+}

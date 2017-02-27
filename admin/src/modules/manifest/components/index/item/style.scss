@@ -1,0 +1,90 @@
+@import '../../../../style.scss';
+$detail_icon_size: 5rem;
+.manifest-item {
+    background: white;
+    border-left: 4px solid white;
+    border-radius: 4px 0 0 4px;
+    margin-bottom: 1rem;
+    padding: 0.5rem $detail_icon_size 0.5rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    .manifest-item-header {
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        border-bottom: 1px solid #eee;
+        .select-item {
+            width: 2rem;
+            display: flex;
+            justify-content: center;
+            a {
+                font-size: 1.3rem;
+                font-weight: normal;
+                color: #ddd;
+            }
+            &.selected {
+                a {
+                    color: blue;
+                }
+            }
+        }
+        .manifest-id {
+            padding-left: 1rem;
+            font-size: 1.2rem;
+            font-weight: bolder;
+        }
+        .status {
+            margin-left: auto;
+            color: white;
+            padding: 0 0.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            margin-right: 1rem;
+        }
+    }
+    .detail {
+        padding-left: 2rem;
+        display: flex;
+        width: 100%;
+        .basic {
+            width: 15rem;
+            p {
+                font-size: 0.8rem;
+                .fa {
+                    padding: 0 1rem;
+                }
+            }
+        }
+        .manifest-item-product {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            &>* {
+                flex-grow: 1;
+                text-align: center;
+            }
+        }
+    }
+    .detail-icon {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: $detail_icon_size;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #eee;
+        font-size: 3rem;
+        font-weight: bolder;
+        transition: $transition_time;
+    }
+    &:hover {
+        .detail-icon {
+            transition: $transition_time;
+            color: #aaa;
+        }
+    }
+}

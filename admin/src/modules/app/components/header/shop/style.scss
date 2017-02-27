@@ -1,0 +1,135 @@
+@import '../../../../style.scss';
+.header-shop {
+    margin: 0 2rem 0 auto;
+    position: relative;
+    height: 100%;
+    &.active {
+        .show {
+            background: #eee;
+            transition: $transition_time;
+        }
+        .list {
+            display: block;
+        }
+    }
+    .show {
+        height: 100%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 1rem;
+        background: white;
+        transition: $transition_time;
+        &:hover {
+            cursor: pointer;
+        }
+        i {
+            font-size: 1.3rem;
+            display: inline-block;
+            padding: 0 1rem;
+        }
+    }
+    .list {
+        display: none;
+        position: absolute;
+        padding: 1rem 2rem;
+        top: $header_height;
+        border: 1px solid #eee;
+        box-shadow: 0 0 0.3rem 0 rgba(0, 0, 0, 0.15);
+        background: white;
+        width: 30rem;
+        right: 0;
+        .products {
+            padding: 1rem;
+            position: relative;
+            padding: 1rem 0 4rem;
+            h5 {
+                border-bottom: 1px solid #aaa;
+                margin-bottom: 0;
+                padding-bottom: 1rem;
+                padding-left: 0.5rem;
+            }
+            ul {
+                min-height: 20rem;
+                overflow: auto;
+                max-height: 30rem;
+                margin-top: 0;
+                li {
+                    font-size: 1rem;
+                    line-height: 2rem;
+                    display: flex;
+                    border-top: 1px solid #eee;
+                    padding: 1rem;
+                    &:first-child {
+                        border-top: none;
+                    }
+                    .photo {
+                        display: flex;
+                        align-items: center;
+                        width: 4rem;
+                        padding: 0.2rem;
+                        img {
+                            width: 100%;
+                            display: block;
+                        }
+                    }
+                    .info {
+                        padding-left: 0.5rem;
+                        display: block;
+                        width: 100%;
+                        position: relative;
+                        padding-right: 2rem;
+                        .name {
+                            display: block;
+                            line-height: 1.4rem;
+                        }
+                        .code {
+                            font-size: 0.9rem;
+                            color: #999;
+                            display: block;
+                        }
+                        .num {
+                            position: absolute;
+                            top: 0;
+                            right: 0.5rem;
+                            bottom: 0;
+                            display: flex;
+                            align-items: center;
+                            .action {
+                                display: inline-flex;
+                                margin: 0 0.5rem;
+                                overflow: hidden;
+                                font-weight: bolder;
+                                align-items: center;
+                                justify-content: center;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .no-data {
+            display: flex;
+            height: 10rem;
+            line-height: 8rem;
+            justify-content: center;
+        }
+        .btn-group {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: block;
+            width: 100%;
+            padding: 2rem;
+            .button {
+                height: 3rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 0;
+                width: 100%;
+            }
+        }
+    }
+}
