@@ -2,8 +2,8 @@
  * 新字段组件
  */
 import React, { Component } from 'react';
-import { FormGroup, FormToggle } from '../../../common/';
-import { NEW_ATTRS } from '../../../../constants/';
+import { FormGroup, FormToggle } from '../../../../common/';
+import { NEW_ATTRS } from '../../../../../constants/';
 import * as _ from 'lodash';
 import './style.scss';
 

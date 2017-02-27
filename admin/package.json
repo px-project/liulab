@@ -23,6 +23,7 @@
     "lodash": "^4.17.3",
     "moment": "^2.14.1",
     "react": "^15.3.0",
+    "react-breadcrumbs": "^1.5.2",
     "react-dom": "^15.3.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.7.0",

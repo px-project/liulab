@@ -3,8 +3,8 @@
  */
 import React, { Component } from 'react';
 import { TemplateNewFieldComponent as NewField } from '../new_field/';
-import { INIT_ATTRS, NEW_ATTRS } from '../../../../constants/';
-import { Upload, Loader, FormGroup, Field } from '../../../common/';
+import { INIT_ATTRS, NEW_ATTRS } from '../../../../../constants/';
+import { Upload, Loader, FormGroup, Field } from '../../../../common/';
 import './style.scss';
 
 export class CategoryEditComponent extends Component {

@@ -4,7 +4,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import Routes from './routes/';
+import Routes from './modules/app/router';
 import configureStore from './store/';
 
 let store = configureStore();
