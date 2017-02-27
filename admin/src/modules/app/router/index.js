@@ -14,7 +14,7 @@ export default class Routes extends Component {
         let router = routes;
         return (
             <Router history={history}>
-                <Route path="/" component={AppContainer}>
+                <Route path="/" component={AppContainer} name="liulab">
                     <IndexRedirect to="index"></IndexRedirect>
                     {Object.keys(router).map(name => router[name])}
                 </Route>

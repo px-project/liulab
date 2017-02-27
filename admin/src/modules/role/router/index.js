@@ -6,7 +6,7 @@ import { Route, IndexRoute } from 'react-router';
 import { RoleContainer } from '../containers';
 
 export const RoleRouter = (
-    <Route path="/role" name="角色" icon="cog" key="role">
+    <Route path="role" name="角色" icon="cog" key="role">
         <IndexRoute component={RoleContainer}></IndexRoute>
     </Route>
 );

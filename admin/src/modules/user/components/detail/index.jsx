@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import './style.scss';
 
-class UserDetailComponent extends Component {
+export class UserDetailComponent extends Component {
 	componentWillMount() {
 		this.props.xhttp.list('role');
 	}

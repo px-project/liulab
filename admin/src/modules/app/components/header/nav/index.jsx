@@ -10,7 +10,7 @@ export class AppHeaderNavComponent extends Component {
         let {routes, params} = this.props;
         return (
             <div className="header-nav">
-                <Breadcrumbs displayMissing={false} routes={routes} params={params}></Breadcrumbs>
+                <Breadcrumbs setDocumentTitle={true} displayMissing={false} routes={routes} params={params}></Breadcrumbs>
             </div>
         );
     }

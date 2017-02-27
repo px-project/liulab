@@ -6,7 +6,7 @@ import { Route, IndexRoute } from 'react-router';
 import { OrderContainer } from '../containers';
 
 export const OrderRouter = (
-    <Route path="/order" name="订单" icon="file text outline" key="order">
+    <Route path="order" name="订单" icon="file text outline" key="order">
         <IndexRoute component={OrderContainer}></IndexRoute>
     </Route>
 );

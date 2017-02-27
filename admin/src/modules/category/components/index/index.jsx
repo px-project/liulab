@@ -9,10 +9,6 @@ import './style.scss';
 
 export class CategoryComponent extends Component {
 
-	componentWillMount() {
-		this.props.xhttp.list('category');
-	}
-
 	render() {
 		let {entities, category} = this.props;
 
