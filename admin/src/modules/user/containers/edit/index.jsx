@@ -31,4 +31,4 @@ function mapDispatchToProps(dispatch) {
     return result;
 }
 
-export const UserContainer = connect(mapStateToProps, mapDispatchToProps)(UserEditApp);
+export const UserEditContainer = connect(mapStateToProps, mapDispatchToProps)(UserEditApp);
