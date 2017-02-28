@@ -38,6 +38,7 @@ function xformInit(data) {
  * 字段变动
  */
 function xformChange(field, newValue) {
+    console.log(newValue);
     let result = newValue.target ? newValue.target.value : newValue;
 
     return dispatch => {

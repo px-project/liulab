@@ -11,13 +11,13 @@ export class FormSelect extends Component {
     }
 
     render() {
-        let {className, value, onChange, data, empty = false, placeholder, til, val} = this.props;
+        let {className, value, onChange, empty = false, placeholder, children} = this.props;
 
         return (
             <div className={`l-form-select ${className}`}>
-                <select className="ui dropdown" ref="dropdown" value={formData.newField.attr_type} onChange={onChange}>
-                    <option value="">{placeholder}</option>
-
+                <select className="ui dropdown" ref="dropdown" value={value} onChange={onChange}>
+                    {empty ? (<option value="">{placeholder}</option>) : ''}
+                    {children}
                 </select>
             </div>
         );

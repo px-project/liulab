@@ -34,17 +34,16 @@ body {
 
 .ui.form .field label,
 .map .title {
-    display: inline-block;
-    min-width: 5rem;
-    text-align: right;
-    &:after {
-        padding-right: 0.5rem;
-        content: ':';
-    }
+    // display: inline-block;
+    // // min-width: 5rem;
+    // // text-align: right;
+    // &:after {
+    //     padding-right: 0.5rem;
+    //     content: ':';
+    // }
 }
 
 .ui.form .field {
-    margin-bottom: 0;
 }
 
 .page {

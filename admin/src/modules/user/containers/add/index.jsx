@@ -9,8 +9,29 @@ import { UserEditComponent } from '../../components';
 
 class UserAddApp extends Component {
 
+    componentWillMount () {
+        this.props.xhttp.list('role');
+    }
+
     render() {
         return (<UserEditComponent {...this.props}></UserEditComponent>);
+    }
+
+
+    // 保存
+    save(option, data, e) {
+        e.target.disabled = true;
+        let {xhttp, history} = this.props;
+
+        if (option.user_id) {
+            this.updateUserDetail(option.user_id, data, result => {
+                history.pushState(null, '/user');
+            });
+        } else {
+            this.createUserDetail(data, result => {
+                history.pushState(null, '/user');
+            });
+        }
     }
 
 }

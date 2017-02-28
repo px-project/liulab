@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { Loader, Select, UserAvatar } from '../../../common/';
+import { Loader, FormSelect, UserAvatar } from '../../../common/';
 import moment from 'moment';
 import './style.scss';
 
@@ -17,11 +17,11 @@ export class UserComponent extends Component {
 				<header className="page-header">
 					<Link className="ui button primary" to="/user/add">添加</Link>
 
-					<Select className="category group" placeholder="所有角色" empty={true}>
+					<FormSelect className="category group" placeholder="所有角色" empty="true" value={role.conditions.role_id}>
 						{role.items.map((role_id, role_index) => (
 							<option key={role_index} value={role_id}>{entities[role_id].name}</option>
 						))}
-					</Select>
+					</FormSelect>
 
 				</header>
 
