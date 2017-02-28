@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import './style.scss';
 
-export class FormToggleComponent extends Component {
+export class FormToggle extends Component {
 
     componentDidUpdate() {
         $(this.refs.checkbox).checkbox();

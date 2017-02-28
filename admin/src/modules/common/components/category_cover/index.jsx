@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Image } from '..';
 import './style.scss';
 
-export class CategoryCoverComponent extends Component {
+export class CategoryCover extends Component {
     render() {
         let {category_id, className} = this.props;
         return (

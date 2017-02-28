@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Image } from '..';
 import './style.scss';
 
-export class UserAvatarComponent extends Component {
+export class UserAvatar extends Component {
     render() {
         let {user_id} = this.props;
         return (

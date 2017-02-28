@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import classname from 'classname';
 import './style.scss';
 
-export class FormGroupComponent extends Component {
+export class FormGroup extends Component {
 
     render() {
         let {children, label, className} = this.props;

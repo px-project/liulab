@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import './style.scss';
 
-export class FormSelectComponent extends Component {
+export class FormSelect extends Component {
 
     componentDidUpdate() {
         $(this.refs.dropdown).dropdown();

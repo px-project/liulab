@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import './style.scss';
 
-export class SecComponent extends Component {
+export class Sec extends Component {
     render() {
         let {children, title} = this.props;
         return (

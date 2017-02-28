@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import './style.scss';
 
-export class LoaderComponent extends Component {
+export class Loader extends Component {
     render() {
         let {loading = true, data, className, children} = this.props, empty = this.isEmpty(data);
 

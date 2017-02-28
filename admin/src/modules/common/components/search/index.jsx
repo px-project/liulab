@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import './style.scss';
 
-export class SearchComponent extends Component {
+export class Search extends Component {
     render() {
         let {classname} = this.props;
         return (

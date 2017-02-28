@@ -6,7 +6,7 @@ import defaultPic from '../../../../public/images/default.png';
 import classname from 'classname';
 import './style.scss';
 
-export class UploadComponent extends Component {
+export class Upload extends Component {
 
     render() {
         let {circle, formData, className} = this.props;

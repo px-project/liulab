@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import './style.scss';
 
-export class FieldComponent extends Component {
+export class Field extends Component {
     render() {
         let {name, children} = this.props;
         return (

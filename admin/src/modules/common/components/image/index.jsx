@@ -9,7 +9,7 @@ import defaultPhoto from '../../../../public/images/default.png';
 import classname from 'classname';
 import './style.scss';
 
-export class ImageComponent extends Component {
+export class Image extends Component {
     constructor(props) {
         super(props);
         this.state = {
