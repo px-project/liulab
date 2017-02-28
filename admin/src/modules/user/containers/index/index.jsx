@@ -4,10 +4,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../../../../actions';
 import { UserComponent } from '../../components';
 
 class UserApp extends Component {
+
+    componentWillMount() {
+        let {xhttp} = this.props;
+        xhttp.list('role');
+        xhttp.list('user');
+    }
 
     render() {
         return (<UserComponent {...this.props}></UserComponent>);
@@ -20,15 +25,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    let result = {};
-    Object.keys(actions).forEach(key => {
-        if (typeof actions[key] === 'function') return result[key] = bindActionCreators(actions[key], dispatch);
-        result[key] = bindActionCreators(
-            Object.assign({}, ...Object.keys(actions[key]).map(ck => ({ [ck]: actions[key][ck] })))
-            , dispatch
-        );
-    });
-    return result;
+    return {};
 }
 
 export const UserContainer = connect(mapStateToProps, mapDispatchToProps)(UserApp);

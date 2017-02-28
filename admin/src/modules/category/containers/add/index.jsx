@@ -4,7 +4,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../../../../actions';
 import { CategoryEditComponent } from '../../components';
 
 class CategoryAddApp extends Component {
@@ -20,15 +19,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    let result = {};
-    Object.keys(actions).forEach(key => {
-        if (typeof actions[key] === 'function') return result[key] = bindActionCreators(actions[key], dispatch);
-        result[key] = bindActionCreators(
-            Object.assign({}, ...Object.keys(actions[key]).map(ck => ({ [ck]: actions[key][ck] })))
-            , dispatch
-        );
-    });
-    return result;
+    return {};
 }
 
 export const CategoryAddContainer = connect(mapStateToProps, mapDispatchToProps)(CategoryAddApp);

@@ -8,16 +8,6 @@ import moment from 'moment';
 import './style.scss';
 
 export class UserComponent extends Component {
-	componentWillMount() {
-		let {xhttp} = this.props;
-		xhttp.list('role', [], {});
-		xhttp.list('user', [], {});
-	}
-
-	// 角色变动
-	roleChange(e) {
-		this.props.xhttp.list('user', [], { role: e.target.value });
-	}
 
 	render() {
 		let {user, entities, role} = this.props;

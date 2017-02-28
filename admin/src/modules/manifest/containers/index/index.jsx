@@ -1,5 +1,5 @@
 /**
- * 货单模块容器
+ * 货单列表界面
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';

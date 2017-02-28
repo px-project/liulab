@@ -1,18 +1,15 @@
 /**
- * 订购模块容器
+ * 确认订单界面
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../../../../actions';
-import { BookComponent } from '../../components';
+import { BookConfirmComponent } from '../../components';
 
-class BookApp extends Component {
-
+class BookConfirmApp extends Component {
     render() {
-        return (<BookComponent {...this.props}></BookComponent>);
+        return (<BookConfirmComponent {...this.props}></BookConfirmComponent>);
     }
-
 }
 
 function mapStateToProps(state) {
@@ -20,15 +17,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    let result = {};
-    Object.keys(actions).forEach(key => {
-        if (typeof actions[key] === 'function') return result[key] = bindActionCreators(actions[key], dispatch);
-        result[key] = bindActionCreators(
-            Object.assign({}, ...Object.keys(actions[key]).map(ck => ({ [ck]: actions[key][ck] })))
-            , dispatch
-        );
-    });
-    return result;
+    return {};
 }
 
-export const BookContainer = connect(mapStateToProps, mapDispatchToProps)(BookApp);
+export const BookConfirmContainer = connect(mapStateToProps, mapDispatchToProps)(BookConfirmApp);

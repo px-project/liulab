@@ -9,7 +9,7 @@ import './style.scss';
 export class Info extends Component {
     render() {
         let {manifest, entities} = this.props;
-        let manifestDetail = entities[manifest.detail];
+        let manifestDetail = entities[manifest.detail] || {};
 
         return (
             <div className="manifest-detail-info">

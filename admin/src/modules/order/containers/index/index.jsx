@@ -1,5 +1,5 @@
 /**
- * 订单模块容器
+ * 订单列表界面
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';

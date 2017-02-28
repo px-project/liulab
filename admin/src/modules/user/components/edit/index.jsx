@@ -3,55 +3,47 @@
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import { Upload } from '../../../common/';
+import { Upload, FormSelect, FormGroup, FormInput, Loader } from '../../../common/';
 import './style.scss';
 
 export class UserEditComponent extends Component {
-    componentWillMount() {
-        // let {xhttp, xform, params} = this.props;
-        // let {user_id} = params;
-
-        // this.getRoleList(result => {
-        //     if (user_id) {
-        //         this.getUserDetail(user_id, (result) => {
-        //             xform(result);
-        //         });
-        //     } else {
-        //         xform({});
-        //     }
-        // });
-    }
-
-    componentDidMount() {
-        $(this.refs.dropdown).dropdown();
-    }
-
 
     render() {
-        let {role, entities, xform, params, formData} = this.props;
+        let {role, entities, xform, params, formData, user} = this.props;
         let {user_id} = params;
 
         return (
             <div className="user-edit">
+                <Loader loading={user.fetching}>
+                    <div className="avatar">
+                        <Upload filename={formData.avatar} circle={true} fileKey="avatar" {...this.props}></Upload>
+                    </div>
+
+                    <FormGroup label="角色">
+                        <FormSelect className="category group" placeholder="请选择角色">
+                            {role.items.map((role_id, role_index) => (
+                                <option key={role_index} value={role_id}>{entities[role_id].name}</option>
+                            ))}
+                        </FormSelect>
+                    </FormGroup>
+
+                    <FormGroup label="姓名">
+                        <input type="text" value={formData.name} onChange={xform.change.bind('name')} />
+                    </FormGroup>
+
+                    <FormGroup label="账号">
+                        <input type="text" value={formData.username} onChange={this.fieldChange.bind(this, xform, 'username')} />
+                    </FormGroup>
+                </Loader>
+
                 {!user_id || entities[user_id] ? (
                     <div className="ui form">
 
-                        <div className="avatar">
-                            <Upload filename={formData.avatar} circle={true} fileKey="avatar" {...this.props}></Upload>
-                        </div>
-
                         <div className="form-group field">
                             <label>姓名</label>
-                            <input type="text" value={formData.name} onChange={this.fieldChange.bind(this, xform, 'name')} />
                         </div>
                         <div className="form-group field">
                             <label>角色</label>
-                            <select className="ui fluid dropdown" ref="dropdown" value={formData.role} onChange={this.fieldChange.bind(this, xform, 'role')}>
-                                <option value="">请选择角色</option>
-                                {role.items.map((item, index) => (
-                                    <option value={item} key={index}>{entities[item].name}</option>
-                                ))}
-                            </select>
                         </div>
                         <div className="form-group field">
                             <label>账号</label>
@@ -96,34 +88,5 @@ export class UserEditComponent extends Component {
                 history.pushState(null, '/user');
             });
         }
-    }
-
-
-    // 获取用户详情
-    getUserDetail(user_id, cb) {
-        this.props.xhttp({ action: 'detail', api: 'user', params: [user_id] }, (result) => {
-            cb(result);
-        });
-    }
-
-    // 获取角色角色列表
-    getRoleList(cb) {
-        this.props.xhttp({ action: 'list', api: 'role' }, (result) => {
-            cb(result);
-        });
-    }
-
-    // 更新用户信息
-    updateUserDetail(user_id, data, cb) {
-        this.props.xhttp({ action: 'update', api: 'user', params: [user_id], data }, (result) => {
-            cb(result);
-        });
-    }
-
-    // 创建用户信息
-    createUserDetail(data, cb) {
-        this.props.xhttp({ action: 'create', api: 'user', data }, (result) => {
-            cb(result);
-        });
     }
 }
