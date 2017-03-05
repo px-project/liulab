@@ -1,12 +1,12 @@
 /**
  * 品类列表界面
  */
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { CategoryComponent } from '../../components';
 import { xhttp } from '../../../common/actions';
 
-class categoryIndexPage extends Component {
+class categoryIndexContainer extends React.Component {
 
     componentWillMount() {
         this.props.xhttp.list('category');
@@ -27,4 +27,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export const CategoryIndexPage = connect(mapStateToProps, mapDispatchToProps)(categoryIndexPage);
+export const CategoryIndexContainer = connect(mapStateToProps, mapDispatchToProps)(categoryIndexContainer);

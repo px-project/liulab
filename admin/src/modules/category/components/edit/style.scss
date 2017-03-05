@@ -1,40 +1,5 @@
-$photo_sec_width: 30%;
-.category-edit-page {
-    .basic {
-        display: flex;
-        flex-wrap: wrap;
-        .cover {
-            width: $photo_sec_width;
-            text-align: right;
-            padding-right: 1rem;
-        }
-        .info {
-            width: 100% - $photo_sec_width;
-            display: inline-flex;
-            flex-wrap: wrap;
-            align-items: center;
-            .field {
-                margin-bottom: 1.2rem;
-                width: 100%;
-            }
-            .description {
-                input {
-                    width: 25rem;
-                }
-            }
-        }
-    }
-    .field-config {
-        .list {
-            li {
-                padding: 0.5rem 10%;
-                &>div {
-                    display: flex;
-                    & > :first-child {
-                        width: 35%;
-                    }
-                }
-            }
-        }
+.category-edit {
+    .btn-group {
+        padding-top: 2rem;
     }
 }

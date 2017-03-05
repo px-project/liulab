@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../../../actions';
 import { CategoryDetailComponent } from '../../components';
 
-class categoryDetailPage extends Component {
+class categoryDetailContainer extends Component {
 
     render() {
         return (<CategoryDetailComponent {...this.props}></CategoryDetailComponent>);
@@ -31,4 +31,4 @@ function mapDispatchToProps(dispatch) {
     return result;
 }
 
-export const CategoryDetailPage = connect(mapStateToProps, mapDispatchToProps)(categoryDetailPage);
+export const CategoryDetailContainer = connect(mapStateToProps, mapDispatchToProps)(categoryDetailContainer);
