@@ -3,13 +3,13 @@
  */
 import React, { Component } from 'react';
 import { Route, IndexRoute } from 'react-router';
-import { UserContainer, UserAddContainer, UserEditContainer, UserDetailContainer } from '../containers';
+import { UserIndexPage, UserAddPage, UserEditPage, UserDetailPage } from '../pages';
 
 export const UserRouter = (
     <Route path="user" name="用户" icon="users" key="user">
-        <IndexRoute component={UserContainer}></IndexRoute>
-        <Route path="add" name="新用户" component={UserAddContainer}></Route>
-        <Route path=":user_id/edit" name="编辑用户" component={UserEditContainer}></Route>
-        <Route path=":user_id" name="用户详情" component={UserDetailContainer}></Route>
+        <IndexRoute component={UserIndexPage}></IndexRoute>
+        <Route path="add" name="新用户" component={UserAddPage}></Route>
+        <Route path=":user_id/edit" name="编辑用户" component={UserEditPage}></Route>
+        <Route path=":user_id" name="用户详情" component={UserDetailPage}></Route>
     </Route>
 );

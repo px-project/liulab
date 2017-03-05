@@ -10,13 +10,9 @@ import './style.scss';
 
 
 export class OrderComponent extends Component {
-    componentWillMount() {
-        this.getOrderList();
-        this.getCategoryList();
-    }
 
     render() {
-        let {category, order, entities} = this.props;
+        let { category, order, entities } = this.props;
         return (
             <div className="page order-page">
                 <header className="page-header">
@@ -35,14 +31,5 @@ export class OrderComponent extends Component {
         );
     }
 
-    // 获取品类列表
-    getCategoryList(conditions = {}) {
-        return this.props.xhttp.list('category', [], conditions);
-    }
-
-    // 获取订单列表
-    getOrderList(conditions = {}) {
-        return this.props.xhttp.list('order', [], conditions);
-    }
 }
 

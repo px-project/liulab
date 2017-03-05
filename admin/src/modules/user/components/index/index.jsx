@@ -4,7 +4,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { Loader, FormSelect, UserAvatar } from '../../../common/';
-import moment from 'moment';
 import './style.scss';
 
 export class UserComponent extends Component {

@@ -19,23 +19,22 @@ export class AppHeaderShopComponent extends Component {
 
 
     render() {
-        let {book, entities, app, appShopShow} = this.props;
-        let {selectProduct} = book;
+        let {book, entities, app, appShopShow, product_select} = this.props;
 
         return (
             <div className={`header-shop ${classname({ active: app.shop })}`}>
                 <div className="show" onClick={appShopShow.bind(this, true)} ref="shop_show">
                     <i className="fa fa-shopping-cart"></i>
                     <span className="name">购物车</span>
-                    (<span>{Object.keys(selectProduct).reduce((a, b) => (a + selectProduct[b]), 0)}</span>)
+                    (<span>{Object.keys(product_select).reduce((a, b) => (a + product_select[b]), 0)}</span>)
                 </div>
 
                 <div className="list" ref="shop_list">
-                    {Object.keys(selectProduct).length ? (
+                    {Object.keys(product_select).length ? (
                         <div className="products">
                             <h5>已选产品</h5>
                             <ul>
-                                {Object.keys(selectProduct).map((product_id, index) => (
+                                {Object.keys(product_select).map((product_id, index) => (
                                     <li key={index}>
                                         <CategoryCover className="photo" category_id={category._id}></CategoryCover>
 
@@ -44,7 +43,7 @@ export class AppHeaderShopComponent extends Component {
                                             <span className="code">No. {entities[product_id].code}</span>
                                             <span className="num">
                                                 <a className="action">-</a>
-                                                <span className="value">{selectProduct[product_id]}</span>
+                                                <span className="value">{product_select[product_id]}</span>
                                                 <a className="action">+</a>
                                             </span>
                                         </div>

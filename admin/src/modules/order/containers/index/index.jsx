@@ -4,11 +4,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../../../../actions';
 import { OrderComponent } from '../../components';
 
 class OrderApp extends Component {
-
+    componentWillMount() {
+        let { xhttp } = this.props;
+        xhttp.list('category');
+        xhttp.list('order');
+    }
     render() {
         return (<OrderComponent {...this.props}></OrderComponent>);
     }
@@ -20,15 +23,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    let result = {};
-    Object.keys(actions).forEach(key => {
-        if (typeof actions[key] === 'function') return result[key] = bindActionCreators(actions[key], dispatch);
-        result[key] = bindActionCreators(
-            Object.assign({}, ...Object.keys(actions[key]).map(ck => ({ [ck]: actions[key][ck] })))
-            , dispatch
-        );
-    });
-    return result;
+    return {};
 }
 
 export const OrderContainer = connect(mapStateToProps, mapDispatchToProps)(OrderApp);

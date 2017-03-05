@@ -1,0 +1,1 @@
+export { ProductSelectReducer as product_select } from './select';

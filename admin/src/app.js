@@ -11,10 +11,9 @@ let store = configureStore();
 
 const rootElement = document.getElementById('app');
 
-
 render(
     <Provider store={store}>
-    	<Routes />
+        <Routes />
     </Provider>,
     rootElement
 );

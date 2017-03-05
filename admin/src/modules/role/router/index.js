@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { Route, IndexRoute } from 'react-router';
-import { RoleContainer } from '../containers';
+import { RoleContainer } from '../pages';
 
 export const RoleRouter = (
     <Route path="role" name="角色" icon="cog" key="role">

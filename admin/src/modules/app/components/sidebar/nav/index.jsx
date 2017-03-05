@@ -8,12 +8,12 @@ import './style.scss';
 
 export class AppSidebarNavComponent extends Component {
 	render() {
-		let {routes, location} = this.props;
+		let {routes} = this.props;
 		return (
 			<nav className="sidebar-nav">
 				<ul>
 					{routes[0].childRoutes.map((child, index) => (
-						<li key={index} className={classname({ active: `/${child.path}`.indexOf(location.pathname) >= 0 })}>
+						<li key={index} className={classname({ active: child.path === routes[1].path })}>
 							<Link to={`/${child.path}`}>
 								<i className={`fa fa-${child.icon}`}></i>
 								<span className="title">{child.name}</span>
