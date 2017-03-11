@@ -6,15 +6,11 @@ import { Form } from 'semantic-ui-react';
 import { reduxForm } from 'redux-form';
 import './style.scss';
 
-const categoryEditInfo = (props) => (
-    <Form>
-
-    </Form>
+export default () => (
+	<div className="category-info-edit">
+		adasdads
+	</div>
 );
-
-export const CategoryEditInfo = reduxForm({
-    form: 'category_edit_info'
-})(categoryEditInfo);
 
 
 

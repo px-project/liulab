@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { initialize } from 'redux-form';
-import { CategoryEditComponent } from '../../components';
+import { CategoryEdit } from '../../components';
 import { INIT_ATTRS } from '../../constants';
 
 class categoryAddContainer extends Component {
@@ -15,7 +15,7 @@ class categoryAddContainer extends Component {
     }
 
     render() {
-        return (<CategoryEditComponent {...this.props}></CategoryEditComponent>);
+        return (<CategoryEdit {...this.props}></CategoryEdit>);
     }
 
 }

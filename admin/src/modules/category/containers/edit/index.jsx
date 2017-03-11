@@ -4,12 +4,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { CategoryEditComponent } from '../../components';
+import { CategoryEdit } from '../../components';
 
 class categoryEditContainer extends Component {
 
     render() {
-        return (<CategoryEditComponent {...this.props}></CategoryEditComponent>);
+        return (<CategoryEdit {...this.props}></CategoryEdit>);
     }
 
 }

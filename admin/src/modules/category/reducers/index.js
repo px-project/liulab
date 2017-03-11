@@ -1,4 +1,1 @@
-/**
- * 品类reducer.
- */
-import { CREATE_CATEGORY, UPDATE_CATEGORY } from '../constants';
+export { default as categorry_attr } from './attr';

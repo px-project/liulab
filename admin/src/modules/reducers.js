@@ -1,2 +1,2 @@
 export * from './product/reducers';
-// export * from './common/reducers';
+export * from './category/reducers';
