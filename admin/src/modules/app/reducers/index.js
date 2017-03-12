@@ -9,7 +9,7 @@ import { reducer as formReducer } from 'redux-form';
 
 export const AppReducer = combineReducers(Object.assign(
     {
-        formData: formReducer,
+        form: formReducer,
         entities: EntityReducer
     },
     ...Object.keys(XHTTP_API).map(api => ({ [api]: XhttpReducer(api) })),

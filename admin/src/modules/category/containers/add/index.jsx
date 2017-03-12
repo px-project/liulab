@@ -15,7 +15,7 @@ class categoryAddContainer extends Component {
     }
 
     render() {
-        return (<CategoryEdit {...this.props}></CategoryEdit>);
+        return (<CategoryEdit></CategoryEdit>);
     }
 
 }

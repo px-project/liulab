@@ -3,10 +3,10 @@
  */
 import React from 'react';
 import { Form } from 'semantic-ui-react';
-import { reduxForm } from 'redux-form';
+// import { reduxForm } from '.../../../';
 import './style.scss';
 
-export default () => (
+export const CategoryEditInfo = () => (
 	<div className="category-info-edit">
 		adasdads
 	</div>

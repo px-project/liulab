@@ -7,7 +7,7 @@ import { reduxForm, Field } from 'redux-form';
 import { ATTR_TYPE } from '../../constants';
 import './style.scss';
 
-export default ({ field, index }) => (
+export const CategoryEditField = ({ field, index }) => (
     <Table.Row key={index}>
         <Table.Cell>{index + 1}</Table.Cell>
         <Table.Cell>
@@ -24,7 +24,6 @@ export default ({ field, index }) => (
         </Table.Cell>
         <Table.Cell>
             <ButtonGroup>
-                <Button primary={true}><i className="fa fa-check"></i></Button>
                 <Button><i className="fa fa-remove"></i></Button>
             </ButtonGroup>
         </Table.Cell>

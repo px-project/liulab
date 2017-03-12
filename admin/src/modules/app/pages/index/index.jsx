@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AppComponent } from '../../components';
 import { xhttp } from '../../../common/actions';
+import * as _ from 'lodash';
 
 class appPage extends Component {
     componentWillMount() {

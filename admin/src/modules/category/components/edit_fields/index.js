@@ -3,7 +3,7 @@ import React from 'react';
 import { Table, Button } from 'semantic-ui-react';
 import { CategoryEditField } from '..';
 
-export default ({ fields }) => (
+export const CategoryEditFields = ({ fields }) => (
     <Table>
         <Table.Header fullWidth>
             <Table.Row>
