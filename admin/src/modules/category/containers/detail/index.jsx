@@ -4,15 +4,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../../../../actions';
-import { CategoryDetailComponent } from '../../components';
+import { xhttp } from '../../../common/actions';
+import { CategoryDetail } from '../../components';
 
 class categoryDetailContainer extends Component {
 
-    render() {
-        return (<CategoryDetailComponent {...this.props}></CategoryDetailComponent>);
+    componentWillMount() {
+        let { params, xhttp } = this.props;
+        xhttp.detail('category', [params.category_id]);
     }
 
+    render() {
+        return (<CategoryDetail {...this.props}></CategoryDetail>);
+    }
 }
 
 function mapStateToProps(state) {
@@ -20,15 +24,9 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    let result = {};
-    Object.keys(actions).forEach(key => {
-        if (typeof actions[key] === 'function') return result[key] = bindActionCreators(actions[key], dispatch);
-        result[key] = bindActionCreators(
-            Object.assign({}, ...Object.keys(actions[key]).map(ck => ({ [ck]: actions[key][ck] })))
-            , dispatch
-        );
-    });
-    return result;
+    return {
+        xhttp: xhttp(dispatch)
+    };
 }
 
 export const CategoryDetailContainer = connect(mapStateToProps, mapDispatchToProps)(categoryDetailContainer);

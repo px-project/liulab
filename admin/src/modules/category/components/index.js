@@ -2,6 +2,7 @@ export * from './index/index';
 export * from './detail';
 export * from './edit';
 export * from './edit_info';
-export * from './view_field';
+export * from './view_fields';
 export * from './edit_field';
 export * from './edit_fields';
+export * from './view_info';

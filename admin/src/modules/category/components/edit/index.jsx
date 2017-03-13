@@ -8,10 +8,10 @@ import { Sec } from '../../../common';
 import { FieldArray, reduxForm } from 'redux-form';
 import './style.scss';
 
-@reduxForm({form: 'category_edit'})
+@reduxForm({ form: 'category_edit' })
 export class CategoryEdit extends React.Component {
-	render () {
-		const {handleSubmit} = this.props;
+	render() {
+		const { handleSubmit } = this.props;
 		return (
 			<Form className="category-edit" onSubmit={handleSubmit}>
 				<Sec title="品类信息">
