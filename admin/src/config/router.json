@@ -1,0 +1,63 @@
+[
+    {
+        "path": "home",
+        "title": "首页",
+        "icon": "home",
+        "pages": [
+            {
+                "path": "",
+                "title": ""
+            }
+        ]
+    },
+    {
+        "path": "category",
+        "title": "品类",
+        "icon": "book",
+        "pages": [
+            {
+                "path": "",
+                "title": "列表"
+            },
+            {
+                "path": "add",
+                "title": "添加品类"
+            },
+            {
+                "path": ":category_id",
+                "name": "detail",
+                "title": "品类详情"
+            },
+            {
+                "path": ":category_id/edit",
+                "name": "edit",
+                "title": "编辑品类"
+            }
+        ]
+    },
+    {
+        "path": "user",
+        "title": "用户",
+        "icon": "users",
+        "pages": [
+            {
+                "path": "",
+                "title": "列表"
+            },
+            {
+                "path": "add",
+                "title": "添加用户"
+            },
+            {
+                "path": ":user_id",
+                "name": "detail",
+                "title": "用户详情"
+            },
+            {
+                "path": ":user_id/edit",
+                "name": "edit",
+                "title": "编辑用户"
+            }
+        ]
+    }
+]

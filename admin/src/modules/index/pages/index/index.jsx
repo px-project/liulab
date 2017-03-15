@@ -56,7 +56,7 @@ class Demo extends Component {
 
 
 
-class IndexApp extends Component {
+class indexPage extends Component {
 
     render() {
         return (<Demo></Demo>);
@@ -72,4 +72,4 @@ function mapDispatchToProps(dispatch) {
     return {};
 }
 
-export const IndexContainer = connect(mapStateToProps, mapDispatchToProps)(IndexApp);
+export const IndexPage = connect(mapStateToProps, mapDispatchToProps)(indexPage);

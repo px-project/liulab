@@ -11,14 +11,12 @@ module.exports = merge(commonConfig, {
     ],
 
     devtool: 'source-map',
-    debug: true,
 
     devServer: {
         port: 9100,
         contentBase: './build',
         hot: true,
         inline: true,
-        colors: true,
         historyApiFallback: true
     },
 

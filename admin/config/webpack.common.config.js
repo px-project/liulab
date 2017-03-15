@@ -32,19 +32,19 @@ module.exports = {
     },
 
     resolve: {
-        extensions: ['', '.jsx', '.js', '.json', '.scss', '.jpeg', '.png']
+        extensions: ['.js', '.jsx', '.json', '.scss', '.jpeg', '.png']
     },
 
     module: {
         loaders: [
-            { test: /\.jsx?$/, loader: 'babel', exclude: /node_modules/ },
-            { test: /\.scss$/, loaders: ['style', 'css', 'sass'] },
-            { test: /\.json$/, loader: 'json' },
+            { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
+            { test: /\.scss$/, loaders: ['style-loader', 'css-loader', 'sass-loader'] },
+            { test: /\.json$/, loader: 'json-loader' },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
                 loaders: [
-                    'file?hash=sha512&digest=hex&name=[hash].[ext]',
-                    'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+                    'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+                    'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
                 ]
             }
             // { test: /\.html$/, loader: 'html' }

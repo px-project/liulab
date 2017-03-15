@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { CategoryComponent } from '../../components';
 import { xhttp } from '../../../common/actions';
 
-class categoryIndexContainer extends React.Component {
+class categoryPage extends React.Component {
 
     componentWillMount() {
         this.props.xhttp.list('category');
@@ -27,4 +27,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export const CategoryIndexContainer = connect(mapStateToProps, mapDispatchToProps)(categoryIndexContainer);
+export const CategoryPage = connect(mapStateToProps, mapDispatchToProps)(categoryPage);

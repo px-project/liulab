@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { xhttp } from '../../../common/actions';
 import { UserDetailComponent } from '../../components';
 
-class Page extends React.Component {
+class userDetailPage extends React.Component {
 
     componentWillMount() {
         this.props.xhttp.list('role');
@@ -28,4 +28,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export const UserDetailPage = connect(mapStateToProps, mapDispatchToProps)(Page);
+export const UserDetailPage = connect(mapStateToProps, mapDispatchToProps)(userDetailPage);

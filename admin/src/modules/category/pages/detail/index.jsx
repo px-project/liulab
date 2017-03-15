@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { xhttp } from '../../../common/actions';
 import { CategoryDetail } from '../../components';
 
-class categoryDetailContainer extends Component {
+class categoryDetailPage extends Component {
 
     componentWillMount() {
         let { params, xhttp } = this.props;
@@ -29,4 +29,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export const CategoryDetailContainer = connect(mapStateToProps, mapDispatchToProps)(categoryDetailContainer);
+export const CategoryDetailPage = connect(mapStateToProps, mapDispatchToProps)(categoryDetailPage);

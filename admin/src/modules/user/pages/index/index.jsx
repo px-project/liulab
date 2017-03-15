@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { UserComponent } from '../../components';
 import { xhttp } from '../../../common/actions';
 
-class userIndexPage extends React.Component {
+class userPage extends React.Component {
 
     componentWillMount() {
         let { xhttp } = this.props;
@@ -29,4 +29,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export const UserIndexPage = connect(mapStateToProps, mapDispatchToProps)(userIndexPage);
+export const UserPage = connect(mapStateToProps, mapDispatchToProps)(userPage);

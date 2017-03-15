@@ -8,7 +8,7 @@ import { initialize } from 'redux-form';
 import { CategoryEdit } from '../../components';
 import { INIT_ATTRS } from '../../constants';
 
-class categoryAddContainer extends Component {
+class categoryAddPage extends Component {
 
     componentWillMount() {
         this.props.initialize('category_edit', { attrs: INIT_ATTRS });
@@ -30,4 +30,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export const CategoryAddContainer = connect(mapStateToProps, mapDispatchToProps)(categoryAddContainer);
+export const CategoryAddPage = connect(mapStateToProps, mapDispatchToProps)(categoryAddPage);

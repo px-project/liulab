@@ -8,7 +8,7 @@ import { EditForm } from '../../components';
 import { Loader, xhttp } from '../../../common';
 import { initialize } from 'redux-form';
 
-class Page extends React.Component {
+class userEditPage extends React.Component {
 
     componentWillMount() {
         let { xhttp, params } = this.props;
@@ -45,4 +45,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export const UserEditPage = connect(mapStateToProps, mapDispatchToProps)(Page);
+export const UserEditPage = connect(mapStateToProps, mapDispatchToProps)(userEditPage);
