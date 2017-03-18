@@ -3,11 +3,9 @@
  */
 import React from 'react';
 import { Header, Sidebar } from '..';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import './style.scss';
-import { IndexContainer } from '../../../index/containers';
-import { CategoryContainer } from '../../../category/containers';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { AppRouter } from '../../router';
+import './style.scss';
 
 export class AppComponent extends React.Component {
     render() {

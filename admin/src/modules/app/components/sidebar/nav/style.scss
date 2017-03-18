@@ -1,6 +1,5 @@
 @import '../../../../style.scss';
 $icon_size: 1rem;
-
 .sidebar-nav {
     ul {
         li {
@@ -20,9 +19,7 @@ $icon_size: 1rem;
                     padding-right: $header_height / 2;
                     letter-spacing: 1rem;
                 }
-            }
-            &.active {
-                a {
+                &.active {
                     color: #ccc;
                 }
             }

@@ -7,25 +7,35 @@ import { reduxForm, Field } from 'redux-form';
 import { ATTR_TYPE } from '../../constants';
 import './style.scss';
 
-export const CategoryEditField = ({ field, index }) => (
+const InputValue = ({ input }) => (
+    <p>{input.value}</p>
+);
+
+const SelectValue = ({ input }) => (
+    <p>{ATTR_TYPE.filter(attr => attr.value === input.value)[0].text}</p>
+);
+
+const CheckValue = ({ input }) => (
+    <p>{input.value ? '是' : '否'}</p>
+);
+
+export const CategoryEditField = ({ field, index, disable = false, remove }) => (
     <Table.Row key={index}>
         <Table.Cell>{index + 1}</Table.Cell>
         <Table.Cell>
-            <Field component={FormInput} block name={`${field}.title`}></Field>
+            <Field component={disable ? InputValue : FormInput} name={`${field}.title`}></Field>
         </Table.Cell>
         <Table.Cell>
-            <Field component={FormInput} block name={`${field}.key`}></Field>
+            <Field component={disable ? InputValue : FormInput} name={`${field}.key`}></Field>
         </Table.Cell>
         <Table.Cell>
-            <Field component={FormSelect} block options={ATTR_TYPE} name={`${field}.attr_type`}></Field>
+            <Field component={disable ? SelectValue : FormSelect} options={ATTR_TYPE} name={`${field}.attr_type`}></Field>
         </Table.Cell>
         <Table.Cell>
-            <Field component={FormCheckbox} name={`${field}.attr_required`} toggle></Field>
+            <Field component={disable ? CheckValue : FormCheckbox} name={`${field}.attr_required`} toggle></Field>
         </Table.Cell>
         <Table.Cell>
-            <ButtonGroup>
-                <Button><i className="fa fa-remove"></i></Button>
-            </ButtonGroup>
+            {!disable && <Button onClick={() => remove(index)}><i className="fa fa-remove"></i></Button>}
         </Table.Cell>
     </Table.Row>
 )

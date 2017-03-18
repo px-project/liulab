@@ -11,7 +11,6 @@ class categoryDetailPage extends Component {
 
     componentWillMount() {
         let { params, xhttp } = this.props;
-        xhttp.detail('category', [params.category_id]);
     }
 
     render() {

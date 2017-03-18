@@ -2,9 +2,11 @@
 import React from 'react';
 import { Table, Button } from 'semantic-ui-react';
 import { CategoryEditField } from '..';
+import { INIT_ATTRS } from '../../constants';
+import './style.scss';
 
 export const CategoryEditFields = ({ fields }) => (
-    <Table>
+    <Table className="category-edit-fields">
         <Table.Header fullWidth>
             <Table.Row>
                 <Table.HeaderCell>#</Table.HeaderCell>
@@ -17,7 +19,7 @@ export const CategoryEditFields = ({ fields }) => (
         </Table.Header>
         <Table.Body>
             {fields.map((field, index) => (
-                <CategoryEditField field={field} index={index} key={index}></CategoryEditField>
+                <CategoryEditField field={field} index={index} key={index} disable={index < INIT_ATTRS.length} remove={fields.remove}></CategoryEditField>
             ))}
         </Table.Body>
         <Table.Footer fullWidth>

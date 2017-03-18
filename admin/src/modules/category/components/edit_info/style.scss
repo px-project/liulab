@@ -1,4 +1,10 @@
 .category-info-edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .upload {
+        margin-right: 5rem;
+    }
     .description {
         .input {
             width: 25rem!important;

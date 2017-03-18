@@ -4,7 +4,7 @@
 import React from 'react';
 import { Table, Icon } from 'semantic-ui-react';
 
-export const ViewFields = ({ category }) => (
+export const ViewFields = ({ category = {} }) => (
     <Table>
         <Table.Header fullWidth>
             <Table.Row>
@@ -16,7 +16,7 @@ export const ViewFields = ({ category }) => (
             </Table.Row>
         </Table.Header>
         <Table.Body>
-            {category.attrs.map((attr, index) => (
+            {(category.attrs || []).map((attr, index) => (
                 <Table.Row key={index}>
                     <Table.Cell>{index + 1}</Table.Cell>
                     <Table.Cell>

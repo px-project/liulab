@@ -1,19 +1,14 @@
 /**
  * 侧边栏组件
  */
-import React, { Component } from 'react';
-import { AppSidebarNavComponent as Nav } from '../nav/';
-import { AppSidebarLogoComponent as Logo } from '../logo/';
-
+import React from 'react';
+import { SidebarNav } from '../nav/';
+import { SidebarLogo } from '../logo/';
 import './style.scss';
 
-export class Sidebar extends Component {
-	render() {
-		return (
-			<sidebar id="sidebar">
-				<Logo></Logo>
-				<Nav {...this.props}></Nav>
-			</sidebar>
-		);
-	}
-}
+export const Sidebar = () => (
+	<sidebar id="sidebar">
+		<SidebarLogo></SidebarLogo>
+		<SidebarNav></SidebarNav>
+	</sidebar>
+);

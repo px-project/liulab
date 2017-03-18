@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { initialize } from 'redux-form';
 import { CategoryEdit } from '../../components';
 import { INIT_ATTRS } from '../../constants';
+import { xhttp } from '../../../common';
 
 class categoryAddPage extends Component {
 
@@ -15,8 +16,14 @@ class categoryAddPage extends Component {
     }
 
     render() {
-        return (<CategoryEdit></CategoryEdit>);
+        return (<CategoryEdit onSubmit={this.createCategory.bind(this)}></CategoryEdit>);
     }
+
+    createCategory(value) {
+        this.props.xhttp.create('category', [], value)
+            .then();
+    }
+
 
 }
 
@@ -26,7 +33,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        initialize: bindActionCreators(initialize, dispatch)
+        initialize: bindActionCreators(initialize, dispatch),
+        xhttp: xhttp(dispatch)
     };
 }
 

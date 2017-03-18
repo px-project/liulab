@@ -1,4 +1,4 @@
-export * from './index/pages';
+export * from './home/pages';
 // export * from './book/router';
 // export * from './order/router';
 // export * from './manifest/router';

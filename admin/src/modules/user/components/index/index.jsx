@@ -2,14 +2,14 @@
  * 用户列表组件
  */
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Loader, FormSelect, UserAvatar } from '../../../common/';
 import './style.scss';
 
 export class UserComponent extends Component {
 
 	render() {
-		let {user, entities, role} = this.props;
+		let { user, entities, role } = this.props;
 
 		return (
 			<div className="user-index-page page">
