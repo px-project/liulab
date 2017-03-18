@@ -4,16 +4,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { xhttp } from '../../../common/actions';
-import { UserDetailComponent } from '../../components';
+import { UserDetail } from '../../components';
 
 class userDetailPage extends React.Component {
 
     componentWillMount() {
-        this.props.xhttp.list('role');
+        let { match, xhttp } = this.props, { user_id } = match.params;
+        xhttp.detail('user', [user_id]);
     }
 
     render() {
-        return (<UserDetailComponent {...this.props}></UserDetailComponent>);
+        return (<UserDetail {...this.props}></UserDetail>);
     }
 
 }

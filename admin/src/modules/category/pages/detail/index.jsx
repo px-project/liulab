@@ -10,7 +10,8 @@ import { CategoryDetail } from '../../components';
 class categoryDetailPage extends Component {
 
     componentWillMount() {
-        let { params, xhttp } = this.props;
+        let { match, xhttp } = this.props;
+        xhttp.detail('category', [match.params.category_id]);
     }
 
     render() {

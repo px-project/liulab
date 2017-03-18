@@ -3,8 +3,9 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import { xhttp } from '../../../common/actions';
-import { EditForm } from '../../components';
+import { xhttp } from '../../../common';
+import { UserEdit } from '../../components';
+import './style.scss';
 
 class userAddPage extends React.Component {
 
@@ -13,11 +14,12 @@ class userAddPage extends React.Component {
     }
 
     render() {
+        let { role, entities } = this.props;
         return (
             <div className="user-add-page page">
-                <EditForm onSubmit={this.save.bind(this)} {...this.props}></EditForm>
+                <UserEdit onSubmit={this.save.bind(this)} entities={entities} role={role}></UserEdit>
             </div>
-        )
+        );
     }
 
     // 保存

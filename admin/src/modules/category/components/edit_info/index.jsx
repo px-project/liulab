@@ -5,7 +5,7 @@ import React from 'react';
 import { Form } from 'semantic-ui-react';
 import { Field } from 'redux-form';
 import { FormInput } from 'semantic-ui-react';
-import { UploadImage } from '../../../common';
+import { UploadImage, CategoryCover, Field as FieldMap } from '../../../common';
 import './style.scss';
 
 export const CategoryEditInfo = () => (

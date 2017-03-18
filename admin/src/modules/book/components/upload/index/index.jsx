@@ -8,14 +8,14 @@ import { BookUploadUploadComponent as UploadUpload } from '../upload/';
 import { BookUploadPreviewComponent as UploadPreview } from '../preview/';
 import './style.scss';
 
-export class BookUploadComponent extends Component {
+export class BookUpload extends Component {
 	componentWillMount() {
 		// init
 		this.props.xbook.changeState('select');
 	}
 
 	render() {
-		let {state} = this.props.book;
+		let { state } = this.props.book;
 
 		let allState = {
 			'select': '选择品类',

@@ -11,6 +11,25 @@
         ]
     },
     {
+        "path": "book",
+        "title": "订购",
+        "icon": "shopping-bag",
+        "pages": [
+            {
+                "path": "upload",
+                "title": "批量上传"
+            },
+            {
+                "path": "confirm",
+                "title": "确认订单"
+            },
+            {
+                "path": "",
+                "title": "选购"
+            }
+        ]
+    },
+    {
         "path": "category",
         "title": "品类",
         "icon": "book",

@@ -3,9 +3,11 @@
  */
 import React from 'react';
 import { Table, Icon } from 'semantic-ui-react';
+import { ATTR_TYPE } from '../../constants';
+import './style.scss';
 
 export const ViewFields = ({ category = {} }) => (
-    <Table>
+    <Table className="category-view-fields">
         <Table.Header fullWidth>
             <Table.Row>
                 <Table.HeaderCell>#</Table.HeaderCell>
@@ -26,7 +28,7 @@ export const ViewFields = ({ category = {} }) => (
                         <span className="value">{attr.key}</span>
                     </Table.Cell>
                     <Table.Cell>
-                        <span className="value">{attr.attr_type}</span>
+                        <p>{ATTR_TYPE.filter(a => a.value === attr.attr_type)[0].text}</p>
                     </Table.Cell>
                     <Table.Cell>
                         <span className="value">

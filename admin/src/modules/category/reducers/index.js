@@ -1,1 +1,0 @@
-export { default as categorry_attr } from './attr';

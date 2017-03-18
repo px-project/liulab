@@ -1,2 +1,1 @@
-export * from './product/reducers';
-export * from './category/reducers';
+export * from './book/reducers';

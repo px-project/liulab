@@ -30,7 +30,7 @@ export class UploadImage extends React.Component {
 
         return (
             <div className={`l-upload-Image ${className}`}>
-                <Dropzone className="l-upload-dropzone" ref="dropzone" onDrop={this.onDrop.bind(this)} multiple="false">
+                <Dropzone className="l-upload-dropzone" ref="dropzone" onDrop={this.onDrop.bind(this)} multiple={false}>
                     <img src={file.preview || file} />
                     <Icon icon="upload"></Icon>
                 </Dropzone>

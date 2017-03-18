@@ -23,8 +23,6 @@ class categoryAddPage extends Component {
         this.props.xhttp.create('category', [], value)
             .then();
     }
-
-
 }
 
 function mapStateToProps(state) {
