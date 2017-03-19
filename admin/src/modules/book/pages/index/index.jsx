@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import { BookList } from '../../components';
+import { BookSelect } from '../../components';
 import { xhttp } from '../../../common';
 
 class bookPage extends React.Component {
@@ -14,7 +14,7 @@ class bookPage extends React.Component {
     }
 
     render() {
-        return (<BookList {...this.props}></BookList>);
+        return (<BookSelect {...this.props}></BookSelect>);
     }
 
 }

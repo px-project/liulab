@@ -1,41 +1,7 @@
 $index_size: 3rem;
 $line_height: 0.5rem;
 .book-upload-page {
-	.step {
-		width: 70%;
-		margin: 0 auto;
-		ul {
-			position: relative;
-			display: flex;
-			&:before {
-				content: '';
-				position: absolute;
-				width: 100%;
-				background: white;
-				height: $line_height;
-				top: ($index_size - $line_height) / 2;
-				z-index: -1;
-			}
-			li {
-				flex-grow: 1;
-				display: inline-flex;
-				flex-direction: column;
-				align-items: center;
-
-				.index {
-					background: white;
-					height: $index_size;
-					width: $index_size;
-					border-radius: $index_size;
-					text-align: center;
-					line-height: $index_size;
-					margin-bottom: 1rem;
-				}
-				.info {
-
-
-				}
-			}
-		}
-	}
+    .steps {
+        width: 100%;
+    }
 }

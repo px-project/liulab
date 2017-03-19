@@ -2,7 +2,7 @@
 $logo_size: 7rem;
 $icon_size: 1.5rem;
 $icon_color: #208bfd;
-.product-type {
+.category-item {
     display: inline-flex;
     flex-wrap: wrap;
     position: relative;
@@ -22,8 +22,8 @@ $icon_color: #208bfd;
     .fa {
         position: absolute;
         background: $icon_color;
-        top: 1rem;
-        right: 1rem;
+        top: 1.2rem;
+        right: 1.6rem;
         color: white;
         font-size: 0.3rem;
         width: $icon_size;
@@ -37,6 +37,7 @@ $icon_color: #208bfd;
     .name {
         width: 100%;
         font-size: 1rem;
+        text-align: center;
     }
     &.selected {
         .category-cover {

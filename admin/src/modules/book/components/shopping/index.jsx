@@ -8,18 +8,20 @@ import { FormSelect } from 'semantic-ui-react';
 import { currency } from '../../../../utils';
 import './style.scss';
 
-export const BookList = ({ product }) => (
+export const BookSelect = ({ product, entities, category }) => (
 	<div className="book-index-page page">
 		<header className="page-header">
 			<div className="upload add">
 				<Link to={'/book/upload'} className="ui button primary">批量上传</Link>
 			</div>
 
-			<FormSelect className="category group" placeholder="所有品类"></FormSelect>
+			<FormSelect className="category group" placeholder="所有品类"
+				options={[{ key: 'empty', text: "所有品类", value: '' }].concat(category.items.map(category_id => ({ key: category_id, text: entities[category_id].name, value: category_id })))}
+			></FormSelect>
 
 			<Search></Search>
 		</header>
-		<Loader loading={product.fetching} data={product.items}>
+		<Loader loading={product.fetching.list} data={product.items}>
 			<ul>
 				{product.items.map((product_id, index) => (
 					<li key={index}>

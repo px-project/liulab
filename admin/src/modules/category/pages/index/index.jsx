@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import { CategoryComponent } from '../../components';
+import { CategoryList } from '../../components';
 import { xhttp } from '../../../common/actions';
 
 class categoryPage extends React.Component {
@@ -13,7 +13,7 @@ class categoryPage extends React.Component {
     }
 
     render() {
-        return (<CategoryComponent {...this.props}></CategoryComponent>);
+        return (<CategoryList {...this.props}></CategoryList>);
     }
 }
 

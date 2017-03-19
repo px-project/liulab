@@ -1,18 +1,18 @@
 /**
  * 上传方式上传界面
  */
-import React, { Component } from 'react';
+import React from 'react';
 import './style.scss';
 
-export class BookUploadUploadComponent extends Component {
+export class BookUploadTemplate extends React.Component {
 
 	// 上传excel
 	uploadOrderData(props, e) {
-		let {xhttp, book, xbook, xform, entities} = props, {selectCategory} = book, {changeState} = xbook;
+		let { xhttp, book, xbook, xform, entities } = props, { selectCategory } = book, { changeState } = xbook;
 		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
 
 		xhttp.upload('categoryTemplate', [categoryArr.join(',')], { file: e.target.files[0] }).then(result => {
-			let {data: orders} = result;
+			let { data: orders } = result;
 
 			let newData = { description: '', products: [] };
 
@@ -36,7 +36,7 @@ export class BookUploadUploadComponent extends Component {
 
 	// 下载模板
 	download() {
-		let {book, category, xhttp, entities} = this.props, {selectCategory} = book;
+		let { book, category, xhttp, entities } = this.props, { selectCategory } = book;
 		let categoryArr = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
 		let ids = Object.keys(selectCategory).filter(category_id => selectCategory[category_id]);
 		let names = ids.map(id => entities[id].name);

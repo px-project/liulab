@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import { UserComponent } from '../../components';
+import { UserList } from '../../components';
 import { xhttp } from '../../../common/actions';
 
 class userPage extends React.Component {
@@ -15,7 +15,7 @@ class userPage extends React.Component {
     }
 
     render() {
-        return (<UserComponent {...this.props}></UserComponent>);
+        return (<UserList {...this.props}></UserList>);
     }
 }
 

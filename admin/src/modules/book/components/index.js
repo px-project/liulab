@@ -1,3 +1,3 @@
 export * from './upload';
 export * from './confirm';
-export * from './list';
+export * from './shopping';
