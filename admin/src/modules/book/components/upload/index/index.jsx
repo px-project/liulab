@@ -32,7 +32,7 @@ export const BookUpload = props => (
 		<div className="step-cont">
 			{props.book_upload_step === 'category' && <Category {...props}></Category>}
 			{props.book_upload_step === 'template' && <Template {...props}></Template>}
-			{props.book_upload_step === 'Confirm' && <Confirm {...props}></Confirm>}
+			{props.book_upload_step === 'confirm' && <Confirm handleSubmit={props.handleSubmit}></Confirm>}
 		</div>
 	</div>
 );

@@ -16,9 +16,9 @@ export const BOOK_UPLOAD_STEP = 'BOOK_UPLOAD_STEP';
 
 // 上传步骤
 export const BOOK_UPLOAD_STEPS = [
-    { status: 'select', name: '选择品类', description: '选择需要上传产品的全部品类' },
-    { status: 'upload', name: '上传文件', description: '下载模板填写完成后上传' },
-    { status: 'preview', name: '确认订单', description: '订单产品和数量确认' }
+    { status: 'category', name: '选择品类', description: '选择需要上传产品的全部品类' },
+    { status: 'template', name: '上传文件', description: '下载模板填写完成后上传' },
+    { status: 'confirm', name: '确认订单', description: '订单产品和数量确认' }
 ];
 
 // 上传选择品类

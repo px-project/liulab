@@ -14,7 +14,7 @@ function handleError(code) {
 }
 
 // 处理URL
-function handleUrl(api, params, conditions) {
+export const url = (api, params, conditions) => {
     let url = window.server + XHTTP_API[api];
 
     // id字段的正则表达式
@@ -119,7 +119,7 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
             fetchOption.body = JSON.stringify(options.newData);
         }
 
-        let fetchRef = fetch(handleUrl(options.api, options.params, options.conditions), fetchOption).then(res => {
+        let fetchRef = fetch(url(options.api, options.params, options.conditions), fetchOption).then(res => {
             if (res.status >= 400 && res.status < 500) return res.json().then(json => Promise.reject(json.code));
             if (res.status >= 500 && res.status < 600) return Promise.reject(res.status);
             return res;
@@ -142,11 +142,11 @@ const genXhttpMethod = method => (api = '', params = [], ...args) => {
 }
 
 // export const xhttp = Object.assign({
-//     url: handleUrl
+//     url: url
 // }, ...Object.keys(XHTTP_METHODS).map(method => ({ [method]: genXhttpMethod(method) })));
 
 export const xhttp = dispatch => bindActionCreators(
     Object.assign(
-        {url: handleUrl},
+        { url: url },
         ...Object.keys(XHTTP_METHODS).map(method => ({ [method]: genXhttpMethod(method) }))
     ), dispatch);
