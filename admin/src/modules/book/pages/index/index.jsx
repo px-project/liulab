@@ -3,8 +3,10 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import { BookSelect } from '../../components';
+import { bindActionCreators } from 'redux';
+import { BookShopping } from '../../components';
 import { xhttp } from '../../../common';
+import { BookProductAdd } from '../../actions';
 
 class bookPage extends React.Component {
     componentWillMount() {
@@ -14,9 +16,8 @@ class bookPage extends React.Component {
     }
 
     render() {
-        return (<BookSelect {...this.props}></BookSelect>);
+        return (<BookShopping {...this.props}></BookShopping>);
     }
-
 }
 
 function mapStateToProps(state) {
@@ -25,7 +26,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        xhttp: xhttp(dispatch)
+        xhttp: xhttp(dispatch),
+        addProduct: bindActionCreators(BookProductAdd, dispatch)
     };
 }
 

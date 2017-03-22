@@ -5,13 +5,13 @@ import React, { Component } from 'react';
 import { MANIFEST_STATUS } from '../../../../../constants/';
 import moment from 'moment';
 import { currency } from '../../../../../utils/';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import classname from 'classname';
 import './style.scss';
 
 export class ManifestItemComponent extends Component {
     render() {
-        let {entities, manifest, xmanifest = {}, manifest_id} = this.props, manifestData = entities[manifest_id], {selectManifest} = xmanifest;
+        let { entities, manifest, xmanifest = {}, manifest_id } = this.props, manifestData = entities[manifest_id], { selectManifest } = xmanifest;
         let selected = !!manifest.selected && manifest.selected.indexOf(manifest_id) >= 0;
         let category = manifestData.product.category;
         return (

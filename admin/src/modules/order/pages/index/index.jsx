@@ -1,21 +1,21 @@
 /**
  * 订单列表界面
  */
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { OrderComponent } from '../../components';
+import { OrderList } from '../../components';
+import { xhttp } from '../../../common/actions';
 
-class OrderApp extends Component {
+class orderPage extends React.Component {
     componentWillMount() {
         let { xhttp } = this.props;
         xhttp.list('category');
         xhttp.list('order');
     }
     render() {
-        return (<OrderComponent {...this.props}></OrderComponent>);
+        return (<OrderList {...this.props}></OrderList>);
     }
-
 }
 
 function mapStateToProps(state) {
@@ -23,7 +23,9 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {};
+    return {
+        xhttp: xhttp(dispatch)
+    };
 }
 
-export const OrderContainer = connect(mapStateToProps, mapDispatchToProps)(OrderApp);
+export const OrderPage = connect(mapStateToProps, mapDispatchToProps)(orderPage);

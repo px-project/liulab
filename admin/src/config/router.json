@@ -30,6 +30,63 @@
         ]
     },
     {
+        "path": "order",
+        "title": "订单",
+        "icon": "file text outline",
+        "pages": [
+            {
+                "path": ":order_id",
+                "name": "detail",
+                "title": "订单详情"
+            },
+            {
+                "path": "",
+                "title": "列表"
+            }
+        ]
+    },
+    {
+        "path": "manifest",
+        "title": "货单",
+        "icon": "truck",
+        "pages": [
+            {
+                "path": ":manifest_id",
+                "name": "detail",
+                "title": "货单详情"
+            },
+            {
+                "path": "",
+                "title": "列表"
+            }
+        ]
+    },
+    {
+        "path": "product",
+        "title": "产品",
+        "icon": "product-hunt",
+        "pages": [
+            {
+                "path": "add",
+                "title": "添加产品"
+            },
+            {
+                "path": ":category_id/edit",
+                "name": "edit",
+                "title": "编辑产品"
+            },
+            {
+                "path": ":category_id",
+                "name": "detail",
+                "title": "产品详情"
+            },
+            {
+                "path": "",
+                "title": "列表"
+            }
+        ]
+    },
+    {
         "path": "category",
         "title": "品类",
         "icon": "book",

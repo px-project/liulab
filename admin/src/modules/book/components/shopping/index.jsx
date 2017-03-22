@@ -8,7 +8,7 @@ import { FormSelect } from 'semantic-ui-react';
 import { currency } from '../../../../utils';
 import './style.scss';
 
-export const BookSelect = ({ product, entities, category }) => (
+export const BookShopping = ({ product, entities, category, addProduct }) => (
 	<div className="book-index-page page">
 		<header className="page-header">
 			<div className="upload add">
