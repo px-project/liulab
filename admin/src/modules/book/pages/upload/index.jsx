@@ -55,8 +55,9 @@ class bookUploadPage extends React.Component {
     }
 
     save(value) {
-        this.props.xhttp.create('order', [], value).then(result => {
-            console.log(result);
+        let { xhttp, history } = this.props;
+        xhttp.create('order', [], value).then(result => {
+            history.push('/order/' + result.order_id);
         });
     }
 }

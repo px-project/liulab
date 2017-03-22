@@ -30,7 +30,7 @@ export class BookConfirm extends React.Component {
 	render() {
 		let { handleSubmit } = this.props;
 		return (
-			<Form className="book-confirm" onSubmit={handleSubmit}>
+			<form className="book-confirm" onSubmit={handleSubmit}>
 				<Table>
 					<TableHeader>
 						<TableRow>
@@ -49,7 +49,7 @@ export class BookConfirm extends React.Component {
 				<ButtonGroup>
 					<Button primary={true}>确认订单</Button>
 				</ButtonGroup>
-			</Form>
+			</form>
 		);
 	}
 }
