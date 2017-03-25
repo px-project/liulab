@@ -17,7 +17,7 @@ export class RoleEdit extends React.Component {
                     <Field component={FormInput} label="角色名称" name="name" inline={true}></Field>
                     <Field className="description" component={FormInput} label="备注" name="description" inline={true}></Field>
                 </header>
-                <div className="detail">
+                <div className="role-detail">
                 </div>
             </Form>
         );

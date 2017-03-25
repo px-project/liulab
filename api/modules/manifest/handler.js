@@ -4,7 +4,7 @@
 const manifestModel = require('../../common/xmodel')('manifest');
 const timelineHandlers = require('../timeline/handler');
 const productHandlers = require('../product/handler');
-const {MANIFEST_STATUS} = require('./constant');
+const { MANIFEST_STATUS } = require('./constant');
 const _ = require('lodash');
 
 /**
@@ -14,14 +14,16 @@ const _ = require('lodash');
  */
 exports.list = conditions => manifestModel.list(conditions);
 
-
 /**
  * 货单详情
  * 
  * @param _id {String}
  * 
  */
-exports.detail = _id => manifestModel.detail(_id, { populateKeys: 'create_user' });
+exports.detail = _id => manifestModel.list({ where: { manifest_id: _id }, populateKeys: 'create_user' })
+    .then(result => {
+        if (result.length) return Promise.resolve(result[0]);
+    });
 
 
 /**

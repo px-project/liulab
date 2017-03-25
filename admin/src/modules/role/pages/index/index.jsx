@@ -8,6 +8,16 @@ import { RoleList, RoleView, RoleEdit } from '../../components';
 import { Loader, xhttp } from '../../../common';
 import { changeStatus } from '../../actitons';
 import './style.scss';
+import { Route, Switch } from 'react-router-dom';
+
+const Empty = () => (
+    <div className="role-empty">
+        <header className="header"></header>
+        <div className="detail">
+            <p className="empty">请选择右侧角色查看详情</p>
+        </div>
+    </div>
+);
 
 class rolePage extends React.Component {
     componentWillMount() {
@@ -16,9 +26,16 @@ class rolePage extends React.Component {
     render() {
         let { xhttp, role, children } = this.props;
         return (
-            <Loader className="role-page" loading={role.fetching.list}>
+            <Loader className="role-page page" loading={role.fetching.list}>
                 <RoleList {...this.props}></RoleList>
-                <div className="role-detail">{children}</div>
+                <div className="role-detail">
+                    <Switch>
+                        <Route path="/role/add" component={RoleEdit}></Route>
+                        <Route path="/role/:role_id/edit" component={RoleEdit}></Route>
+                        <Route path="/role/:role_id" component={RoleView}></Route>
+                        <Route path="/role" component={Empty}></Route>
+                    </Switch>
+                </div>
             </Loader>
         );
     }

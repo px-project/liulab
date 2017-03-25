@@ -7,10 +7,10 @@ import { MANIFEST_STATUS } from '../../../../constants';
 import { Group } from '../group';
 import './style.scss';
 
-export const Menu = ({ manifest, entities }) => {
+export const Menu = ({ entities, manifest_selected }) => {
     let list = { created: [], auditPassed: [], booked: [] };
 
-    manifest.selected.forEach(manifest_id => {
+    manifest_selected.forEach(manifest_id => {
         let manifest = entities[manifest_id], { status } = manifest;
         Object.keys(list).forEach(key => {
             if (status === key) list[key].push(manifest);

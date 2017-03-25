@@ -8,7 +8,7 @@ export const RoleView = () => (
     <div className="role-view">
         <header className="header">
         </header>
-        <div className="detail">
+        <div className="role-detail">
         </div>
     </div>
 );

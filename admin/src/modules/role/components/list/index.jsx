@@ -3,14 +3,15 @@
  */
 import React from 'react';
 import { Button } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import './style.scss';
 
-export const RoleList = ({ role, entities, changeStatus, role_status }) => (
+export const RoleList = ({ role, entities, changeStatus, location }) => (
     <div className="role-list">
         <header className="header">
-            {role_status === 'view' && <Button color="teal" fluid={true} onClick={() => changeStatus('add')}>添加</Button>}
+            {location.pathname !== '/role/add' && <Link to="/role/add" className="ui teal fluid button">添加</Link>}
         </header>
-        <ul className="list">
+        <ul>
             {role.items.map((role_id, index) => (
                 <li key={index} name={entities[role_id].name}></li>
             ))}

@@ -4,15 +4,9 @@
 import React from 'react';
 import './style.scss';
 
-export class Timeline extends React.Component {
-    render() {
-        let { entities, manifest } = this.props;
-        let { progress } = entities[manifest.detail];
-        return (
-            <div className="manifest-detail-timeline">
-                <ul>
-                </ul>
-            </div>
-        );
-    }
-}
+export const Timeline = ({ progress = {} }) => (
+    <div className="manifest-detail-timeline">
+        <ul>
+        </ul>
+    </div>
+);

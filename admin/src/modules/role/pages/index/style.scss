@@ -2,11 +2,15 @@
     display: flex;
     min-height: 30rem;
     height: 1px;
+    padding-top: 2rem;
     .header {
-        height: 3rem;
+        height: 4rem;
         display: flex;
         align-items: center;
         width: 100%;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
     }
     .role-detail {
         background: white;
@@ -14,10 +18,6 @@
         margin-left: 2rem;
         flex: 1 1 1px;
         padding: 1rem;
-        .detail {
-            border-top: 1px solid #eee;
-            margin-top: 1rem;
-            padding-top: 1rem;
-        }
+        .detail {}
     }
 }

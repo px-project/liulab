@@ -6,7 +6,7 @@ import './style.scss';
 
 export class Loader extends Component {
     render() {
-        let { loading = true, data, className, children } = this.props, empty = this.isEmpty(data);
+        let { loading = true, data, className = '', children } = this.props, empty = this.isEmpty(data);
 
         return (
             <div className={'loader ' + className}>
