@@ -1,36 +1,34 @@
 $photo_sec_width: 35%;
 .category-list-page {
-    .content {
-        ul {
-            display: flex;
-            flex-wrap: wrap;
-            margin: 0 -2rem;
-            li {
-                width: 33%;
-                padding: 1rem 2rem;                
-                a {
-                    display: flex;
-                    .photo {
-                        width: $photo_sec_width;
-                        img {
-                            display: block;
-                            width: 100%;
-                        }
+    ul {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -2rem;
+        li {
+            width: 33%;
+            padding: 1rem 2rem;
+            a {
+                display: flex;
+                .photo {
+                    width: $photo_sec_width;
+                    img {
+                        display: block;
+                        width: 100%;
                     }
-                    .info {
-                        width: 100% - $photo_sec_width;
-                        padding-left: 1rem;
-                        .name {
-                            line-height: 2rem;
-                            font-size: 1.2rem;
-                            color: #333;
-                            margin-bottom: 1rem;
-                            font-weight: bold;
-                        }
-                        .description {
-                            font-size: 1rem;
-                            color: #999;
-                        }
+                }
+                .info {
+                    width: 100% - $photo_sec_width;
+                    padding-left: 1rem;
+                    .name {
+                        line-height: 2rem;
+                        font-size: 1.2rem;
+                        color: #333;
+                        margin-bottom: 1rem;
+                        font-weight: bold;
+                    }
+                    .description {
+                        font-size: 1rem;
+                        color: #999;
                     }
                 }
             }

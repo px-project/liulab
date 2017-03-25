@@ -1,22 +1,20 @@
 .upload-category {
     width: 49rem;
     margin: 0 auto;
-    .content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    .category-list {
+        width: 100%;
         display: flex;
-        justify-content: center;
         flex-wrap: wrap;
-        .category-list {
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding-top: 1rem;
-            .product-type {
-                width: 20%;
-            }
+        justify-content: center;
+        padding-top: 1rem;
+        .product-type {
+            width: 20%;
         }
-        .buttons {
-            padding-top: 1rem;
-        }
+    }
+    .buttons {
+        padding-top: 1rem;
     }
 }

@@ -9,7 +9,7 @@ import { currency } from '../../../../utils';
 import './style.scss';
 
 export const BookShopping = ({ product, entities, category, addProduct }) => (
-	<div className="book-index-page page">
+	<div className="book-shopping page">
 		<header className="page-header">
 			<div className="upload add">
 				<Link to={'/book/upload'} className="ui button primary">批量上传</Link>

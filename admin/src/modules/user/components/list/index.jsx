@@ -7,7 +7,7 @@ import { Loader, FormSelect, UserAvatar } from '../../../common/';
 import './style.scss';
 
 export const UserList = ({ user, entities, role }) => (
-	<div className="user-index-page page">
+	<div className="user-page page">
 		<header className="page-header">
 			<Link className="ui button primary" to="/user/add">添加</Link>
 
@@ -16,7 +16,6 @@ export const UserList = ({ user, entities, role }) => (
 					<option key={role_index} value={role_id}>{entities[role_id].name}</option>
 				))}
 			</FormSelect>
-
 		</header>
 
 		<Loader loading={user.fetching.list} data={user.items}>
