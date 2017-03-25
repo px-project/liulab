@@ -135,5 +135,36 @@
                 "title": "列表"
             }
         ]
+    },
+    {
+        "path": "role",
+        "title": "角色",
+        "icon": "sitemap",
+        "pages": [
+            {
+                "path": "",
+                "title": "角色列表",
+                "children": [
+                    {
+                        "path": "add",
+                        "title": "添加角色"
+                    },
+                    {
+                        "path": ":role_id",
+                        "name": "detail",
+                        "title": "角色详情"
+                    },
+                    {
+                        "path": ":role_id/edit",
+                        "name": "edit",
+                        "title": "编辑角色"
+                    },
+                    {
+                        "path": "",
+                        "title": "角色列表"
+                    }
+                ]
+            }
+        ]
     }
 ]

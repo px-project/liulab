@@ -6,7 +6,7 @@ import './style.scss';
 
 export class Loader extends Component {
     render() {
-        let {loading = true, data, className, children} = this.props, empty = this.isEmpty(data);
+        let { loading = true, data, className, children } = this.props, empty = this.isEmpty(data);
 
         return (
             <div className={'loader ' + className}>
@@ -19,11 +19,7 @@ export class Loader extends Component {
                     <div className="empty">暂无数据</div>
                 ) : ''}
 
-                {!loading && !empty ? (
-                    <div className="content">
-                        {children}
-                    </div>
-                ) : ''}
+                {!loading && !empty ? children : ''}
 
             </div>
         );

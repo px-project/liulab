@@ -7,7 +7,9 @@ import { FormInput, FormSelect, Button, ButtonGroup, Form } from 'semantic-ui-re
 import { UploadImage } from '../../../common';
 import './style.scss';
 
-@reduxForm({ form: 'user_edit' })
+@reduxForm({
+    form: 'user_edit'
+})
 export class UserEdit extends React.Component {
     render() {
         let { role, entities, handleSubmit } = this.props;

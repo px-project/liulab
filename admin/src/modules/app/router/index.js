@@ -15,7 +15,14 @@ export const AppRouter = props => (
                     key={`${moduleIndex}${pageIndex}`}
                     component={Pages[toBigCamcelCase(module.path, (page.name || page.path), 'page')]}
                     {...props}
-                ></Route>
+                >
+                    {page.children && page.children.map((child, childIndex) => (
+                        <Route path={child.path}
+                            key={`${moduleIndex}${pageIndex}${childIndex}`}
+                            {...props}
+                        ></Route>
+                    ))}
+                </Route>
             )))}
             <Route component={Pages.HomePage} />
         </Switch>

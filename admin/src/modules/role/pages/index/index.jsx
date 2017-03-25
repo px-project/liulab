@@ -1,18 +1,27 @@
 /**
- * 订单模块容器
+ * 角色界面
  */
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import { bindActionCreators } from 'redux';
-import * as actions from '../../../../actions';
-import { RoleComponent } from '../../components';
+import { connect } from 'react-redux';
+import { RoleList, RoleView, RoleEdit } from '../../components';
+import { Loader, xhttp } from '../../../common';
+import { changeStatus } from '../../actitons';
+import './style.scss';
 
-class RoleApp extends Component {
-
-    render() {
-        return (<RoleComponent {...this.props}></RoleComponent>);
+class rolePage extends React.Component {
+    componentWillMount() {
+        this.props.xhttp.list('role');
     }
-
+    render() {
+        let { xhttp, role, children } = this.props;
+        return (
+            <Loader className="role-page" loading={role.fetching.list}>
+                <RoleList {...this.props}></RoleList>
+                <div className="role-detail">{children}</div>
+            </Loader>
+        );
+    }
 }
 
 function mapStateToProps(state) {
@@ -20,15 +29,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    let result = {};
-    Object.keys(actions).forEach(key => {
-        if (typeof actions[key] === 'function') return result[key] = bindActionCreators(actions[key], dispatch);
-        result[key] = bindActionCreators(
-            Object.assign({}, ...Object.keys(actions[key]).map(ck => ({ [ck]: actions[key][ck] })))
-            , dispatch
-        );
-    });
-    return result;
+    return {
+        xhttp: xhttp(dispatch),
+        changeStatus: bindActionCreators(changeStatus, dispatch)
+    };
 }
 
-export const RoleContainer = connect(mapStateToProps, mapDispatchToProps)(RoleApp);
+export const RolePage = connect(mapStateToProps, mapDispatchToProps)(rolePage);

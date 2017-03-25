@@ -1,0 +1,23 @@
+.role-page {
+    display: flex;
+    min-height: 30rem;
+    height: 1px;
+    .header {
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+    .role-detail {
+        background: white;
+        height: 100%;
+        margin-left: 2rem;
+        flex: 1 1 1px;
+        padding: 1rem;
+        .detail {
+            border-top: 1px solid #eee;
+            margin-top: 1rem;
+            padding-top: 1rem;
+        }
+    }
+}
