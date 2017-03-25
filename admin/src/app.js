@@ -4,18 +4,16 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-// import Routes from './modules/app/router';
-import { AppComponent } from './modules/app/components/index';
-import { AppPage } from './modules/app/pages';
+import { App } from './modules/app/pages';
 import configureStore from './store/';
 
 let store = configureStore();
 
-const rootElement = document.getElementById('app');
+const rootElement = document.body;
 
 render(
     <Provider store={store}>
-        <AppPage></AppPage>
+        <App></App>
     </Provider>,
     rootElement
 );

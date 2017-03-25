@@ -8,7 +8,7 @@ import './style.scss';
 export const RoleList = ({ role, entities, changeStatus, role_status }) => (
     <div className="role-list">
         <header className="header">
-            {role_status === 'view' && <Button color="teal" fluid="true" onClick={() => changeStatus('add')}>添加</Button>}
+            {role_status === 'view' && <Button color="teal" fluid={true} onClick={() => changeStatus('add')}>添加</Button>}
         </header>
         <ul className="list">
             {role.items.map((role_id, index) => (

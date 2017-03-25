@@ -1,0 +1,8 @@
+@import '../../../style.scss';
+#main {
+    padding: $header_height 0 0 $header_height * 4;
+    .views {
+        width: 1100px;
+        margin: 0 auto;
+    }
+}

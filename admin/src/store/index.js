@@ -4,7 +4,7 @@
 
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import createLogger from 'redux-logger';
+import { createLogger } from 'redux-logger';
 import { AppReducer } from '../modules/app/reducers';
 
 const loggerMiddleware = createLogger();
