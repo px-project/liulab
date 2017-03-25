@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import './style.scss';
 
-export class ManifestMenuItemComponent extends Component {
+export class Item extends Component {
     render() {
         let {manifest} = this.props;
         return (

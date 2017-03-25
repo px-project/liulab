@@ -9,7 +9,7 @@ import configureStore from './store/';
 
 let store = configureStore();
 
-const rootElement = document.body;
+const rootElement = document.getElementById('app');
 
 render(
     <Provider store={store}>

@@ -1,0 +1,1 @@
+export { selectManifestReducer as manifest_selected } from './select';

@@ -7,7 +7,7 @@ import moment from 'moment';
 import Chart from 'chart.js';
 import './style.scss';
 import { currency } from '../../../../../utils/';
-import { MANIFEST_STATUS } from '../../../../../constants/';
+import { MANIFEST_STATUS } from '../../../../manifest/constants';
 
 export class OrderItem extends React.Component {
     componentDidMount() {

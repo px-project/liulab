@@ -2,7 +2,7 @@
  * 货单单项组件
  */
 import React from 'react';
-import { MANIFEST_STATUS } from '../../../../../../constants';
+import { MANIFEST_STATUS } from '../../../../../manifest/constants';
 import { Link } from 'react-router';
 import './style.scss';
 

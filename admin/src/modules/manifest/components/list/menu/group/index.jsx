@@ -1,12 +1,12 @@
 /**
  * 货单菜单分组组件
  */
-import React, { Component } from 'react';
-import { MANIFEST_STATUS } from '../../../../../../constants';
-import { ManifestMenuItemComponent as Item } from '../item';
+import React from 'react';
+import { MANIFEST_STATUS } from '../../../../constants';
+import { Item } from '../item';
 import './style.scss';
 
-export class ManifestMenuGroupComponent extends Component {
+export class Group extends React.Component {
     render() {
         let {list, type, actions = []} = this.props, status = Object.keys(MANIFEST_STATUS);
         return (

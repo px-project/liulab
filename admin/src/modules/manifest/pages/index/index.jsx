@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ManifestList } from '../../components';
 import { xhttp } from '../../../common';
+import { selectManifest } from '../../actions';
 
 class manifestPage extends React.Component {
 
@@ -16,7 +17,7 @@ class manifestPage extends React.Component {
     }
 
     render() {
-        return (<ManifestList {...this.props}></ManifestList>);
+        return <ManifestList {...this.props}></ManifestList>;
     }
 
 }
@@ -27,7 +28,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        xhttp: xhttp(dispatch)
+        xhttp: xhttp(dispatch),
+        selectManifest: bindActionCreators(selectManifest, dispatch)
     };
 }
 

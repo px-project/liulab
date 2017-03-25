@@ -1,13 +1,16 @@
 /**
  * 货单详情界面
  */
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ManifestDetailComponent } from '../../components';
+import { ManifestDetail } from '../../components';
 
-class ManifestDetailApp extends Component {
-
+class manifestDetailPage extends React.Component {
+    componentWillMount() {
+        let { xhttp, params } = this.props;
+        xhttp.detail('manifest', [params.manifest_id]);
+    }
     render() {
         return (<ManifestDetailComponent {...this.props}></ManifestDetailComponent>);
     }
@@ -22,4 +25,4 @@ function mapDispatchToProps(dispatch) {
     return {};
 }
 
-export const ManifestDetailContainer = connect(mapStateToProps, mapDispatchToProps)(ManifestDetailApp);
+export const ManifestDetailPage = connect(mapStateToProps, mapDispatchToProps)(manifestDetailPage);
