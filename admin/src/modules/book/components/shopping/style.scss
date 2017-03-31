@@ -15,12 +15,6 @@
         display: flex;
         flex-wrap: wrap;
         li {
-            background: none;
-            transition: $transition_time;
-            &:hover {
-                background: white;
-                transition: $transition_time;
-            }
             width: 25%;
             padding: 1rem;
             display: flex;

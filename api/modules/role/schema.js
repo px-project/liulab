@@ -21,9 +21,8 @@ module.exports = {
     // 权限
     permissions: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Permission',
-            required: true
+            code: String,
+            name: String
         }
     ],
 

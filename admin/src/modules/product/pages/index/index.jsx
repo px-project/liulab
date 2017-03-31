@@ -1,15 +1,22 @@
 /**
  * 产品列表界面
  */
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ProductComponent } from '../../components';
+import { ProductList } from '../../components';
+import { xhttp } from '../../../common';
 
-class ProductApp extends Component {
+class productPage extends React.Component {
+
+    componentWillMount() {
+        let { xhttp } = this.props;
+        xhttp.list('category');
+        xhttp.list('product');
+    }
 
     render() {
-        return (<ProductComponent {...this.props}></ProductComponent>);
+        return (<ProductList {...this.props}></ProductList>);
     }
 
 }
@@ -19,7 +26,9 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {};
+    return {
+        xhttp: xhttp(dispatch)
+    };
 }
 
-export const ProductContainer = connect(mapStateToProps, mapDispatchToProps)(ProductApp);
+export const ProductPage = connect(mapStateToProps, mapDispatchToProps)(productPage);

@@ -1,17 +1,21 @@
 /**
  * 添加产品界面
  */
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ProductAddComponent } from '../../components';
+import { ProductEdit } from '../../components';
+import { xhttp } from '../../../common';
 
-class ProductAddApp extends Component {
+class productAddPage extends React.Component {
 
     render() {
-        return (<ProductAddComponent {...this.props}></ProductAddComponent>);
+        return (
+            <div className="product-add-page page">
+                <ProductEdit></ProductEdit>
+            </div>
+        );
     }
-
 }
 
 function mapStateToProps(state) {
@@ -19,7 +23,9 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {};
+    return {
+        xhttp: xhttp(dispatch)
+    };
 }
 
-export const ProductAddContaner = connect(mapStateToProps, mapDispatchToProps)(ProductAddApp);
+export const ProductAddPage = connect(mapStateToProps, mapDispatchToProps)(productAddPage);

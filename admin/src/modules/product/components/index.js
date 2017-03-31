@@ -1,4 +1,3 @@
-export * from './index/index';
-export * from './edit/';
-export * from './add/';
-export * from './detail/';
+export * from './edit';
+export * from './view';
+export * from './list';

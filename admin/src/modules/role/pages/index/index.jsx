@@ -21,19 +21,21 @@ const Empty = () => (
 
 class rolePage extends React.Component {
     componentWillMount() {
-        this.props.xhttp.list('role');
+        let { xhttp } = this.props;
+        xhttp.list('role');
+        xhttp.detail('permission');
     }
     render() {
         let { xhttp, role, children } = this.props;
         return (
-            <Loader className="role-page page" loading={role.fetching.list}>
+            <Loader className="role-page page" loading={ role.fetching.list }>
                 <RoleList {...this.props}></RoleList>
                 <div className="role-detail">
                     <Switch>
-                        <Route path="/role/add" component={RoleEdit}></Route>
-                        <Route path="/role/:role_id/edit" component={RoleEdit}></Route>
-                        <Route path="/role/:role_id" component={RoleView}></Route>
-                        <Route path="/role" component={Empty}></Route>
+                        <Route path="/role/add" component={ RoleEdit }></Route>
+                        <Route path="/role/:role_id/edit" component={ RoleEdit }></Route>
+                        <Route path="/role/:role_id" component={ RoleView }></Route>
+                        <Route path="/role" component={ Empty }></Route>
                     </Switch>
                 </div>
             </Loader>

@@ -1,0 +1,16 @@
+.product-edit {
+    .basic {
+        .cont {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .photo {
+                height: 10rem;
+                display: flex;
+                justify-content: flex-end;
+                width: auto;
+                padding-right: 5rem;
+            }
+        }
+    }
+}

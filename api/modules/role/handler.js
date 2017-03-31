@@ -18,7 +18,7 @@ exports.list = conditions => roleModel.list(conditions);
  * @param _id {String}
  * 
  */
-exports.detail = _id => roleModel.detail(_id, { populateKeys: 'permissions' });
+exports.detail = _id => roleModel.detail(_id);
 
 
 /**
