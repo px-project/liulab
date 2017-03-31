@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 })
 export class RoleEdit extends React.Component {
     render() {
+        let { handleSubmit } = this.props;
         return (
             <Form className="role-edit">
                 <header className="header">
@@ -21,7 +22,7 @@ export class RoleEdit extends React.Component {
                 </header>
                 <div className="role-detail">
                     { Object.keys(PERMISSION_CONFIG).map((group, group_index) => (
-                        <div>
+                        <div key={ group_index } className="role-group">
                             <h5>{ PERMISSION_CONFIG[group].title }</h5>
                             <ul>
                                 { PERMISSION_CONFIG[group].actions.map((action, action_index) => (
@@ -35,8 +36,8 @@ export class RoleEdit extends React.Component {
                 </div>
                 <footer className="footer">
                     <ButtonGroup>
-                        <Button color="primary">保存</Button>
-                        <Button color="red"><Link to="/role">取消</Link></Button>
+                        <Button type="button" color="primary" onClick={ handleSubmit }>保存</Button>
+                        <Link className="ui button red" to="/role">取消</Link>
                     </ButtonGroup>
                 </footer>
             </Form>

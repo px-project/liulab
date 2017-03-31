@@ -9,6 +9,7 @@ import { Loader, xhttp } from '../../../common';
 import { changeStatus } from '../../actitons';
 import './style.scss';
 import { Route, Switch } from 'react-router-dom';
+import { RoleEditPage, RoleAddPage, RoleDetailPage } from '..';
 
 const Empty = () => (
     <div className="role-empty">
@@ -23,7 +24,6 @@ class rolePage extends React.Component {
     componentWillMount() {
         let { xhttp } = this.props;
         xhttp.list('role');
-        xhttp.detail('permission');
     }
     render() {
         let { xhttp, role, children } = this.props;
@@ -32,9 +32,9 @@ class rolePage extends React.Component {
                 <RoleList {...this.props}></RoleList>
                 <div className="role-detail">
                     <Switch>
-                        <Route path="/role/add" component={ RoleEdit }></Route>
-                        <Route path="/role/:role_id/edit" component={ RoleEdit }></Route>
-                        <Route path="/role/:role_id" component={ RoleView }></Route>
+                        <Route path="/role/add" component={ RoleAddPage }></Route>
+                        <Route path="/role/:role_id/edit" component={ RoleEditPage }></Route>
+                        <Route path="/role/:role_id" component={ RoleDetailPage }></Route>
                         <Route path="/role" component={ Empty }></Route>
                     </Switch>
                 </div>
@@ -49,8 +49,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        xhttp: xhttp(dispatch),
-        changeStatus: bindActionCreators(changeStatus, dispatch)
+        xhttp: xhttp(dispatch)
     };
 }
 

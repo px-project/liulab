@@ -1,7 +1,30 @@
+@import '../../../style.scss';
 .role-list {
     width: 20%;
     height: 100%;
     background: white;
     border: 1px solid #f1f1f1;
     padding: 1rem;
+    .header {
+        justify-content: center;
+    }
+    ul {
+        li {
+            padding-bottom: 1rem;
+            a {
+                display: flex;
+                width: 100%;
+                justify-content: center;
+                align-items: center;
+                height: 3rem;
+                color: #333;
+                transition: $transition_time;
+                &:hover,
+                &.active {
+                    transition: $transition_time;
+                    background: #eee;
+                }
+            }
+        }
+    }
 }

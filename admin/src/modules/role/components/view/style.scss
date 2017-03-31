@@ -1,3 +1,38 @@
-.role-view {
-    width: 100%;
+.role-view,
+.role-edit {
+    .role-detail {
+        .role-group {
+            display: flex;
+            padding-bottom: 0.5rem;
+            h5 {
+                width: 5rem;
+                height: 2.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            ul {
+                display: flex;
+                flex-wrap: wrap;
+                li {
+                    border: 1px solid #eee;
+                    margin-right: 1rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 2.5rem;
+                    padding: 0 1rem;
+                    color: #333;
+                    a {
+                        display: flex;
+                        height: 100%;
+                        width: 100%;
+                        justify-content: center;
+                        align-items: center;
+                        color: #333;
+                    }
+                }
+            }
+        }
+    }
 }

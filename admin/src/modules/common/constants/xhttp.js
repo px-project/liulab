@@ -29,7 +29,6 @@ export const XHTTP_API = {
     "category_template": "/category/template",
     "order": "/order",
     "manifest": "/manifest",
-    "permission": "/role/permission",
     "resource": "/resource",
     "product": "/product",
     "timeline": "/timeline"
