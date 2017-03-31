@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import { xhttp } from '../../../common/actions';
+import { xhttp, Loader } from '../../../common';
 import { UserDetail } from '../../components';
 
 class userDetailPage extends React.Component {
@@ -14,7 +14,12 @@ class userDetailPage extends React.Component {
     }
 
     render() {
-        return (<UserDetail {...this.props}></UserDetail>);
+        let { xhttp, user, entities } = this.props;
+        return (
+            <Loader loading={ user.fetching.detail } className="page user-detail-page">
+                <UserDetail user={ entities[user.detail] }></UserDetail>
+            </Loader>
+        );
     }
 
 }

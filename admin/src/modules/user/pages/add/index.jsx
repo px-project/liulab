@@ -17,7 +17,7 @@ class userAddPage extends React.Component {
         let { role, entities } = this.props;
         return (
             <div className="user-add-page page">
-                <UserEdit onSubmit={this.save.bind(this)} entities={entities} role={role}></UserEdit>
+                <UserEdit onSubmit={ this.save.bind(this) } entities={ entities } role={ role }></UserEdit>
             </div>
         );
     }
@@ -26,7 +26,7 @@ class userAddPage extends React.Component {
     save(formData) {
         let { xhttp, history } = this.props;
         xhttp.create('user', [], formData).then(result => {
-            history.pushState(null, `/user/${result._id}`);
+            history.push(`/user/${result._id}`);
         });
     }
 }

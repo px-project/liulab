@@ -13,6 +13,7 @@ export const RoleView = ({ role }) => (
         <header className="header">
             <Field name="名称">{ role.name }</Field>
             <Field name="描述">{ role.description }</Field>
+            <Link className="button ui primary" to={ `/role/${role._id}/edit` }>编辑</Link>
         </header>
         <div className="role-detail">
             { Object.keys(PERMISSION_CONFIG).map((group, group_index) => (
@@ -25,9 +26,6 @@ export const RoleView = ({ role }) => (
                     </ul>
                 </div>
             )) }
-            <ButtonGroup>
-                <Link className="button ui primary" to={ `/role/${role._id}/edit` }>编辑</Link>
-            </ButtonGroup>
         </div>
     </div>
 );

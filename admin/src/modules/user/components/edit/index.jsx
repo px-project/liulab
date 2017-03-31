@@ -5,6 +5,7 @@ import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { FormInput, FormSelect, Button, ButtonGroup, Form } from 'semantic-ui-react';
 import { UploadImage } from '../../../common';
+import { Link } from 'react-router-dom';
 import './style.scss';
 
 @reduxForm({
@@ -12,7 +13,7 @@ import './style.scss';
 })
 export class UserEdit extends React.Component {
     render() {
-        let { role, entities, handleSubmit } = this.props;
+        let { role, entities, handleSubmit, user } = this.props;
 
         let roleOptions = role.items.map((_id, index) => ({ key: index, text: entities[_id].name, value: _id }));
 
@@ -26,8 +27,8 @@ export class UserEdit extends React.Component {
                 <Field component={ FormInput } label="确认密码" name="pwdrepeat" type="password"></Field>
                 <Field component={ FormInput } label="联系方式" name="phone"></Field>
                 <ButtonGroup>
-                    <Button primary={ true } onClick={ handleSubmit }>保存</Button>
-                    <Button>取消</Button>
+                    <Button loading={ user && user.fetching.create } type="button" primary={ true } onClick={ handleSubmit }>保存</Button>
+                    <Link className="ui button red" to="/user">取消</Link>
                 </ButtonGroup>
             </Form>
         );

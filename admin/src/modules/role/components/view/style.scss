@@ -1,5 +1,10 @@
 .role-view,
 .role-edit {
+    header {
+        .button {
+            margin-left: auto;
+        }
+    }
     .role-detail {
         .role-group {
             display: flex;
@@ -34,5 +39,8 @@
                 }
             }
         }
+    }
+    footer {
+        padding-left: 4rem;
     }
 }
