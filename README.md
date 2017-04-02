@@ -1,6 +1,6 @@
 1. 启动mongo
 ```
-docker run -v /root/data:/data/db -p 27017:2017 -d mongo
+docker run -v /root/data:/data/db -p 27017:27017 -d mongo
 ```
 
 2. 启动redis

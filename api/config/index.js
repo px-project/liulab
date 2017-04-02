@@ -6,9 +6,9 @@ const { root } = require('../common/utils');
 
 // 数据库配置
 exports.DB = {
-    // HOST: "139.129.29.110",
-    HOST: "127.0.0.1",
-    // PORT: "2017",
+    HOST: "139.129.29.110",
+    // HOST: "127.0.0.1",
+    // PORT: 2017,
     PORT: 27017,
     NAME: "liulab"
 };
