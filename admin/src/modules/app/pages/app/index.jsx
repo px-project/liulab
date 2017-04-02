@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import { LoginPage, AppPage } from '..';
 
 function loginAuth() {
-    return true;
+    return !!localStorage.getItem('token');
 }
 
 export class App extends React.Component {
@@ -14,12 +14,12 @@ export class App extends React.Component {
         return (
             <Router>
                 <Switch>
-                    <Route path="/login" component={LoginPage}></Route>
-                    <Route path="/" render={props => (
+                    <Route path="/login" component={ LoginPage }></Route>
+                    <Route path="/" render={ props => (
                         loginAuth()
                             ? <AppPage {...props}></AppPage>
-                            : <Redirect to={{ pathname: '/login', state: { from: props.location } }}></Redirect>
-                    )}></Route>
+                            : <Redirect to={ { pathname: '/login', state: { from: props.location } } }></Redirect>
+                    ) }></Route>
                 </Switch>
             </Router>
         );

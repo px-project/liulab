@@ -2,10 +2,10 @@
  * 开发模式
  */
 const merge = require('webpack-merge');
-const commonConfig = require('./webpack.common.config');
+const { config, root } = require('./webpack.common.config');
 const webpack = require('webpack');
 
-module.exports = merge(commonConfig, {
+module.exports = merge(config, {
     plugins: [
         new webpack.HotModuleReplacementPlugin()
     ],
@@ -14,7 +14,7 @@ module.exports = merge(commonConfig, {
 
     devServer: {
         port: 9100,
-        contentBase: './build',
+        contentBase: root('build'),
         hot: true,
         inline: true,
         historyApiFallback: true

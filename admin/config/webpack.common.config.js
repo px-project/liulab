@@ -6,16 +6,17 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const server = process.env.SERVER;
 
-module.exports = {
+const root = exports.root = (...paths) => path.join(__dirname, '..', ...paths);
+
+exports.config = {
     entry: {
-        'polyfills': './src/polyfills.js',
-        'vendor': './src/vendor.js',
-        'app': './src/app.js',
-        'login': './src/login.js'
+        'polyfills': root('src/polyfills.js'),
+        'vendor': root('src/vendor.js'),
+        'app': root('src/app.js')
     },
 
     output: {
-        path: path.join(__dirname, '../build/'),
+        path: root('build'),
         filename: '[name].bundle.js'
     },
 
@@ -57,18 +58,8 @@ module.exports = {
             title: "liulab",
             filename: 'index.html',
             server,
-            template: './src/index.html',
-            chunksSortMode: 'auto',
-            excludeChunks: ['login']
-        }),
-
-        new htmlWebpackPlugin({
-            title: "登录",
-            filename: 'login.html',
-            server,
-            template: './src/login.html',
-            chunksSortMode: 'auto',
-            excludeChunks: ['app', 'vendor', 'polyfills', 'common']
+            template: root('src/index.html'),
+            chunksSortMode: 'auto'
         }),
 
         // 代码分离

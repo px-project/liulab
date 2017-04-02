@@ -1,0 +1,28 @@
+.login-form {
+    background: white;
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding: 3rem 0 2rem;
+    box-shadow: 0 0 0.5rem 0.1rem rgba(0, 0, 0, 0.3);
+    border-radius: 0.4rem;
+    overflow: hidden;
+    .logo {
+        width: 30%;
+        margin: 0 auto 2rem;
+        img {
+            display: block;
+            width: 100%;
+        }
+    }
+    .field,
+    .button {
+        display: block;
+        width: 60%;
+        margin: 0.5rem auto!important;
+    }
+    .button {
+        margin: 1.5rem auto!important;
+        height: 3rem;
+    }
+}
