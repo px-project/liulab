@@ -1,27 +1,34 @@
 /**
  * 添加品类洁面
  */
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { initialize } from 'redux-form';
 import { CategoryEdit } from '../../components';
 import { INIT_ATTRS } from '../../constants';
-import { xhttp } from '../../../common';
+import { xhttp, Loader } from '../../../common';
 
-class categoryAddPage extends Component {
+class categoryAddPage extends React.Component {
 
     componentWillMount() {
         this.props.initialize('category_edit', { attrs: INIT_ATTRS });
     }
 
     render() {
-        return (<CategoryEdit onSubmit={this.createCategory.bind(this)}></CategoryEdit>);
+        let { category } = this.props;
+        return (
+            <div className="page category-add-page">
+                <CategoryEdit onSubmit={ this.createCategory.bind(this) }></CategoryEdit>
+            </div>
+        );
     }
 
     createCategory(value) {
-        this.props.xhttp.create('category', [], value)
-            .then();
+        let { xhttp, history } = this.props;
+        this.props.xhttp.create('category', [], value).then(result => {
+            history.push('/category/' + result._id);
+        });
     }
 }
 

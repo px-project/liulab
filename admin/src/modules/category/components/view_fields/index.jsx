@@ -18,25 +18,25 @@ export const ViewFields = ({ category = {} }) => (
             </Table.Row>
         </Table.Header>
         <Table.Body>
-            {(category.attrs || []).map((attr, index) => (
-                <Table.Row key={index}>
-                    <Table.Cell>{index + 1}</Table.Cell>
+            { (category.attrs || []).map((attr, index) => (
+                <Table.Row key={ index }>
+                    <Table.Cell>{ index + 1 }</Table.Cell>
                     <Table.Cell>
-                        <span className="value">{attr.title}</span>
+                        <span className="value">{ attr.title }</span>
                     </Table.Cell>
                     <Table.Cell>
-                        <span className="value">{attr.key}</span>
+                        <span className="value">{ attr.key }</span>
                     </Table.Cell>
                     <Table.Cell>
-                        <p>{ATTR_TYPE.filter(a => a.value === attr.attr_type)[0].text}</p>
+                        <p>{ ATTR_TYPE.filter(a => a.value === attr.attr_type)[0].text }</p>
                     </Table.Cell>
                     <Table.Cell>
                         <span className="value">
-                            {attr.attr_required ? (<Icon name='checkmark' color="green" />) : (<Icon name='close' color="red" />)}
+                            { attr.attr_required ? (<Icon name='checkmark' color="green" />) : (<Icon name='close' color="red" />) }
                         </span>
                     </Table.Cell>
                 </Table.Row>
-            ))}
+            )) }
         </Table.Body>
     </Table>
 );
