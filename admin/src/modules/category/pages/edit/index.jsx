@@ -10,13 +10,13 @@ import { initialize } from 'redux-form';
 
 class categoryEditPage extends React.Component {
     componentWillMount() {
-        let { xhttp, category, match, initialize, entities } = this.props;
-        if (!category.detail) {
-            xhttp.detail('category', [match.params.category_id]).then(result => {
+        let { xhttp, category, match, initialize, entities } = this.props, { category_id } = match.params;
+        if (category_id !== category.detail) {
+            xhttp.detail('category', [category_id]).then(result => {
                 initialize('category_edit', result);
             });
         } else {
-            initialize('category_edit', entities[category.detail]);
+            initialize('category_edit', entities[category_id]);
         }
     }
     render() {

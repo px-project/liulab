@@ -4,43 +4,48 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { EditForm } from '../../components';
+import { UserEdit } from '../../components';
 import { Loader, xhttp } from '../../../common';
 import { initialize } from 'redux-form';
 
 class userEditPage extends React.Component {
 
     componentWillMount() {
-        let { xhttp, params } = this.props;
-        // console.log(this.props)
-        xhttp.list('role');
-        xhttp.detail('user', [params.user_id]).then(result => this.props.initialize('user_edit', result));
-        // this.props.dispatch(initialize('user_edit', { name: 'asdasdas' }));
-        // this.props.initialize('user_edit', { name: 'asdasd' })
-    }
+        let { xhttp, user, match, initialize } = this.props;
 
-    componentDidMount() {
-        // this.props.dispatch(initialize('user_edit',{name: 'asdasdas'}));
+        const { user_id } = match.params;
+        if (user_id !== user.detail) {
+            xhttp.list('role');
+            xhttp.detail('user', [user_id]).then(result => {
+                initialize('user_edit', result);
+            });
+        }
     }
 
     render() {
-        let { user } = this.props;
+        let { user, role } = this.props;
         return (
-            <EditForm {...this.props}></EditForm>
+            <Loader className="page user-edit-page" loading={ user.fetching.detail || role.fetching.list }>
+                <UserEdit onSubit={ this.updateUser.bind(this) }></UserEdit>
+            </Loader>
         )
     }
 
+    updateUser(data) {
+        let { xhttp, history } = this.props;
+        xhttp.update('user', [data._id], data).then(result => {
+            history.push(`/user/${data._id}`);
+        });
+    }
 }
 
 function mapStateToProps(state) {
-    // state.initialValues = { name: 'asdasd', username: 'asdasdsa' };
     return state;
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         xhttp: xhttp(dispatch),
-        dispatch,
         initialize: bindActionCreators(initialize, dispatch)
     };
 }

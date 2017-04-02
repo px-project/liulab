@@ -1,21 +1,28 @@
 /**
  * 品类详情界面
  */
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { xhttp } from '../../../common/actions';
 import { CategoryDetail } from '../../components';
 
-class categoryDetailPage extends Component {
+class categoryDetailPage extends React.Component {
 
     componentWillMount() {
-        let { match, xhttp } = this.props;
-        xhttp.detail('category', [match.params.category_id]);
+        let { match, xhttp, category } = this.props, { category_id } = match.params;
+        if (category_id !== category.detail) {
+            xhttp.detail('category', [match.params.category_id]);
+        }
     }
 
     render() {
-        return (<CategoryDetail {...this.props}></CategoryDetail>);
+        let { category, entities } = this.props;
+        return (
+            <Loader className="category-detail-page page" loading={ category.fetching.detail }>
+                <CategoryDetail {...this.props} detail={ entities[category.detail] }></CategoryDetail>
+            </Loader>
+        );
     }
 }
 

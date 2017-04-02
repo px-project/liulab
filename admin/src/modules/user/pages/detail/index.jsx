@@ -9,19 +9,20 @@ import { UserDetail } from '../../components';
 class userDetailPage extends React.Component {
 
     componentWillMount() {
-        let { match, xhttp } = this.props, { user_id } = match.params;
-        xhttp.detail('user', [user_id]);
+        let { match, xhttp, user } = this.props, { user_id } = match.params;
+        if (user_id !== user.detail) {
+            xhttp.detail('user', [user_id]);
+        }
     }
 
     render() {
         let { xhttp, user, entities } = this.props;
         return (
             <Loader loading={ user.fetching.detail } className="page user-detail-page">
-                <UserDetail user={ entities[user.detail] }></UserDetail>
+                <UserDetail detail={ entities[user.detail] }></UserDetail>
             </Loader>
         );
     }
-
 }
 
 function mapStateToProps(state) {
