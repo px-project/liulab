@@ -71,12 +71,12 @@
                 "title": "添加产品"
             },
             {
-                "path": ":category_id/edit",
+                "path": ":product_id/edit",
                 "name": "edit",
                 "title": "编辑产品"
             },
             {
-                "path": ":category_id",
+                "path": ":product_id",
                 "name": "detail",
                 "title": "产品详情"
             },

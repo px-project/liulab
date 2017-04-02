@@ -12,9 +12,16 @@ class productAddPage extends React.Component {
     render() {
         return (
             <div className="product-add-page page">
-                <ProductEdit></ProductEdit>
+                <ProductEdit onSubmit={ this.createProduct.bind(this) }></ProductEdit>
             </div>
         );
+    }
+
+    createProduct(data) {
+        let { xhttp, history } = this.props;
+        xhttp.create('product', [], data).then(result => {
+            history.push(`/product/${result._id}`);
+        });
     }
 }
 

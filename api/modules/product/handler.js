@@ -21,7 +21,7 @@ exports.list = (conditions = {}) => productModel.list(_.mergeWith(conditions, { 
  * @param _id {String}
  * 
  */
-exports.detail = _id => productModel.detail(_.mergeWith(conditions, { populateKeys: 'category' }));
+exports.detail = (_id, conditions = {}) => productModel.detail(_id, _.mergeWith(conditions, { populateKeys: 'category' }));
 
 
 /**

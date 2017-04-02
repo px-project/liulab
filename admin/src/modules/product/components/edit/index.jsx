@@ -18,6 +18,7 @@ import './style.scss';
 })
 export class ProductEdit extends React.Component {
     render() {
+        let { handleSubmit } = this.props;
         return (
             <Form className="product-edit">
                 <Sec className="basic" title="基本信息">
@@ -52,10 +53,8 @@ export class ProductEdit extends React.Component {
 
 
                 <ButtonGroup>
-                    <Button color="primary">保存</Button>
-                    <Button type="button">
-                        <Link to="/product">取消</Link>
-                    </Button>
+                    <Button type="button" onClick={ handleSubmit } primary={ true }>保存</Button>
+                    <Link className="ui button red" to="/product">取消</Link>
                 </ButtonGroup>
             </Form>
         );
