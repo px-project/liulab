@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "forever -w app.js"
+    "dev": "NODE_ENV=dev forever -w app.js",
+    "prod": "NODE_ENV=prod forever start ./app.js"
   },
   "author": "",
   "license": "ISC",
