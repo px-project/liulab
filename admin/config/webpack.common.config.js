@@ -43,15 +43,39 @@ exports.config = {
             { test: /\.json$/, loader: 'json-loader' },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
-                loaders: [
-                    'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
-                    'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
+                use: [
+                    {
+                        loader: 'file-loader',
+                        query: {
+                            hash: 'sha512',
+                            digest: 'hex',
+                            name: '[hash].[ext]'
+                        }
+                    },
+                    {
+                        loader: 'image-webpack-loader',
+                        query: {
+                            mozjpeg: {
+                                progressive: true,
+                            },
+                            gifsicle: {
+                                interlaced: false,
+                            },
+                            optipng: {
+                                optimizationLevel: 4,
+                            },
+                            pngquant: {
+                                quality: '75-90',
+                                speed: 3,
+                            },
+                        }
+                    }
+
+                    // { test: /\.html$/, loader: 'html' }
                 ]
-            }
-            // { test: /\.html$/, loader: 'html' }
+            },
         ]
     },
-
     plugins: [
         // html替换
         new htmlWebpackPlugin({
