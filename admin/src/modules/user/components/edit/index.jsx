@@ -13,7 +13,7 @@ import './style.scss';
 })
 export class UserEdit extends React.Component {
     render() {
-        let { role, entities, handleSubmit, user } = this.props;
+        let { role = { items: [] }, entities, handleSubmit, user } = this.props;
 
         let roleOptions = role.items.map((_id, index) => ({ key: index, text: entities[_id].name, value: _id }));
 

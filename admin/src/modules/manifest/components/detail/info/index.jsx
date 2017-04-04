@@ -4,22 +4,23 @@
 import React from 'react';
 import moment from 'moment';
 import { MANIFEST_STATUS } from '../../../constants';
+import { Field } from '../../../../common';
 import './style.scss';
 
 export const Info = ({ manifestDetail = {} }) => (
     <div className="manifest-detail-info">
         <div className="manifest-info">
-            <p className="map"><span className="title">货单号</span><span className="value">{manifestDetail.manifest_id}</span></p>
-            <p className="map"><span className="title">订单号</span><span className="value">{manifestDetail.order_id}</span></p>
-            <p className="map"><span className="title">订购时间</span><span className="value">{moment(manifestDetail.create_time).format('YYYY-MM-DD HH:mm:ss')}</span></p>
-            <p className="map"><span className="title">下单人</span><span className="value">{manifestDetail.create_user}</span></p>
-            <p className="map"><span className="title">状态</span><span className="value">{MANIFEST_STATUS[manifestDetail.status].name}</span></p>
+            <Field name="货单号">{ manifestDetail.manifest_id }</Field>
+            <Field name="订单号">{ manifestDetail.order_id }</Field>
+            <Field name="订购时间">{ moment(manifestDetail.create_time).format('YYYY-MM-DD HH:mm:ss') }</Field>
+            <Field name="下单人">{ manifestDetail.create_user.name || manifestDetail.create_user || '-' }</Field>
+            <Field name="状态">{ MANIFEST_STATUS[manifestDetail.status].name }</Field>
         </div>
         <div className="product-info">
-            <p className="map"><span className="title">产品</span><span className="value">{manifestDetail.product.name}</span></p>
-            <p className="map"><span className="title">数量</span><span className="value">{manifestDetail.num}</span></p>
-            <p className="map"><span className="title">单价</span><span className="value">{manifestDetail.product.unit_price}</span></p>
-            <p className="map"><span className="title">品类</span><span className="value">{manifestDetail.product.category.name}</span></p>
+            <Field name="产品">{ manifestDetail.product.name }</Field>
+            <Field name="数量">{ manifestDetail.num }</Field>
+            <Field name="单价">{ manifestDetail.product.unit_price }</Field>
+            <Field name="品类">{ manifestDetail.product.category.name }</Field>
         </div>
     </div>
 );

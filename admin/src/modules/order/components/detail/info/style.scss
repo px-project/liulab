@@ -1,4 +1,8 @@
 .order-detail-info {
     background: white;
     border-top: none!important;
+    .l-field {
+        display: inline-flex;
+        margin-left: 3rem;
+    }
 }

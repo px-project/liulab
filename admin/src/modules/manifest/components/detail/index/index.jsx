@@ -7,9 +7,9 @@ import { Timeline } from '../timeline';
 import { Info } from '../info';
 import './style.scss';
 
-export const ManifestDetail = ({ manifest, entities }) => (
-    <Loader className="page manifest-detail-page" loading={manifest.fetching.detail} data={manifest.detail}>
-        <Info manifestDetail={entities[manifest.detail]}></Info>
-        <Timeline progress={entities[manifest.detail] && entities[manifest.detail].progress}></Timeline>
-    </Loader>
+export const ManifestDetail = ({ manifestDetail, entities }) => (
+    <div className="manifest-detail">
+        <Info manifestDetail={ manifestDetail }></Info>
+        <Timeline progress={ manifestDetail && manifestDetail.progress }></Timeline>
+    </div>
 )

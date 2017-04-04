@@ -5,23 +5,35 @@ import React from 'react';
 import { currency } from '../../../../utils';
 import classname from 'classname';
 import { Image } from '../../../common';
-import { reduxForm, FieldArray } from 'redux-form';
+import { reduxForm, FieldArray, Field } from 'redux-form';
 import './style.scss';
 import { Form, Table, TableCell, TableHeader, TableRow, TableHeaderCell, TableFooter, TableBody, ButtonGroup, Button } from 'semantic-ui-react';
 
+const Value = ({ input }) => (
+	<p>{ input.value }</p>
+);
 
 const Products = ({ fields }) => (
 	<TableBody>
-		{fields.map((field, index) => (
-			<TableRow key={index}>
-				<TableCell>{index + 1}</TableCell>
-				<TableCell>{field.name}</TableCell>
-				<TableCell>{field.code}</TableCell>
-				<TableCell>{field.unit_price}</TableCell>
-				<TableCell>{field.num}</TableCell>
-				<TableCell>{field.unit_price * field.num}</TableCell>
+		{ fields.map((field, index) => (
+			<TableRow key={ index }>
+				<TableCell>{ index + 1 }</TableCell>
+				<TableCell>
+					<Field name={ `${field}.name` } component={ Value }></Field>
+				</TableCell>
+				<TableCell>
+					<Field name={ `${field}.code` } component={ Value }></Field>
+				</TableCell>
+				<TableCell>
+					<Field name={ `${field}.unit_price` } component={ Value }></Field>
+				</TableCell>
+				<TableCell>
+					<Field name={ `${field}.num` } component={ Value }></Field>
+				</TableCell>
+				<TableCell>{ field.unit_price * field.num }</TableCell>
+				<TableCell></TableCell>
 			</TableRow>
-		))}
+		)) }
 	</TableBody>
 );
 
@@ -30,7 +42,7 @@ export class BookConfirm extends React.Component {
 	render() {
 		let { handleSubmit } = this.props;
 		return (
-			<form className="book-confirm" onSubmit={handleSubmit}>
+			<form className="book-confirm" onSubmit={ handleSubmit }>
 				<Table>
 					<TableHeader>
 						<TableRow>
@@ -43,11 +55,11 @@ export class BookConfirm extends React.Component {
 							<TableHeaderCell>操作</TableHeaderCell>
 						</TableRow>
 					</TableHeader>
-					<FieldArray name="products" component={Products}></FieldArray>
+					<FieldArray name="products" component={ Products }></FieldArray>
 				</Table>
 
 				<ButtonGroup>
-					<Button primary={true}>确认订单</Button>
+					<Button primary={ true }>确认订单</Button>
 				</ButtonGroup>
 			</form>
 		);

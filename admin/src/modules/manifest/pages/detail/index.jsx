@@ -4,7 +4,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { xhttp } from '../../../common';
+import { xhttp, Loader } from '../../../common';
 import { ManifestDetail } from '../../components';
 
 class manifestDetailPage extends React.Component {
@@ -15,7 +15,12 @@ class manifestDetailPage extends React.Component {
         });
     }
     render() {
-        return <ManifestDetail {...this.props}></ManifestDetail>;
+        let { manifest, entities } = this.props;
+        return (
+            <Loader className="manifest-detail-page page" loading={ manifest.fetching.detail }>
+                <ManifestDetail manifestDetail={ entities[manifest.detail] } {...this.props}></ManifestDetail>
+            </Loader>
+        );
     }
 
 }

@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { UserEdit } from '../../components';
 import { Loader, xhttp } from '../../../common';
 import { initialize } from 'redux-form';
+import './style.scss';
 
 class userEditPage extends React.Component {
 
