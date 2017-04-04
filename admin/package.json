@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=dev SERVER=http://139.129.29.110:9000 webpack-dev-server",
     "prod": "NODE_ENV=prod SERVER=http://139.129.29.110:9000 webpack",
+    "local": "NODE_ENV=dev SERVER=http://localhost:9000 webpack-dev-server",
     "test": "NODE_ENV=test webpack"
   },
   "author": "",

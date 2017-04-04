@@ -4,7 +4,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { xhttp } from '../../../common/actions';
+import { xhttp, Loader } from '../../../common';
 import { CategoryDetail } from '../../components';
 
 class categoryDetailPage extends React.Component {

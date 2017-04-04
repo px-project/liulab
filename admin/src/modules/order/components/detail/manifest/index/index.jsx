@@ -17,9 +17,9 @@ export const OrderManifest = ({ manifest, entities }) => (
                 <p className="num">数量</p>
                 <p className="status">状态</p>
             </li>
-            {manifest.items.map((manifest_id, manifest_index) => (
-                <Item manifest={entities[manifest_id]} key={manifest_index} entities={entities}></Item>
-            ))}
+            { manifest.items.map((manifest_id, manifest_index) => (
+                <Item manifest={ entities[manifest_id] } key={ manifest_index } entities={ entities }></Item>
+            )) }
         </ul>
     </div>
 );

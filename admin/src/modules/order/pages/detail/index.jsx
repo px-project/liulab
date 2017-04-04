@@ -5,7 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { OrderDetail } from '../../components';
-import { xhttp } from '../../../common';
+import { xhttp, Loader } from '../../../common';
 
 class orderDetailPage extends React.Component {
 
@@ -18,7 +18,12 @@ class orderDetailPage extends React.Component {
     }
 
     render() {
-        return (<OrderDetail {...this.props}></OrderDetail>);
+        let { order, manifest, category } = this.props;
+        return (
+            <Loader className="order-detail-page page" loading={ order.fetching.detail || manifest.fetching.list || category.fetching.list }>
+                <OrderDetail {...this.props}></OrderDetail>
+            </Loader>
+        );
     }
 
 }
